@@ -1,0 +1,699 @@
+/* Agent Pitch — Broadcast Viewer
+   Production stylesheet. Adapted from prototypes/ui/viewer.css
+   to vanilla DOM (no React) and to the live API data shape.
+
+   Tokens that overlap design-system.css are owned by the design system;
+   this file declares only viewer-specific extras (--pitch*, --live,
+   --neutral, --amber, --bad, broadcast typography aliases).
+   ────────────────────────────────────────────────────────── */
+
+:root {
+  /* Pitch render */
+  --pitch:     #1e3a2a;
+  --pitch-2:   #214030;
+  --pitch-line:#e8edf1;
+
+  /* Broadcast accents (not in the components system) */
+  --live:      #ff3b4a;
+  --neutral:   #6ea8ff;
+  --amber:     #f2c14b;
+
+  /* Aliases for legacy viewer rules */
+  --bad:       var(--err);    /* alias the design-system token, not a copy */
+}
+
+html, body {
+  font-size: 13px;
+  line-height: 1.45;
+  overflow: hidden;
+  height: 100%;
+}
+
+/* ── App shell ──────────────────────────────────────────── */
+.app {
+  display: grid;
+  /* Chyron 80px gives the team-ident's three lines (badge / name / model)
+     room to breathe without the model line clipping. */
+  grid-template-rows: 80px minmax(0, 1fr) 22px;
+  height: 100vh;
+  width: 100vw;
+}
+
+/* ── Top scoreboard chyron ──────────────────────────────── */
+.chyron {
+  display: grid;
+  /* brand | score | live stats (POSS / CARRIER) | clock | stats toggle */
+  grid-template-columns: 220px minmax(0, 1fr) auto 200px auto;
+  align-items: stretch;
+  background: #000;
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+.chyron-brand {
+  display: flex; align-items: center; gap: 10px;
+  padding: 0 18px;
+  border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, #0d1216, #05080a);
+}
+.brand-mark {
+  font-family: var(--font-disp);
+  font-weight: 900; font-style: italic;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  position: relative;
+  line-height: 1;
+  display: inline-flex; align-items: center; gap: 3px;
+}
+.brand-mark .dot {
+  display: inline-block;
+  width: 7px; height: 7px;
+  border-radius: 50%;
+  background: var(--a);
+  box-shadow: 0 0 10px var(--a);
+  transform: translateY(5px);
+}
+.brand-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-dim);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  line-height: 1.35;
+  min-width: 0;
+}
+.brand-meta b { color: var(--ink); font-weight: 600; }
+.brand-meta div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+/* Match-id line is the dominant identifier in the chyron now (no logo+wordmark
+   competing for attention). Bump it slightly so the eye lands here first. */
+.chyron .match-title-line { font-size: 12px; letter-spacing: 0.04em; text-transform: none; }
+.chyron .match-title-line b { color: var(--ink); }
+
+/* Center score block */
+.score-bar {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+.team-block {
+  display: flex; align-items: center; gap: 14px;
+  padding: 0 18px;
+  height: 100%;
+}
+.team-block.home { justify-content: flex-end; }
+/* row-reverse mirrors the home block (swatch sits adjacent to the
+   score, ident on the outside). With row-reverse the main axis is
+   reversed, so flex-end packs items at the visual LEFT of the column
+   — i.e. snug against the score plate, mirroring the home side. */
+.team-block.away { justify-content: flex-end; flex-direction: row-reverse; }
+.team-swatch {
+  width: 6px; height: 36px; border-radius: 1px;
+}
+.team-swatch.a { background: var(--a); box-shadow: 0 0 18px -4px var(--a); }
+.team-swatch.b { background: var(--b); box-shadow: 0 0 18px -4px var(--b); }
+.team-ident {
+  display: flex; flex-direction: column; gap: 1px;
+  text-align: right;
+  align-items: flex-end;  /* prevent badge box from stretching to column width */
+  min-width: 0;            /* allow long .model text to shrink/wrap inside flex */
+}
+.team-block.away .team-ident {
+  text-align: left;
+  align-items: flex-start;
+}
+.team-ident .badge {
+  font-family: var(--font-disp);
+  font-weight: 700; font-size: 11px;
+  letter-spacing: 0.12em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+}
+.team-ident .name {
+  font-family: var(--font-disp);
+  font-weight: 700; font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  line-height: 1.1;
+}
+.team-ident .model {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-dimer);
+  letter-spacing: 0.04em;
+  /* long generated-strategy file stems (e.g. anthropic-claude-sonnet-...
+     -<timestamp>) otherwise blow out the chyron column. */
+  max-width: 240px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.score-plate {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 0 16px;
+  height: 100%;
+  background: #000;
+  position: relative;
+}
+.score-num {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: 36px;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+  min-width: 28px;
+  text-align: center;
+  letter-spacing: -0.02em;
+}
+.score-num.a { color: var(--a); text-shadow: 0 0 24px rgba(242,164,75,0.35); }
+.score-num.b { color: var(--b); text-shadow: 0 0 24px rgba(176,140,255,0.35); }
+.score-sep {
+  color: var(--ink-dimer);
+  font-family: var(--font-disp);
+  font-weight: 400;
+  font-size: 26px;
+}
+.clock-bar {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 12px;
+  padding: 0 18px;
+  border-left: 1px solid var(--line);
+  background: linear-gradient(180deg, #0d1216, #05080a);
+}
+.clock {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: 24px;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.02em;
+  text-align: right;
+  color: var(--ink);
+}
+.clock .total { color: var(--ink-dimer); font-size: 14px; font-weight: 500; }
+.live-pip {
+  display: flex; align-items: center; gap: 6px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.22em;
+  color: var(--live);
+  text-transform: uppercase;
+  font-weight: 700;
+}
+.live-pip .dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  background: var(--live);
+  box-shadow: 0 0 12px var(--live);
+  animation: pulse 1.2s ease-in-out infinite;
+}
+@keyframes pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50%      { opacity: 0.35; transform: scale(0.75); }
+}
+
+/* ── Body grid: pitch | events ──────────────────────────── */
+.body {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 320px;
+  transition: grid-template-columns 180ms ease;
+  /* `flex: 1` + `min-height: 0` makes .body fill the remaining vertical
+     space inside #section-matches (a flex column with the 80px chyron
+     above + the 22px status-bar below). Without this, .body sizes to its
+     content (the canvas + scrub) — and since the canvas's aspect-ratio
+     wants to grow huge on wide viewports, the content overflowed and got
+     clipped by `overflow: hidden`, hiding the bottom of the field. */
+  flex: 1;
+  min-height: 0;
+  background: var(--bg);
+  overflow: hidden;
+}
+.pitch-wrap {
+  display: grid;
+  grid-template-rows: minmax(0, 1fr) auto;
+  min-height: 0;
+}
+.pitch-stage {
+  position: relative;
+  min-height: 220px;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse at 50% 45%, #254633 0%, #182e22 55%, #0d1a13 100%);
+  display: grid;
+  place-items: center;
+  /* Explicit padding so the canvas (centered via place-items) physically
+     can't reach the bottom edge — guarantees a visible gap to the scrub
+     bar below regardless of viewport size or pitch aspect-ratio. The
+     canvas's own max-height further constrains this. */
+  padding: 16px 0 24px;
+}
+
+/* "Waiting for match result" overlay — covers the canvas while the engine
+   subprocess is starting and no events.jsonl exists yet. Hidden once data
+   arrives (handled by app.js). */
+.match-waiting-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(10, 13, 16, 0.92);
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 24px;
+  text-align: center;
+}
+.match-waiting-overlay[hidden] {
+  display: none;
+}
+.match-waiting-overlay .waiting-spinner {
+  font-size: 32px;
+  color: var(--ink-dim);
+  font-family: monospace;
+  /* Gentle breathing animation — the only motion we tolerate here, conveys "alive" */
+  animation: waiting-pulse 1.4s ease-in-out infinite;
+}
+@keyframes waiting-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 1; }
+}
+.match-waiting-overlay .waiting-title {
+  font-family: var(--font-mono);
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--ink);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.match-waiting-overlay .waiting-subtitle {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  color: var(--ink-dim);
+  letter-spacing: 0.06em;
+}
+.match-waiting-overlay .waiting-hint {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-dimer);
+  margin-top: 8px;
+  max-width: 380px;
+  line-height: 1.5;
+}
+@media (prefers-reduced-motion: reduce) {
+  .match-waiting-overlay .waiting-spinner {
+    animation: none;
+  }
+}
+#field-canvas {
+  position: relative;
+  display: block;
+  /* Display size is set inline by app.js _resizeCanvas() — JS reads
+     pitch-stage's available area, computes a fit-within size that respects
+     the per-match aspect ratio (FIELD_W/FIELD_H from meta), and writes
+     style.width / style.height. Removes the CSS aspect-ratio + max-*
+     trio that was causing overflow into the scrub bar on certain viewport
+     sizes (the constraints could pick a height larger than fit). */
+}
+
+/* Live-stats column inside the chyron — POSSESSION + CARRIER. */
+.chyron-stats {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 18px;
+  border-left: 1px solid var(--line);
+  background: linear-gradient(180deg, #0d1216, #05080a);
+}
+.chyron-stats .stat-cell {
+  display: flex; flex-direction: column; gap: 2px;
+  text-align: left;
+  min-width: 70px;
+}
+.chyron-stats .stat-cell label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dimer);
+}
+.chyron-stats .stat-cell .big {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: 18px;
+  color: var(--ink);
+  font-variant-numeric: tabular-nums;
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+
+/* Goal flash + chyron */
+.goal-flash {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(circle at var(--fx, 50%) 50%,
+      rgba(242,164,75,0.35) 0%,
+      rgba(242,164,75,0) 45%);
+  pointer-events: none;
+  animation: flash 1.8s ease-out;
+  z-index: 3;
+}
+.goal-flash.b {
+  background:
+    radial-gradient(circle at var(--fx, 50%) 50%,
+      rgba(176,140,255,0.35) 0%,
+      rgba(176,140,255,0) 45%);
+}
+@keyframes flash {
+  0%   { opacity: 0; }
+  15%  { opacity: 1; }
+  100% { opacity: 0; }
+}
+.goal-chyron {
+  position: absolute;
+  left: 50%;
+  top: 38%;
+  transform: translate(-50%, -50%);
+  padding: 18px 32px;
+  background: #000;
+  border: 1px solid var(--line-2);
+  pointer-events: none;
+  animation: goalPop 1.8s cubic-bezier(0.22, 1.0, 0.36, 1.0);
+  font-family: var(--font-disp);
+  z-index: 4;
+}
+.goal-chyron .word {
+  font-weight: 700;
+  font-size: 56px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.goal-chyron .word.a { color: var(--a); }
+.goal-chyron .word.b { color: var(--b); }
+.goal-chyron .sub {
+  margin-top: 6px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+@keyframes goalPop {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+  15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+  85%  { opacity: 1; transform: translate(-50%, -50%) scale(1.0); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(1.0); }
+}
+
+/* ── Scrubber ────────────────────────────────────────────── */
+.scrub {
+  display: grid;
+  grid-template-columns: auto 1fr auto auto;
+  align-items: center;
+  gap: 14px;
+  padding: 10px 20px;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+}
+/* Scrubber's play/pause icon button. Distinct from the design-system
+   .btn (uppercase action button) — this one is a 32px square icon. */
+.scrub-btn {
+  width: 32px; height: 32px;
+  border: 1px solid var(--line-2);
+  background: var(--panel-2);
+  color: var(--ink);
+  display: grid; place-items: center;
+  cursor: pointer;
+  font-family: var(--font-disp);
+  font-size: 14px;
+  transition: background 120ms;
+}
+.scrub-btn:hover { background: var(--panel-3); }
+.scrub-btn.play { width: 38px; height: 38px; }
+.scrub-track {
+  position: relative;
+  height: 14px;
+  cursor: pointer;
+  display: flex; align-items: center;
+}
+.scrub-track::before {
+  content: ""; position: absolute; left: 0; right: 0; top: 4px; height: 6px;
+  background: var(--panel-3); border: 1px solid var(--line);
+  pointer-events: none;
+}
+.scrub-fill {
+  position: absolute;
+  left: 0; top: 4px;
+  height: 6px;
+  background: linear-gradient(90deg, var(--a), var(--b));
+  pointer-events: none;
+}
+.scrub-markers { position: absolute; inset: 0; pointer-events: none; }
+.scrub-marker {
+  position: absolute;
+  top: -2px;
+  width: 2px; height: 18px;
+  background: var(--ink-dimer);
+  opacity: 0.6;
+}
+.scrub-marker.goal.a { background: var(--a); opacity: 1; box-shadow: 0 0 6px var(--a); }
+.scrub-marker.goal.b { background: var(--b); opacity: 1; box-shadow: 0 0 6px var(--b); }
+/* Native range overlays the track but stays transparent — captures input */
+#scrub-bar {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  margin: 0; padding: 0;
+  background: transparent;
+  -webkit-appearance: none; appearance: none;
+  cursor: pointer;
+  z-index: 2;
+}
+#scrub-bar::-webkit-slider-runnable-track { background: transparent; height: 14px; }
+#scrub-bar::-moz-range-track { background: transparent; height: 14px; }
+#scrub-bar::-webkit-slider-thumb {
+  -webkit-appearance: none; appearance: none;
+  width: 4px; height: 18px; margin-top: -2px;
+  background: var(--ink); border: none; border-radius: 1px;
+  cursor: grab;
+}
+#scrub-bar::-moz-range-thumb {
+  width: 4px; height: 18px;
+  background: var(--ink); border: none; border-radius: 1px;
+  cursor: grab;
+}
+
+.tick-count {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--ink-dim);
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.06em;
+  min-width: 110px;
+  text-align: right;
+}
+.speed-pill {
+  display: flex; gap: 0;
+  border: 1px solid var(--line-2);
+  height: 32px;
+}
+.speed-pill button {
+  background: var(--panel-2);
+  border: none;
+  border-right: 1px solid var(--line-2);
+  color: var(--ink-dim);
+  padding: 0 10px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  cursor: pointer;
+  min-width: 36px;
+}
+.speed-pill button:last-child { border-right: none; }
+.speed-pill button.active { background: var(--ink); color: #000; }
+
+/* ── Event ticker (right column) ────────────────────────── */
+.events {
+  background: var(--panel);
+  border-left: 1px solid var(--line);
+  display: grid;
+  grid-template-rows: auto 1fr;
+  min-height: 0;
+  overflow: hidden;
+}
+.events-head {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.events-head-label {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+/* Toggle button — sits between the label and filter pills */
+.events-collapse-btn {
+  background: none;
+  border: none;
+  color: var(--ink-dim);
+  font-size: 9px;
+  padding: 2px 4px;
+  cursor: pointer;
+  line-height: 1;
+  transition: color 100ms, transform 180ms ease;
+  flex-shrink: 0;
+}
+.events-collapse-btn:hover { color: var(--ink); }
+
+/* ── Collapsed state ─────────────────────────────────────── */
+.body.event-feed-collapsed {
+  grid-template-columns: minmax(0, 1fr) 28px;
+}
+/* When collapsed the sidebar becomes a 28px strip:
+   grid switches to a single full-height cell containing just the toggle. */
+.events.collapsed {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.events.collapsed .events-head {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 8px 0 0;
+  border-bottom: none;
+  width: 100%;
+}
+.events.collapsed .events-head-label { display: none; }
+.events.collapsed .filter-pills { display: none; }
+.events.collapsed .events-collapse-btn {
+  transform: rotate(180deg);
+  padding: 8px 6px;
+}
+.events.collapsed .events-list { display: none; }
+/* Event-feed segmented filter — sized down to fit the 320px column.
+   Inherits chrome from .seg in design-system.css. */
+.events-head .filter-pills.seg button { padding: 3px 8px; font-size: 9px; letter-spacing: 0.12em; }
+
+.events-list {
+  overflow-y: auto;
+  padding: 4px 0 60px;
+  scroll-behavior: smooth;
+}
+.events-list::-webkit-scrollbar { width: 6px; }
+.events-list::-webkit-scrollbar-track { background: var(--panel); }
+.events-list::-webkit-scrollbar-thumb { background: var(--line-2); }
+
+.evt {
+  display: grid;
+  grid-template-columns: 56px 18px 1fr;
+  gap: 8px;
+  align-items: baseline;
+  padding: 5px 14px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  border-left: 2px solid transparent;
+  cursor: pointer;
+  transition: background 100ms;
+}
+.evt:hover { background: var(--panel-2); }
+.evt.selected, .evt.current { background: var(--panel-3); border-left-color: var(--live); }
+.evt.proximity { border-left-color: var(--ink-dim); }
+.evt .t {
+  color: var(--ink-dimer);
+  font-size: 10px;
+  letter-spacing: 0.04em;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.evt .ico { font-size: 13px; text-align: center; }
+.evt .txt { color: var(--ink); letter-spacing: 0.01em; word-break: break-word; }
+.evt.placeholder {
+  color: var(--ink-dimer);
+  font-style: italic;
+  cursor: default;
+  display: block;
+  padding: 12px 14px;
+}
+
+/* Event-kind colouring (matches old ev-* class taxonomy) */
+.evt.ev-goal           .ico { color: var(--amber); }
+.evt.ev-goal           .txt { color: var(--amber); font-weight: 700; }
+.evt.ev-shot           .ico { color: var(--a); }
+.evt.ev-pass           .ico { color: var(--neutral); }
+.evt.ev-pickup         .ico { color: var(--ink-dim); }
+.evt.ev-pickup-bad     .ico { color: var(--ink-dimer); }
+.evt.ev-pickup-bad     .txt { color: var(--ink-dimer); font-style: italic; }
+.evt.ev-tackle         .ico { color: var(--bad); }
+.evt.ev-tackle-good    .ico { color: var(--bad); }
+.evt.ev-tackle-good    .txt { font-weight: 600; }
+.evt.ev-tackle-blocked .ico { color: var(--bad); }
+.evt.ev-tackle-blocked .txt { color: #d8b888; font-style: italic; }
+.evt.ev-save           .ico { color: var(--ok); }
+.evt.ev-save-blocked   .ico { color: var(--ok); }
+.evt.ev-save-blocked   .txt { color: #b8d8a8; font-style: italic; }
+.evt.ev-deflection     .ico { color: var(--amber); }
+.evt.ev-deflection     .txt { color: #f0e890; }
+.evt.ev-dribble-good   .ico { color: var(--b); }
+.evt.ev-dribble-good   .txt { color: #f0d090; font-weight: 500; }
+.evt.ev-dribble-bad    .ico { color: var(--b); }
+.evt.ev-dribble-bad    .txt { color: #b89860; font-style: italic; }
+.evt.ev-blocked        .ico { color: var(--ink-dimer); }
+.evt.ev-blocked        .txt { color: var(--ink-dimer); font-style: italic; }
+.evt.ev-oob            .ico { color: var(--ink-dim); }
+.evt.ev-oob            .txt { color: var(--ink-dim); font-style: italic; }
+.evt.ev-phase          .ico { color: var(--b); }
+.evt.ev-phase          .txt { color: #c8b8e0; font-weight: 500; }
+.evt.ev-phase-major    .ico { color: var(--amber); }
+.evt.ev-phase-major    .txt { color: var(--amber); font-weight: 700; text-transform: uppercase; }
+
+.evt .team-tag {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 2px;
+  vertical-align: baseline;
+  transform: translateY(1px);
+  margin-right: 6px;
+}
+.evt .team-tag.team_a { background: var(--a); }
+.evt .team-tag.team_b { background: var(--b); }
+
+/* ── Status bar ─────────────────────────────────────────── */
+.statusbar {
+  background: #000;
+  border-top: 1px solid var(--line);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-dimer);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.statusbar .dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+  margin-right: 6px;
+}
+.statusbar .spacer { flex: 1; }
+
+/* ── Small utilities ────────────────────────────────────── */
+.mono { font-family: var(--font-mono); }
+.disp { font-family: var(--font-disp); }
+.dim  { color: var(--ink-dim); }
+.dimer{ color: var(--ink-dimer); }

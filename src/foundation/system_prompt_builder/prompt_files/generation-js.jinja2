@@ -1,0 +1,143 @@
+{# version: 1.0 #}
+You are designing a soccer strategy. Your goal is to win the match by
+scoring more goals than the opposing team within the allotted ticks.
+The strategy is implemented as a JavaScript function called decide(), which
+the simulation invokes once per tick for each player on your team. The
+function returns a single Action object (with a `type` field) based on
+the current game state. The same function must work for both teams,
+in any roster size, on any field dimensions.
+
+=== SECTION 1: CALLBACK CONTRACT ===
+function decide(game_state, player_state, history)
+    // Returns one Action object per call. Called once per tick per player.
+    // game_state: object, player_state: object, history: array of objects
+
+=== SECTION 2: GAME_STATE SCHEMA ===
+game_state = {
+    tick: Number,
+    ticks_remaining: Number,
+    match_phase: String,  // "pre_match" | "kick_off" | "in_play" | "goal_scored" | "half_time" | "full_time"
+    half: Number,         // 1 or 2
+    score: {team_a: Number, team_b: Number},
+    team_phase: {
+        team_a: String,   // "attacking" | "transitioning" | "defending"
+        team_b: String,
+    },
+    ball: {
+        position: [Number, Number],
+        velocity: [Number, Number],
+        possession: String | null,
+        carrier_id: String | null,
+    },
+    players: {  // all players keyed by player_id like "team_a_3"
+        // player_id: {team, role, number, position: [x,y], formation_position: [x,y], has_ball, ...attributes}
+    },
+    field: {
+        width: Number, height: Number,
+        team_a_goal_x: Number, team_b_goal_x: Number,
+        goal_top: Number, goal_bottom: Number,
+    },
+    my_team: String,
+    my_player_id: String,
+};
+
+=== SECTION 3: PLAYER_STATE SCHEMA ===
+player_state = {
+    player_id: String, team: String, role: String, number: Number,
+    position: [Number, Number], has_ball: Boolean,
+    formation_position: [Number, Number],
+    formation_zone: {
+        x: [Number, Number],
+        y: [Number, Number],
+    },
+    formation_zone_phase: String,
+    speed: Number, skill: Number, strength: Number,
+    save: Number, discipline: Number, dribbling: Number,
+    passing: Number, shooting: Number, stamina: Number,
+    current_health: Number,
+    cooldown_remaining: Number,
+};
+
+=== SECTION 4: HISTORY SCHEMA ===
+// history is an array of the last 10 ticks (oldest first).
+// Empty array at match start.
+history = [
+    {
+        tick: Number,
+        ball_position: [Number, Number],
+        score: {team_a: Number, team_b: Number},
+        actions: [
+            {
+                player_id: String,
+                team: String,
+                action: String,
+                result: String,
+                details: Object,
+            },
+        ],
+    },
+];
+
+=== SECTION 5: RUNTIME IDENTITY ===
+The same decide() function runs for every player on every tick. To know
+which team and which player you are this call, read these fields:
+  game_state.my_team
+  game_state.my_player_id
+  player_state.team
+  player_state.role         // "GK" | "DEF" | "MID" | "FWD"
+Never hardcode "team_a" / "team_b" or specific player_ids.
+
+=== SECTION 6: FEW-SHOT SKELETON ===
+function decide(game_state, player_state, history) {
+    if (player_state.has_ball) {
+        if (player_state.role === "FWD") {
+            return {type: "Shoot", angle: 0.0, power: 15};
+        }
+        return {type: "Pass", target_pos: [80.0, 30.0], power: 12};
+    }
+    return {type: "Move", dx: 1.0, dy: 0.0, speed: 1.0};
+}
+
+=== SECTION 7: FIELD GEOMETRY ===
+Read all field values from game_state.field — never hardcode coordinates.
+team_a attacks toward x=field.width; team_b attacks toward x=0.
+
+=== SECTION 8: ACTION SPACE ===
+5 action types returned as plain objects with a `type` field:
+  {type: "Move", dx: Number, dy: Number, speed: Number}
+  {type: "Pass", target_pos: [Number, Number], power: Number}
+  {type: "Shoot", angle: Number, power: Number}
+  {type: "Tackle", target_player_id: String}
+  {type: "Hold"}
+
+=== SECTION 9: ATTRIBUTE REFERENCE ===
+9 attributes (range 1-20): speed, skill, strength, save, discipline,
+dribbling, passing, shooting, stamina. Read from player_state.
+
+=== SECTION 10: ROSTER ACCESS ===
+Use Object.keys(game_state.players) or Object.entries(game_state.players)
+to iterate. Never hardcode player_ids or assume roster size.
+
+=== SECTION 11: FORMATION + SNAP MECHANICS ===
+formation_position shifts each tick based on team_phase. Active intent
+bypasses snap. Read player_state.formation_zone_phase for current zone.
+
+=== SECTION 12: SANDBOX CONSTRAINTS ===
+You are running inside a QuickJS sandbox. The following are blocked:
+  - Date, setTimeout, setInterval, console, eval(), new Function()
+  - No module imports (no require, no import)
+  - No I/O of any kind
+You MAY use:
+  - Math.sqrt, Math.abs, Math.min, Math.max, Math.PI, Math.atan2, etc.
+  - All standard JS builtins: Array, Object, JSON, String, Number, Boolean
+  - Module-level variables for cross-tick persistent state
+DO NOT define the function with `async`.
+
+=== SECTION 13: USER INTENT ===
+{% if user_intent %}{{ user_intent }}{% else %}(no specific user intent — apply general best practices for a balanced, competitive strategy){% endif %}
+
+=== SECTION 14: TASK ===
+Write the complete decide() function. One function only. Start with `function decide(`.
+
+=== SECTION 15: OUTPUT FORMAT ===
+Return only the decide() function inside a JavaScript fenced code block. No explanation, no other text.

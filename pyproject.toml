@@ -1,0 +1,75 @@
+[build-system]
+requires = ["setuptools>=61", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "agent-pitch"
+version = "0.1.0"
+description = "LLM-powered soccer simulation — each player is an AI agent that writes its own decision code"
+requires-python = ">=3.11"
+dependencies = [
+    "openai",
+    "anthropic",
+    "google-genai",
+    "RestrictedPython",
+    "pyyaml",
+    "pydantic>=2.0,<3.0",
+    "fastapi",
+    "uvicorn",
+    "jinja2",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "pytest-asyncio>=0.23",
+    "pytest-cov>=5.0",
+]
+js = [
+    "quickjs>=1.19",
+]
+wasm = [
+    "wasmtime>=44",
+    "msgpack>=1.0",
+]
+all = [
+    "agent-pitch[js,wasm]",
+]
+
+[project.scripts]
+agent-pitch = "src.cli:main"
+
+[tool.setuptools.packages.find]
+# `src` is a PEP 420 namespace package (no src/__init__.py). Discover all
+# subpackages so `from src.foundation....` imports resolve after install.
+where = ["."]
+include = ["src*"]
+namespaces = true
+
+[tool.setuptools.package-data]
+# Ship the Jinja2 prompt templates inside the installed package so the SPB
+# loader resolves them via Path(__file__).parent regardless of cwd.
+"src.foundation.system_prompt_builder" = ["prompt_files/*.jinja2"]
+# Ship the cargo template (Cargo.toml + Cargo.lock + src/lib.rs.in) so the
+# WasmtimeSandbox can copy it into a per-strategy build dir at compile time.
+"src.foundation.sandbox" = ["cargo_template/Cargo.toml", "cargo_template/Cargo.lock", "cargo_template/src/lib.rs.in"]
+# Ship the HTTP server static assets (frontend UI)
+"src.api.http_server" = ["static/*", "static/**/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "--tb=short -q"
+asyncio_mode = "auto"
+# Several GSM test modules import shared fixtures via
+# `from tests.unit.game_state_manager.conftest import ...`, which only
+# resolves when the repo root is on sys.path. Without this, CI fails
+# at collection with `ModuleNotFoundError: No module named 'tests'`.
+pythonpath = ["."]
+
+[tool.coverage.run]
+source = ["src"]
+omit = ["tests/*", "prototypes/*"]
+
+[tool.coverage.report]
+fail_under = 80
+show_missing = true

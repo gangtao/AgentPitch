@@ -1,0 +1,227 @@
+{# version: 2.7 #}
+You are designing a soccer strategy. Your goal is to win the match by
+scoring more goals than the opposing team within the allotted ticks.
+The strategy is implemented as a Python function called decide(), which
+the simulation invokes once per tick for each player on your team. The
+function returns a single Action (Move, Pass, Shoot, Tackle, or Hold)
+based on the current game state. The same function must work for both
+teams, in any roster size, on any field dimensions.
+
+=== SECTION 1: CALLBACK CONTRACT ===
+def decide(game_state: dict, player_state: dict, history: list[dict]) -> Action:
+    """Returns one Action per call. Called once per tick per player."""
+
+=== SECTION 2: GAME_STATE SCHEMA ===
+game_state = {
+    "tick": int,
+    "ticks_remaining": int,
+    "match_phase": str,  # "pre_match" | "kick_off" | "in_play" | "goal_scored" | "half_time" | "full_time"
+    "half": int,         # 1 or 2
+    "score": {"team_a": int, "team_b": int},
+    "team_phase": {      # each team's current shape phase
+        "team_a": str,   # "attacking" | "transitioning" | "defending"
+        "team_b": str,
+    },
+    "ball": {
+        "position": (float, float),
+        "velocity": (float, float),  # ball motion this tick — useful for predicting next tick position
+        "possession": str | None,    # "team_a" | "team_b" | None (loose ball)
+        "carrier_id": str | None,    # player_id of the carrier, or None
+    },
+    "players": dict[str, {  # all players on the field, keyed by player_id like "team_a_3"
+        "team": str, "role": str, "number": int,
+        "position": (float, float),
+        "formation_position": (float, float),  # this player's CURRENT-PHASE zone center (shifts per tick)
+        "has_ball": bool,
+        # full attribute set is also available per-player (speed, skill, strength, save, discipline, dribbling)
+    }],
+    "field": {
+        "width": float, "height": float,
+        "team_a_goal_x": float, "team_b_goal_x": float,  # x-coord of each team's defending goal
+        "goal_top": float, "goal_bottom": float,  # y-extents of the goal mouth (same for both ends)
+    },
+    "my_team": str,        # "team_a" | "team_b"
+    "my_player_id": str,   # this player's id, e.g. "team_a_3"
+}
+
+=== SECTION 3: PLAYER_STATE SCHEMA ===
+player_state = {
+    "player_id": str, "team": str, "role": str, "number": int,
+    "position": (float, float), "has_ball": bool,
+    # DYNAMIC: center of your current-phase zone — shifts each tick as your
+    # team's shape moves up or down the pitch.
+    "formation_position": (float, float),
+    "formation_zone": {        # bounding rectangle of your current-phase zone
+        "x": (float, float),   # (x_min, x_max)
+        "y": (float, float),   # (y_min, y_max)
+    },
+    "formation_zone_phase": str,  # "attacking" | "transitioning" | "defending"
+    "speed": int, "skill": int, "strength": int,
+    "save": int, "discipline": int, "dribbling": int,
+    "passing": int, "shooting": int, "stamina": int,
+    "current_health": float,
+    # Unified action cooldown. > 0 means Pass / Shoot / Tackle / Pickup
+    # are all blocked; only Move and Hold are allowed. Plan around this —
+    # attempting a blocked action is silently substituted with Hold().
+    "cooldown_remaining": int,
+}
+
+=== SECTION 4: HISTORY SCHEMA ===
+history is a list of the last 10 ticks (oldest first), each tick a dict.
+Use it to reason about recent play — who passed, who shot, what failed.
+Empty list at match start.
+history = [
+    {
+        "tick": int,
+        "ball_position": [float, float],
+        "score": {"team_a": int, "team_b": int},
+        "actions": [
+            {
+                "player_id": str,    # who acted, e.g. "team_b_4"
+                "team": str,         # "team_a" | "team_b"
+                "action": str,       # "move" | "pass" | "shoot" | "tackle" | "hold" | "pickup"
+                "result": str,       # "success" | "fail" | "goal" | "save" | "out_of_bounds"
+                "details": dict,     # action-specific extras (e.g. target_pos, power, target_player_id)
+            },
+            # ... one entry per action attempted by any player this tick
+        ],
+    },
+    # ... up to 10 ticks
+]
+
+=== SECTION 5: RUNTIME IDENTITY ===
+The same decide() function runs for every player on every tick. To know
+which team and which player you are this call, read these fields:
+  game_state["my_team"]        # "team_a" or "team_b"
+  game_state["my_player_id"]   # your player_id this call, e.g. "team_a_3"
+  player_state["team"]         # same as game_state["my_team"]
+  player_state["role"]         # "GK" | "DEF" | "MID" | "FWD"
+Branch on these to differentiate behaviour by team or role.
+Never hardcode "team_a" / "team_b" or specific player_ids — they vary by config.
+
+=== SECTION 6: FEW-SHOT SKELETON ===
+# Example structure only — adapt for your team's strategy:
+def decide(game_state, player_state, history):
+    if player_state["has_ball"]:
+        if player_state["role"] == "FWD":
+            return Shoot(angle=0.0, power=15)
+        return Pass(target_pos=(80.0, 30.0), power=12)
+    return Move(dx=1.0, dy=0.0, speed=1.0)
+
+=== SECTION 7: FIELD GEOMETRY ===
+Field and goal geometry vary by config — read every value from inputs:
+  game_state["field"]["width"]            # field width
+  game_state["field"]["height"]           # field height
+  game_state["field"]["team_a_goal_x"]    # x-coord of team_a's defending goal
+  game_state["field"]["team_b_goal_x"]    # x-coord of team_b's defending goal
+  game_state["field"]["goal_top"]         # upper y-bound of the goal mouth
+  game_state["field"]["goal_bottom"]      # lower y-bound (same for both ends)
+team_a always attacks toward x=field.width; team_b always attacks toward x=0.
+Never hardcode 100×60 or any specific coordinate.
+
+=== SECTION 8: ACTION SPACE ===
+5 action types: Move(dx, dy, speed), Pass(target_pos, power), Shoot(angle, power), Tackle(target_player_id), Hold().
+Validation: non-carrier Pass/Shoot → Hold(); out-of-range Tackle → Hold(); speed clamped to [0, 1].
+
+=== SECTION 9: ATTRIBUTE REFERENCE ===
+9 attributes (range 1-20):
+  speed: maximum movement per tick.
+  skill: ball control under pressure + tackle/save fallback.
+  strength: tackle outcome + max kick power.
+  save: GK-only; goal-line save radius.
+  discipline: how strongly the formation snap pulls the player back when idle.
+    SOFT — at most 20% of motion. Active intent (Move at speed >= 0.5, or
+    any carrier action) bypasses snap entirely.
+  dribbling: success rate when carrying the ball past a defender.
+  passing: pass landing accuracy. Effective skill in pass formula =
+    (2 * passing + skill) / 3 — specialist dominates, skill cushions.
+  shooting: shot angular accuracy. Same blend with skill as passing.
+  stamina: endurance. Each non-Hold action drains current_health by
+    base_cost × (1 - stamina/20). stamina=20 burns no health.
+    All success formulas multiply by health_factor = 0.6 + 0.4 ×
+    current_health/100, so a tired player is 60-100% as effective.
+    Hold and low-speed Move recover health; half-time restores fully.
+
+Role tactical guidance (phase-aware — see SECTION 11):
+  GK : stays in penalty area; saves shots; clears with Pass.
+  DEF: holds shape when team_phase=defending; PUSHES UP toward midfield
+       when team_phase=attacking. Overlapping runs encouraged when team
+       has sustained possession in opponent's half.
+  MID: shuttles between thirds based on team_phase. Supports both
+       attack and defense. The most position-flexible role.
+  FWD: presses high when team_phase=attacking; drops back to support
+       press / mid-third recovery when team_phase=defending.
+
+=== SECTION 10: ROSTER ACCESS ===
+Roster size and player IDs vary by config — 5v5 has 5 players per team
+(ids team_X_0 through team_X_4); 11v11 has 11. NEVER hardcode player_ids
+or assume roster size.
+Iterate game_state["players"] (dict keyed by player_id) to find teammates
+and opponents. Filter by ["team"] and ["role"]. The ball carrier is at
+game_state["ball"]["carrier_id"] (or None for a loose ball).
+Each player dict carries the full attribute set — never hardcode attribute
+values. Your own attributes are mirrored on player_state for convenience.
+See SECTION 2 for the complete shape.
+
+=== SECTION 11: FORMATION + SNAP MECHANICS ===
+Snap is a SOFT preference, not a hard force, and its target shifts with the
+team's possession state.
+
+snap_force = min(discipline / 100, 0.20)         # at most 20%, even at discipline=20
+final_pos  = (1 - snap_force) * move_result + snap_force * formation_position
+
+Active intent BYPASSES snap entirely:
+  - Any Move action with speed >= 0.5
+  - Any action by the ball carrier (has_ball=True)
+Snap only applies to idle/passive ticks (Hold, or Move at speed < 0.5).
+Example: discipline=16 → snap_force=0.16 (only 16% pull, when idle).
+
+Snap may be disabled at the simulation level. When disabled, your strategy
+fully owns positioning — formation_position is still computed as informational
+guidance but no automatic pull is applied. Treat formation_position and the
+zone bounds as suggestions, not constraints.
+
+formation_position is NOT static — it shifts each tick on BOTH axes:
+  x by team_phase (your team's reference shape for that phase):
+    - defending     → DEF x≈12 (deep, goal-side), MID x≈30, FWD x≈45 (tracks back)
+    - transitioning → DEF x≈37, MID x≈53, FWD x≈72
+    - attacking     → DEF x≈52, MID x≈68, FWD x≈84  (DEF crosses halfway!)
+  y by ball-side compaction (whole team slides toward ball-side):
+    - defending     → strong shift (55% of ball_y − field_center_y)
+    - transitioning → moderate (30%)
+    - attacking     → slight (10% — preserve attacking width)
+team_b x values are mirrored across x=field_width/2; halftime swap is also
+applied automatically — the values you read are always correct for the
+current half, regardless of which goal you're attacking.
+Read player_state["formation_zone_phase"] to know which phase your team is
+in this tick. Read player_state["formation_zone"] for the rectangle bounds.
+
+=== SECTION 12: SANDBOX CONSTRAINTS ===
+DO NOT write `import` statements — including `import math`. The sandbox
+parses imports successfully but BLOCKS them at runtime, so a strategy with
+`import math` will silently return Hold() on every tick (looks frozen).
+If you need math functions, write them inline using only the available
+builtins:
+  - sqrt(x)   →  x ** 0.5
+  - pi        →  3.141592653589793  (a literal)
+  - cos / sin →  Taylor-series approximation, or work with direction vectors
+  - atan2     →  not available; use direction vectors (dx, dy) for Move()
+                 and Shoot(angle=...) instead of computing angles
+DO NOT define functions outside decide(). Helpers must be nested inside decide().
+DO NOT use print(), open(), exec(), eval(), or any I/O.
+DO NOT use async def.
+You MAY define nested functions inside decide().
+You MAY use module-level variables for cross-tick persistent state.
+Available builtins: abs, min, max, sum, len, range, sorted, enumerate, isinstance, int, float, str, list, dict, tuple, bool.
+
+=== SECTION 13: USER INTENT ===
+{% if user_intent %}{{ user_intent }}{% else %}(no specific user intent — apply general best practices for a balanced, competitive strategy){% endif %}
+
+=== SECTION 14: TASK ===
+Write the complete decide() function. One function only. Start with `def decide(`.
+If a USER INTENT is provided above, bias your strategy toward it while still
+respecting the sandbox constraints, action validation rules, and the goal
+of winning the match.
+
+=== SECTION 15: OUTPUT FORMAT ===
+Return only the decide() function inside a Python fenced code block. No explanation, no other text.

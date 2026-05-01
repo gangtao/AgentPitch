@@ -1,0 +1,97 @@
+{# version: 1.0 #}
+=== SECTION 1: ROLE DECLARATION ===
+You revise the decide() function used by both teams in any roster or field
+size. The function must work without modification when called for team_a
+or team_b, in 5v5 or 11v11, on any field dimensions.
+Read your team and goal coordinates from inputs:
+  game_state.my_team                   // "team_a" or "team_b"
+  game_state.field.team_a_goal_x       // team_a defends here
+  game_state.field.team_b_goal_x       // team_b defends here
+Never hardcode "team_a" / "team_b" — branch on game_state.my_team.
+
+=== SECTION 2: PRIOR STRATEGY ===
+Current strategy:
+{{ prev_strategy }}
+
+=== SECTION 3: MATCH LOG SUMMARY ===
+{{ match_summary }}
+
+=== SECTION 4: CALLBACK CONTRACT ===
+function decide(game_state, player_state, history)
+    // Returns one Action object per call. Called once per tick per player.
+    // game_state: object, player_state: object, history: array of objects
+
+=== SECTION 5: ACTION SPACE ===
+5 action types returned as plain objects with a `type` field:
+  { type: "Move",   dx: Number, dy: Number, speed: Number }   // speed in [0,1]
+  { type: "Pass",   target_pos: [Number, Number], power: Number }
+  { type: "Shoot",  angle: Number, power: Number }
+  { type: "Tackle", target_player_id: String }
+  { type: "Hold" }
+Validation rules: non-carrier Pass/Shoot → Hold; out-of-range Tackle → Hold;
+speed clamped to [0, 1].
+
+=== SECTION 6: GAME_STATE SCHEMA ===
+game_state = {
+    tick: Number,
+    ticks_remaining: Number,
+    match_phase: String,  // "pre_match"|"kick_off"|"in_play"|"goal_scored"|"half_time"|"full_time"
+    half: Number,
+    score: { team_a: Number, team_b: Number },
+    team_phase: { team_a: String, team_b: String },  // "attacking"|"transitioning"|"defending"
+    ball: { position: [Number, Number], velocity: [Number, Number],
+            possession: String|null, carrier_id: String|null },
+    players: { /* player_id → player dict */ },
+    field: { width: Number, height: Number,
+             team_a_goal_x: Number, team_b_goal_x: Number,
+             goal_top: Number, goal_bottom: Number },
+    my_team: String,
+    my_player_id: String,
+}
+
+=== SECTION 7: PLAYER_STATE SCHEMA ===
+player_state = {
+    player_id: String, team: String, role: String, number: Number,
+    position: [Number, Number], has_ball: Boolean,
+    formation_position: [Number, Number],
+    formation_zone: { x: [Number, Number], y: [Number, Number] },
+    formation_zone_phase: String,
+    speed: Number, skill: Number, strength: Number,
+    save: Number, discipline: Number, dribbling: Number,
+    passing: Number, shooting: Number, stamina: Number,
+    current_health: Number, cooldown_remaining: Number,
+}
+
+=== SECTION 8: ATTRIBUTE REFERENCE ===
+9 attributes (range 1-20): speed, skill, strength, save (GK-only), discipline,
+dribbling, passing, shooting, stamina. Pass/shoot formulas use
+effective_skill = (2 * specialised + skill) / 3. Every action other than Hold
+drains current_health; Hold and low-speed Move recover; half-time restores fully.
+
+=== SECTION 9: ROSTER ACCESS ===
+Roster size and player IDs vary by config. NEVER hardcode player_ids or
+assume roster size. Iterate Object.entries(game_state.players) to find
+teammates and opponents. Filter by .team and .role.
+
+=== SECTION 10: FORMATION + SNAP MECHANICS ===
+snap_force = Math.min(discipline / 100, 0.20)   // at most 20%
+final_pos  = (1 - snap_force) * move_result + snap_force * formation_position
+
+Active intent BYPASSES snap entirely:
+  - Any Move with speed >= 0.5
+  - Any action by the ball carrier
+formation_position shifts each tick: x by team_phase, y by ball-side compaction.
+Read player_state.formation_zone_phase and game_state.team_phase.
+
+=== SECTION 11: SANDBOX CONSTRAINTS ===
+DO NOT use require, import, fetch, XMLHttpRequest, setTimeout, setInterval,
+eval, Function constructor, or any global that is not explicitly listed.
+Available globals: Math, JSON, Object, Array, Number, String, Boolean,
+parseInt, parseFloat, isNaN, isFinite.
+
+=== SECTION 12: TASK ===
+Revise the decide() function above to address the weaknesses shown in the match log.
+Keep what worked. Change what failed. Return only the complete revised function.
+
+=== SECTION 13: OUTPUT FORMAT ===
+Return only the decide() function inside a JavaScript fenced code block. No explanation, no other text.

@@ -1,0 +1,169 @@
+{# version: 1.0 #}
+You are designing a soccer strategy. Your goal is to win the match by
+scoring more goals than the opposing team within the allotted ticks.
+The strategy is implemented as a Rust crate compiled to WebAssembly. The
+simulation calls your `decide` export once per tick for each player on
+your team. The same code must work for both teams, in any roster size,
+on any field dimensions.
+
+You write the FULL `lib.rs` file (boilerplate + strategy logic). The host
+runtime (WasmtimeSandbox, ADR-0026) calls a fixed ABI; the strategy logic
+lives in the `decide_logic(...)` function. Edit only that function — leave
+the boilerplate (alloc/dealloc/decide/return_ptr/return_len, the
+serde structs, the `host::random_u64` import) alone.
+
+=== SECTION 1: CALLBACK CONTRACT ===
+fn decide_logic(gs: &GameState, ps: &PlayerState, hist: &[TickRecord]) -> Action
+    // Returns one Action per call. Called once per tick per player.
+
+=== SECTION 2: GAMESTATE / PLAYERSTATE / TICKRECORD STRUCTS ===
+// Already defined for you in the boilerplate. Field set:
+//
+// struct GameState {
+//     tick: u32,
+//     ball: Ball { position: (f64, f64), carrier_id: Option<String> },
+//     field: Field { width: f64, height: f64, team_a_goal_x: f64, team_b_goal_x: f64 },
+//     my_team: String,
+//     my_player_id: String,
+// }
+// struct PlayerState {
+//     role: String,           // "GK" | "DEF" | "MID" | "FWD"
+//     position: (f64, f64),
+//     has_ball: bool,
+//     speed: i32,
+// }
+// struct TickRecord { tick: u32 }
+
+=== SECTION 3: ACTION ENUM (returned by decide_logic) ===
+enum Action {
+    Move { dx: f64, dy: f64, speed: f64 },
+    Pass { target_pos: (f64, f64), power: i32 },
+    Shoot { angle: f64, power: i32 },
+    Tackle { target_player_id: String },
+    Hold,
+}
+
+=== SECTION 4: RUNTIME IDENTITY ===
+The same `decide_logic` runs for every player on every tick. Read these
+to discover which player you are this call:
+  gs.my_team
+  gs.my_player_id
+  ps.role
+Never hardcode "team_a" / "team_b" or specific player_ids.
+
+=== SECTION 5: FEW-SHOT SKELETON ===
+fn decide_logic(gs: &GameState, ps: &PlayerState, _hist: &[TickRecord]) -> Action {
+    if ps.has_ball {
+        if ps.role == "FWD" {
+            return Action::Shoot { angle: 0.0, power: 15 };
+        }
+        return Action::Pass { target_pos: (80.0, 30.0), power: 12 };
+    }
+    let (bx, by) = gs.ball.position;
+    let (mx, my) = ps.position;
+    let dx = bx - mx;
+    let dy = by - my;
+    let mag = (dx * dx + dy * dy).sqrt();
+    let (ndx, ndy) = if mag > 0.001 { (dx / mag, dy / mag) } else { (1.0, 0.0) };
+    Action::Move { dx: ndx, dy: ndy, speed: 1.0 }
+}
+
+=== SECTION 6: FIELD GEOMETRY ===
+Read all field values from gs.field — never hardcode coordinates.
+team_a attacks toward x=field.width; team_b attacks toward x=0.
+
+=== SECTION 7: SANDBOX CONSTRAINTS ===
+You compile to wasm32-wasip1 inside a Wasmtime sandbox. Constraints:
+  - No filesystem, network, env, clock, or stdio access (capability sandbox).
+  - The only host import available is `host::random_u64() -> u64` for seeded randomness.
+  - 5ms per-tick timeout (epoch interruption); long loops will trap.
+  - Cross-tick persistent state via `static mut` is allowed but discouraged
+    (linear memory persists for the whole match per player).
+  - Output Action MUST be serialized via `rmp_serde::to_vec_named` — already
+    handled by the boilerplate. Don't change the `decide` export's serializer call.
+  - All standard `std` is available (Vec, String, HashMap, f64::sqrt, etc.).
+
+=== SECTION 8: USER INTENT ===
+{% if user_intent %}{{ user_intent }}{% else %}(no specific user intent — apply general best practices for a balanced, competitive strategy){% endif %}
+
+=== SECTION 9: TASK ===
+Write the COMPLETE `lib.rs` file: all boilerplate (use serde::{Deserialize,
+Serialize}; struct definitions; alloc_buf / dealloc_buf / decide / return_ptr
+/ return_len exports; the `host::random_u64` import) and the
+`decide_logic` function with your strategy. The runtime ABI must match
+exactly — the host calls `alloc_buf`, `dealloc_buf`, `decide`,
+`return_ptr`, `return_len`. The `decide` export must call `rmp_serde::to_vec_named`
+on the Action.
+
+=== SECTION 10: OUTPUT FORMAT ===
+Return only the complete `lib.rs` source inside a Rust fenced code block. No explanation, no other text.
+
+=== REFERENCE: complete starter `lib.rs` (edit `decide_logic` body, leave the rest alone) ===
+```rust
+use serde::{Deserialize, Serialize};
+use std::alloc::{alloc, dealloc, Layout};
+
+#[derive(Deserialize)]
+struct GameState {
+    tick: u32, ball: Ball, field: Field,
+    my_team: String, my_player_id: String,
+}
+#[derive(Deserialize)]
+struct Ball { position: (f64, f64), carrier_id: Option<String> }
+#[derive(Deserialize)]
+struct Field { width: f64, height: f64, team_a_goal_x: f64, team_b_goal_x: f64 }
+#[derive(Deserialize)]
+struct PlayerState { role: String, position: (f64, f64), has_ball: bool, speed: i32 }
+#[derive(Deserialize)]
+struct TickRecord { tick: u32 }
+#[derive(Serialize)]
+#[serde(tag = "type")]
+enum Action {
+    Move { dx: f64, dy: f64, speed: f64 },
+    Pass { target_pos: (f64, f64), power: i32 },
+    Shoot { angle: f64, power: i32 },
+    Tackle { target_player_id: String },
+    Hold,
+}
+
+#[link(wasm_import_module = "host")]
+extern "C" { fn random_u64() -> u64; }
+
+fn decide_logic(gs: &GameState, ps: &PlayerState, _hist: &[TickRecord]) -> Action {
+    // EDIT THIS — your strategy logic.
+    if ps.has_ball { return Action::Hold; }
+    let (bx, by) = gs.ball.position;
+    let (mx, my) = ps.position;
+    let dx = bx - mx; let dy = by - my;
+    let mag = (dx * dx + dy * dy).sqrt();
+    let (ndx, ndy) = if mag > 0.001 { (dx / mag, dy / mag) } else { (1.0, 0.0) };
+    Action::Move { dx: ndx, dy: ndy, speed: 1.0 }
+}
+
+// ── DO NOT EDIT BELOW: ABI surface required by WasmtimeSandbox ───────────
+static mut RETURN_PTR: i32 = 0;
+static mut RETURN_LEN: i32 = 0;
+#[no_mangle] pub extern "C" fn alloc_buf(size: usize) -> *mut u8 {
+    let layout = Layout::from_size_align(size.max(1), 8).unwrap();
+    unsafe { alloc(layout) }
+}
+#[no_mangle] pub extern "C" fn dealloc_buf(ptr: *mut u8, size: usize) {
+    let layout = Layout::from_size_align(size.max(1), 8).unwrap();
+    unsafe { dealloc(ptr, layout) };
+}
+#[no_mangle] pub extern "C" fn return_ptr() -> i32 { unsafe { RETURN_PTR } }
+#[no_mangle] pub extern "C" fn return_len() -> i32 { unsafe { RETURN_LEN } }
+#[no_mangle] pub extern "C" fn decide(ptr: *const u8, len: usize) -> i32 {
+    let bytes = unsafe { std::slice::from_raw_parts(ptr, len) };
+    let (gs, ps, hist): (GameState, PlayerState, Vec<TickRecord>) =
+        match rmp_serde::from_slice(bytes) { Ok(v) => v, Err(_) => return -1 };
+    let action = decide_logic(&gs, &ps, &hist);
+    let out = match rmp_serde::to_vec_named(&action) { Ok(v) => v, Err(_) => return -1 };
+    let out_ptr = alloc_buf(out.len());
+    unsafe {
+        std::ptr::copy_nonoverlapping(out.as_ptr(), out_ptr, out.len());
+        RETURN_PTR = out_ptr as i32; RETURN_LEN = out.len() as i32;
+    }
+    0
+}
+```

@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <defs>
+    <!-- Glow filter for the orange dot -->
+    <filter id="glow" x="-80%" y="-80%" width="260%" height="260%">
+      <feGaussianBlur stdDeviation="1.8" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background: dark gradient matching brand-block -->
+  <rect width="32" height="32" rx="5" fill="#0d1216"/>
+  <rect width="32" height="32" rx="5" fill="url(#bg-grad)"/>
+  <defs>
+    <linearGradient id="bg-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#0d1216"/>
+      <stop offset="100%" stop-color="#05080a"/>
+    </linearGradient>
+  </defs>
+
+  <!-- "A" — bold italic Space Grotesk style, white -->
+  <text
+    x="4"
+    y="23"
+    font-family="'Space Grotesk', 'Arial Black', sans-serif"
+    font-weight="900"
+    font-style="italic"
+    font-size="19"
+    letter-spacing="-0.5"
+    fill="#e8edf1"
+  >A</text>
+
+  <!-- Orange glowing dot — center, slightly low like translateY(5px) -->
+  <circle cx="16.5" cy="19" r="2.8" fill="#f2a44b" filter="url(#glow)"/>
+
+  <!-- "P" — bold italic, white -->
+  <text
+    x="18.5"
+    y="23"
+    font-family="'Space Grotesk', 'Arial Black', sans-serif"
+    font-weight="900"
+    font-style="italic"
+    font-size="19"
+    letter-spacing="-0.5"
+    fill="#e8edf1"
+  >P</text>
+</svg>

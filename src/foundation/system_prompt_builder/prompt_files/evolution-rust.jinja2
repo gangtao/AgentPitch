@@ -1,0 +1,77 @@
+{# version: 1.0 #}
+=== SECTION 1: ROLE DECLARATION ===
+You revise the decide_logic() function used by both teams in any roster or
+field size. The function must work without modification when called for
+team_a or team_b, in 5v5 or 11v11, on any field dimensions.
+Read your team and goal coordinates from inputs:
+  gs.my_team                  // "team_a" or "team_b"
+  gs.field.team_a_goal_x      // team_a defends here
+  gs.field.team_b_goal_x      // team_b defends here
+Never hardcode "team_a" / "team_b" — branch on gs.my_team.
+
+=== SECTION 2: PRIOR STRATEGY ===
+Current strategy:
+{{ prev_strategy }}
+
+=== SECTION 3: MATCH LOG SUMMARY ===
+{{ match_summary }}
+
+=== SECTION 4: CALLBACK CONTRACT ===
+fn decide_logic(gs: &GameState, ps: &PlayerState, hist: &[TickRecord]) -> Action
+    // Returns one Action per call. Called once per tick per player.
+    // Edit only this function — leave all boilerplate unchanged.
+
+=== SECTION 5: ACTION SPACE ===
+enum Action {
+    Move { dx: f64, dy: f64, speed: f64 },   // speed in [0.0, 1.0]
+    Pass { target_pos: (f64, f64), power: i32 },
+    Shoot { angle: f64, power: i32 },
+    Tackle { target_player_id: String },
+    Hold,
+}
+Validation rules: non-carrier Pass/Shoot → Hold; out-of-range Tackle → Hold;
+speed clamped to [0.0, 1.0].
+
+=== SECTION 6: GAMESTATE / PLAYERSTATE STRUCTS ===
+// Already defined in the boilerplate — do not redefine.
+// struct GameState {
+//     tick: u32, ticks_remaining: u32, half: u32,
+//     ball: Ball { position: (f64, f64), carrier_id: Option<String> },
+//     field: Field { width: f64, height: f64,
+//                    team_a_goal_x: f64, team_b_goal_x: f64,
+//                    goal_top: f64, goal_bottom: f64 },
+//     players: HashMap<String, Player>,
+//     score: Score { team_a: i32, team_b: i32 },
+//     my_team: String, my_player_id: String,
+// }
+// struct PlayerState {
+//     role: String, position: (f64, f64), has_ball: bool,
+//     speed: i32, skill: i32, strength: i32, save: i32,
+//     discipline: i32, dribbling: i32, passing: i32,
+//     shooting: i32, stamina: i32, current_health: f64,
+// }
+
+=== SECTION 7: ATTRIBUTE REFERENCE ===
+9 attributes (range 1-20): speed, skill, strength, save (GK-only), discipline,
+dribbling, passing, shooting, stamina. Pass/shoot use
+effective_skill = (2 * specialised + skill) / 3. Actions other than Hold drain
+current_health; Hold and low-speed Move recover; half-time restores fully.
+
+=== SECTION 8: ROSTER ACCESS ===
+Roster size and player IDs vary by config. NEVER hardcode player_ids or
+assume roster size. Iterate gs.players (HashMap) to find teammates and
+opponents. Filter by player.team and player.role.
+
+=== SECTION 9: SANDBOX CONSTRAINTS ===
+You are compiled to WebAssembly (WasmtimeSandbox). Allowed: core Rust stdlib,
+serde_json, the structs/enums already defined in the boilerplate. DO NOT use
+std::process, std::fs, std::net, std::thread, unsafe, or any FFI other than
+the declared `host::random_u64` extern.
+
+=== SECTION 10: TASK ===
+Revise the decide_logic() function above to address the weaknesses shown in
+the match log. Keep what worked. Change what failed.
+Return the COMPLETE revised lib.rs — all boilerplate unchanged, only decide_logic() updated.
+
+=== SECTION 11: OUTPUT FORMAT ===
+Return the complete lib.rs source inside a Rust fenced code block. No explanation, no other text.

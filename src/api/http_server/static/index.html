@@ -1,0 +1,556 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Agent Pitch</title>
+  <meta name="viewport" content="width=1440">
+  <link rel="icon" type="image/svg+xml" href="/static/favicon.svg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  <!-- Design system FIRST: tokens + canonical components. Per-module CSS extends/overrides. -->
+  <link rel="stylesheet" href="/static/design-system.css">
+  <link rel="stylesheet" href="/static/app.css">
+  <link rel="stylesheet" href="/static/shell.css">
+  <link rel="stylesheet" href="/static/config-shell.css">
+  <link rel="stylesheet" href="/static/matches-list.css">
+  <link rel="stylesheet" href="/static/strategies.css">
+  <link rel="stylesheet" href="/static/arena.css">
+  <link rel="stylesheet" href="/static/cup.css">
+  <link rel="stylesheet" href="/static/league.css">
+  <link rel="stylesheet" href="/static/match-stats.css">
+  <link rel="stylesheet" href="/static/highlight.theme.css">
+</head>
+<body>
+  <div class="app-shell">
+    <!-- Top strip: brand + section title + right cap -->
+    <header class="top-strip" id="top-strip">
+      <div class="brand-block">
+        <div class="brand-mark">A<span class="dot"></span>P</div>
+        <div class="brand-meta">
+          <div><b>AGENT PITCH</b></div>
+          <div id="shell-subtitle">MATCHES</div>
+        </div>
+      </div>
+      <div class="section-header" id="section-header">
+        <div class="section-title" id="section-title">MATCHES</div>
+      </div>
+      <div class="right-cap" id="right-cap"></div>
+    </header>
+
+    <!-- Body grid: nav | section content -->
+    <div class="body-grid">
+      <nav class="left-nav" id="left-nav" aria-label="Main">
+        <button class="pin-toggle" id="pin-toggle" aria-label="Pin navigation" aria-pressed="false">
+          <span class="pin-glyph">≡</span>
+        </button>
+        <!-- Nav icons: Set B · Geometric (per design/ux/components/components_design.html
+             "In context · left rail" exploration). 20×20 monoline, 1.4px stroke,
+             stroke=currentColor so the active/idle/hover color theming flows through. -->
+        <button class="nav-item active" id="nav-matches" data-section="matches" aria-current="page" aria-label="Matches">
+          <span class="nav-icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+              <path d="M3 5 l4 5 -4 5"/>
+              <path d="M17 5 l-4 5 4 5"/>
+              <line x1="9" y1="3.5" x2="11" y2="16.5"/>
+            </svg>
+          </span>
+          <span class="nav-label">MATCHES</span>
+        </button>
+        <button class="nav-item" id="nav-strategies" data-section="strategies" aria-label="Strategies">
+          <span class="nav-icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+              <rect x="8.5" y="2"  width="3" height="3"/>
+              <rect x="2"   y="13" width="3" height="3"/>
+              <rect x="8.5" y="13" width="3" height="3"/>
+              <rect x="15"  y="13" width="3" height="3"/>
+              <path d="M10 5 V9 H3.5 V13 M10 9 V13 M10 9 H16.5 V13"/>
+            </svg>
+          </span>
+          <span class="nav-label">STRATEGIES</span>
+        </button>
+        <button class="nav-item" id="nav-arena" data-section="arena" aria-label="Arena">
+          <span class="nav-icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+              <rect x="2.5" y="2.5" width="15" height="15"/>
+              <rect x="6"   y="6"   width="8"  height="8"/>
+              <rect x="9"   y="9"   width="2"  height="2" fill="currentColor"/>
+            </svg>
+          </span>
+          <span class="nav-label">ARENA</span>
+        </button>
+        <button class="nav-item" id="nav-cup" data-section="cup" aria-label="Cup">
+          <span class="nav-icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+              <path d="M6 2 H14 V9 C14 12.5 10 14 10 14 C10 14 6 12.5 6 9 Z"/>
+              <path d="M6 4 H3 C3 4 3 8 6 9"/>
+              <path d="M14 4 H17 C17 4 17 8 14 9"/>
+              <line x1="10" y1="14" x2="10" y2="17"/>
+              <line x1="7" y1="17" x2="13" y2="17"/>
+            </svg>
+          </span>
+          <span class="nav-label">CUP</span>
+        </button>
+        <button class="nav-item" id="nav-league" data-section="league" aria-label="League">
+          <span class="nav-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M3 3h18v4H3z"/>
+              <path d="M3 10h18M3 14h18M3 18h18"/>
+              <circle cx="7" cy="21" r="1"/>
+              <circle cx="17" cy="21" r="1"/>
+            </svg>
+          </span>
+          <span class="nav-label">LEAGUE</span>
+        </button>
+        <button class="nav-item" id="nav-config" data-section="config" aria-label="Config">
+          <span class="nav-icon">
+            <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linecap="square">
+              <line x1="2.5" y1="5"  x2="17.5" y2="5"/>
+              <line x1="2.5" y1="10" x2="17.5" y2="10"/>
+              <line x1="2.5" y1="15" x2="17.5" y2="15"/>
+              <rect x="11" y="3"  width="3" height="4" fill="currentColor" stroke="none"/>
+              <rect x="5"  y="8"  width="3" height="4" fill="currentColor" stroke="none"/>
+              <rect x="13" y="13" width="3" height="4" fill="currentColor" stroke="none"/>
+            </svg>
+          </span>
+          <span class="nav-label">CONFIG</span>
+        </button>
+        <div class="tooltip" id="nav-tooltip" role="tooltip" hidden></div>
+      </nav>
+
+      <main class="section-body" id="section-body">
+        <!-- ============================== -->
+        <!-- MATCHES SECTION (default visible) -->
+        <!-- ============================== -->
+        <div id="section-matches">
+          <!-- ── Chyron / Scoreboard ── -->
+          <div class="chyron">
+            <!-- Match identity (id + seed). The App Shell's top-strip already
+                 shows the A.P logo + "AGENT PITCH" wordmark, so the chyron
+                 doesn't repeat them — just the per-match data. -->
+            <div class="chyron-brand">
+              <div class="brand-meta">
+                <div class="match-title-line"><b id="match-title">loading…</b></div>
+                <div><span class="dimer">SEED</span> <b id="bug-seed">—</b></div>
+              </div>
+            </div>
+
+            <div class="score-bar">
+              <div class="team-block home">
+                <div class="team-ident">
+                  <div class="badge">HOME</div>
+                  <div class="name" id="team-a-name">TEAM A</div>
+                  <div class="model" id="team-a-model">strategy</div>
+                </div>
+                <div class="team-swatch a"></div>
+              </div>
+
+              <div class="score-plate">
+                <div class="score-num a" id="score-team-a">—</div>
+                <div class="score-sep">:</div>
+                <div class="score-num b" id="score-team-b">—</div>
+              </div>
+
+              <div class="team-block away">
+                <div class="team-ident">
+                  <div class="badge">AWAY</div>
+                  <div class="name" id="team-b-name">TEAM B</div>
+                  <div class="model" id="team-b-model">strategy</div>
+                </div>
+                <div class="team-swatch b"></div>
+              </div>
+            </div>
+
+            <div class="chyron-stats">
+              <div class="stat-cell">
+                <label>POSSESSION</label>
+                <div class="big" id="bug-possession">—</div>
+              </div>
+              <div class="stat-cell">
+                <label>CARRIER</label>
+                <div class="big" id="bug-carrier">—</div>
+              </div>
+            </div>
+
+            <div class="clock-bar">
+              <div class="live-pip"><span class="dot"></span> LIVE</div>
+              <div class="clock">
+                <span id="clock-cur">00:00</span>
+                <span class="total"> / <span id="clock-tot">00:00</span></span>
+              </div>
+            </div>
+
+            <div class="chyron-stats-toggle">
+              <button id="stats-toggle" title="Toggle match statistics" hidden>STATS</button>
+            </div>
+          </div>
+
+          <!-- ── Body: pitch | events ── -->
+          <div class="body">
+            <div class="pitch-wrap">
+              <div class="pitch-stage">
+                <canvas id="field-canvas" width="800" height="480"></canvas>
+                <div id="goal-flash" class="goal-flash" hidden></div>
+                <div id="goal-chyron" class="goal-chyron" hidden>
+                  <div class="word"></div>
+                  <div class="sub"></div>
+                </div>
+                <div id="match-waiting-overlay" class="match-waiting-overlay" hidden>
+                  <div class="waiting-spinner">▶</div>
+                  <div class="waiting-title">WAITING FOR MATCH RESULT</div>
+                  <div class="waiting-subtitle" id="waiting-subtitle">Engine is starting…</div>
+                  <div class="waiting-hint">Live view will load when the match starts producing data.</div>
+                </div>
+              </div>
+
+              <div class="scrub">
+                <button class="scrub-btn play" id="play-pause" title="Play/pause (Space)">▶</button>
+                <div class="scrub-track" id="scrub-track">
+                  <div class="scrub-fill" id="scrub-fill"></div>
+                  <div class="scrub-markers" id="scrub-markers"></div>
+                  <input type="range" id="scrub-bar" min="0" max="0" value="0">
+                </div>
+                <div class="tick-count" id="tick-display">T0000 / 0000</div>
+                <div class="speed-pill" id="speed-pill">
+                  <button data-speed="0.5">0.5x</button>
+                  <button data-speed="1" class="active">1x</button>
+                  <button data-speed="2">2x</button>
+                  <button data-speed="4">4x</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="events" id="event-log-sidebar">
+              <div class="events-head">
+                <div class="events-head-label">EVENT FEED · <span id="events-count">0/0</span></div>
+                <button class="events-collapse-btn" id="event-feed-toggle" title="Collapse event feed" aria-label="Collapse event feed" aria-expanded="true">◀</button>
+                <div class="seg filter-pills" id="filter-pills">
+                  <button data-filter="all" class="active">ALL</button>
+                  <button data-filter="team_a">A</button>
+                  <button data-filter="team_b">B</button>
+                </div>
+              </div>
+              <div class="events-list" id="event-log-list">
+                <div class="evt placeholder">(no events yet)</div>
+              </div>
+            </div>
+          </div>
+          <!-- Match statistics panel (post-match only, toggled by STATS button).
+               Sibling of .body inside #section-matches (flex column) so it
+               appears full-width below the pitch + event log. -->
+          <div id="match-stats-panel" hidden></div>
+        </div>
+
+        <!-- ============================== -->
+        <!-- PLACEHOLDER SECTIONS (hidden by default) -->
+        <!-- ============================== -->
+        <div id="section-strategies" class="section-placeholder-wrap" hidden>
+          <div class="section-placeholder">Coming soon — Strategies not implemented yet</div>
+        </div>
+        <div id="section-arena" hidden>
+          <!-- List sub-view -->
+          <section id="arena-list-view" aria-labelledby="arena-list-heading">
+            <h2 id="arena-list-heading" class="sr-only">Arena series list</h2>
+            <div class="arena-action-bar">
+              <button class="btn btn-primary" id="arena-new-btn" onclick="window.arenaNavigateSubView('new')">+ Start a new series</button>
+              <span id="arena-count" class="dimer">0 series</span>
+            </div>
+            <div id="arena-list" class="arena-list" role="list"></div>
+          </section>
+
+          <!-- Series Detail sub-view -->
+          <section id="arena-detail-view" aria-labelledby="series-detail-heading" hidden>
+            <h2 id="series-detail-heading" class="sr-only">Series detail</h2>
+            <section aria-label="Series header">
+              <div id="arena-series-header" class="arena-series-header"></div>
+            </section>
+            <section aria-label="Match progression">
+              <div id="arena-progression-bar" class="arena-progression-bar" role="status" aria-live="polite" aria-atomic="false" aria-label="Match progression"></div>
+            </section>
+            <section aria-label="Live viewer" aria-live="polite">
+              <div id="arena-live-section" hidden>
+                <div id="arena-live-status" class="arena-live-status">Live match in progress...</div>
+              </div>
+            </section>
+            <div id="arena-result-banner" class="arena-result-banner" hidden></div>
+            <section aria-label="Completed matches">
+              <div id="arena-matches-list" class="arena-matches-list"></div>
+            </section>
+            <section aria-label="Series configuration">
+              <div id="arena-config-footer" class="arena-config-footer"></div>
+            </section>
+          </section>
+
+          <!-- New sub-view -->
+          <div id="arena-new-view" hidden>
+            <h2 id="arena-new-heading" class="sr-only">New series</h2>
+            <form id="arena-new-form" class="arena-new-form-body" novalidate aria-labelledby="arena-new-heading">
+              <div class="form-column">
+
+                <!-- Series length -->
+                <div class="form-section">
+                  <label class="section-label">SERIES LENGTH</label>
+                  <fieldset class="arena-radio-group">
+                    <legend class="sr-only">Series length</legend>
+                    <label><input type="radio" name="series-format" value="3-match" checked> 3-match series</label>
+                    <label><input type="radio" name="series-format" value="5-match"> 5-match series</label>
+                  </fieldset>
+                </div>
+
+                <!-- Config -->
+                <div class="form-section">
+                  <label class="section-label" for="arena-config-select">CONFIG</label>
+                  <div class="config-picker-group">
+                    <select id="arena-config-select" class="sel" required aria-required="true">
+                      <option value="">— select a config —</option>
+                    </select>
+                    <a class="btn-link" id="arena-edit-configs-link" href="#/config/match">Edit configs</a>
+                  </div>
+                </div>
+
+                <!-- Team A model + language -->
+                <div class="form-section">
+                  <label class="section-label">TEAM A — LLM &amp; LANGUAGE</label>
+                  <div class="arena-model-row">
+                    <select id="arena-team-a-provider" class="sel arena-provider-sel" aria-label="Team A provider">
+                      <option value="">— provider —</option>
+                    </select>
+                    <select id="arena-team-a-model" class="sel" aria-label="Team A model">
+                      <option value="">— model —</option>
+                    </select>
+                    <select id="arena-team-a-language" class="sel arena-language-sel" aria-label="Team A strategy language">
+                      <option value="python">Python</option>
+                      <option value="javascript">JavaScript</option>
+                      <option value="rust">Rust</option>
+                    </select>
+                  </div>
+                  <div class="field-help">Provider/model blank = use global LLM config</div>
+                </div>
+
+                <!-- Team B model + language -->
+                <div class="form-section">
+                  <label class="section-label">TEAM B — LLM &amp; LANGUAGE</label>
+                  <div class="arena-model-row">
+                    <select id="arena-team-b-provider" class="sel arena-provider-sel" aria-label="Team B provider">
+                      <option value="">— provider —</option>
+                    </select>
+                    <select id="arena-team-b-model" class="sel" aria-label="Team B model">
+                      <option value="">— model —</option>
+                    </select>
+                    <select id="arena-team-b-language" class="sel arena-language-sel" aria-label="Team B strategy language">
+                      <option value="python">Python</option>
+                      <option value="javascript">JavaScript</option>
+                      <option value="rust">Rust</option>
+                    </select>
+                  </div>
+                  <div class="field-help">Provider/model blank = use global LLM config</div>
+                </div>
+
+                <!-- Estimated time -->
+                <div class="form-section">
+                  <label class="section-label">ESTIMATED TIME</label>
+                  <span id="arena-est-time" class="arena-est-value">—</span>
+                </div>
+
+                <div id="arena-form-error" class="form-error" hidden role="alert"></div>
+
+                <div class="action-row">
+                  <button type="button" class="btn btn-ghost" id="arena-cancel-btn">Cancel</button>
+                  <button type="submit" class="btn btn-primary" id="arena-start-btn">Start series</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- ============================== -->
+        <!-- CUP SECTION (hidden by default) -->
+        <!-- ============================== -->
+        <div id="section-cup" hidden>
+          <!-- List sub-view -->
+          <section id="cup-list-view" aria-labelledby="cup-list-heading">
+            <h2 id="cup-list-heading" class="cup-sr-only">Cup list</h2>
+            <div class="cup-action-bar">
+              <button class="btn btn-primary" id="cup-new-btn" onclick="window.cupNavigateSubView('new')">+ Create a new cup</button>
+              <span id="cup-count" class="dimer">0 cups</span>
+            </div>
+            <div id="cup-list" class="cup-list" role="list"></div>
+          </section>
+
+          <!-- Cup Detail sub-view -->
+          <section id="cup-detail-view" aria-labelledby="cup-detail-heading" hidden>
+            <h2 id="cup-detail-heading" class="cup-sr-only">Cup detail</h2>
+            <section aria-label="Cup header">
+              <div id="cup-detail-header" class="cup-detail-header"></div>
+            </section>
+            <div id="cup-result-banner" class="cup-result-banner" hidden></div>
+            <div class="cup-bracket-wrapper">
+              <div id="cup-bracket-container"></div>
+            </div>
+          </section>
+
+          <!-- New Cup sub-view -->
+          <div id="cup-new-view" hidden>
+            <h2 id="cup-new-heading" class="cup-sr-only">New cup</h2>
+            <form id="cup-new-form" class="cup-new-form-body" novalidate aria-labelledby="cup-new-heading">
+              <div class="form-column">
+
+                <!-- Cup Name -->
+                <div class="form-section">
+                  <label class="section-label" for="cup-name-input">CUP NAME</label>
+                  <input type="text" id="cup-name-input" class="ipt" placeholder="e.g. Spring 2026 Cup" required aria-required="true">
+                </div>
+
+                <!-- Config -->
+                <div class="form-section">
+                  <label class="section-label" for="cup-config-select">CONFIG</label>
+                  <select id="cup-config-select" class="sel" required aria-required="true">
+                    <option value="">— select a config —</option>
+                  </select>
+                </div>
+
+                <!-- Bracket Size -->
+                <div class="form-section">
+                  <label class="section-label" for="cup-bracket-size">BRACKET SIZE</label>
+                  <select id="cup-bracket-size" class="sel">
+                    <option value="4" selected>4 teams</option>
+                    <option value="8">8 teams</option>
+                    <option value="16">16 teams</option>
+                    <option value="32">32 teams</option>
+                  </select>
+                </div>
+
+                <!-- Team Slots (dynamic) -->
+                <div class="form-section">
+                  <label class="section-label">TEAM STRATEGIES</label>
+                  <div id="cup-team-slots" class="cup-team-slots-grid"></div>
+                </div>
+
+                <div id="cup-form-error" class="cup-form-error" hidden role="alert"></div>
+
+                <div class="action-row">
+                  <button type="button" class="btn btn-ghost" id="cup-cancel-btn">Cancel</button>
+                  <button type="submit" class="btn btn-primary" id="cup-submit-btn">Create Cup</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+        <!-- ================================ -->
+        <!-- LEAGUE SECTION (hidden by default) -->
+        <!-- ================================ -->
+        <div id="section-league" hidden>
+          <!-- List sub-view -->
+          <section id="league-list-view" aria-labelledby="league-list-heading">
+            <h2 id="league-list-heading" class="league-sr-only">League list</h2>
+            <div class="league-action-bar">
+              <button class="btn btn-primary" id="league-new-btn" onclick="window.leagueNavigateSubView('new')">+ Create a new league</button>
+              <span id="league-count" class="dimer">0 leagues</span>
+            </div>
+            <div id="league-list" class="league-list" role="list"></div>
+          </section>
+
+          <!-- League Detail sub-view -->
+          <section id="league-detail-view" aria-labelledby="league-detail-heading" hidden>
+            <h2 id="league-detail-heading" class="league-sr-only">League detail</h2>
+            <div id="league-detail-header" class="league-detail-header"></div>
+            <div id="league-result-banner" class="league-result-banner" hidden></div>
+            <div id="league-standings-container" class="league-standings-container"></div>
+            <div id="league-matchdays-container" class="league-matchdays-container"></div>
+          </section>
+
+          <!-- New League sub-view -->
+          <div id="league-new-view" hidden>
+            <h2 id="league-new-heading" class="league-sr-only">New league</h2>
+            <form id="league-new-form" class="league-new-form-body" novalidate aria-labelledby="league-new-heading">
+              <div class="form-column">
+
+                <!-- League Name -->
+                <div class="form-section">
+                  <label class="section-label" for="league-name-input">LEAGUE NAME</label>
+                  <input type="text" id="league-name-input" class="ipt" placeholder="e.g. Spring 2026 League" required aria-required="true">
+                </div>
+
+                <!-- Config -->
+                <div class="form-section">
+                  <label class="section-label" for="league-config-select">CONFIG</label>
+                  <select id="league-config-select" class="sel" required aria-required="true">
+                    <option value="">— select a config —</option>
+                  </select>
+                </div>
+
+                <!-- Rounds -->
+                <div class="form-section">
+                  <label class="section-label">ROUNDS</label>
+                  <fieldset class="league-radio-group">
+                    <legend class="sr-only">Number of rounds</legend>
+                    <label><input type="radio" name="league-rounds" value="1" checked> Single (×1) — each pair plays once</label>
+                    <label><input type="radio" name="league-rounds" value="2"> Double (×2) — each pair plays home &amp; away</label>
+                  </fieldset>
+                </div>
+
+                <!-- Teams (multi-select from strategy library) -->
+                <div class="form-section">
+                  <label class="section-label">TEAM STRATEGIES</label>
+                  <div class="league-team-picker-help">Select strategies (must be an even number, 2–16)</div>
+                  <div id="league-team-picker" class="league-team-picker"></div>
+                  <div id="league-team-count-label" class="league-team-count-label dimer">0 selected</div>
+                </div>
+
+                <div id="league-form-error" class="league-form-error" hidden role="alert"></div>
+
+                <div class="action-row">
+                  <button type="button" class="btn btn-ghost" id="league-cancel-btn">Cancel</button>
+                  <button type="submit" class="btn btn-primary" id="league-submit-btn">Create League</button>
+                </div>
+
+              </div>
+            </form>
+          </div>
+        </div>
+        <div id="section-config" class="section-placeholder-wrap" hidden>
+          <div class="section-placeholder">Coming soon — Config not implemented yet</div>
+        </div>
+      </main>
+    </div>
+
+    <!-- Status bar -->
+    <footer class="status-bar" id="status-bar">
+      <span><span class="status-dot"></span> SANDBOX OK</span>
+      <span id="sb-api">API · —</span>
+      <span id="sb-log">LOG · —</span>
+      <span id="sb-field">FIELD · 100×60m</span>
+      <span>TICK · <b id="bug-tick-rate">10/s</b></span>
+      <span class="spacer"></span>
+      <span id="sb-seed">DETERMINISTIC</span>
+      <span>PYTHON 3.11 · agent-pitch</span>
+    </footer>
+
+    <!-- Connection lost banner (hidden by default) -->
+    <div class="connection-lost-banner" id="connection-lost-banner" hidden role="status" aria-live="assertive" aria-atomic="true">
+      SERVER DOWN · waiting for connection
+    </div>
+  </div>
+
+  <!-- highlight.js (vendored, classic script — must run before module
+       scripts so window.hljs is defined when strategies.js calls it) -->
+  <script src="/static/highlight.min.js"></script>
+
+  <script type="module" src="/static/app.js"></script>
+  <script type="module" src="/static/matches-start.js"></script>
+  <script type="module" src="/static/matches.js"></script>
+  <script type="module" src="/static/strategies.js"></script>
+  <script type="module" src="/static/arena.js"></script>
+  <script type="module" src="/static/cup.js"></script>
+  <script type="module" src="/static/league.js"></script>
+  <script type="module" src="/static/placeholders.js"></script>
+  <script type="module" src="/static/config-game.js"></script>
+  <script type="module" src="/static/config-storage.js"></script>
+  <script type="module" src="/static/config-llm.js"></script>
+  <script type="module" src="/static/config-match.js"></script>
+  <script type="module" src="/static/config-shell.js"></script>
+  <script type="module" src="/static/shell.js"></script>
+  <script type="module" src="/static/match-stats.js"></script>
+</body>
+</html>

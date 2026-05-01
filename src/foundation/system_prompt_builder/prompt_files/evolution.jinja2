@@ -1,0 +1,77 @@
+{# version: 2.0 #}
+=== SECTION 1: ROLE DECLARATION ===
+You revise the decide() callback used by both teams in any roster or field
+size. The function must work without modification when called for team_a
+or team_b, in 5v5 or 11v11, on any field dimensions.
+Read your team and goal coordinates from inputs:
+  game_state["my_team"]                   # "team_a" or "team_b"
+  game_state["field"]["team_a_goal_x"]    # team_a defends here
+  game_state["field"]["team_b_goal_x"]    # team_b defends here
+Never hardcode "team_a" / "team_b" — branch on game_state["my_team"].
+
+=== SECTION 2: PRIOR STRATEGY ===
+Current strategy:
+{{ prev_strategy }}
+
+=== SECTION 3: MATCH LOG SUMMARY ===
+{{ match_summary }}
+
+=== SECTION 4: CALLBACK CONTRACT ===
+def decide(game_state: dict, player_state: dict, history: list[dict]) -> Action:
+    """Returns one Action per call."""
+
+=== SECTION 5: ACTION SPACE ===
+5 action types: Move, Pass, Shoot, Tackle, Hold. Validation rules:
+non-carrier Pass/Shoot → Hold(); out-of-range Tackle → Hold(); speed clamped to [0, 1].
+
+=== SECTION 6: ATTRIBUTE REFERENCE ===
+9 attributes (range 1-20): speed, skill, strength, save (GK-only), discipline, dribbling, passing, shooting, stamina. Pass / shoot formulas use effective_skill = (2 * specialised + skill) / 3 — specialist dominates, skill cushions. Every action other than Hold drains current_health by base_cost × (1 - stamina/20); all success formulas multiply by health_factor = 0.6 + 0.4 × current_health/100. Hold and low-speed Move recover; half-time restores fully.
+
+=== SECTION 7: ROSTER ACCESS ===
+Roster size and player IDs vary by config — 5v5 has 5 players per team
+(ids team_X_0 through team_X_4); 11v11 has 11. NEVER hardcode player_ids
+or assume roster size.
+Iterate game_state["players"] (dict keyed by player_id) to find teammates
+and opponents. Filter by ["team"] and ["role"]. The ball carrier is at
+game_state["ball"]["carrier_id"] (or None for a loose ball).
+Each player dict carries the full attribute set — never hardcode attribute
+values. Your own attributes are mirrored on player_state for convenience.
+
+=== SECTION 8: FORMATION + SNAP MECHANICS ===
+Per ADR-0013 + ADR-0022: snap is a SOFT preference, AND the snap target
+shifts with team possession state.
+
+snap_force = min(discipline / 100, 0.20)         # at most 20%, even at discipline=20
+final_pos  = (1 - snap_force) * move_result + snap_force * formation_position
+
+Active intent BYPASSES snap entirely:
+  - Any Move with speed >= 0.5
+  - Any action by the ball carrier
+formation_position is DYNAMIC — it shifts each tick on BOTH axes:
+  x by team_phase (retuned for realism):
+    defending → DEF x≈12 (deep, goal-side), MID x≈30, FWD x≈45 (tracks back)
+    attacking → DEF x≈52 (crosses halfway), MID x≈68, FWD x≈84
+  y by ball-side compaction (whole team slides toward ball-side):
+    defending: strong (55%) ; transitioning: moderate (30%) ; attacking: slight (10%)
+Read player_state["formation_zone_phase"] to know which phase your team is
+in. Read game_state["team_phase"] for both teams' phases.
+
+Role guidance:
+  DEF: hold shape when defending; PUSH UP when attacking. Overlapping runs
+       encouraged when team has sustained possession in opponent's half.
+  MID: shuttle between thirds based on team_phase.
+  FWD: press high when attacking; drop into midfield when defending.
+
+=== SECTION 9: SANDBOX CONSTRAINTS ===
+The `game_state` and `player_state` schemas now include `team_phase`,
+`formation_zone`, and `formation_zone_phase` (per ADR-0022). Otherwise
+unchanged from your previous prompt.
+DO NOT use import, exec, eval, print, open, async def. Available builtins:
+abs, min, max, sum, len, range, sorted, enumerate, isinstance, int, float, str, list, dict, tuple, bool.
+
+=== SECTION 10: TASK ===
+Revise the decide() function above to address the weaknesses shown in the match log.
+Keep what worked. Change what failed. Return only the complete revised function.
+
+=== SECTION 11: OUTPUT FORMAT ===
+Return only the decide() function inside a Python fenced code block. No explanation, no other text.

@@ -1,0 +1,210 @@
+/* ─────────────────────────────────────────────────────────────────
+   Agent Pitch — Match Statistics Panel
+   Uses design-system.css tokens exclusively. No new custom properties.
+   ───────────────────────────────────────────────────────────────── */
+
+/* ── Trigger button (in chyron, persistent toggle) ── */
+.chyron-stats-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 16px;
+  border-left: 1px solid var(--line);
+  background: linear-gradient(180deg, #0d1216, #05080a);
+}
+#stats-toggle {
+  height: 28px;
+  padding: 0 12px;
+  background: transparent;
+  border: 1px solid var(--line);
+  color: var(--ink-dim);
+  font-family: var(--font);
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+  white-space: nowrap;
+}
+#stats-toggle:hover {
+  color: var(--ink);
+  border-color: var(--line-2);
+}
+#stats-toggle.active {
+  color: var(--a);
+  border-color: var(--a);
+}
+
+/* ── Panel container ── */
+#match-stats-panel {
+  flex-shrink: 0;
+  max-height: 280px;
+  overflow-y: auto;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  font-family: var(--font);
+  font-size: 11px;
+}
+/* Fullview mode: panel expands to fill the space vacated by the field */
+#match-stats-panel.stats-fullview {
+  flex: 1;
+  min-height: 0;
+  max-height: none;
+  overflow-y: auto;
+}
+
+/* ── Panel header ── */
+.stats-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 14px;
+  border-bottom: 1px solid var(--line);
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  position: sticky;
+  top: 0;
+  background: var(--panel);
+  z-index: 1;
+}
+
+/* ── Panel body ── */
+.stats-panel-body {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 24px;
+  padding: 12px 14px;
+}
+
+/* ── Team summary table ── */
+.stats-team-section {
+  min-width: 320px;
+}
+.stats-section-label {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-dimer);
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.stats-team-table {
+  border-collapse: collapse;
+  width: 100%;
+}
+.stats-team-table th {
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  color: var(--ink-dimer);
+  font-weight: 500;
+  text-align: right;
+  padding: 3px 10px 3px 0;
+  border-bottom: 1px solid var(--line);
+}
+.stats-team-table th:first-child {
+  text-align: left;
+  padding-left: 0;
+}
+.stats-team-table th.col-a { color: var(--a); }
+.stats-team-table th.col-b { color: var(--b); }
+.stats-team-table td {
+  padding: 3px 10px 3px 0;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.stats-team-table td:first-child {
+  text-align: left;
+  color: var(--ink-dim);
+  padding-left: 0;
+}
+.stats-team-table td.val-a { color: var(--a); }
+.stats-team-table td.val-b { color: var(--b); }
+.stats-team-table td.val-engine { color: var(--ok); }
+
+/* ── Per-player expandable section ── */
+.stats-players-section {
+  min-width: 0;
+}
+details.stats-team-detail {
+  margin-bottom: 8px;
+}
+details.stats-team-detail > summary {
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  cursor: pointer;
+  padding: 4px 0;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  border-bottom: 1px solid var(--line);
+  margin-bottom: 4px;
+}
+details.stats-team-detail > summary::before {
+  content: "▶";
+  font-size: 9px;
+  transition: transform 0.15s;
+}
+details.stats-team-detail[open] > summary::before {
+  transform: rotate(90deg);
+}
+details.stats-team-detail > summary .team-label-a { color: var(--a); }
+details.stats-team-detail > summary .team-label-b { color: var(--b); }
+
+.stats-player-table {
+  border-collapse: collapse;
+  width: 100%;
+  font-size: 11px;
+}
+.stats-player-table th {
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  color: var(--ink-dimer);
+  font-weight: 500;
+  text-align: right;
+  padding: 2px 8px 2px 0;
+  border-bottom: 1px solid var(--line);
+  white-space: nowrap;
+}
+.stats-player-table th:first-child,
+.stats-player-table th:nth-child(2) {
+  text-align: left;
+  padding-left: 0;
+}
+.stats-player-table td {
+  padding: 2px 8px 2px 0;
+  border-bottom: 1px solid var(--line-soft);
+  color: var(--ink);
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+.stats-player-table td:first-child,
+.stats-player-table td:nth-child(2) {
+  text-align: left;
+  padding-left: 0;
+}
+.stats-player-table td.pid-cell {
+  color: var(--ink-dim);
+  font-size: 10px;
+}
+.stats-player-table td.role-cell {
+  color: var(--ink-dimer);
+  font-size: 10px;
+}
+.stats-player-table td.dist-cell {
+  color: var(--ink-dim);
+}
+
+/* ── Loading / error state ── */
+.stats-loading,
+.stats-error {
+  padding: 14px;
+  color: var(--ink-dimer);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+}
+.stats-error { color: var(--err); }

@@ -1,0 +1,265 @@
+/* Agent Pitch — Config Section
+ * Layout-only stylesheet. All button / input / select / textarea / tabs /
+ * modal-button chrome comes from design-system.css.
+ */
+
+/* ── Container ──────────────────────────────────────────────────── */
+.config-shell {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Tab Strip (4-up: Game / LLM / Storage / Match) ─────────────── */
+.config-tab-strip {
+  height: 48px;
+  width: 100%;
+  background: #000;
+  /* design-system .tabs supplies the bottom border + flex layout */
+}
+.config-tab-strip .tab .modified-indicator {
+  font-size: 12px;
+  margin-left: 4px;
+  color: var(--a);
+}
+
+/* ── Tab Body ───────────────────────────────────────────────────── */
+.config-tab-body {
+  flex: 1;
+  overflow-y: auto;
+  background: var(--bg);
+  padding: 24px;
+  display: flex;
+  justify-content: center;
+}
+
+.tab-placeholder {
+  max-width: 720px;
+  width: 100%;
+  text-align: center;
+  color: var(--ink-dim);
+  font-size: 12px;
+  padding: 40px 24px;
+}
+
+.config-tab-body.game,
+.config-tab-body.llm,
+.config-tab-body.storage { max-width: 720px; margin: 0 auto; }
+.config-tab-body.match   { max-width: none; width: 100%; }
+
+/* ── Action Row (footer) ────────────────────────────────────────── */
+.config-action-row {
+  height: 52px;
+  width: 100%;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 24px;
+  flex-shrink: 0;
+}
+
+.action-row-right { display: flex; gap: 12px; }
+
+/* ── Form Grid ──────────────────────────────────────────────────── */
+.config-form-grid {
+  display: grid;
+  grid-template-columns: minmax(200px, 1fr) 80px 120px;
+  column-gap: 16px;
+  row-gap: 8px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+/* Section headers within forms — em-dash rule */
+.config-section-header,
+.form-section .section-header {
+  height: 32px;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 24px 0 16px 0;
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+}
+.config-section-header:first-child,
+.form-section .section-header:first-child { margin-top: 0; }
+
+.form-section .section-title {
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  font-weight: 500;
+}
+
+/* Field label cells (in form grids) */
+.field-label,
+.config-field-label {
+  font-size: 11px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  display: flex;
+  align-items: center;
+}
+
+/* Number input — fixed-width override (.ipt provides chrome) */
+.form-field-row .ipt-num,
+.config-form-grid .ipt-num {
+  width: 80px;
+  height: 32px;
+}
+
+/* Unit labels */
+.unit-label,
+.config-unit-label {
+  font-size: 11px;
+  color: var(--ink-dimer);
+}
+
+/* Validation errors (Pattern 17) */
+.config-field-error,
+.field-error {
+  grid-column: 1 / -1;
+  font-size: 11px;
+  color: var(--err);
+  margin-top: -4px;
+  margin-bottom: 4px;
+}
+.config-field-error:before { content: "⚠ "; }
+.field-error { display: none; }
+
+/* ── Form-tab containers ───────────────────────────────────────── */
+.game-tab-form,
+.storage-tab-form,
+.llm-tab-form {
+  max-width: 720px;
+  width: 100%;
+}
+.match-list-view,
+.match-editor-view,
+.match-new-view {
+  width: 100%;
+}
+
+/* The Match editor / new sub-views split their body into two zones:
+   - .match-form-column — narrow simple fields (SEED / TICK RATE / FIELD …)
+     constrained to the 720px column for legibility
+   - .team-section — wide data table (12 columns); no max-width so the
+     roster has room for all 9 player attributes. */
+.match-editor-view .match-form-column,
+.match-new-view .match-form-column {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+}
+.match-editor-view .team-section,
+.match-new-view .team-section {
+  max-width: none;
+  width: 100%;
+}
+
+/* Storage tab read-only display */
+.storage-tab-form .readonly-value {
+  font-size: 12px;
+  color: var(--ink);
+  background: var(--panel);
+  border: 1px solid var(--line);
+  padding: 8px 12px;
+  word-break: break-all;
+}
+.storage-tab-form .readonly-hint {
+  margin-top: 12px;
+  font-size: 11px;
+  color: var(--ink-dim);
+  line-height: 1.5;
+}
+.storage-tab-form .readonly-hint code {
+  background: var(--panel);
+  padding: 1px 6px;
+  color: var(--ink);
+}
+
+/* Save-as link in Match Editor header */
+.config-title .save-as-link {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-dim);
+  margin-left: 12px;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  text-transform: lowercase;
+}
+.config-title .save-as-link:hover,
+.config-title .save-as-link:focus {
+  color: var(--a);
+  text-decoration: underline;
+}
+
+/* ── Form sections (legacy layout class) ────────────────────────── */
+.form-section { margin-bottom: 32px; }
+.form-section:last-child { margin-bottom: 0; }
+
+/* Form field grid (flat layout) */
+.form-field-row {
+  display: grid;
+  grid-template-columns: 200px 80px 120px;
+  column-gap: 16px;
+  row-gap: 4px;
+  align-items: center;
+  margin-bottom: 8px;
+}
+
+/* Action feedback (success/error toast in action row) — banner-style */
+.action-feedback {
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 8px 12px;
+  margin-left: auto;
+  margin-right: 12px;
+  border-left: 3px solid var(--ink-dim);
+  background: var(--panel-2);
+}
+.action-feedback-success { color: var(--ok);  border-left-color: var(--ok); }
+.action-feedback-error   { color: var(--err); border-left-color: var(--err); }
+
+/* ── Modal Container Layout ─────────────────────────────────────── */
+.confirm-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 480px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+  padding: 0;
+}
+.confirm-modal::backdrop { background: rgba(0, 0, 0, 0.8); }
+
+.modal-content { padding: 24px; }
+.modal-title {
+  font-size: 14px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink);
+  margin: 0 0 12px 0;
+  font-weight: 600;
+}
+.modal-body {
+  font-size: 12px;
+  color: var(--ink-dim);
+  margin: 0 0 24px 0;
+  line-height: 1.5;
+}
+.modal-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+}

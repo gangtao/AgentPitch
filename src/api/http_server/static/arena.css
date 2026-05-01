@@ -1,0 +1,975 @@
+/* arena.css — Agent Pitch Arena Section
+ * Broadcast theme: dark backgrounds, JetBrains Mono, sharp corners, no animations.
+ * Inherits tokens from design-system.css and app.css.
+ */
+
+/* ── hidden attribute override ─────────────────────────────────
+ * Prevent display:flex from overriding [hidden] on arena sub-view containers.
+ */
+#arena-list-view[hidden],
+#arena-detail-view[hidden],
+#arena-new-view[hidden],
+#arena-live-section[hidden],
+#arena-result-banner[hidden],
+.arena-expandable-body[hidden],
+.arena-diff-body[hidden],
+#arena-form-error[hidden] {
+  display: none !important;
+}
+
+/* ── Section root ───────────────────────────────────────────────*/
+#section-arena {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+  background: var(--bg, #0a0d10);
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace;
+  color: var(--ink, #e8edf1);
+}
+
+/* ── Sub-view containers ────────────────────────────────────────*/
+#arena-list-view,
+#arena-detail-view,
+#arena-new-view {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  overflow: hidden;
+}
+
+/* ── Action bar (List sub-view) ─────────────────────────────────*/
+.arena-action-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--line, #242c34);
+  flex-shrink: 0;
+  height: 60px;
+  box-sizing: border-box;
+}
+
+/* ── Series list ────────────────────────────────────────────────*/
+.arena-list {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.20) transparent;
+}
+
+.arena-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.arena-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.20);
+}
+
+/* ── Series row ─────────────────────────────────────────────────*/
+.arena-series-row {
+  display: flex;
+  align-items: center;
+  min-height: 70px;
+  padding: 0 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+  background: var(--panel, #11161b);
+  gap: 8px;
+}
+
+.arena-series-row:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.arena-series-row.skeleton {
+  opacity: 0.45;
+  pointer-events: none;
+}
+
+.arena-row-content {
+  flex: 1;
+  min-width: 0;
+  cursor: pointer;
+  padding: 8px 0;
+}
+
+.arena-row-content:focus {
+  outline: 2px solid #e8edf1;
+  outline-offset: 2px;
+}
+
+.arena-row-line-1 {
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 20px;
+  color: var(--ink, #e8edf1);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arena-row-line-2 {
+  font-size: 11px;
+  font-weight: 400;
+  line-height: 14px;
+  color: var(--ink-dim, #9aa4ad);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.arena-row-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 4px;
+  flex-shrink: 0;
+}
+
+.arena-row-actions {
+  display: flex;
+  gap: 4px;
+}
+
+/* ── Status badge ───────────────────────────────────────────────*/
+.arena-status-badge {
+  font-size: 11px;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  text-transform: uppercase;
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-status-badge.running {
+  color: var(--ink, #e8edf1);
+}
+
+.arena-status-badge.complete,
+.arena-status-badge.tied {
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-status-badge.errored {
+  color: var(--amber, #f2c14b);
+}
+
+.arena-running-dot {
+  color: var(--amber, #f2c14b);
+}
+
+/* ── Empty / error / loading states ────────────────────────────*/
+.arena-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  padding: 64px 32px;
+  text-align: center;
+}
+
+.arena-empty-heading {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-list-error,
+.arena-not-found {
+  padding: 32px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: flex-start;
+}
+
+.arena-error-message {
+  font-size: 11px;
+  color: var(--ink-dim, #9aa4ad);
+}
+
+/* ── Breadcrumb ─────────────────────────────────────────────────*/
+.arena-breadcrumb {
+  display: flex;
+  align-items: center;
+  padding: 0 16px;
+  height: 32px;
+  border-bottom: 1px solid var(--line, #242c34);
+  flex-shrink: 0;
+}
+
+.breadcrumb-link {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--ink-dim, #9aa4ad);
+  padding: 0;
+}
+
+.breadcrumb-link:hover {
+  color: var(--ink, #e8edf1);
+}
+
+.breadcrumb-link:focus {
+  outline: 2px solid #e8edf1;
+  outline-offset: 2px;
+}
+
+/* ── Series header ──────────────────────────────────────────────*/
+.arena-series-header {
+  padding: 10px 16px;
+  border-bottom: 1px solid var(--line, #242c34);
+  flex-shrink: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  background: var(--bg, #0a0d10);
+}
+
+.arena-series-header-models {
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-model-label {
+  color: var(--ink, #e8edf1);
+}
+
+.arena-lang-tag {
+  font-size: 10px;
+  opacity: 0.75;
+  letter-spacing: 0.03em;
+}
+
+.arena-series-header-inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+
+.arena-header-format {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-header-sep {
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-header-score {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink, #e8edf1);
+}
+
+.arena-header-dash {
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-header-status {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-status-running {
+  color: var(--ink, #e8edf1);
+}
+
+.arena-status-errored {
+  color: var(--amber, #f2c14b);
+}
+
+.arena-error-banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  text-align: left;
+}
+
+.arena-error-banner-icon {
+  font-size: 1.1rem;
+  color: var(--amber, #f2c14b);
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.arena-error-banner strong {
+  display: block;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-transform: uppercase;
+  color: var(--amber, #f2c14b);
+  margin-bottom: 4px;
+}
+
+.arena-error-banner-detail {
+  font-size: 11px;
+  color: var(--ink-dimer, #5b6872);
+}
+
+/* ── Team color helpers ─────────────────────────────────────────*/
+.team-a-text {
+  color: var(--a, #f2a44b);
+}
+
+.team-b-text {
+  color: var(--b, #b08cff);
+}
+
+/* ── Match Progression Bar ──────────────────────────────────────*/
+.arena-progression-bar {
+  padding: 8px 16px 12px;
+  border-bottom: 1px solid var(--line, #242c34);
+  flex-shrink: 0;
+  background: var(--bg, #0a0d10);
+}
+
+.arena-progression-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--ink-dimer, #5b6872);
+  margin-bottom: 6px;
+  height: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.arena-progression-segments {
+  display: flex;
+  gap: 4px;
+}
+
+.arena-progress-seg {
+  flex: 1;
+  min-width: 80px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+  font-weight: 500;
+  font-family: 'JetBrains Mono', monospace;
+  border: 1px solid var(--line, #242c34);
+  padding: 4px;
+  box-sizing: border-box;
+  background: var(--panel, #11161b);
+  color: var(--ink-dimer, #5b6872);
+}
+
+.arena-progress-seg[data-state="team_a"] {
+  background: rgba(242,164,75,0.12);
+  color: var(--a, #f2a44b);
+}
+
+.arena-progress-seg[data-state="team_b"] {
+  background: rgba(176,140,255,0.12);
+  color: var(--b, #b08cff);
+}
+
+.arena-progress-seg[data-state="tie"] {
+  background: var(--panel, #11161b);
+  color: var(--ink, #e8edf1);
+}
+
+.arena-progress-seg[data-state="running"] {
+  background: var(--panel, #11161b);
+  color: var(--ink, #e8edf1);
+}
+
+.arena-progress-seg[data-state="pending"] {
+  background: var(--panel, #11161b);
+  color: var(--ink-dimer, #5b6872);
+}
+
+.arena-progress-seg[data-state="error"] {
+  background: rgba(242,193,75,0.10);
+  color: var(--amber, #f2c14b);
+}
+
+/* ── Live section wrapper ───────────────────────────────────────*/
+#arena-live-section {
+  border-bottom: 1px solid var(--line, #242c34);
+  flex-shrink: 0;
+}
+
+.arena-live-status {
+  font-size: 11px;
+  color: var(--ink-dim, #9aa4ad);
+  padding: 10px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.arena-live-line {
+  font-size: 12px;
+  color: var(--ink, #e8edf1);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.arena-live-sub {
+  font-size: 11px;
+  color: var(--ink-dim, #9aa4ad);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.arena-live-match-link {
+  color: var(--ink-dim, #9aa4ad);
+  text-decoration: underline;
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.arena-live-match-link:hover {
+  color: var(--ink, #e8edf1);
+}
+
+.arena-elapsed {
+  color: var(--a, #f2a44b);
+  font-weight: 500;
+}
+
+/* ── Series Result Banner ───────────────────────────────────────*/
+.arena-result-banner {
+  border: 2px solid var(--line, #242c34);
+  padding: 24px 32px;
+  margin: 12px 16px;
+  text-align: center;
+  background: var(--bg, #0a0d10);
+  flex-shrink: 0;
+}
+
+.arena-banner-headline {
+  font-size: 1.25rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  color: var(--ink, #e8edf1);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.arena-banner-subline {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-dim, #9aa4ad);
+  margin-top: 8px;
+}
+
+.arena-banner-sequence {
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-dim, #9aa4ad);
+  margin-top: 8px;
+}
+
+/* ── Completed matches list ─────────────────────────────────────*/
+.arena-matches-list {
+  flex: 1;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.20) transparent;
+}
+
+.arena-matches-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.arena-matches-list::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.20);
+}
+
+/* ── Expandable match row ───────────────────────────────────────*/
+.arena-expandable-row {
+  border-bottom: 1px solid rgba(255,255,255,0.15);
+}
+
+.arena-expandable-row-header {
+  display: flex;
+  align-items: center;
+  background: var(--panel, #11161b);
+  padding-right: 12px;
+}
+
+.arena-expandable-row-header:hover {
+  background: rgba(255,255,255,0.06);
+}
+
+.arena-expandable-header {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 16px;
+  height: 48px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink, #e8edf1);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.arena-view-match-btn {
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+.arena-expandable-header:focus {
+  outline: 2px solid #e8edf1;
+  outline-offset: -2px;
+}
+
+.arena-disclosure {
+  font-size: 11px;
+  color: var(--ink-dim, #9aa4ad);
+  flex-shrink: 0;
+}
+
+.arena-expandable-header[aria-expanded="true"] .arena-disclosure {
+  color: var(--ink, #e8edf1);
+}
+
+.arena-match-label {
+  font-size: 12px;
+  font-weight: 500;
+  flex-shrink: 0;
+}
+
+.arena-match-result {
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.arena-match-date {
+  font-size: 11px;
+  font-weight: 400;
+}
+
+.arena-match-actions {
+  margin-left: auto;
+}
+
+.arena-expandable-body {
+  background: var(--bg, #0a0d10);
+  border-top: 1px solid rgba(255,255,255,0.06);
+}
+
+/* ── Strategy diff sub-row ──────────────────────────────────────*/
+.arena-diff-subrow {
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.arena-diff-subrow:last-child {
+  border-bottom: none;
+}
+
+.arena-diff-trigger {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0 24px;
+  height: 36px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-dim, #9aa4ad);
+  text-align: left;
+  box-sizing: border-box;
+}
+
+.arena-diff-trigger:hover {
+  color: var(--ink, #e8edf1);
+}
+
+.arena-diff-trigger:focus {
+  outline: 2px solid #e8edf1;
+  outline-offset: -2px;
+}
+
+.arena-disclosure-inner {
+  font-size: 11px;
+  color: var(--ink-dimer, #5b6872);
+  flex-shrink: 0;
+}
+
+.arena-diff-trigger[aria-expanded="true"] .arena-disclosure-inner {
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-diff-label {
+  font-size: 11px;
+  font-weight: 500;
+  text-transform: uppercase;
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-diff-body {
+  padding: 0 24px 8px;
+}
+
+/* ── Diff Viewer ────────────────────────────────────────────────*/
+.arena-diff-viewer {
+  background: #0f1117;
+  border: 1px solid rgba(255,255,255,0.10);
+  padding: 12px;
+  font-family: 'JetBrains Mono', 'Fira Mono', 'Consolas', monospace;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 1.5;
+  overflow-x: auto;
+  overflow-y: auto;
+  max-height: 320px;
+  margin: 0;
+  white-space: pre;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,255,255,0.20) transparent;
+}
+
+.arena-diff-viewer::-webkit-scrollbar {
+  width: 4px;
+  height: 4px;
+}
+
+.arena-diff-viewer::-webkit-scrollbar-thumb {
+  background: rgba(255,255,255,0.20);
+}
+
+.arena-diff-add {
+  display: block;
+  background: rgba(100,180,100,0.12);
+  color: #7ec98c;
+}
+
+.arena-diff-remove {
+  display: block;
+  background: rgba(220,100,80,0.12);
+  color: #e08070;
+}
+
+.arena-diff-context {
+  display: block;
+  color: var(--ink-dim, #9aa4ad);
+}
+
+.arena-diff-hunk {
+  display: block;
+  background: rgba(255,255,255,0.04);
+  color: var(--ink-dimer, #5b6872);
+}
+
+.arena-diff-loading {
+  padding: 8px 12px;
+  font-size: 11px;
+}
+
+.arena-diff-err {
+  padding: 8px 12px;
+  font-size: 11px;
+  color: var(--amber, #f2c14b);
+}
+
+.arena-diff-retry-link {
+  background: none;
+  border: none;
+  color: var(--amber, #f2c14b);
+  cursor: pointer;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  text-decoration: underline;
+  padding: 0;
+}
+
+.arena-diff-retry-link:hover {
+  color: var(--ink, #e8edf1);
+}
+
+/* ── Config / provider footer ───────────────────────────────────*/
+.arena-config-footer {
+  padding: 8px 16px;
+  border-top: 1px solid var(--line, #242c34);
+  background: var(--panel, #11161b);
+  flex-shrink: 0;
+  min-height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+}
+
+.arena-footer-line {
+  font-size: 11px;
+  font-weight: 400;
+  text-transform: uppercase;
+  color: var(--ink-dim, #9aa4ad);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+.arena-footer-sep {
+  color: var(--ink-dimer, #5b6872);
+}
+
+/* ── New sub-view form ──────────────────────────────────────────*/
+#arena-new-view {
+  overflow-y: auto;
+}
+
+.arena-new-form-body {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 24px 16px;
+  box-sizing: border-box;
+}
+
+/* form-section / section-label / config-picker-group match the
+   matches-start.js visual pattern, scoped so they don't bleed. */
+#arena-new-view .form-section {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 24px;
+}
+
+#arena-new-view .form-section:last-child {
+  margin-bottom: 0;
+}
+
+#arena-new-view .section-label {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim, #9aa4ad);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+#arena-new-view .config-picker-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+#arena-new-view .config-picker-group .sel {
+  flex: 1;
+}
+
+/* ── aria-invalid state for the config select ───────────────────*/
+#arena-config-select[aria-invalid="true"] {
+  border-color: var(--amber, #f2c14b);
+}
+
+/* ── Series length radio group ──────────────────────────────────*/
+.arena-radio-group {
+  display: flex;
+  border: none;
+  padding: 0;
+  margin: 0;
+  gap: 0;
+}
+
+.arena-radio-group label {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
+  height: 36px;
+  border: 1px solid rgba(255,255,255,0.15);
+  background: var(--panel, #11161b);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-dim, #9aa4ad);
+  cursor: pointer;
+  box-sizing: border-box;
+  gap: 8px;
+}
+
+.arena-radio-group label:first-child {
+  border-right: none;
+}
+
+.arena-radio-group input[type="radio"] {
+  accent-color: var(--ink, #e8edf1);
+}
+
+.arena-radio-group label:has(input:checked) {
+  border: 2px solid var(--ink, #e8edf1);
+  color: var(--ink, #e8edf1);
+}
+
+/* ── Provider + model row ───────────────────────────────────────*/
+.arena-model-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.arena-provider-sel {
+  flex-shrink: 0;
+  width: 140px;
+}
+
+.arena-model-row .sel:not(.arena-provider-sel):not(.arena-language-sel) {
+  flex: 1;
+}
+
+.arena-language-sel {
+  flex-shrink: 0;
+  width: 120px;
+}
+
+/* ── Help text ──────────────────────────────────────────────────*/
+#arena-new-view .field-help {
+  font-size: 10px;
+  color: var(--ink-dimer, #5b6872);
+  font-family: 'JetBrains Mono', monospace;
+}
+
+/* ── Estimated time ─────────────────────────────────────────────*/
+.arena-est-value {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--ink-dimer, #5b6872);
+}
+
+/* ── Form error ─────────────────────────────────────────────────*/
+.form-error {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+  color: var(--amber, #f2c14b);
+  padding: 4px 0;
+}
+
+/* ── Action row ─────────────────────────────────────────────────*/
+#arena-new-view .action-row {
+  display: flex;
+  justify-content: flex-end;
+  gap: 12px;
+  margin-top: 8px;
+  padding-top: 16px;
+  border-top: 1px solid var(--line, #242c34);
+}
+
+/* ── Delete button color in list rows (matches .btn-danger from design-system) ─*/
+.arena-series-row .btn-danger,
+.arena-row-actions .btn-danger {
+  color: var(--amber, #f2c14b);
+  border-color: rgba(242,193,75,0.35);
+}
+
+.arena-series-row .btn-danger:hover,
+.arena-row-actions .btn-danger:hover {
+  background: rgba(242,193,75,0.10);
+  border-color: var(--amber, #f2c14b);
+}
+
+/* ── Dim text helper ────────────────────────────────────────────*/
+.dimer {
+  color: var(--ink-dimer, #5b6872);
+}
+
+/* ── Screen reader only ─────────────────────────────────────────*/
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ── Stage Pipeline ─────────────────────────────────────────────*/
+#arena-live-section {
+  overflow-x: auto;
+}
+
+.arena-stage-pipeline {
+  display: flex;
+  align-items: stretch;
+  min-width: fit-content;
+  gap: 0;
+}
+
+.arena-stage-arrow {
+  display: flex;
+  align-items: center;
+  padding: 0 3px;
+  color: var(--ink-dimer, #5b6872);
+  font-size: 0.7rem;
+  flex-shrink: 0;
+  align-self: center;
+}
+
+.arena-stage-step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 5px 10px;
+  min-width: 60px;
+  border: 1px solid var(--line, #242c34);
+  background: var(--panel, #11161b);
+  font-family: 'JetBrains Mono', monospace;
+  gap: 2px;
+}
+
+.arena-stage-label {
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: var(--ink-dimer, #5b6872);
+}
+
+.arena-stage-time {
+  font-size: 0.7rem;
+  color: var(--ink-dimer, #5b6872);
+  white-space: nowrap;
+}
+
+/* Done state */
+.arena-stage-step.done .arena-stage-label,
+.arena-stage-step.done .arena-stage-time {
+  color: var(--ink-dim, #9aa4ad);
+}
+
+/* Active state */
+.arena-stage-step.active {
+  border-color: var(--ink-dim, #9aa4ad);
+  background: var(--panel, #11161b);
+}
+.arena-stage-step.active .arena-stage-label {
+  color: var(--ink, #e8edf1);
+}
+.arena-stage-step.active .arena-stage-time {
+  color: var(--ink, #e8edf1);
+}
+
+/* Pending state */
+.arena-stage-step.pending {
+  opacity: 0.4;
+}
+
+/* Current stage callout */
+.arena-current-callout {
+  margin-top: 6px;
+  font-size: 11px;
+  font-family: 'JetBrains Mono', monospace;
+  color: var(--ink-dim, #9aa4ad);
+  line-height: 1.6;
+}

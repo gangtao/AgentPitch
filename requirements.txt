@@ -1,0 +1,29 @@
+# Agent Pitch — pip dependency manifest
+# Mirrors [project.dependencies] and [project.optional-dependencies].dev in pyproject.toml.
+# Authoritative source is pyproject.toml; keep this file in sync if you edit either.
+#
+# Install:   pip install -r requirements.txt
+# Test only: pip install -r requirements.txt   # dev tools are included below
+
+# --- Runtime ---
+openai
+anthropic
+google-genai
+RestrictedPython
+pyyaml
+pydantic>=2.0,<3.0
+fastapi
+uvicorn
+jinja2
+
+# --- Dev / test ---
+pytest>=8.0
+pytest-asyncio>=0.23
+pytest-cov>=5.0
+
+# --- Optional: JavaScript sandbox support ---
+# quickjs>=1.19
+
+# --- Optional: WebAssembly sandbox support ---
+# wasmtime>=44
+# msgpack>=1.0

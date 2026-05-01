@@ -1,0 +1,73 @@
+data/
+logs/
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+*.egg
+*.egg-info/
+dist/
+build/
+.eggs/
+.installed.cfg
+pip-wheel-metadata/
+MANIFEST
+*.pyo
+
+# Virtual environments
+.venv/
+venv/
+env/
+ENV/
+
+# Testing & coverage
+.pytest_cache/
+.coverage
+coverage.xml
+htmlcov/
+.tox/
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pytype/
+
+# Jupyter
+.ipynb_checkpoints/
+*.ipynb
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Docker
+.dockerignore
+
+# Rust / Wasmtime build artifacts
+target/
+*.wasm
+Cargo.lock.bak
+
+# Generated strategy files & match data (runtime output)
+data/strategies/
+data/matches/
+data/seasons/
+data/cups/
+data/leagues/
+*.log
+
+# Secrets
+.env
+.env.*
+secrets.yaml
+secrets.json
+
+# Node (if any frontend tooling is added)
+node_modules/

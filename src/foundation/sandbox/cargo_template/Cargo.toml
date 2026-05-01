@@ -1,0 +1,21 @@
+# Cargo template for WasmtimeSandbox per-strategy builds (ADR-0026).
+# WasmtimeSandbox.compile() copies this file into a per-strategy build dir,
+# drops the user's Rust source as src/lib.rs, then runs:
+#   cargo build --target wasm32-wasip1 --release
+
+[package]
+name = "agent_pitch_strategy"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+rmp-serde = "1"
+serde = { version = "1", features = ["derive"] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+strip = true

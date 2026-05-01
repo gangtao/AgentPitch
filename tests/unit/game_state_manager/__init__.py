@@ -1,0 +1,1 @@
+# Game State Manager test package marker

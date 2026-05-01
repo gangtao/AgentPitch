@@ -1,0 +1,404 @@
+/* Agent Pitch — App Shell Styles
+   Extends the broadcast theme from app.css with shell chrome components.
+   Designed for the app shell structure: top strip + left nav + section body + status bar.
+   ────────────────────────────────────────────────────────── */
+
+/* ── App Shell Layout ───────────────────────────────────── */
+.app-shell {
+  display: grid;
+  grid-template-rows: 80px minmax(0, 1fr) 22px;
+  height: 100vh;
+  width: 100vw;
+  background: var(--bg);
+  font-family: var(--font-mono);
+}
+
+/* ── Top Strip ──────────────────────────────────────────── */
+.top-strip {
+  display: grid;
+  /* Brand block matches the pinned-nav width (200px) so the left column
+     aligns with the body-grid's nav column. The 64px collapsed nav still
+     fits underneath; the brand stays 200px regardless. */
+  grid-template-columns: 200px minmax(0, 1fr) 200px;
+  align-items: stretch;
+  background: #000;
+  border-bottom: 1px solid var(--line);
+  min-width: 0;
+}
+
+.brand-block {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 18px;
+  border-right: 1px solid var(--line);
+  background: linear-gradient(180deg, #0d1216, #05080a);
+}
+
+.brand-mark {
+  font-family: var(--font-disp);
+  font-weight: 900;
+  font-style: italic;
+  font-size: 26px;
+  letter-spacing: -0.02em;
+  color: var(--ink);
+  position: relative;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.brand-mark .dot {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--a);
+  box-shadow: 0 0 10px var(--a);
+  transform: translateY(5px);
+}
+
+.brand-meta {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-dim);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  line-height: 1.15;
+  min-width: 0;
+}
+
+.brand-meta b {
+  color: var(--ink);
+  font-weight: 600;
+}
+
+.brand-meta div {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  padding: 0 18px;
+  background: linear-gradient(180deg, #0d1216, #05080a);
+}
+
+.section-title {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: 19px;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+  text-transform: uppercase;
+}
+
+.right-cap {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 18px;
+  border-left: 1px solid var(--line);
+  background: linear-gradient(180deg, #0d1216, #05080a);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* ── Body Grid: Nav + Section Content ──────────────────── */
+.body-grid {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  min-height: 0;
+  background: var(--bg);
+  overflow: hidden;
+}
+
+.body-grid.nav-pinned {
+  grid-template-columns: 200px minmax(0, 1fr);
+}
+
+/* ── Left Navigation ────────────────────────────────────── */
+.left-nav {
+  background: var(--panel);
+  border-right: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  padding: 0;
+  position: relative;
+  transition: width 150ms ease;
+}
+
+.pin-toggle {
+  width: 64px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  font-size: 16px;
+  font-family: var(--font-mono);
+  color: var(--ink-dim);
+  padding: 0;
+  margin: 0;
+}
+
+/* Pin-toggle is a chrome control (collapse/expand the rail), not a nav
+   destination — leave it in dim ink without hover/active tinting so it
+   doesn't compete visually with the nav-item rows. */
+.pin-toggle:hover { color: var(--ink); }
+.pin-toggle:focus-visible {
+  outline: none;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--ink-dim);
+}
+
+.nav-pinned .pin-toggle {
+  width: 200px;
+}
+
+/* Nav rows — Set B Geometric icon set per design mockup
+   "In context · left rail". Collapsed (64px) shows the 20×20 icon centered;
+   pinned (200px) lays out [icon | label] left-aligned. Idle = ink-dim, hover
+   = full ink, active = amber + amber tint bg + amber left border. */
+.nav-item {
+  width: 64px;
+  height: 48px;
+  background: transparent;
+  border: none;
+  border-left: 2px solid transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  cursor: pointer;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.15em;
+  color: var(--ink-dim);
+  text-transform: uppercase;
+  padding: 0;
+  margin: 0;
+  position: relative;
+  transition: color .12s, background .12s, border-color .12s;
+}
+
+.nav-pinned .nav-item {
+  width: 200px;
+  justify-content: flex-start;
+  padding-left: 18px;
+}
+
+.nav-item:hover {
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--ink);
+}
+
+.nav-item:focus-visible {
+  outline: none;
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--a);
+  z-index: 1;
+}
+
+.nav-item.active {
+  color: var(--a);
+  background: rgba(242, 164, 75, 0.08);   /* tint matches mockup spec */
+  border-left-color: var(--a);
+  font-weight: 600;
+}
+
+/* Icon: 20×20 box; SVG inside inherits `color` via `stroke="currentColor"`
+   and `fill="currentColor"` on solid bits, so it picks up the active/hover
+   theming for free. flex-shrink so it never collapses on narrow nav. */
+.nav-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+}
+.nav-icon svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+}
+
+/* Label: hidden when collapsed, revealed when pinned. */
+.nav-label {
+  display: none;
+}
+.nav-pinned .nav-label {
+  display: inline;
+}
+
+/* ── Tooltip ────────────────────────────────────────────── */
+.tooltip {
+  position: absolute;
+  background: var(--panel);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: var(--ink);
+  font-family: var(--font-mono);
+  font-size: 12px;
+  font-weight: 500;
+  padding: 6px 10px;
+  z-index: 100;
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+/* ── Section Body ───────────────────────────────────────── */
+.section-body {
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+  overflow: hidden;
+}
+
+/* Each #section-* wrapper fills the section-body and lets ITS children
+   handle scroll. Without this, the wrappers shrink to content and any
+   `height: 100%` / `overflow: auto` rules on grandchildren collapse. */
+#section-matches,
+#section-strategies,
+#section-arena,
+#section-config,
+#section-cup,
+#section-league {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+/* `display: flex` above overrides the user-agent default `[hidden] { display: none }`
+   (same CSS gotcha that bit the connection-lost banner). Re-assert hidden so
+   inactive sections actually disappear instead of all rendering at once. */
+#section-matches[hidden],
+#section-strategies[hidden],
+#section-arena[hidden],
+#section-config[hidden],
+#section-cup[hidden],
+#section-league[hidden] {
+  display: none;
+}
+
+.section-placeholder {
+  padding: 40px;
+  color: var(--ink-dim);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  text-align: center;
+}
+
+/* ── Status Bar ─────────────────────────────────────────── */
+.status-bar {
+  background: #000;
+  border-top: 1px solid var(--line);
+  padding: 0 16px;
+  display: flex;
+  align-items: center;
+  gap: 22px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--ink-dimer);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--ok);
+  margin-right: 6px;
+}
+
+.status-bar .spacer {
+  flex: 1;
+}
+
+/* ── Connection Lost Banner ─────────────────────────────── */
+.connection-lost-banner {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 22px;
+  background: var(--panel);
+  border-top: 1px solid var(--line);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--amber);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  z-index: 100;
+}
+
+/* `display: flex` above overrides browser default `[hidden] { display: none }`
+   (CSS rule wins over the lower-specificity user-agent rule). Re-assert the
+   hidden behavior so toggling the `hidden` attribute actually hides it. */
+.connection-lost-banner[hidden] {
+  display: none;
+}
+
+/* ── Legacy Live Viewer Integration ────────────────────── */
+#legacy-chyron,
+#live-viewer-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 50;
+}
+
+/* When live viewer is active, hide shell chrome and show legacy structure */
+.live-viewer-active .top-strip,
+.live-viewer-active .body-grid,
+.live-viewer-active .status-bar {
+  display: none;
+}
+
+.live-viewer-active #legacy-chyron,
+.live-viewer-active #live-viewer-container {
+  display: block;
+}
+
+/* ── Responsive Adjustments (Desktop Only) ─────────────── */
+@media (max-width: 1280px) {
+  .brand-meta {
+    font-size: 9px;
+  }
+
+  .section-title {
+    font-size: 16px;
+  }
+
+  .right-cap {
+    font-size: 9px;
+  }
+}
+
+/* ── Reduced Motion ─────────────────────────────────────── */
+/* The 150ms nav-width transition is the shell's only animation.
+   Honor user preference and disable it when reduce-motion is set. */
+@media (prefers-reduced-motion: reduce) {
+  .left-nav {
+    transition: none;
+  }
+}
