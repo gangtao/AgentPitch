@@ -19,7 +19,7 @@ jobs:
           python-version: "3.11"
 
       - name: Install dependencies
-        run: pip install -e '.[all]'
+        run: pip install -e '.[all,dev]'
 
       - name: Run tests
         run: pytest
