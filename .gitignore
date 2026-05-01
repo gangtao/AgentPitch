@@ -1,5 +1,8 @@
 data/
 logs/
+docs/superpowers/
+.claude/
+
 
 # Python
 __pycache__/
