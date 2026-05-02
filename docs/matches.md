@@ -100,7 +100,7 @@ The filter buttons at the top of the feed (**ALL**, **A**, **B**) let you focus 
 
 ![Match stats](imgs/match/match_stats.png)
 
-Click the **STATS** button in the header to switch from the live view to the statistics panel. Stats update in real time during a live match and remain available after the match ends.
+Click the **STATS** button in the header to switch from the live view to the statistics panel.
 
 ### Team summary
 
