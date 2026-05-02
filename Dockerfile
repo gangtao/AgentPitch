@@ -24,10 +24,9 @@ COPY src/ /app/src/
 
 # Accept version from CI (used by setuptools-scm since .git is not in the build context)
 ARG VERSION=0.0.0.dev0
-ENV SETUPTOOLS_SCM_PRETEND_VERSION=${VERSION}
 
 # Install the package with all optional dependencies (JS + Wasm sandboxes)
-RUN pip install --no-cache-dir '.[all]'
+RUN SETUPTOOLS_SCM_PRETEND_VERSION=${VERSION} pip install --no-cache-dir '.[all]'
 
 # Create default data directory
 RUN mkdir -p /app/data
