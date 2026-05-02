@@ -16,6 +16,9 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Install Rust WASM target
+        run: rustup target add wasm32-wasip1
+
       - name: Install dependencies
         run: pip install -e '.[all,dev]'
 
