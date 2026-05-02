@@ -21,6 +21,8 @@ const statusBar = document.getElementById('status-bar');
 const connectionLostBanner = document.getElementById('connection-lost-banner');
 const tooltip = document.getElementById('nav-tooltip');
 const sbApi = document.getElementById('sb-api');
+const sbVersion = document.getElementById('sb-version');
+let versionUpdated = false;
 
 // ── Router ──────────────────────────────────────────────────────
 function parseRoute() {
@@ -233,6 +235,17 @@ async function checkHealth() {
     const response = await fetch(`${getApiBase()}/api/health`);
     if (response.ok) {
       connectionRestored();
+      if (!versionUpdated) {
+        try {
+          const data = await response.json();
+          if (data.version) {
+            sbVersion.textContent = `PYTHON 3.11 · agent-pitch v${data.version}`;
+            versionUpdated = true;
+          }
+        } catch (_) {
+          // JSON parse failed — leave the default text
+        }
+      }
     } else {
       connectionLost();
     }
