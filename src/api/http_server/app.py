@@ -802,7 +802,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         try:
             version = importlib.metadata.version("agent-pitch")
         except importlib.metadata.PackageNotFoundError:
-            version = "0.1.0"  # fallback for development
+            version = "0.0.0.dev0"  # fallback when package is not installed
 
         return JSONResponse({
             "status": "ok",      # backward compat with test_ac_http_01
