@@ -11,6 +11,7 @@ remain importable for direct use.
 
 from __future__ import annotations
 
+import importlib.metadata
 import sys
 
 
@@ -23,6 +24,11 @@ def main() -> None:
         sys.exit(2)
 
     cmd = sys.argv[1]
+
+    if cmd in ("--version", "-V"):
+        version = importlib.metadata.version("agent-pitch")
+        print(f"agent-pitch {version}")
+        sys.exit(0)
 
     if cmd == "run":
         # orchestration.cli.main expects the "run" subcommand to remain in argv
@@ -58,6 +64,10 @@ def main() -> None:
         print("  generate-strategy   Generate one strategy via LLM (used by the UI subprocess)")
         print("  cup-run             Orchestrate a single-elimination cup tournament")
         print("  league-run          Orchestrate a round-robin league tournament")
+        print()
+        print("Options:")
+        print("  --version, -V       Print version and exit")
+        print("  --help, -h          Print this help and exit")
         sys.exit(0)
     else:
         print(f"agent-pitch: unknown command {cmd!r}", file=sys.stderr)
