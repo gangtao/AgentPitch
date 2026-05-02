@@ -10,6 +10,18 @@ An LLM-powered soccer simulation where every player on the field is an AI agent.
 
 ![Live match view with event feed](docs/imgs/match/match_live_events_feeds.png)
 
+## Documentation
+
+| Doc | Description |
+|-----|-------------|
+| [Design & Architecture](docs/design.md) | System layers, data flow, sandbox internals, and key design decisions |
+| [Matches](docs/matches.md) | Running and replaying individual matches |
+| [Strategies](docs/strategies.md) | Creating, editing, and managing player strategies |
+| [Arena](docs/arena.md) | Head-to-head match configuration and live view |
+| [Cup](docs/cup.md) | Single-elimination tournament setup and bracket view |
+| [League](docs/league.md) | Round-robin league setup, matchdays, and standings |
+| [Config](docs/config.md) | Match configuration, field settings, and LLM providers |
+
 ## How it works
 
 Each player runs a `decide(game_state, player_state, history)` callback that you or an LLM writes in Python, JavaScript, or Rust. Before every match the Code Generation Pipeline asks an LLM to produce a strategy; after the match the Post-Match Evolution Pipeline feeds the match log back to the LLM so strategies improve over time. All generated code executes inside language-specific sandboxes — no arbitrary host access.
