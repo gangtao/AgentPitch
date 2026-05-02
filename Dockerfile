@@ -22,6 +22,10 @@ COPY pyproject.toml /app/
 # Copy source code
 COPY src/ /app/src/
 
+# Accept version from CI (used by setuptools-scm since .git is not in the build context)
+ARG VERSION=0.0.0.dev0
+ENV SETUPTOOLS_SCM_PRETEND_VERSION=${VERSION}
+
 # Install the package with all optional dependencies (JS + Wasm sandboxes)
 RUN pip install --no-cache-dir '.[all]'
 
