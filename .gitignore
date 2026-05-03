@@ -1,4 +1,3 @@
-data/
 logs/
 .claude/
 memory/
@@ -63,6 +62,7 @@ data/matches/
 data/seasons/
 data/cups/
 data/leagues/
+data/arena/
 *.log
 
 # Secrets
@@ -70,6 +70,7 @@ data/leagues/
 .env.*
 secrets.yaml
 secrets.json
+data/.secrets.json
 
 # Node (if any frontend tooling is added)
 node_modules/

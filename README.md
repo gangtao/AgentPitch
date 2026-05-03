@@ -56,11 +56,16 @@ pip install -e .
 ## Quickstart
 
 ```bash
-# Start the browser UI on http://localhost:8765
+# 1. Install
+make install
+
+# 2. Start the browser UI on http://localhost:8765
 make serve
 ```
 
-Configure your LLM provider in `data/llm-providers.yaml` and set the corresponding API key in the config UI.
+Open `http://localhost:8765` in your browser. Go to **Config → Providers**, select your LLM provider, and enter your API key. The key is stored locally in `data/.secrets.json` and never leaves your machine.
+
+Supported providers: OpenAI, Anthropic, Gemini, DeepSeek, OpenRouter, or a local Ollama instance (no key required).
 
 ## CLI commands
 
@@ -143,6 +148,10 @@ make docker-image && make docker-run
 
 The container maps `./data` as a volume so strategies and configuration persist between runs.
 
+## Contributing
+
+See [CONTRIBUTING.md](CONTRIBUTING.md) for setup, testing, and pull request guidelines.
+
 ## License
 
-See [LICENSE](LICENSE).
+Apache 2.0 — see [LICENSE](LICENSE).
