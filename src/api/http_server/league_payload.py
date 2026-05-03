@@ -29,7 +29,7 @@ class StartLeaguePayload(BaseModel):
     """1 = single round-robin, 2 = double round-robin."""
 
     strategies: list[str]
-    """Strategy names (without extension). Must be even count, 2-16."""
+    """Strategy names (without extension). Must be even count, 2-32."""
 
     @field_validator("name")
     @classmethod
@@ -58,8 +58,8 @@ class StartLeaguePayload(BaseModel):
     @model_validator(mode="after")
     def _check_strategy_constraints(self) -> "StartLeaguePayload":
         n = len(self.strategies)
-        if n < 2 or n > 16:
-            raise ValueError("strategies must have 2-16 entries")
+        if n < 2 or n > 32:
+            raise ValueError("strategies must have 2-32 entries")
         if n % 2 != 0:
             raise ValueError("League requires an even number of teams")
         return self

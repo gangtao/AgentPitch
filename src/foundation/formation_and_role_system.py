@@ -116,11 +116,12 @@ def compute_anchors(config: MatchConfig) -> dict[str, tuple[float, float]]:
             N = len(players_in_role)
 
             # Log advisory warnings for unusual formations
-            if role != "GK" and (N == 0 or N >= 4):
-                if N == 0:
-                    logger.warning(f"WARNING: {team_id} has 0 {role} — {role.lower()} zone unoccupied. Match will proceed.")
-                else:  # N >= 4
-                    logger.warning(f"WARNING: {team_id} has {N} {role} — formation imbalanced. Match will proceed.")
+            if role == "GK" and N != 1:
+                logger.warning(f"WARNING: {team_id} has {N} GK — exactly 1 required. Match will proceed.")
+            elif role != "GK" and N == 0:
+                logger.warning(f"WARNING: {team_id} has 0 {role} — {role.lower()} zone unoccupied. Match will proceed.")
+            elif role != "GK" and N >= 4:
+                logger.warning(f"WARNING: {team_id} has {N} {role} — formation may be unbalanced. Match will proceed.")
 
             # Skip empty role groups
             if N == 0:

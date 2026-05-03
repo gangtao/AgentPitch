@@ -468,7 +468,7 @@ async function submitLeagueForm() {
   if (!configName) { showLeagueFormError('Please select a config.'); return; }
   if (selectedTeams.length < 2) { showLeagueFormError('Select at least 2 strategies.'); return; }
   if (selectedTeams.length % 2 !== 0) { showLeagueFormError('Number of strategies must be even.'); return; }
-  if (selectedTeams.length > 16) { showLeagueFormError('Maximum 16 strategies.'); return; }
+  if (selectedTeams.length > 32) { showLeagueFormError('Maximum 32 strategies.'); return; }
 
   const submitBtn = document.getElementById('league-submit-btn');
   if (submitBtn) { submitBtn.disabled = true; submitBtn.textContent = 'Creating…'; }
