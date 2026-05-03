@@ -178,7 +178,7 @@ def test_delete_strategy_invalid_name(app_client, temp_dir):
 
 
 def test_strategy_line_count_calculation(app_client, temp_dir):
-    """Test that line count excludes empty lines."""
+    """Test that line count includes all lines (including blank ones)."""
     strategies_dir = temp_dir / "strategies"
     strategies_dir.mkdir(exist_ok=True)
 
@@ -201,9 +201,8 @@ def test_strategy_line_count_calculation(app_client, temp_dir):
     assert response.status_code == 200
     data = response.json()
 
-    # Should count only non-empty lines
-    # Lines with content: 4 (def, docstring, comment1, comment2, return)
-    assert data["line_count"] == 5  # def, docstring, 2 comments, return
+    # Should count all lines including blank ones: 5 non-empty + 3 blank = 8
+    assert data["line_count"] == 8
 
 
 def test_strategy_unicode_content(app_client, temp_dir):

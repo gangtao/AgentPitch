@@ -99,6 +99,12 @@ def _meta_to_dict(meta: StrategyLibraryMeta) -> dict:
         out["prompt"] = meta.prompt
     if meta.template_version is not None:
         out["template_version"] = meta.template_version
+    if meta.generation_latency_ms is not None:
+        out["generation_latency_ms"] = meta.generation_latency_ms
+    if meta.generation_input_tokens is not None:
+        out["generation_input_tokens"] = meta.generation_input_tokens
+    if meta.generation_output_tokens is not None:
+        out["generation_output_tokens"] = meta.generation_output_tokens
     return out
 
 
@@ -1571,7 +1577,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                 modified_iso = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(mtime))
                 try:
                     with open(strategy_file, 'r', encoding='utf-8') as f:
-                        line_count = sum(1 for line in f if line.strip())
+                        line_count = sum(1 for _ in f)
                 except (UnicodeDecodeError, OSError):
                     line_count = 0
             except (OSError, PermissionError, InvalidStrategyNameError):
@@ -1678,7 +1684,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         except OSError as e:
             raise HTTPException(status_code=500, detail=f"Failed to stat strategy file: {e}")
 
-        line_count = len([line for line in source_content.splitlines() if line.strip()])
+        line_count = len(source_content.splitlines())
 
         return JSONResponse({
             "name":         name,
@@ -1808,7 +1814,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         except OSError as e:
             raise HTTPException(status_code=500, detail=f"Failed to stat strategy file: {e}")
 
-        line_count = len([line for line in source_content.splitlines() if line.strip()])
+        line_count = len(source_content.splitlines())
 
         return JSONResponse(
             status_code=201,
@@ -2000,7 +2006,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         except OSError as e:
             raise HTTPException(status_code=500, detail=f"Failed to stat strategy file: {e}")
 
-        line_count = len([line for line in payload.source.splitlines() if line.strip()])
+        line_count = len(payload.source.splitlines())
 
         return JSONResponse({
             "name":         name,

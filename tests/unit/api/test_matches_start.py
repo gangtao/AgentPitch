@@ -87,12 +87,12 @@ class TestStrategiesEndpoint:
         strategy_names = {s["name"] for s in strategies}
         assert strategy_names == {"baseline", "advanced"}
 
-        # Check line counts (only non-empty lines)
+        # Check line counts (all lines, including blank)
         baseline = next(s for s in strategies if s["name"] == "baseline")
         advanced = next(s for s in strategies if s["name"] == "advanced")
 
-        assert baseline["line_count"] == 4  # 4 non-empty lines
-        assert advanced["line_count"] == 2  # 2 non-empty lines
+        assert baseline["line_count"] == 5  # 4 non-empty + 1 blank line
+        assert advanced["line_count"] == 2  # 2 non-empty, no blank lines
 
         # Check size_bytes are reasonable
         assert baseline["size_bytes"] > 0

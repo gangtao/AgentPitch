@@ -334,29 +334,37 @@ function renderEditor() {
         <div class="strategy-name">${editorData.name}${dirtyIndicator}</div>
       </div>
 
-      <div class="code-editor-container">
-        <div class="code-editor">
-          <div class="line-numbers" id="editor-line-numbers"></div>
-          <div class="code-source-wrap">
-            <pre class="code-highlight hljs" id="editor-highlight" aria-hidden="true"><code class="${languageClass(editorData.language)}"></code></pre>
-            <textarea
-              class="code-source"
-              id="editor-textarea"
-              aria-label="Strategy source code"
-              aria-describedby="editor-escape-hint"
-              spellcheck="false"
-              autocapitalize="off"
-              autocorrect="off"
-            >${editorData.source}</textarea>
+      <div class="editor-body">
+        <div class="editor-left">
+          <div class="code-editor-container">
+            <div class="code-editor">
+              <div class="line-numbers" id="editor-line-numbers"></div>
+              <div class="code-source-wrap">
+                <pre class="code-highlight hljs" id="editor-highlight" aria-hidden="true"><code class="${languageClass(editorData.language)}"></code></pre>
+                <textarea
+                  class="code-source"
+                  id="editor-textarea"
+                  aria-label="Strategy source code"
+                  aria-describedby="editor-escape-hint"
+                  spellcheck="false"
+                  autocapitalize="off"
+                  autocorrect="off"
+                >${editorData.source}</textarea>
+              </div>
+            </div>
+            <div class="editor-escape-hint" id="editor-escape-hint" style="display: none;">
+              Press Esc to exit editor
+            </div>
+          </div>
+
+          <div class="editor-footer">
+            ${editorData.line_count} lines · ${formatFileSize(editorData.size_bytes)}
           </div>
         </div>
-        <div class="editor-escape-hint" id="editor-escape-hint" style="display: none;">
-          Press Esc to exit editor
-        </div>
-      </div>
 
-      <div class="editor-footer">
-        ${editorData.line_count} lines · ${formatFileSize(editorData.size_bytes)}
+        <div class="editor-right">
+          ${renderMetaPanel(editorData.meta)}
+        </div>
       </div>
 
       <div class="editor-action-row">
@@ -475,6 +483,77 @@ function updateSaveButton() {
 function formatFileSize(bytes) {
   if (bytes < 1024) return `${bytes}B`;
   return `${(bytes / 1024).toFixed(1)}KB`;
+}
+
+function formatIso(iso) {
+  if (!iso) return '—';
+  return iso.replace('T', ' ').replace('Z', '').slice(0, 16);
+}
+
+function renderMetaPanel(meta) {
+  if (!meta) return '';
+  const rows = [];
+
+  // Provider / model
+  const providerLabel = formatProviderBadge(meta);
+  rows.push({ key: 'Provider', val: providerLabel });
+
+  // Created by
+  if (meta.created_by) {
+    rows.push({ key: 'Created by', val: meta.created_by });
+  }
+
+  // Language (normalised display)
+  if (meta.language) {
+    const langMap = { python: 'Python', javascript: 'JavaScript', rust: 'Rust' };
+    rows.push({ key: 'Language', val: langMap[meta.language] || meta.language });
+  }
+
+  // Timestamps
+  rows.push({ key: 'Created', val: formatIso(meta.created_at) });
+  rows.push({ key: 'Modified', val: formatIso(meta.last_modified_at) });
+
+  // LLM provenance (optional)
+  if (meta.template_version) {
+    rows.push({ key: 'Template', val: meta.template_version });
+  }
+
+  // Generation performance (optional)
+  if (meta.generation_latency_ms != null) {
+    rows.push({ key: 'Latency', val: `${(meta.generation_latency_ms / 1000).toFixed(1)} s` });
+  }
+  if (meta.generation_input_tokens != null || meta.generation_output_tokens != null) {
+    const inTok  = meta.generation_input_tokens  != null ? meta.generation_input_tokens.toLocaleString()  : '?';
+    const outTok = meta.generation_output_tokens != null ? meta.generation_output_tokens.toLocaleString() : '?';
+    rows.push({ key: 'Tokens', val: `${inTok} in · ${outTok} out` });
+  }
+
+  const rowsHtml = rows.map(r => `
+    <div class="meta-row">
+      <span class="meta-key">${r.key}</span>
+      <span class="meta-val">${r.val}</span>
+    </div>`).join('');
+
+  // Prompt — collapsible if present (may be long)
+  const promptHtml = meta.prompt
+    ? `<details class="meta-prompt-details">
+        <summary class="meta-row meta-row-prompt">
+          <span class="meta-key">Prompt</span>
+          <span class="meta-val meta-val-expand">expand ▸</span>
+        </summary>
+        <div class="meta-prompt-body">${meta.prompt.replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]))}</div>
+      </details>`
+    : '';
+
+  return `
+    <div class="editor-meta-panel">
+      <div class="meta-panel-heading">METADATA</div>
+      <div class="meta-table">
+        ${rowsHtml}
+        ${promptHtml}
+      </div>
+    </div>
+  `;
 }
 
 function handleEditorExit(event) {
