@@ -1,7 +1,7 @@
 data/
 logs/
 .claude/
-
+memory/
 
 # Python
 __pycache__/
