@@ -113,28 +113,6 @@ Edit `data/llm-providers.yaml` to select your provider and model:
 | `.js` | QuickJS | `pip install -e '.[js]'` |
 | `.rs` | Wasmtime (compiles Rust → WASM) | `pip install -e '.[wasm]'` |
 
-## Player ID convention
-
-Player IDs are strings in the format `"{team_id}_{index}"` — e.g. `"team_a_0"`, `"team_b_3"`. `team_id` is always `"team_a"` or `"team_b"`.
-
-## Project structure
-
-```
-src/
-  foundation/       core engine: sandboxes, LLM provider abstraction, pipelines
-  core/             game state manager, movement & physics systems
-  orchestration/    tick engine (composition root)
-  api/              FastAPI HTTP server + browser UI static assets
-  cli.py            CLI entry point
-data/
-  global-defaults.yaml   simulation constants
-  llm-providers.yaml     provider/model configuration
-  strategies/            saved strategy files and metadata
-tests/
-  unit/             fast, no I/O
-  integration/      may touch filesystem
-  performance/      benchmark smoke tests
-```
 
 ## Docker
 
