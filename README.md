@@ -17,7 +17,7 @@ An LLM-powered soccer simulation where every player on the field is an AI agent.
 | [Design & Architecture](docs/design.md) | System layers, data flow, sandbox internals, and key design decisions |
 | [Matches](docs/matches.md) | Running and replaying individual matches |
 | [Strategies](docs/strategies.md) | Creating, editing, and managing player strategies |
-| [Arena](docs/arena.md) | Head-to-head match configuration and live view |
+| [Arena](docs/arena.md) | Head-to-head match with strategy evolution |
 | [Cup](docs/cup.md) | Single-elimination tournament setup and bracket view |
 | [League](docs/league.md) | Round-robin league setup, matchdays, and standings |
 | [Config](docs/config.md) | Match configuration, field settings, and LLM providers |
