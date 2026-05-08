@@ -1,0 +1,2035 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Agent Pitch · Match Viewer</title>
+  <meta name="viewport" content="width=1440">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    /* ── INLINE: design-system.css ── */
+    /* ─────────────────────────────────────────────────────────────────
+       Agent Pitch — Design System (canonical components)
+       Source of truth: design/ux/components/components_design.html
+       Load this stylesheet FIRST so per-module CSS can extend / override.
+       ───────────────────────────────────────────────────────────────── */
+
+    :root {
+      /* ── Surfaces ── */
+      --bg:        #0a0d10;
+      --panel:     #11161b;
+      --panel-2:   #161c22;
+      --panel-3:   #1c232a;          /* viewer-only (kept for viewer chrome) */
+      --line:      #242c34;
+      --line-soft: #1a2128;
+      --line-2:    #2f3a44;          /* viewer-only (kept for viewer chrome) */
+
+      /* ── Ink ── */
+      --ink:       #e8edf1;
+      --ink-dim:   #9aa4ad;
+      --ink-dimer: #5b6872;
+      --ink-faint: #3a4550;
+
+      /* ── Accent ── */
+      --a:         #f2a44b;          /* Team A · primary accent */
+      --a-dim:     #a87530;
+      --a-ink:     #120a04;
+      --b:         #b08cff;          /* Team B */
+
+      /* ── Status ── */
+      --ok:        #6ee3a5;
+      --warn:      #f2a44b;
+      --err:       #ff6b6b;
+
+      /* ── Type ── */
+      --font:      "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --font-disp: "Space Grotesk", -apple-system, "Segoe UI", sans-serif;
+
+      /* Legacy alias used by shell.css / app.css / per-module CSS. */
+      --font-mono: var(--font);
+    }
+
+    /* ── Base ── */
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-feature-settings: "zero" on, "ss01" on;
+    }
+    * { box-sizing: border-box; }
+
+    /* Defensive: any [hidden] element must collapse, even if a layout
+       rule below assigns it display:flex/grid. */
+    [hidden] { display: none !important; }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* SECTION HEADERS                                                  */
+    /* ───────────────────────────────────────────────────────────────── */
+    .ap-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 36px 0 18px;
+      color: var(--ink-dim);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .ap-section .rule {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    .ap-section .reset {
+      color: var(--a);
+      text-decoration: none;
+      font-size: 11px;
+    }
+    .ap-section .reset:hover { text-decoration: underline; }
+
+    .sub-head {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin: 0 0 14px;
+    }
+    .sub-head::before { content: "— "; color: var(--ink-dimer); }
+    .sub-head::after  { content: " —"; color: var(--ink-dimer); }
+
+    /* Panel / card */
+    .ap-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+
+    /* Tile grid (used in components reference and dashboard summaries) */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .tile {
+      background: var(--panel);
+      padding: 22px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 128px;
+    }
+    .tile .label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-dimer);
+      margin-bottom: 14px;
+    }
+    .tile .body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      flex: 1;
+    }
+    .tile .body.col { flex-direction: column; align-items: stretch; }
+
+    /* Form row (label + control + unit) */
+    .form-row {
+      display: grid;
+      grid-template-columns: 180px 88px 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 7px 0;
+    }
+    .form-row .row-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .form-row .unit {
+      font-size: 11px;
+      color: var(--ink-dimer);
+    }
+    /* Wide control that spans the unit + control columns of .form-row */
+    .form-row .row-wide {
+      grid-column: 2 / span 2;
+      min-width: 0;
+    }
+
+    /* Bordered form section (used to group related rows — e.g. an LLM provider) */
+    .form-sect {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 22px 28px;
+      margin-bottom: 10px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* BUTTON                                                           */
+    /* ───────────────────────────────────────────────────────────────── */
+    .btn {
+      font: inherit;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background .12s, border-color .12s, color .12s, transform .04s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      line-height: 1;
+      border-radius: 0;
+    }
+    .btn:hover  { background: #1c242c; border-color: #2e3942; }
+    .btn:active { transform: translateY(1px); }
+    .btn:focus-visible {
+      outline: none;
+      border-color: var(--a);
+      box-shadow: 0 0 0 2px rgba(242,164,75,0.18);
+    }
+    .btn[disabled] {
+      color: var(--ink-faint);
+      background: var(--panel);
+      border-color: var(--line-soft);
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--a);
+      color: var(--a-ink);
+      border-color: var(--a);
+      font-weight: 600;
+    }
+    .btn-primary:hover { background: #ffb75c; border-color: #ffb75c; }
+    .btn-primary:focus-visible { box-shadow: 0 0 0 2px rgba(242,164,75,0.30); }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: transparent;
+      color: var(--ink-dim);
+    }
+    .btn-ghost:hover { background: var(--panel-2); color: var(--ink); border-color: transparent; }
+
+    .btn-danger {
+      color: var(--err);
+      border-color: rgba(255,107,107,0.30);
+    }
+    .btn-danger:hover { background: rgba(255,107,107,0.08); border-color: var(--err); }
+
+    .btn-sm { padding: 5px 10px;  font-size: 10px; }
+    .btn-lg { padding: 11px 20px; font-size: 13px; }
+
+    .btn-icon {
+      padding: 7px;
+      min-width: 30px;
+      justify-content: center;
+    }
+    .btn-icon svg { width: 14px; height: 14px; display: block; }
+
+    /* Bracket link — "[ Reset section ]" style */
+    .btn-link {
+      background: none;
+      border: none;
+      font: inherit;
+      color: var(--a);
+      cursor: pointer;
+      font-size: 12px;
+      padding: 2px 0;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .btn-link:hover { text-decoration: underline; }
+    .btn-link::before { content: "[ "; color: var(--ink-dimer); }
+    .btn-link::after  { content: " ]"; color: var(--ink-dimer); }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* INPUT                                                            */
+    /* ───────────────────────────────────────────────────────────────── */
+    .ipt {
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      background: #070a0d;
+      border: 1px solid var(--line);
+      padding: 7px 10px;
+      width: 100%;
+      min-width: 0;
+      outline: none;
+      border-radius: 0;
+      transition: border-color .12s, box-shadow .12s;
+    }
+    .ipt:hover { border-color: #2e3942; }
+    .ipt:focus { border-color: var(--a); box-shadow: inset 0 0 0 1px var(--a); }
+    .ipt::placeholder { color: var(--ink-faint); }
+    .ipt[disabled] { color: var(--ink-faint); background: var(--panel); cursor: not-allowed; }
+    .ipt.invalid { border-color: var(--err); }
+    .ipt.invalid:focus { box-shadow: inset 0 0 0 1px var(--err); }
+
+    .ipt-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* Checkbox variant — strips the .ipt chrome (border / padding / full width)
+       that's designed for text inputs and lets the native checkbox sit naturally
+       in the row. Sized up modestly for visibility in the dense config form. */
+    .ipt-check {
+      width: 16px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: transparent;
+      accent-color: var(--a);
+      cursor: pointer;
+    }
+    .ipt-check:focus { box-shadow: 0 0 0 2px var(--a); outline: none; }
+
+    /* Input with inline leading icon */
+    .ipt-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: stretch;
+      width: 100%;
+    }
+    .ipt-wrap > .ipt { padding-left: 30px; }
+    .ipt-wrap > .affix {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-dimer);
+      font-size: 12px;
+      pointer-events: none;
+      display: flex;
+    }
+    .ipt-wrap > .affix svg { width: 13px; height: 13px; }
+
+    /* Input with trailing button cluster (e.g. secret reveal/clear).
+       Uses flex so any number of trailing .ipt-btn children sit inline. */
+    .ipt-cluster {
+      display: flex;
+      align-items: stretch;
+    }
+    .ipt-cluster .ipt {
+      border-right: none;
+      flex: 1;
+      min-width: 0;
+    }
+    .ipt-cluster .ipt-btn {
+      font: inherit;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 0 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: color .12s, background .12s;
+    }
+    .ipt-cluster .ipt-btn:hover:not(:disabled) { color: var(--ink); background: var(--panel-2); }
+    .ipt-cluster .ipt-btn:disabled { color: var(--ink-faint); cursor: not-allowed; }
+    .ipt-cluster .ipt-btn + .ipt-btn { border-left: none; }
+
+    /* Textarea */
+    textarea.ipt { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+    /* Field (label above) */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+    .field .lbl {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .field .help {
+      font-size: 11px;
+      color: var(--ink-dimer);
+    }
+    .field .help.err { color: var(--err); }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* SELECT / DROPDOWN                                                */
+    /* ───────────────────────────────────────────────────────────────── */
+    .sel {
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      background: #070a0d;
+      border: 1px solid var(--line);
+      padding: 7px 28px 7px 10px;
+      width: 100%;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      background-image: linear-gradient(45deg, transparent 50%, var(--ink-dim) 50%),
+                        linear-gradient(135deg, var(--ink-dim) 50%, transparent 50%);
+      background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      outline: none;
+      transition: border-color .12s, box-shadow .12s;
+    }
+    .sel:hover { border-color: #2e3942; }
+    .sel:focus { border-color: var(--a); box-shadow: inset 0 0 0 1px var(--a); }
+    .sel[disabled] { color: var(--ink-faint); background-color: var(--panel); cursor: not-allowed; }
+
+    /* Custom combobox */
+    .combo {
+      position: relative;
+      width: 100%;
+    }
+    .combo-button {
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      background: #070a0d;
+      border: 1px solid var(--line);
+      padding: 7px 10px;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      outline: none;
+      border-radius: 0;
+    }
+    .combo-button .caret { color: var(--ink-dim); font-size: 9px; }
+    .combo.open .combo-button { border-color: var(--a); box-shadow: inset 0 0 0 1px var(--a); }
+    .combo-menu {
+      position: absolute;
+      top: calc(100% - 1px);
+      left: 0;
+      right: 0;
+      background: #070a0d;
+      border: 1px solid var(--a);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      z-index: 10;
+      max-height: 220px;
+      overflow: auto;
+    }
+    .combo-option {
+      padding: 8px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--ink);
+    }
+    .combo-option .mono-dim { color: var(--ink-dimer); font-size: 11px; }
+    .combo-option:hover { background: var(--panel-2); }
+    .combo-option.active { background: rgba(242,164,75,0.12); color: var(--a); }
+    .combo-option.active::before { content: "› "; margin-left: -6px; }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* CHECKBOX / RADIO                                                 */
+    /* ───────────────────────────────────────────────────────────────── */
+    .chk, .rdo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      color: var(--ink);
+    }
+    .chk input, .rdo input { position: absolute; opacity: 0; pointer-events: none; }
+    .chk .box, .rdo .dot {
+      width: 14px;
+      height: 14px;
+      background: #070a0d;
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color .12s, background .12s;
+    }
+    .rdo .dot { border-radius: 50%; }
+    .chk:hover .box, .rdo:hover .dot { border-color: #39454f; }
+    .chk input:checked + .box {
+      border-color: var(--a);
+      background: var(--a);
+    }
+    .chk input:checked + .box::after {
+      content: "";
+      width: 8px;
+      height: 4px;
+      border-left: 1.5px solid var(--a-ink);
+      border-bottom: 1.5px solid var(--a-ink);
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    .rdo input:checked + .dot { border-color: var(--a); }
+    .rdo input:checked + .dot::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--a);
+    }
+    .chk input:focus-visible + .box,
+    .rdo input:focus-visible + .dot {
+      box-shadow: 0 0 0 2px rgba(242,164,75,0.25);
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* TOGGLE                                                           */
+    /* ───────────────────────────────────────────────────────────────── */
+    .tgl {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+    }
+    .tgl input { position: absolute; opacity: 0; pointer-events: none; }
+    .tgl .track {
+      width: 34px;
+      height: 18px;
+      background: #070a0d;
+      border: 1px solid var(--line);
+      position: relative;
+      flex-shrink: 0;
+      transition: background .15s, border-color .15s;
+    }
+    .tgl .track::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      background: var(--ink-dim);
+      transition: transform .15s, background .15s;
+    }
+    .tgl input:checked + .track {
+      background: rgba(242,164,75,0.15);
+      border-color: var(--a);
+    }
+    .tgl input:checked + .track::after {
+      transform: translateX(16px);
+      background: var(--a);
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* TABS / SEGMENTED                                                 */
+    /* ───────────────────────────────────────────────────────────────── */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--line);
+      gap: 0;
+    }
+    .tab {
+      font: inherit;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      background: none;
+      border: none;
+      padding: 14px 28px;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      position: relative;
+      transition: color .12s;
+    }
+    .tab:hover { color: var(--ink); }
+    .tab.active { color: var(--ink); }
+    .tab.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: var(--a);
+    }
+
+    /* Segmented control — boxy */
+    .seg {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      background: #070a0d;
+    }
+    .seg button {
+      font: inherit;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      background: none;
+      border: none;
+      padding: 7px 14px;
+      cursor: pointer;
+      border-right: 1px solid var(--line);
+      transition: color .12s, background .12s;
+    }
+    .seg button:last-child { border-right: none; }
+    .seg button:hover { color: var(--ink); }
+    .seg button.on,
+    .seg button.active {
+      color: var(--a-ink);
+      background: var(--a);
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* SLIDER / STEPPER                                                 */
+    /* ───────────────────────────────────────────────────────────────── */
+    .sldr {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 2px;
+      background: var(--line);
+      outline: none;
+      cursor: pointer;
+    }
+    .sldr::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 16px;
+      background: var(--a);
+      cursor: grab;
+      border-radius: 0;
+      border: 1px solid var(--a);
+    }
+    .sldr::-moz-range-thumb {
+      width: 12px;
+      height: 16px;
+      background: var(--a);
+      cursor: grab;
+      border-radius: 0;
+      border: 1px solid var(--a);
+    }
+
+    .stp {
+      display: inline-flex;
+      align-items: stretch;
+      border: 1px solid var(--line);
+      background: #070a0d;
+    }
+    .stp button {
+      font: inherit;
+      font-size: 14px;
+      color: var(--ink-dim);
+      background: none;
+      border: none;
+      width: 26px;
+      cursor: pointer;
+      transition: color .12s, background .12s;
+    }
+    .stp button:hover { color: var(--a); background: var(--panel-2); }
+    .stp input {
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      background: none;
+      border: none;
+      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      text-align: center;
+      width: 48px;
+      outline: none;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* BADGES / STATUS DOTS / KBD / TOOLTIP / BANNER / PROGRESS         */
+    /* ───────────────────────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
+      background: var(--panel);
+      line-height: 1.4;
+    }
+    .badge.ok     { color: var(--ok);   border-color: rgba(110,227,165,0.30); }
+    .badge.warn   { color: var(--warn); border-color: rgba(242,164,75,0.35); }
+    .badge.err    { color: var(--err);  border-color: rgba(255,107,107,0.35); }
+    .badge.accent { color: var(--b);    border-color: rgba(176,140,255,0.35); }
+    .badge.solid  { color: var(--a-ink); background: var(--a); border-color: var(--a); }
+
+    .dot-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ink-dim);
+    }
+    .dot-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: currentColor;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-status.ok   { color: var(--ok); }
+    .dot-status.warn { color: var(--warn); }
+    .dot-status.err  { color: var(--err); }
+    .dot-status.idle { color: var(--ink-dimer); }
+
+    .kbd {
+      font-family: var(--font);
+      font-size: 10px;
+      padding: 2px 6px;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      background: var(--panel);
+      color: var(--ink-dim);
+      line-height: 1;
+      display: inline-block;
+    }
+
+    .tip-wrap { position: relative; display: inline-block; }
+    .tip-wrap .tip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: var(--ink);
+      background: #070a0d;
+      border: 1px solid var(--a);
+      padding: 5px 9px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .tip-wrap .tip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: var(--a);
+    }
+
+    .banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-left: 3px solid var(--ink-dim);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .banner .b-mark {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--ink-dim);
+      padding-top: 1px;
+    }
+    .banner.ok   { border-left-color: var(--ok); }
+    .banner.ok .b-mark   { color: var(--ok); }
+    .banner.warn { border-left-color: var(--warn); }
+    .banner.warn .b-mark { color: var(--warn); }
+    .banner.err  { border-left-color: var(--err); }
+    .banner.err .b-mark  { color: var(--err); }
+
+    .prog {
+      width: 100%;
+      height: 4px;
+      background: var(--line);
+      position: relative;
+    }
+    .prog .bar {
+      height: 100%;
+      background: var(--a);
+    }
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 6px;
+    }
+
+    /* Breadcrumb */
+    .bc {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--ink-dim);
+    }
+    .bc a { color: var(--ink-dim); text-decoration: none; cursor: pointer; }
+    .bc a:hover { color: var(--a); }
+    .bc .sep  { color: var(--ink-faint); }
+    .bc .here { color: var(--ink); }
+
+    /* Table */
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .tbl th, .tbl td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+    .tbl tbody tr:last-child td { border-bottom: none; }
+    .tbl th {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      font-weight: 500;
+      background: var(--panel-2);
+    }
+    .tbl td { color: var(--ink); }
+    .tbl .num { font-variant-numeric: tabular-nums; text-align: right; }
+    .tbl tr:hover td { background: rgba(255,255,255,0.02); }
+    /* Right-most action column — small, icon-button-shaped, no extra padding. */
+    .tbl .cell-action { width: 50px; padding: 4px 8px; text-align: right; }
+
+    /* Footer strip below a .tbl (for "+ Add row" buttons etc.). Pair with
+       `.ap-panel` style="padding:0" so the footer sits flush with the table. */
+    .tbl-footer {
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* Compact form controls sized to fit inside a .tbl cell. The standard .ipt
+       is 32px+ tall and full-width; .ipt-cell shrinks both so the table stays
+       data-density-appropriate without losing the design-system input chrome
+       (background, border, focus ring). */
+    .ipt-cell {
+      padding: 4px 8px;
+      font-size: 12px;
+      width: 60px;
+      text-align: right;
+    }
+    .sel-cell {
+      width: 80px;
+      padding: 4px 22px 4px 8px;
+      font-size: 12px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* LIST PATTERN (matches list / strategies list / config list)      */
+    /* ───────────────────────────────────────────────────────────────── */
+    /* Action bar at the top of a list view: primary CTA on the left,
+       count / secondary text on the right. */
+    .list-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+    /* The list-action-bar's primary CTA is intentionally taller than the default
+       .btn (32px) — gives it presence as the page's primary action. */
+    .list-action-bar > .btn-primary { padding: 10px 16px; }
+
+    .list-count {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    /* Scrollable list body. Sized to fill the remaining height of its parent
+       (assumes parent is a flex column with a 60px action bar above). */
+    .list-body {
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* Each row in the list. Two-line content + trailing action buttons. */
+    .list-row {
+      display: flex;
+      align-items: center;
+      min-height: 60px;
+      padding: 12px 24px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .list-row:hover { background: var(--panel-2); }
+    .list-row.skeleton {
+      cursor: default;
+      color: var(--ink-dimer);
+    }
+    .list-row.skeleton:hover { background: var(--panel); }
+
+    .list-row-content { flex: 1; min-width: 0; }
+
+    .list-row-line-1 {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .list-row-line-2 {
+      font-size: 10px;
+      color: var(--ink-dim);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .list-row-actions {
+      display: flex;
+      gap: 8px;
+      margin-left: 16px;
+    }
+
+    /* Empty / error states centered inside .list-body */
+    .list-empty-state,
+    .list-error {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* UTILITIES                                                        */
+    /* ───────────────────────────────────────────────────────────────── */
+    .mono  { font-family: var(--font); }
+    .disp  { font-family: var(--font-disp); }
+    .dim   { color: var(--ink-dim); }
+    .dimer { color: var(--ink-dimer); }
+    .tabular { font-variant-numeric: tabular-nums; }
+
+    /* ── INLINE: app.css ── */
+    /* Agent Pitch — Broadcast Viewer
+       Production stylesheet. Adapted from prototypes/ui/viewer.css
+       to vanilla DOM (no React) and to the live API data shape.
+
+       Tokens that overlap design-system.css are owned by the design system;
+       this file declares only viewer-specific extras (--pitch*, --live,
+       --neutral, --amber, --bad, broadcast typography aliases).
+       ────────────────────────────────────────────────────────── */
+
+    :root {
+      /* Pitch render */
+      --pitch:     #1e3a2a;
+      --pitch-2:   #214030;
+      --pitch-line:#e8edf1;
+
+      /* Broadcast accents (not in the components system) */
+      --live:      #ff3b4a;
+      --neutral:   #6ea8ff;
+      --amber:     #f2c14b;
+
+      /* Aliases for legacy viewer rules */
+      --bad:       var(--err);    /* alias the design-system token, not a copy */
+    }
+
+    html, body {
+      font-size: 13px;
+      line-height: 1.45;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    /* ── App shell ──────────────────────────────────────────── */
+    .app {
+      display: grid;
+      /* Chyron 80px gives the team-ident's three lines (badge / name / model)
+         room to breathe without the model line clipping. */
+      grid-template-rows: 80px minmax(0, 1fr) 22px;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ── Top scoreboard chyron ──────────────────────────────── */
+    .chyron {
+      display: grid;
+      /* brand | score | live stats (POSS / CARRIER) | clock | stats toggle */
+      grid-template-columns: 220px minmax(0, 1fr) auto 200px auto;
+      align-items: stretch;
+      background: #000;
+      border-bottom: 1px solid var(--line);
+      min-width: 0;
+    }
+    .chyron-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 18px;
+      border-right: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d1216, #05080a);
+    }
+    .brand-mark {
+      font-family: var(--font-disp);
+      font-weight: 900; font-style: italic;
+      font-size: 26px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      position: relative;
+      line-height: 1;
+      display: inline-flex; align-items: center; gap: 3px;
+    }
+    .brand-mark .dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--a);
+      box-shadow: 0 0 10px var(--a);
+      transform: translateY(5px);
+    }
+    .brand-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.35;
+      min-width: 0;
+    }
+    .brand-meta b { color: var(--ink); font-weight: 600; }
+    .brand-meta div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* Match-id line is the dominant identifier in the chyron now (no logo+wordmark
+       competing for attention). Bump it slightly so the eye lands here first. */
+    .chyron .match-title-line { font-size: 12px; letter-spacing: 0.04em; text-transform: none; }
+    .chyron .match-title-line b { color: var(--ink); }
+
+    /* Center score block */
+    .score-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+    .team-block {
+      display: flex; align-items: center; gap: 14px;
+      padding: 0 18px;
+      height: 100%;
+    }
+    .team-block.home { justify-content: flex-end; }
+    /* row-reverse mirrors the home block (swatch sits adjacent to the
+       score, ident on the outside). With row-reverse the main axis is
+       reversed, so flex-end packs items at the visual LEFT of the column
+       — i.e. snug against the score plate, mirroring the home side. */
+    .team-block.away { justify-content: flex-end; flex-direction: row-reverse; }
+    .team-swatch {
+      width: 6px; height: 36px; border-radius: 1px;
+    }
+    .team-swatch.a { background: var(--a); box-shadow: 0 0 18px -4px var(--a); }
+    .team-swatch.b { background: var(--b); box-shadow: 0 0 18px -4px var(--b); }
+    .team-ident {
+      display: flex; flex-direction: column; gap: 1px;
+      text-align: right;
+      align-items: flex-end;  /* prevent badge box from stretching to column width */
+      min-width: 0;            /* allow long .model text to shrink/wrap inside flex */
+    }
+    .team-block.away .team-ident {
+      text-align: left;
+      align-items: flex-start;
+    }
+    .team-ident .badge {
+      font-family: var(--font-disp);
+      font-weight: 700; font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+    }
+    .team-ident .name {
+      font-family: var(--font-disp);
+      font-weight: 700; font-size: 19px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+    .team-ident .model {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-dimer);
+      letter-spacing: 0.04em;
+      /* long generated-strategy file stems (e.g. anthropic-claude-sonnet-...
+         -<timestamp>) otherwise blow out the chyron column. */
+      max-width: 240px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .score-plate {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      align-items: center;
+      gap: 14px;
+      padding: 0 16px;
+      height: 100%;
+      background: #000;
+      position: relative;
+    }
+    .score-num {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      min-width: 28px;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+    .score-num.a { color: var(--a); text-shadow: 0 0 24px rgba(242,164,75,0.35); }
+    .score-num.b { color: var(--b); text-shadow: 0 0 24px rgba(176,140,255,0.35); }
+    .score-sep {
+      color: var(--ink-dimer);
+      font-family: var(--font-disp);
+      font-weight: 400;
+      font-size: 26px;
+    }
+    .clock-bar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 0 18px;
+      border-left: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d1216, #05080a);
+    }
+    .clock {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: 24px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+      text-align: right;
+      color: var(--ink);
+    }
+    .clock .total { color: var(--ink-dimer); font-size: 14px; font-weight: 500; }
+    .live-pip {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: var(--live);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .live-pip .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--live);
+      box-shadow: 0 0 12px var(--live);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.35; transform: scale(0.75); }
+    }
+
+    /* ── Body grid: pitch | events ──────────────────────────── */
+    .body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      transition: grid-template-columns 180ms ease;
+      /* `flex: 1` + `min-height: 0` makes .body fill the remaining vertical
+         space inside #section-matches (a flex column with the 80px chyron
+         above + the 22px status-bar below). Without this, .body sizes to its
+         content (the canvas + scrub) — and since the canvas's aspect-ratio
+         wants to grow huge on wide viewports, the content overflowed and got
+         clipped by `overflow: hidden`, hiding the bottom of the field. */
+      flex: 1;
+      min-height: 0;
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .pitch-wrap {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      min-height: 0;
+    }
+    .pitch-stage {
+      position: relative;
+      min-height: 220px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 45%, #254633 0%, #182e22 55%, #0d1a13 100%);
+      display: grid;
+      place-items: center;
+      /* Explicit padding so the canvas (centered via place-items) physically
+         can't reach the bottom edge — guarantees a visible gap to the scrub
+         bar below regardless of viewport size or pitch aspect-ratio. The
+         canvas's own max-height further constrains this. */
+      padding: 16px 0 24px;
+    }
+
+    /* "Waiting for match result" overlay — covers the canvas while the engine
+       subprocess is starting and no events.jsonl exists yet. Hidden once data
+       arrives (handled by app.js). */
+    .match-waiting-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 13, 16, 0.92);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 24px;
+      text-align: center;
+    }
+    .match-waiting-overlay[hidden] {
+      display: none;
+    }
+    .match-waiting-overlay .waiting-spinner {
+      font-size: 32px;
+      color: var(--ink-dim);
+      font-family: monospace;
+      /* Gentle breathing animation — the only motion we tolerate here, conveys "alive" */
+      animation: waiting-pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes waiting-pulse {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 1; }
+    }
+    .match-waiting-overlay .waiting-title {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .match-waiting-overlay .waiting-subtitle {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--ink-dim);
+      letter-spacing: 0.06em;
+    }
+    .match-waiting-overlay .waiting-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-dimer);
+      margin-top: 8px;
+      max-width: 380px;
+      line-height: 1.5;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .match-waiting-overlay .waiting-spinner {
+        animation: none;
+      }
+    }
+    #field-canvas {
+      position: relative;
+      display: block;
+      /* Display size is set inline by app.js _resizeCanvas() — JS reads
+         pitch-stage's available area, computes a fit-within size that respects
+         the per-match aspect ratio (FIELD_W/FIELD_H from meta), and writes
+         style.width / style.height. Removes the CSS aspect-ratio + max-*
+         trio that was causing overflow into the scrub bar on certain viewport
+         sizes (the constraints could pick a height larger than fit). */
+    }
+
+    /* Live-stats column inside the chyron — POSSESSION + CARRIER. */
+    .chyron-stats {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 18px;
+      border-left: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d1216, #05080a);
+    }
+    .chyron-stats .stat-cell {
+      display: flex; flex-direction: column; gap: 2px;
+      text-align: left;
+      min-width: 70px;
+    }
+    .chyron-stats .stat-cell label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dimer);
+    }
+    .chyron-stats .stat-cell .big {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    /* Goal flash + chyron */
+    .goal-flash {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at var(--fx, 50%) 50%,
+          rgba(242,164,75,0.35) 0%,
+          rgba(242,164,75,0) 45%);
+      pointer-events: none;
+      animation: flash 1.8s ease-out;
+      z-index: 3;
+    }
+    .goal-flash.b {
+      background:
+        radial-gradient(circle at var(--fx, 50%) 50%,
+          rgba(176,140,255,0.35) 0%,
+          rgba(176,140,255,0) 45%);
+    }
+    @keyframes flash {
+      0%   { opacity: 0; }
+      15%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .goal-chyron {
+      position: absolute;
+      left: 50%;
+      top: 38%;
+      transform: translate(-50%, -50%);
+      padding: 18px 32px;
+      background: #000;
+      border: 1px solid var(--line-2);
+      pointer-events: none;
+      animation: goalPop 1.8s cubic-bezier(0.22, 1.0, 0.36, 1.0);
+      font-family: var(--font-disp);
+      z-index: 4;
+    }
+    .goal-chyron .word {
+      font-weight: 700;
+      font-size: 56px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .goal-chyron .word.a { color: var(--a); }
+    .goal-chyron .word.b { color: var(--b); }
+    .goal-chyron .sub {
+      margin-top: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    @keyframes goalPop {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+      15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+      85%  { opacity: 1; transform: translate(-50%, -50%) scale(1.0); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.0); }
+    }
+
+    /* ── Scrubber ────────────────────────────────────────────── */
+    .scrub {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 20px;
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+    }
+    /* Scrubber's play/pause icon button. Distinct from the design-system
+       .btn (uppercase action button) — this one is a 32px square icon. */
+    .scrub-btn {
+      width: 32px; height: 32px;
+      border: 1px solid var(--line-2);
+      background: var(--panel-2);
+      color: var(--ink);
+      display: grid; place-items: center;
+      cursor: pointer;
+      font-family: var(--font-disp);
+      font-size: 14px;
+      transition: background 120ms;
+    }
+    .scrub-btn:hover { background: var(--panel-3); }
+    .scrub-btn.play { width: 38px; height: 38px; }
+    .scrub-track {
+      position: relative;
+      height: 14px;
+      cursor: pointer;
+      display: flex; align-items: center;
+    }
+    .scrub-track::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 4px; height: 6px;
+      background: var(--panel-3); border: 1px solid var(--line);
+      pointer-events: none;
+    }
+    .scrub-fill {
+      position: absolute;
+      left: 0; top: 4px;
+      height: 6px;
+      background: linear-gradient(90deg, var(--a), var(--b));
+      pointer-events: none;
+    }
+    .scrub-markers { position: absolute; inset: 0; pointer-events: none; }
+    .scrub-marker {
+      position: absolute;
+      top: -2px;
+      width: 2px; height: 18px;
+      background: var(--ink-dimer);
+      opacity: 0.6;
+    }
+    .scrub-marker.goal.a { background: var(--a); opacity: 1; box-shadow: 0 0 6px var(--a); }
+    .scrub-marker.goal.b { background: var(--b); opacity: 1; box-shadow: 0 0 6px var(--b); }
+    /* Native range overlays the track but stays transparent — captures input */
+    #scrub-bar {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      margin: 0; padding: 0;
+      background: transparent;
+      -webkit-appearance: none; appearance: none;
+      cursor: pointer;
+      z-index: 2;
+    }
+    #scrub-bar::-webkit-slider-runnable-track { background: transparent; height: 14px; }
+    #scrub-bar::-moz-range-track { background: transparent; height: 14px; }
+    #scrub-bar::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 4px; height: 18px; margin-top: -2px;
+      background: var(--ink); border: none; border-radius: 1px;
+      cursor: grab;
+    }
+    #scrub-bar::-moz-range-thumb {
+      width: 4px; height: 18px;
+      background: var(--ink); border: none; border-radius: 1px;
+      cursor: grab;
+    }
+
+    .tick-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-dim);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.06em;
+      min-width: 110px;
+      text-align: right;
+    }
+    .speed-pill {
+      display: flex; gap: 0;
+      border: 1px solid var(--line-2);
+      height: 32px;
+    }
+    .speed-pill button {
+      background: var(--panel-2);
+      border: none;
+      border-right: 1px solid var(--line-2);
+      color: var(--ink-dim);
+      padding: 0 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      min-width: 36px;
+    }
+    .speed-pill button:last-child { border-right: none; }
+    .speed-pill button.active { background: var(--ink); color: #000; }
+
+    /* ── Event ticker (right column) ────────────────────────── */
+    .events {
+      background: var(--panel);
+      border-left: 1px solid var(--line);
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .events-head {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .events-head-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* Toggle button — sits between the label and filter pills */
+    .events-collapse-btn {
+      background: none;
+      border: none;
+      color: var(--ink-dim);
+      font-size: 9px;
+      padding: 2px 4px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 100ms, transform 180ms ease;
+      flex-shrink: 0;
+    }
+    .events-collapse-btn:hover { color: var(--ink); }
+
+    /* ── Collapsed state ─────────────────────────────────────── */
+    .body.event-feed-collapsed {
+      grid-template-columns: minmax(0, 1fr) 28px;
+    }
+    /* When collapsed the sidebar becomes a 28px strip:
+       grid switches to a single full-height cell containing just the toggle. */
+    .events.collapsed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .events.collapsed .events-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 8px 0 0;
+      border-bottom: none;
+      width: 100%;
+    }
+    .events.collapsed .events-head-label { display: none; }
+    .events.collapsed .filter-pills { display: none; }
+    .events.collapsed .events-collapse-btn {
+      transform: rotate(180deg);
+      padding: 8px 6px;
+    }
+    .events.collapsed .events-list { display: none; }
+    /* Event-feed segmented filter — sized down to fit the 320px column.
+       Inherits chrome from .seg in design-system.css. */
+    .events-head .filter-pills.seg button { padding: 3px 8px; font-size: 9px; letter-spacing: 0.12em; }
+
+    .events-list {
+      overflow-y: auto;
+      padding: 4px 0 60px;
+      scroll-behavior: smooth;
+    }
+    .events-list::-webkit-scrollbar { width: 6px; }
+    .events-list::-webkit-scrollbar-track { background: var(--panel); }
+    .events-list::-webkit-scrollbar-thumb { background: var(--line-2); }
+
+    .evt {
+      display: grid;
+      grid-template-columns: 56px 18px 1fr;
+      gap: 8px;
+      align-items: baseline;
+      padding: 5px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      transition: background 100ms;
+    }
+    .evt:hover { background: var(--panel-2); }
+    .evt.selected, .evt.current { background: var(--panel-3); border-left-color: var(--live); }
+    .evt.proximity { border-left-color: var(--ink-dim); }
+    .evt .t {
+      color: var(--ink-dimer);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .evt .ico { font-size: 13px; text-align: center; }
+    .evt .txt { color: var(--ink); letter-spacing: 0.01em; word-break: break-word; }
+    .evt.placeholder {
+      color: var(--ink-dimer);
+      font-style: italic;
+      cursor: default;
+      display: block;
+      padding: 12px 14px;
+    }
+
+    /* Event-kind colouring (matches old ev-* class taxonomy) */
+    .evt.ev-goal           .ico { color: var(--amber); }
+    .evt.ev-goal           .txt { color: var(--amber); font-weight: 700; }
+    .evt.ev-shot           .ico { color: var(--a); }
+    .evt.ev-pass           .ico { color: var(--neutral); }
+    .evt.ev-pickup         .ico { color: var(--ink-dim); }
+    .evt.ev-pickup-bad     .ico { color: var(--ink-dimer); }
+    .evt.ev-pickup-bad     .txt { color: var(--ink-dimer); font-style: italic; }
+    .evt.ev-tackle         .ico { color: var(--bad); }
+    .evt.ev-tackle-good    .ico { color: var(--bad); }
+    .evt.ev-tackle-good    .txt { font-weight: 600; }
+    .evt.ev-tackle-blocked .ico { color: var(--bad); }
+    .evt.ev-tackle-blocked .txt { color: #d8b888; font-style: italic; }
+    .evt.ev-save           .ico { color: var(--ok); }
+    .evt.ev-save-blocked   .ico { color: var(--ok); }
+    .evt.ev-save-blocked   .txt { color: #b8d8a8; font-style: italic; }
+    .evt.ev-deflection     .ico { color: var(--amber); }
+    .evt.ev-deflection     .txt { color: #f0e890; }
+    .evt.ev-dribble-good   .ico { color: var(--b); }
+    .evt.ev-dribble-good   .txt { color: #f0d090; font-weight: 500; }
+    .evt.ev-dribble-bad    .ico { color: var(--b); }
+    .evt.ev-dribble-bad    .txt { color: #b89860; font-style: italic; }
+    .evt.ev-blocked        .ico { color: var(--ink-dimer); }
+    .evt.ev-blocked        .txt { color: var(--ink-dimer); font-style: italic; }
+    .evt.ev-oob            .ico { color: var(--ink-dim); }
+    .evt.ev-oob            .txt { color: var(--ink-dim); font-style: italic; }
+    .evt.ev-phase          .ico { color: var(--b); }
+    .evt.ev-phase          .txt { color: #c8b8e0; font-weight: 500; }
+    .evt.ev-phase-major    .ico { color: var(--amber); }
+    .evt.ev-phase-major    .txt { color: var(--amber); font-weight: 700; text-transform: uppercase; }
+
+    .evt .team-tag {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      vertical-align: baseline;
+      transform: translateY(1px);
+      margin-right: 6px;
+    }
+    .evt .team-tag.team_a { background: var(--a); }
+    .evt .team-tag.team_b { background: var(--b); }
+
+    /* ── Status bar ─────────────────────────────────────────── */
+    .statusbar {
+      background: #000;
+      border-top: 1px solid var(--line);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-dimer);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .statusbar .dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--ok);
+      margin-right: 6px;
+    }
+    .statusbar .spacer { flex: 1; }
+
+    /* ── Small utilities ────────────────────────────────────── */
+    .mono { font-family: var(--font-mono); }
+    .disp { font-family: var(--font-disp); }
+    .dim  { color: var(--ink-dim); }
+    .dimer{ color: var(--ink-dimer); }
+
+    /* ── INLINE: match-stats.css ── */
+    /* ─────────────────────────────────────────────────────────────────
+       Agent Pitch — Match Statistics Panel
+       Uses design-system.css tokens exclusively. No new custom properties.
+       ───────────────────────────────────────────────────────────────── */
+
+    /* ── Trigger button (in chyron, persistent toggle) ── */
+    .chyron-stats-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-left: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d1216, #05080a);
+    }
+    #stats-toggle {
+      height: 28px;
+      padding: 0 12px;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
+      font-family: var(--font);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    #stats-toggle:hover {
+      color: var(--ink);
+      border-color: var(--line-2);
+    }
+    #stats-toggle.active {
+      color: var(--a);
+      border-color: var(--a);
+    }
+
+    /* ── Panel container ── */
+    #match-stats-panel {
+      flex-shrink: 0;
+      max-height: 280px;
+      overflow-y: auto;
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+      font-family: var(--font);
+      font-size: 11px;
+    }
+    /* Fullview mode: panel expands to fill the space vacated by the field */
+    #match-stats-panel.stats-fullview {
+      flex: 1;
+      min-height: 0;
+      max-height: none;
+      overflow-y: auto;
+    }
+
+    /* ── Panel header ── */
+    .stats-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--line);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      background: var(--panel);
+      z-index: 1;
+    }
+
+    /* ── Panel body ── */
+    .stats-panel-body {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 24px;
+      padding: 12px 14px;
+    }
+
+    /* ── Team summary table ── */
+    .stats-team-section {
+      min-width: 320px;
+    }
+    .stats-section-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--ink-dimer);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .stats-team-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .stats-team-table th {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--ink-dimer);
+      font-weight: 500;
+      text-align: right;
+      padding: 3px 10px 3px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .stats-team-table th:first-child {
+      text-align: left;
+      padding-left: 0;
+    }
+    .stats-team-table th.col-a { color: var(--a); }
+    .stats-team-table th.col-b { color: var(--b); }
+    .stats-team-table td {
+      padding: 3px 10px 3px 0;
+      border-bottom: 1px solid var(--line-soft);
+      color: var(--ink);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .stats-team-table td:first-child {
+      text-align: left;
+      color: var(--ink-dim);
+      padding-left: 0;
+    }
+    .stats-team-table td.val-a { color: var(--a); }
+    .stats-team-table td.val-b { color: var(--b); }
+    .stats-team-table td.val-engine { color: var(--ok); }
+
+    /* ── Per-player expandable section ── */
+    .stats-players-section {
+      min-width: 0;
+    }
+    details.stats-team-detail {
+      margin-bottom: 8px;
+    }
+    details.stats-team-detail > summary {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 4px 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 4px;
+    }
+    details.stats-team-detail > summary::before {
+      content: "▶";
+      font-size: 9px;
+      transition: transform 0.15s;
+    }
+    details.stats-team-detail[open] > summary::before {
+      transform: rotate(90deg);
+    }
+    details.stats-team-detail > summary .team-label-a { color: var(--a); }
+    details.stats-team-detail > summary .team-label-b { color: var(--b); }
+
+    .stats-player-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 11px;
+    }
+    .stats-player-table th {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--ink-dimer);
+      font-weight: 500;
+      text-align: right;
+      padding: 2px 8px 2px 0;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .stats-player-table th:first-child,
+    .stats-player-table th:nth-child(2) {
+      text-align: left;
+      padding-left: 0;
+    }
+    .stats-player-table td {
+      padding: 2px 8px 2px 0;
+      border-bottom: 1px solid var(--line-soft);
+      color: var(--ink);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .stats-player-table td:first-child,
+    .stats-player-table td:nth-child(2) {
+      text-align: left;
+      padding-left: 0;
+    }
+    .stats-player-table td.pid-cell {
+      color: var(--ink-dim);
+      font-size: 10px;
+    }
+    .stats-player-table td.role-cell {
+      color: var(--ink-dimer);
+      font-size: 10px;
+    }
+    .stats-player-table td.dist-cell {
+      color: var(--ink-dim);
+    }
+
+    /* ── Loading / error state ── */
+    .stats-loading,
+    .stats-error {
+      padding: 14px;
+      color: var(--ink-dimer);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .stats-error { color: var(--err); }
+
+    /* ── Status bar (shell.css not included) ── */
+    .status-bar {
+      display: flex; align-items: center; gap: 16px;
+      padding: 0 16px; height: 22px;
+      background: var(--panel); border-top: 1px solid var(--line);
+      font-size: 11px; color: var(--ink-dim);
+      letter-spacing: 0.08em; white-space: nowrap; overflow: hidden;
+    }
+    .status-bar .spacer { flex: 1; }
+    .status-bar b { color: var(--ink); }
+
+    /* ── Loader overlay ── */
+    #loader-screen {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 24px;
+    }
+    #loader-screen.hidden { display: none; }
+    .loader-brand {
+      font-family: var(--font-disp);
+      font-size: 28px; font-weight: 900; letter-spacing: 0.06em;
+    }
+    .loader-brand .dot { color: var(--a); }
+    .loader-heading {
+      font-size: 13px; letter-spacing: 0.18em;
+      color: var(--ink-dim); text-transform: uppercase;
+    }
+    .loader-drop-zone {
+      border: 1px solid var(--line);
+      padding: 40px 60px; text-align: center;
+      cursor: pointer; transition: border-color 0.15s;
+    }
+    .loader-drop-zone.drag-over { border-color: var(--a); }
+    .loader-drop-zone:hover { border-color: var(--line-2); }
+    #folder-picker { display: none; }
+    .loader-pick-btn {
+      display: inline-block; padding: 8px 20px;
+      background: var(--panel-2); border: 1px solid var(--line);
+      color: var(--ink); font-family: var(--font); font-size: 12px;
+      letter-spacing: 0.1em; cursor: pointer;
+      text-transform: uppercase;
+    }
+    .loader-pick-btn:hover { border-color: var(--line-2); }
+    .loader-drop-hint {
+      font-size: 11px; color: var(--ink-dimer);
+      margin-top: 12px;
+    }
+    #loader-error {
+      color: var(--err); font-size: 12px;
+      display: none;
+    }
+    #loader-error.visible { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ── Loader overlay (hidden when BUNDLED_MATCH present or after folder selected) ── -->
+<div id="loader-screen">
+  <div class="loader-brand">A<span class="dot">·</span>P  AGENT PITCH</div>
+  <div class="loader-heading">Match Viewer</div>
+  <div class="loader-drop-zone" id="loader-drop-zone">
+    <input type="file" id="folder-picker" webkitdirectory multiple>
+    <label for="folder-picker" class="loader-pick-btn">▶ Select Match Folder</label>
+    <div class="loader-drop-hint">— or drag &amp; drop the match folder here —</div>
+  </div>
+  <div id="loader-error"></div>
+</div>
+
+<!-- ── Match Viewer (same DOM structure as index.html #section-matches) ── -->
+<div class="app">
+  <div class="chyron">
+    <div class="chyron-brand">
+      <div class="brand-meta">
+        <div class="match-title-line"><b id="match-title">loading…</b></div>
+        <div><span class="dimer">SEED</span> <b id="bug-seed">—</b></div>
+      </div>
+    </div>
+    <div class="score-bar">
+      <div class="team-block home">
+        <div class="team-ident">
+          <div class="badge">HOME</div>
+          <div class="name" id="team-a-name">TEAM A</div>
+          <div class="model" id="team-a-model">strategy</div>
+        </div>
+        <div class="team-swatch a"></div>
+      </div>
+      <div class="score-plate">
+        <div class="score-num a" id="score-team-a">—</div>
+        <div class="score-sep">:</div>
+        <div class="score-num b" id="score-team-b">—</div>
+      </div>
+      <div class="team-block away">
+        <div class="team-ident">
+          <div class="badge">AWAY</div>
+          <div class="name" id="team-b-name">TEAM B</div>
+          <div class="model" id="team-b-model">strategy</div>
+        </div>
+        <div class="team-swatch b"></div>
+      </div>
+    </div>
+    <div class="chyron-stats">
+      <div class="stat-cell">
+        <label>POSSESSION</label>
+        <div class="big" id="bug-possession">—</div>
+      </div>
+      <div class="stat-cell">
+        <label>CARRIER</label>
+        <div class="big" id="bug-carrier">—</div>
+      </div>
+    </div>
+    <div class="clock-bar">
+      <div class="live-pip"><span class="dot"></span> REPLAY</div>
+      <div class="clock">
+        <span id="clock-cur">00:00</span>
+        <span class="total"> / <span id="clock-tot">00:00</span></span>
+      </div>
+    </div>
+    <div class="chyron-stats-toggle">
+      <button id="stats-toggle" title="Toggle match statistics" hidden>STATS</button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="pitch-wrap">
+      <div class="pitch-stage">
+        <canvas id="field-canvas" width="800" height="480"></canvas>
+        <div id="goal-flash" class="goal-flash" hidden></div>
+        <div id="goal-chyron" class="goal-chyron" hidden>
+          <div class="word"></div>
+          <div class="sub"></div>
+        </div>
+        <div id="match-waiting-overlay" class="match-waiting-overlay" hidden></div>
+      </div>
+      <div class="scrub">
+        <button class="scrub-btn play" id="play-pause" title="Play/pause (Space)">▶</button>
+        <div class="scrub-track" id="scrub-track">
+          <div class="scrub-fill" id="scrub-fill"></div>
+          <div class="scrub-markers" id="scrub-markers"></div>
+          <input type="range" id="scrub-bar" min="0" max="0" value="0">
+        </div>
+        <div class="tick-count" id="tick-display">T0000 / 0000</div>
+        <div class="speed-pill" id="speed-pill">
+          <button data-speed="0.5">0.5x</button>
+          <button data-speed="1" class="active">1x</button>
+          <button data-speed="2">2x</button>
+          <button data-speed="4">4x</button>
+        </div>
+      </div>
+    </div>
+    <div class="events" id="event-log-sidebar">
+      <div class="events-head">
+        <div class="events-head-label">EVENT FEED · <span id="events-count">0/0</span></div>
+        <button class="events-collapse-btn" id="event-feed-toggle" title="Collapse event feed"
+                aria-label="Collapse event feed" aria-expanded="true">◀</button>
+        <div class="seg filter-pills" id="filter-pills">
+          <button data-filter="all" class="active">ALL</button>
+          <button data-filter="team_a">A</button>
+          <button data-filter="team_b">B</button>
+        </div>
+      </div>
+      <div class="events-list" id="event-log-list">
+        <div class="evt placeholder">(no events yet)</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="match-stats-panel" hidden></div>
+
+  <footer class="status-bar" id="status-bar">
+    <span id="sb-mode">OFFLINE · LOCAL FILE</span>
+    <span id="sb-log">LOG · —</span>
+    <span id="sb-field">FIELD · 100×60m</span>
+    <span>TICK · <b id="bug-tick-rate">10/s</b></span>
+    <span class="spacer"></span>
+    <span id="sb-seed">DETERMINISTIC</span>
+  </footer>
+</div>
+
+<!-- JS injected in subsequent tasks -->
+</body>
+</html>
