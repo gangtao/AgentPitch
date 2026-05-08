@@ -3605,6 +3605,118 @@ bootstrap();
 window.seekToTick = seekToTick;
 </script>
 
-<!-- JS injected in subsequent tasks -->
+<script>
+'use strict';
+
+// ── JSONL parser ──────────────────────────────────────────────────────────────
+function parseJsonl(text) {
+  return text.split('\n')
+    .filter(line => line.trim())
+    .map(line => JSON.parse(line));
+}
+
+// ── File set → data extraction ────────────────────────────────────────────────
+function extractMatchFiles(fileList) {
+  // fileList is either a FileList (from <input>) or an Array of File objects
+  const files = Array.from(fileList);
+  const meta = files.find(f => f.name === 'meta.json');
+  const events = files.find(f => f.name === 'events.jsonl');
+  const stratA = files.find(f => f.name.startsWith('strategy_team_a'));
+  const stratB = files.find(f => f.name.startsWith('strategy_team_b'));
+  return { meta, events, stratA, stratB };
+}
+
+function readFileText(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = () => reject(new Error(`Failed to read ${file.name}`));
+    reader.readAsText(file);
+  });
+}
+
+function showLoaderError(msg) {
+  const el = document.getElementById('loader-error');
+  if (el) { el.textContent = msg; el.classList.add('visible'); }
+}
+
+async function loadMatchFromFiles(fileList) {
+  const { meta: metaFile, events: eventsFile, stratA, stratB } = extractMatchFiles(fileList);
+
+  if (!metaFile) { showLoaderError('meta.json not found in selected folder'); return; }
+  if (!eventsFile) { showLoaderError('events.jsonl not found in selected folder'); return; }
+
+  try {
+    const [metaText, eventsText] = await Promise.all([
+      readFileText(metaFile),
+      readFileText(eventsFile),
+    ]);
+    const meta = JSON.parse(metaText);
+    const ticks = parseJsonl(eventsText);
+
+    const strategies = {};
+    if (stratA) strategies.team_a = await readFileText(stratA);
+    if (stratB) strategies.team_b = await readFileText(stratB);
+
+    window.startFromData(meta, ticks, Object.keys(strategies).length ? strategies : null);
+  } catch (err) {
+    showLoaderError(`Error loading match: ${err.message}`);
+  }
+}
+
+// ── Folder picker (input[webkitdirectory]) ────────────────────────────────────
+const folderPicker = document.getElementById('folder-picker');
+if (folderPicker) {
+  folderPicker.addEventListener('change', () => {
+    if (folderPicker.files.length > 0) {
+      loadMatchFromFiles(folderPicker.files);
+    }
+  });
+}
+
+// ── Drag-and-drop folder ──────────────────────────────────────────────────────
+const dropZone = document.getElementById('loader-drop-zone');
+if (dropZone) {
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('drag-over');
+  });
+  dropZone.addEventListener('drop', async e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+
+    // Collect all files from dropped folder using webkitGetAsEntry
+    const files = [];
+    const readEntry = (entry) => new Promise((resolve) => {
+      if (entry.isFile) {
+        entry.file(f => { files.push(f); resolve(); });
+      } else if (entry.isDirectory) {
+        const reader = entry.createReader();
+        reader.readEntries(async entries => {
+          await Promise.all(entries.map(readEntry));
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
+
+    const items = Array.from(e.dataTransfer.items);
+    await Promise.all(items.map(item => {
+      const entry = item.webkitGetAsEntry && item.webkitGetAsEntry();
+      return entry ? readEntry(entry) : Promise.resolve();
+    }));
+
+    if (files.length > 0) {
+      loadMatchFromFiles(files);
+    } else {
+      showLoaderError('No files found in dropped folder');
+    }
+  });
+}
+</script>
 </body>
 </html>
