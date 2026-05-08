@@ -2030,6 +2030,167 @@
   </footer>
 </div>
 
+<script>
+'use strict';
+/**
+ * JS port of src/api/http_server/match_stats.py::compute_match_stats.
+ * Pure function: takes parsed events array + meta dict, returns stats dict.
+ */
+function computeMatchStats(events, meta) {
+  // Build roster: { player_id: { team, role, number } }
+  const roster = {};
+  for (const [teamId, players] of Object.entries(meta.teams || {})) {
+    for (const p of players) {
+      if (p.player_id) {
+        roster[p.player_id] = { team: teamId, role: p.role || '', number: p.number || 0 };
+      }
+    }
+  }
+
+  // Team stats template
+  function emptyTeam() {
+    return {
+      possession_pct: 50.0, goals: 0, shots: 0, shots_on_target: 0,
+      passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
+      dribbles_attempted: 0, dribbles_successful: 0, callback_failures: 0,
+      oob_corners: 0, oob_throw_ins: 0, oob_goal_kicks: 0,
+      gk_saves_caught: 0, gk_saves_parried: 0,
+    };
+  }
+  // Player stats template
+  function emptyPlayer(info) {
+    return {
+      team: info.team, role: info.role, number: info.number,
+      goals: 0, shots: 0, shots_on_target: 0,
+      passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
+      dribbles_attempted: 0, dribbles_successful: 0,
+      distance_run: 0.0, gk_saves_caught: 0, gk_saves_parried: 0,
+      callback_failures: 0,
+    };
+  }
+
+  const teamStats = { team_a: emptyTeam(), team_b: emptyTeam() };
+  const playerStats = {};
+  for (const [pid, info] of Object.entries(roster)) {
+    playerStats[pid] = emptyPlayer(info);
+  }
+
+  let possA = 0, possB = 0;
+  const prevPositions = {};
+
+  for (const tick of events) {
+    // Possession
+    const bp = tick.ball_possession;
+    if (bp === 'team_a') possA++;
+    else if (bp === 'team_b') possB++;
+
+    // Distance run
+    for (const [pid, pos] of Object.entries(tick.player_positions || {})) {
+      if (!roster[pid]) continue;
+      if (prevPositions[pid]) {
+        const [px, py] = prevPositions[pid];
+        playerStats[pid].distance_run += Math.hypot(pos[0] - px, pos[1] - py);
+      }
+      prevPositions[pid] = pos;
+    }
+
+    // Actions
+    for (const rec of (tick.actions || [])) {
+      _processAction(rec, teamStats, playerStats, roster);
+    }
+  }
+
+  // Possession percentages
+  const totalPoss = possA + possB;
+  if (totalPoss > 0) {
+    teamStats.team_a.possession_pct = 100.0 * possA / totalPoss;
+    teamStats.team_b.possession_pct = 100.0 * possB / totalPoss;
+  }
+  // Round distance
+  for (const ps of Object.values(playerStats)) {
+    ps.distance_run = Math.round(ps.distance_run * 10) / 10;
+  }
+
+  return { match_id: meta.match_id || '', teams: teamStats, players: playerStats };
+}
+
+function _processAction(rec, teamStats, playerStats, roster) {
+  const pid    = rec.player_id || '';
+  const team   = rec.team || '';
+  const action = (rec.action || '').toLowerCase();
+  const result = (rec.result || '').toLowerCase();
+  const details = rec.details || {};
+  const ts = teamStats[team];
+  const ps = playerStats[pid];
+
+  // OOB restart — keyed to restart_team
+  if (details.out_of_bounds) {
+    const restartType = details.restart_type || '';
+    const restartTeam = details.restart_team || '';
+    const rts = teamStats[restartTeam];
+    if (rts) {
+      if (restartType === 'corner_kick') rts.oob_corners++;
+      else if (restartType === 'throw_in') rts.oob_throw_ins++;
+      else if (restartType === 'goal_kick') rts.oob_goal_kicks++;
+    }
+    return;
+  }
+
+  // Goal scored (recorded on GK's action)
+  const goalScoredTeam = details.goal_scored;
+  if (goalScoredTeam) {
+    const scoringTs = teamStats[goalScoredTeam];
+    if (scoringTs) { scoringTs.goals++; scoringTs.shots_on_target++; }
+    const scorerPs = playerStats[details.scored_by || ''];
+    if (scorerPs) { scorerPs.goals++; scorerPs.shots_on_target++; }
+  }
+
+  const gkSave = details.goalkeeper_save;
+  if (gkSave === 'success' || gkSave === 'blocked') {
+    const shooterPs = playerStats[details.saved_from || ''];
+    if (shooterPs) {
+      teamStats[shooterPs.team].shots_on_target++;
+      shooterPs.shots_on_target++;
+    }
+    if (gkSave === 'success') {
+      if (ts) ts.gk_saves_caught++;
+      if (ps) ps.gk_saves_caught++;
+    } else {
+      if (ts) ts.gk_saves_parried++;
+      if (ps) ps.gk_saves_parried++;
+    }
+  }
+
+  // Callback failure
+  if (action === 'hold' && details.fallback_substituted) {
+    if (ts) ts.callback_failures++;
+    if (ps) ps.callback_failures++;
+  }
+
+  if (action === 'shoot') {
+    if (ts) ts.shots++;
+    if (ps) ps.shots++;
+  } else if (action === 'pass') {
+    if (ts) ts.passes_attempted++;
+    if (ps) ps.passes_attempted++;
+  } else if (action === 'tackle') {
+    if (ts) ts.tackles_attempted++;
+    if (ps) ps.tackles_attempted++;
+    if (result === 'controlled') {
+      if (ts) ts.tackles_successful++;
+      if (ps) ps.tackles_successful++;
+    }
+  } else if (action === 'move' && details.dribble_result != null) {
+    if (ts) ts.dribbles_attempted++;
+    if (ps) ps.dribbles_attempted++;
+    if (details.dribble_result === 'success') {
+      if (ts) ts.dribbles_successful++;
+      if (ps) ps.dribbles_successful++;
+    }
+  }
+}
+</script>
+
 <!-- JS injected in subsequent tasks -->
 </body>
 </html>
