@@ -92,6 +92,25 @@ make docker-image         # build standalone image agent-pitch:latest
 make docker-run           # run standalone image with ./data volume mapped
 ```
 
+## Match Viewer (standalone)
+
+`tools/match-viewer.html` is a self-contained HTML file that replays any saved match with no server required. Open it directly in a browser.
+
+**Folder picker mode** — select a match directory (contains `meta.json` + `events.jsonl`):
+
+```
+Open tools/match-viewer.html → click "Select Match Folder" → pick data/matches/<match_id>/
+```
+
+**Bundled mode** — embed match data into a shareable single-file HTML:
+
+```bash
+python tools/bundle_match.py data/matches/<match_id>
+# → tools/match-viewer-bundled-<match_id>.html  (opens with no loader, ~11 MB)
+```
+
+The bundled file has no external dependencies beyond Google Fonts (degrades gracefully offline).
+
 ## Supported LLM providers
 
 Edit `data/llm-providers.yaml` to select your provider and model:

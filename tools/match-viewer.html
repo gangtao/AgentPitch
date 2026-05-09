@@ -1,0 +1,3722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Agent Pitch · Match Viewer</title>
+  <meta name="viewport" content="width=1440">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700&family=Space+Grotesk:ital,wght@0,400;0,500;0,700;0,900;1,700;1,900&display=swap" rel="stylesheet">
+  <style>
+    /* ── INLINE: design-system.css ── */
+    /* ─────────────────────────────────────────────────────────────────
+       Agent Pitch — Design System (canonical components)
+       Source of truth: design/ux/components/components_design.html
+       Load this stylesheet FIRST so per-module CSS can extend / override.
+       ───────────────────────────────────────────────────────────────── */
+
+    :root {
+      /* ── Surfaces ── */
+      --bg:        #0a0d10;
+      --panel:     #11161b;
+      --panel-2:   #161c22;
+      --panel-3:   #1c232a;          /* viewer-only (kept for viewer chrome) */
+      --line:      #242c34;
+      --line-soft: #1a2128;
+      --line-2:    #2f3a44;          /* viewer-only (kept for viewer chrome) */
+
+      /* ── Ink ── */
+      --ink:       #e8edf1;
+      --ink-dim:   #9aa4ad;
+      --ink-dimer: #5b6872;
+      --ink-faint: #3a4550;
+
+      /* ── Accent ── */
+      --a:         #f2a44b;          /* Team A · primary accent */
+      --a-dim:     #a87530;
+      --a-ink:     #120a04;
+      --b:         #b08cff;          /* Team B */
+
+      /* ── Status ── */
+      --ok:        #6ee3a5;
+      --warn:      #f2a44b;
+      --err:       #ff6b6b;
+
+      /* ── Type ── */
+      --font:      "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+      --font-disp: "Space Grotesk", -apple-system, "Segoe UI", sans-serif;
+
+      /* Legacy alias used by shell.css / app.css / per-module CSS. */
+      --font-mono: var(--font);
+    }
+
+    /* ── Base ── */
+    html, body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: var(--font);
+      font-feature-settings: "zero" on, "ss01" on;
+    }
+    * { box-sizing: border-box; }
+
+    /* Defensive: any [hidden] element must collapse, even if a layout
+       rule below assigns it display:flex/grid. */
+    [hidden] { display: none !important; }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* SECTION HEADERS                                                  */
+    /* ───────────────────────────────────────────────────────────────── */
+    .ap-section {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin: 36px 0 18px;
+      color: var(--ink-dim);
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .ap-section .rule {
+      flex: 1;
+      height: 1px;
+      background: var(--line);
+    }
+    .ap-section .reset {
+      color: var(--a);
+      text-decoration: none;
+      font-size: 11px;
+    }
+    .ap-section .reset:hover { text-decoration: underline; }
+
+    .sub-head {
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin: 0 0 14px;
+    }
+    .sub-head::before { content: "— "; color: var(--ink-dimer); }
+    .sub-head::after  { content: " —"; color: var(--ink-dimer); }
+
+    /* Panel / card */
+    .ap-panel {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 20px 24px;
+      margin-bottom: 14px;
+    }
+
+    /* Tile grid (used in components reference and dashboard summaries) */
+    .tile-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1px;
+      background: var(--line);
+      border: 1px solid var(--line);
+    }
+    .tile {
+      background: var(--panel);
+      padding: 22px 22px 20px;
+      display: flex;
+      flex-direction: column;
+      min-height: 128px;
+    }
+    .tile .label {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-dimer);
+      margin-bottom: 14px;
+    }
+    .tile .body {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      flex: 1;
+    }
+    .tile .body.col { flex-direction: column; align-items: stretch; }
+
+    /* Form row (label + control + unit) */
+    .form-row {
+      display: grid;
+      grid-template-columns: 180px 88px 1fr;
+      align-items: center;
+      gap: 18px;
+      padding: 7px 0;
+    }
+    .form-row .row-label {
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .form-row .unit {
+      font-size: 11px;
+      color: var(--ink-dimer);
+    }
+    /* Wide control that spans the unit + control columns of .form-row */
+    .form-row .row-wide {
+      grid-column: 2 / span 2;
+      min-width: 0;
+    }
+
+    /* Bordered form section (used to group related rows — e.g. an LLM provider) */
+    .form-sect {
+      border: 1px solid var(--line);
+      background: var(--panel);
+      padding: 22px 28px;
+      margin-bottom: 10px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* BUTTON                                                           */
+    /* ───────────────────────────────────────────────────────────────── */
+    .btn {
+      font: inherit;
+      font-size: 12px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--ink);
+      background: var(--panel-2);
+      border: 1px solid var(--line);
+      padding: 8px 16px;
+      cursor: pointer;
+      transition: background .12s, border-color .12s, color .12s, transform .04s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      user-select: none;
+      line-height: 1;
+      border-radius: 0;
+    }
+    .btn:hover  { background: #1c242c; border-color: #2e3942; }
+    .btn:active { transform: translateY(1px); }
+    .btn:focus-visible {
+      outline: none;
+      border-color: var(--a);
+      box-shadow: 0 0 0 2px rgba(242,164,75,0.18);
+    }
+    .btn[disabled] {
+      color: var(--ink-faint);
+      background: var(--panel);
+      border-color: var(--line-soft);
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--a);
+      color: var(--a-ink);
+      border-color: var(--a);
+      font-weight: 600;
+    }
+    .btn-primary:hover { background: #ffb75c; border-color: #ffb75c; }
+    .btn-primary:focus-visible { box-shadow: 0 0 0 2px rgba(242,164,75,0.30); }
+
+    .btn-ghost {
+      background: transparent;
+      border-color: transparent;
+      color: var(--ink-dim);
+    }
+    .btn-ghost:hover { background: var(--panel-2); color: var(--ink); border-color: transparent; }
+
+    .btn-danger {
+      color: var(--err);
+      border-color: rgba(255,107,107,0.30);
+    }
+    .btn-danger:hover { background: rgba(255,107,107,0.08); border-color: var(--err); }
+
+    .btn-sm { padding: 5px 10px;  font-size: 10px; }
+    .btn-lg { padding: 11px 20px; font-size: 13px; }
+
+    .btn-icon {
+      padding: 7px;
+      min-width: 30px;
+      justify-content: center;
+    }
+    .btn-icon svg { width: 14px; height: 14px; display: block; }
+
+    /* Bracket link — "[ Reset section ]" style */
+    .btn-link {
+      background: none;
+      border: none;
+      font: inherit;
+      color: var(--a);
+      cursor: pointer;
+      font-size: 12px;
+      padding: 2px 0;
+      letter-spacing: 0;
+      text-transform: none;
+    }
+    .btn-link:hover { text-decoration: underline; }
+    .btn-link::before { content: "[ "; color: var(--ink-dimer); }
+    .btn-link::after  { content: " ]"; color: var(--ink-dimer); }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* INPUT                                                            */
+    /* ───────────────────────────────────────────────────────────────── */
+    .ipt {
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      background: #070a0d;
+      border: 1px solid var(--line);
+      padding: 7px 10px;
+      width: 100%;
+      min-width: 0;
+      outline: none;
+      border-radius: 0;
+      transition: border-color .12s, box-shadow .12s;
+    }
+    .ipt:hover { border-color: #2e3942; }
+    .ipt:focus { border-color: var(--a); box-shadow: inset 0 0 0 1px var(--a); }
+    .ipt::placeholder { color: var(--ink-faint); }
+    .ipt[disabled] { color: var(--ink-faint); background: var(--panel); cursor: not-allowed; }
+    .ipt.invalid { border-color: var(--err); }
+    .ipt.invalid:focus { box-shadow: inset 0 0 0 1px var(--err); }
+
+    .ipt-num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    /* Checkbox variant — strips the .ipt chrome (border / padding / full width)
+       that's designed for text inputs and lets the native checkbox sit naturally
+       in the row. Sized up modestly for visibility in the dense config form. */
+    .ipt-check {
+      width: 16px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0;
+      margin: 0;
+      border: 0;
+      background: transparent;
+      accent-color: var(--a);
+      cursor: pointer;
+    }
+    .ipt-check:focus { box-shadow: 0 0 0 2px var(--a); outline: none; }
+
+    /* Input with inline leading icon */
+    .ipt-wrap {
+      position: relative;
+      display: inline-flex;
+      align-items: stretch;
+      width: 100%;
+    }
+    .ipt-wrap > .ipt { padding-left: 30px; }
+    .ipt-wrap > .affix {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-dimer);
+      font-size: 12px;
+      pointer-events: none;
+      display: flex;
+    }
+    .ipt-wrap > .affix svg { width: 13px; height: 13px; }
+
+    /* Input with trailing button cluster (e.g. secret reveal/clear).
+       Uses flex so any number of trailing .ipt-btn children sit inline. */
+    .ipt-cluster {
+      display: flex;
+      align-items: stretch;
+    }
+    .ipt-cluster .ipt {
+      border-right: none;
+      flex: 1;
+      min-width: 0;
+    }
+    .ipt-cluster .ipt-btn {
+      font: inherit;
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 0 12px;
+      cursor: pointer;
+      flex-shrink: 0;
+      white-space: nowrap;
+      transition: color .12s, background .12s;
+    }
+    .ipt-cluster .ipt-btn:hover:not(:disabled) { color: var(--ink); background: var(--panel-2); }
+    .ipt-cluster .ipt-btn:disabled { color: var(--ink-faint); cursor: not-allowed; }
+    .ipt-cluster .ipt-btn + .ipt-btn { border-left: none; }
+
+    /* Textarea */
+    textarea.ipt { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+    /* Field (label above) */
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: 100%;
+    }
+    .field .lbl {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .field .help {
+      font-size: 11px;
+      color: var(--ink-dimer);
+    }
+    .field .help.err { color: var(--err); }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* SELECT / DROPDOWN                                                */
+    /* ───────────────────────────────────────────────────────────────── */
+    .sel {
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      background: #070a0d;
+      border: 1px solid var(--line);
+      padding: 7px 28px 7px 10px;
+      width: 100%;
+      cursor: pointer;
+      appearance: none;
+      -webkit-appearance: none;
+      border-radius: 0;
+      background-image: linear-gradient(45deg, transparent 50%, var(--ink-dim) 50%),
+                        linear-gradient(135deg, var(--ink-dim) 50%, transparent 50%);
+      background-position: calc(100% - 14px) 50%, calc(100% - 9px) 50%;
+      background-size: 5px 5px, 5px 5px;
+      background-repeat: no-repeat;
+      outline: none;
+      transition: border-color .12s, box-shadow .12s;
+    }
+    .sel:hover { border-color: #2e3942; }
+    .sel:focus { border-color: var(--a); box-shadow: inset 0 0 0 1px var(--a); }
+    .sel[disabled] { color: var(--ink-faint); background-color: var(--panel); cursor: not-allowed; }
+
+    /* Custom combobox */
+    .combo {
+      position: relative;
+      width: 100%;
+    }
+    .combo-button {
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      background: #070a0d;
+      border: 1px solid var(--line);
+      padding: 7px 10px;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      outline: none;
+      border-radius: 0;
+    }
+    .combo-button .caret { color: var(--ink-dim); font-size: 9px; }
+    .combo.open .combo-button { border-color: var(--a); box-shadow: inset 0 0 0 1px var(--a); }
+    .combo-menu {
+      position: absolute;
+      top: calc(100% - 1px);
+      left: 0;
+      right: 0;
+      background: #070a0d;
+      border: 1px solid var(--a);
+      box-shadow: 0 12px 30px rgba(0,0,0,0.6);
+      z-index: 10;
+      max-height: 220px;
+      overflow: auto;
+    }
+    .combo-option {
+      padding: 8px 10px;
+      font-size: 13px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: var(--ink);
+    }
+    .combo-option .mono-dim { color: var(--ink-dimer); font-size: 11px; }
+    .combo-option:hover { background: var(--panel-2); }
+    .combo-option.active { background: rgba(242,164,75,0.12); color: var(--a); }
+    .combo-option.active::before { content: "› "; margin-left: -6px; }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* CHECKBOX / RADIO                                                 */
+    /* ───────────────────────────────────────────────────────────────── */
+    .chk, .rdo {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+      color: var(--ink);
+    }
+    .chk input, .rdo input { position: absolute; opacity: 0; pointer-events: none; }
+    .chk .box, .rdo .dot {
+      width: 14px;
+      height: 14px;
+      background: #070a0d;
+      border: 1px solid var(--line);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color .12s, background .12s;
+    }
+    .rdo .dot { border-radius: 50%; }
+    .chk:hover .box, .rdo:hover .dot { border-color: #39454f; }
+    .chk input:checked + .box {
+      border-color: var(--a);
+      background: var(--a);
+    }
+    .chk input:checked + .box::after {
+      content: "";
+      width: 8px;
+      height: 4px;
+      border-left: 1.5px solid var(--a-ink);
+      border-bottom: 1.5px solid var(--a-ink);
+      transform: rotate(-45deg) translate(1px, -1px);
+    }
+    .rdo input:checked + .dot { border-color: var(--a); }
+    .rdo input:checked + .dot::after {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--a);
+    }
+    .chk input:focus-visible + .box,
+    .rdo input:focus-visible + .dot {
+      box-shadow: 0 0 0 2px rgba(242,164,75,0.25);
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* TOGGLE                                                           */
+    /* ───────────────────────────────────────────────────────────────── */
+    .tgl {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      cursor: pointer;
+      user-select: none;
+      font-size: 13px;
+    }
+    .tgl input { position: absolute; opacity: 0; pointer-events: none; }
+    .tgl .track {
+      width: 34px;
+      height: 18px;
+      background: #070a0d;
+      border: 1px solid var(--line);
+      position: relative;
+      flex-shrink: 0;
+      transition: background .15s, border-color .15s;
+    }
+    .tgl .track::after {
+      content: "";
+      position: absolute;
+      top: 2px;
+      left: 2px;
+      width: 12px;
+      height: 12px;
+      background: var(--ink-dim);
+      transition: transform .15s, background .15s;
+    }
+    .tgl input:checked + .track {
+      background: rgba(242,164,75,0.15);
+      border-color: var(--a);
+    }
+    .tgl input:checked + .track::after {
+      transform: translateX(16px);
+      background: var(--a);
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* TABS / SEGMENTED                                                 */
+    /* ───────────────────────────────────────────────────────────────── */
+    .tabs {
+      display: flex;
+      border-bottom: 1px solid var(--line);
+      gap: 0;
+    }
+    .tab {
+      font: inherit;
+      font-size: 11px;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      background: none;
+      border: none;
+      padding: 14px 28px;
+      cursor: pointer;
+      flex: 1;
+      text-align: center;
+      position: relative;
+      transition: color .12s;
+    }
+    .tab:hover { color: var(--ink); }
+    .tab.active { color: var(--ink); }
+    .tab.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: -1px;
+      height: 2px;
+      background: var(--a);
+    }
+
+    /* Segmented control — boxy */
+    .seg {
+      display: inline-flex;
+      border: 1px solid var(--line);
+      background: #070a0d;
+    }
+    .seg button {
+      font: inherit;
+      font-size: 11px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      background: none;
+      border: none;
+      padding: 7px 14px;
+      cursor: pointer;
+      border-right: 1px solid var(--line);
+      transition: color .12s, background .12s;
+    }
+    .seg button:last-child { border-right: none; }
+    .seg button:hover { color: var(--ink); }
+    .seg button.on,
+    .seg button.active {
+      color: var(--a-ink);
+      background: var(--a);
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* SLIDER / STEPPER                                                 */
+    /* ───────────────────────────────────────────────────────────────── */
+    .sldr {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 100%;
+      height: 2px;
+      background: var(--line);
+      outline: none;
+      cursor: pointer;
+    }
+    .sldr::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 12px;
+      height: 16px;
+      background: var(--a);
+      cursor: grab;
+      border-radius: 0;
+      border: 1px solid var(--a);
+    }
+    .sldr::-moz-range-thumb {
+      width: 12px;
+      height: 16px;
+      background: var(--a);
+      cursor: grab;
+      border-radius: 0;
+      border: 1px solid var(--a);
+    }
+
+    .stp {
+      display: inline-flex;
+      align-items: stretch;
+      border: 1px solid var(--line);
+      background: #070a0d;
+    }
+    .stp button {
+      font: inherit;
+      font-size: 14px;
+      color: var(--ink-dim);
+      background: none;
+      border: none;
+      width: 26px;
+      cursor: pointer;
+      transition: color .12s, background .12s;
+    }
+    .stp button:hover { color: var(--a); background: var(--panel-2); }
+    .stp input {
+      font: inherit;
+      font-size: 13px;
+      color: var(--ink);
+      background: none;
+      border: none;
+      border-left: 1px solid var(--line);
+      border-right: 1px solid var(--line);
+      text-align: center;
+      width: 48px;
+      outline: none;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* BADGES / STATUS DOTS / KBD / TOOLTIP / BANNER / PROGRESS         */
+    /* ───────────────────────────────────────────────────────────────── */
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
+      background: var(--panel);
+      line-height: 1.4;
+    }
+    .badge.ok     { color: var(--ok);   border-color: rgba(110,227,165,0.30); }
+    .badge.warn   { color: var(--warn); border-color: rgba(242,164,75,0.35); }
+    .badge.err    { color: var(--err);  border-color: rgba(255,107,107,0.35); }
+    .badge.accent { color: var(--b);    border-color: rgba(176,140,255,0.35); }
+    .badge.solid  { color: var(--a-ink); background: var(--a); border-color: var(--a); }
+
+    .dot-status {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      color: var(--ink-dim);
+    }
+    .dot-status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      background: currentColor;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .dot-status.ok   { color: var(--ok); }
+    .dot-status.warn { color: var(--warn); }
+    .dot-status.err  { color: var(--err); }
+    .dot-status.idle { color: var(--ink-dimer); }
+
+    .kbd {
+      font-family: var(--font);
+      font-size: 10px;
+      padding: 2px 6px;
+      border: 1px solid var(--line);
+      border-bottom-width: 2px;
+      background: var(--panel);
+      color: var(--ink-dim);
+      line-height: 1;
+      display: inline-block;
+    }
+
+    .tip-wrap { position: relative; display: inline-block; }
+    .tip-wrap .tip {
+      position: absolute;
+      bottom: calc(100% + 6px);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: var(--ink);
+      background: #070a0d;
+      border: 1px solid var(--a);
+      padding: 5px 9px;
+      white-space: nowrap;
+      pointer-events: none;
+    }
+    .tip-wrap .tip::after {
+      content: "";
+      position: absolute;
+      top: 100%;
+      left: 50%;
+      transform: translateX(-50%);
+      border: 4px solid transparent;
+      border-top-color: var(--a);
+    }
+
+    .banner {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 16px;
+      border: 1px solid var(--line);
+      background: var(--panel);
+      border-left: 3px solid var(--ink-dim);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+    .banner .b-mark {
+      font-size: 10px;
+      letter-spacing: 0.2em;
+      color: var(--ink-dim);
+      padding-top: 1px;
+    }
+    .banner.ok   { border-left-color: var(--ok); }
+    .banner.ok .b-mark   { color: var(--ok); }
+    .banner.warn { border-left-color: var(--warn); }
+    .banner.warn .b-mark { color: var(--warn); }
+    .banner.err  { border-left-color: var(--err); }
+    .banner.err .b-mark  { color: var(--err); }
+
+    .prog {
+      width: 100%;
+      height: 4px;
+      background: var(--line);
+      position: relative;
+    }
+    .prog .bar {
+      height: 100%;
+      background: var(--a);
+    }
+    .prog-label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 10px;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      margin-bottom: 6px;
+    }
+
+    /* Breadcrumb */
+    .bc {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      color: var(--ink-dim);
+    }
+    .bc a { color: var(--ink-dim); text-decoration: none; cursor: pointer; }
+    .bc a:hover { color: var(--a); }
+    .bc .sep  { color: var(--ink-faint); }
+    .bc .here { color: var(--ink); }
+
+    /* Table */
+    .tbl {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12px;
+    }
+    .tbl th, .tbl td {
+      text-align: left;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      vertical-align: middle;
+    }
+    .tbl tbody tr:last-child td { border-bottom: none; }
+    .tbl th {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+      font-weight: 500;
+      background: var(--panel-2);
+    }
+    .tbl td { color: var(--ink); }
+    .tbl .num { font-variant-numeric: tabular-nums; text-align: right; }
+    .tbl tr:hover td { background: rgba(255,255,255,0.02); }
+    /* Right-most action column — small, icon-button-shaped, no extra padding. */
+    .tbl .cell-action { width: 50px; padding: 4px 8px; text-align: right; }
+
+    /* Footer strip below a .tbl (for "+ Add row" buttons etc.). Pair with
+       `.ap-panel` style="padding:0" so the footer sits flush with the table. */
+    .tbl-footer {
+      padding: 12px 14px;
+      border-top: 1px solid var(--line);
+    }
+
+    /* Compact form controls sized to fit inside a .tbl cell. The standard .ipt
+       is 32px+ tall and full-width; .ipt-cell shrinks both so the table stays
+       data-density-appropriate without losing the design-system input chrome
+       (background, border, focus ring). */
+    .ipt-cell {
+      padding: 4px 8px;
+      font-size: 12px;
+      width: 60px;
+      text-align: right;
+    }
+    .sel-cell {
+      width: 80px;
+      padding: 4px 22px 4px 8px;
+      font-size: 12px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* LIST PATTERN (matches list / strategies list / config list)      */
+    /* ───────────────────────────────────────────────────────────────── */
+    /* Action bar at the top of a list view: primary CTA on the left,
+       count / secondary text on the right. */
+    .list-action-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 60px;
+      padding: 0 24px;
+      border-bottom: 1px solid var(--line);
+      background: var(--bg);
+      flex-shrink: 0;
+    }
+    /* The list-action-bar's primary CTA is intentionally taller than the default
+       .btn (32px) — gives it presence as the page's primary action. */
+    .list-action-bar > .btn-primary { padding: 10px 16px; }
+
+    .list-count {
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+
+    /* Scrollable list body. Sized to fill the remaining height of its parent
+       (assumes parent is a flex column with a 60px action bar above). */
+    .list-body {
+      overflow-y: auto;
+      flex: 1;
+      min-height: 0;
+    }
+
+    /* Each row in the list. Two-line content + trailing action buttons. */
+    .list-row {
+      display: flex;
+      align-items: center;
+      min-height: 60px;
+      padding: 12px 24px;
+      background: var(--panel);
+      border-bottom: 1px solid var(--line);
+      cursor: pointer;
+      transition: background .12s;
+    }
+    .list-row:hover { background: var(--panel-2); }
+    .list-row.skeleton {
+      cursor: default;
+      color: var(--ink-dimer);
+    }
+    .list-row.skeleton:hover { background: var(--panel); }
+
+    .list-row-content { flex: 1; min-width: 0; }
+
+    .list-row-line-1 {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink);
+      margin-bottom: 4px;
+      letter-spacing: 0.04em;
+    }
+
+    .list-row-line-2 {
+      font-size: 10px;
+      color: var(--ink-dim);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+    }
+
+    .list-row-actions {
+      display: flex;
+      gap: 8px;
+      margin-left: 16px;
+    }
+
+    /* Empty / error states centered inside .list-body */
+    .list-empty-state,
+    .list-error {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      text-align: center;
+      padding: 48px 24px;
+    }
+
+    /* ───────────────────────────────────────────────────────────────── */
+    /* UTILITIES                                                        */
+    /* ───────────────────────────────────────────────────────────────── */
+    .mono  { font-family: var(--font); }
+    .disp  { font-family: var(--font-disp); }
+    .dim   { color: var(--ink-dim); }
+    .dimer { color: var(--ink-dimer); }
+    .tabular { font-variant-numeric: tabular-nums; }
+
+    /* ── INLINE: app.css ── */
+    /* Agent Pitch — Broadcast Viewer
+       Production stylesheet. Adapted from prototypes/ui/viewer.css
+       to vanilla DOM (no React) and to the live API data shape.
+
+       Tokens that overlap design-system.css are owned by the design system;
+       this file declares only viewer-specific extras (--pitch*, --live,
+       --neutral, --amber, --bad, broadcast typography aliases).
+       ────────────────────────────────────────────────────────── */
+
+    :root {
+      /* Pitch render */
+      --pitch:     #1e3a2a;
+      --pitch-2:   #214030;
+      --pitch-line:#e8edf1;
+
+      /* Broadcast accents (not in the components system) */
+      --live:      #ff3b4a;
+      --neutral:   #6ea8ff;
+      --amber:     #f2c14b;
+
+      /* Aliases for legacy viewer rules */
+      --bad:       var(--err);    /* alias the design-system token, not a copy */
+    }
+
+    html, body {
+      font-size: 13px;
+      line-height: 1.45;
+      overflow: hidden;
+      height: 100%;
+    }
+
+    /* ── App shell ──────────────────────────────────────────── */
+    .app {
+      display: grid;
+      /* Chyron 80px gives the team-ident's three lines (badge / name / model)
+         room to breathe without the model line clipping. */
+      grid-template-rows: 80px minmax(0, 1fr) 22px;
+      height: 100vh;
+      width: 100vw;
+    }
+
+    /* ── Top scoreboard chyron ──────────────────────────────── */
+    .chyron {
+      display: grid;
+      /* brand | score | live stats (POSS / CARRIER) | clock | stats toggle */
+      grid-template-columns: 220px minmax(0, 1fr) auto 200px auto;
+      align-items: stretch;
+      background: #000;
+      border-bottom: 1px solid var(--line);
+      min-width: 0;
+    }
+    .chyron-brand {
+      display: flex; align-items: center; gap: 10px;
+      padding: 0 18px;
+      border-right: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d1216, #05080a);
+    }
+    .brand-mark {
+      font-family: var(--font-disp);
+      font-weight: 900; font-style: italic;
+      font-size: 26px;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+      position: relative;
+      line-height: 1;
+      display: inline-flex; align-items: center; gap: 3px;
+    }
+    .brand-mark .dot {
+      display: inline-block;
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--a);
+      box-shadow: 0 0 10px var(--a);
+      transform: translateY(5px);
+    }
+    .brand-meta {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-dim);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      line-height: 1.35;
+      min-width: 0;
+    }
+    .brand-meta b { color: var(--ink); font-weight: 600; }
+    .brand-meta div { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    /* Match-id line is the dominant identifier in the chyron now (no logo+wordmark
+       competing for attention). Bump it slightly so the eye lands here first. */
+    .chyron .match-title-line { font-size: 12px; letter-spacing: 0.04em; text-transform: none; }
+    .chyron .match-title-line b { color: var(--ink); }
+
+    /* Center score block */
+    .score-bar {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+    }
+    .team-block {
+      display: flex; align-items: center; gap: 14px;
+      padding: 0 18px;
+      height: 100%;
+    }
+    .team-block.home { justify-content: flex-end; }
+    /* row-reverse mirrors the home block (swatch sits adjacent to the
+       score, ident on the outside). With row-reverse the main axis is
+       reversed, so flex-end packs items at the visual LEFT of the column
+       — i.e. snug against the score plate, mirroring the home side. */
+    .team-block.away { justify-content: flex-end; flex-direction: row-reverse; }
+    .team-swatch {
+      width: 6px; height: 36px; border-radius: 1px;
+    }
+    .team-swatch.a { background: var(--a); box-shadow: 0 0 18px -4px var(--a); }
+    .team-swatch.b { background: var(--b); box-shadow: 0 0 18px -4px var(--b); }
+    .team-ident {
+      display: flex; flex-direction: column; gap: 1px;
+      text-align: right;
+      align-items: flex-end;  /* prevent badge box from stretching to column width */
+      min-width: 0;            /* allow long .model text to shrink/wrap inside flex */
+    }
+    .team-block.away .team-ident {
+      text-align: left;
+      align-items: flex-start;
+    }
+    .team-ident .badge {
+      font-family: var(--font-disp);
+      font-weight: 700; font-size: 11px;
+      letter-spacing: 0.12em;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+    }
+    .team-ident .name {
+      font-family: var(--font-disp);
+      font-weight: 700; font-size: 19px;
+      letter-spacing: -0.01em;
+      color: var(--ink);
+      line-height: 1.1;
+    }
+    .team-ident .model {
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-dimer);
+      letter-spacing: 0.04em;
+      /* long generated-strategy file stems (e.g. anthropic-claude-sonnet-...
+         -<timestamp>) otherwise blow out the chyron column. */
+      max-width: 240px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .score-plate {
+      display: grid;
+      grid-template-columns: auto auto auto;
+      align-items: center;
+      gap: 14px;
+      padding: 0 16px;
+      height: 100%;
+      background: #000;
+      position: relative;
+    }
+    .score-num {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: 36px;
+      line-height: 1;
+      font-variant-numeric: tabular-nums;
+      min-width: 28px;
+      text-align: center;
+      letter-spacing: -0.02em;
+    }
+    .score-num.a { color: var(--a); text-shadow: 0 0 24px rgba(242,164,75,0.35); }
+    .score-num.b { color: var(--b); text-shadow: 0 0 24px rgba(176,140,255,0.35); }
+    .score-sep {
+      color: var(--ink-dimer);
+      font-family: var(--font-disp);
+      font-weight: 400;
+      font-size: 26px;
+    }
+    .clock-bar {
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 12px;
+      padding: 0 18px;
+      border-left: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d1216, #05080a);
+    }
+    .clock {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: 24px;
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.02em;
+      text-align: right;
+      color: var(--ink);
+    }
+    .clock .total { color: var(--ink-dimer); font-size: 14px; font-weight: 500; }
+    .live-pip {
+      display: flex; align-items: center; gap: 6px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.22em;
+      color: var(--live);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+    .live-pip .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--live);
+      box-shadow: 0 0 12px var(--live);
+      animation: pulse 1.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%      { opacity: 0.35; transform: scale(0.75); }
+    }
+
+    /* ── Body grid: pitch | events ──────────────────────────── */
+    .body {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 320px;
+      transition: grid-template-columns 180ms ease;
+      /* `flex: 1` + `min-height: 0` makes .body fill the remaining vertical
+         space inside #section-matches (a flex column with the 80px chyron
+         above + the 22px status-bar below). Without this, .body sizes to its
+         content (the canvas + scrub) — and since the canvas's aspect-ratio
+         wants to grow huge on wide viewports, the content overflowed and got
+         clipped by `overflow: hidden`, hiding the bottom of the field. */
+      flex: 1;
+      min-height: 0;
+      background: var(--bg);
+      overflow: hidden;
+    }
+    .pitch-wrap {
+      display: grid;
+      grid-template-rows: minmax(0, 1fr) auto;
+      min-height: 0;
+    }
+    .pitch-stage {
+      position: relative;
+      min-height: 220px;
+      overflow: hidden;
+      background:
+        radial-gradient(ellipse at 50% 45%, #254633 0%, #182e22 55%, #0d1a13 100%);
+      display: grid;
+      place-items: center;
+      /* Explicit padding so the canvas (centered via place-items) physically
+         can't reach the bottom edge — guarantees a visible gap to the scrub
+         bar below regardless of viewport size or pitch aspect-ratio. The
+         canvas's own max-height further constrains this. */
+      padding: 16px 0 24px;
+    }
+
+    /* "Waiting for match result" overlay — covers the canvas while the engine
+       subprocess is starting and no events.jsonl exists yet. Hidden once data
+       arrives (handled by app.js). */
+    .match-waiting-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 13, 16, 0.92);
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      padding: 24px;
+      text-align: center;
+    }
+    .match-waiting-overlay[hidden] {
+      display: none;
+    }
+    .match-waiting-overlay .waiting-spinner {
+      font-size: 32px;
+      color: var(--ink-dim);
+      font-family: monospace;
+      /* Gentle breathing animation — the only motion we tolerate here, conveys "alive" */
+      animation: waiting-pulse 1.4s ease-in-out infinite;
+    }
+    @keyframes waiting-pulse {
+      0%, 100% { opacity: 0.35; }
+      50% { opacity: 1; }
+    }
+    .match-waiting-overlay .waiting-title {
+      font-family: var(--font-mono);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+    .match-waiting-overlay .waiting-subtitle {
+      font-family: var(--font-mono);
+      font-size: 12px;
+      color: var(--ink-dim);
+      letter-spacing: 0.06em;
+    }
+    .match-waiting-overlay .waiting-hint {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-dimer);
+      margin-top: 8px;
+      max-width: 380px;
+      line-height: 1.5;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .match-waiting-overlay .waiting-spinner {
+        animation: none;
+      }
+    }
+    #field-canvas {
+      position: relative;
+      display: block;
+      /* Display size is set inline by app.js _resizeCanvas() — JS reads
+         pitch-stage's available area, computes a fit-within size that respects
+         the per-match aspect ratio (FIELD_W/FIELD_H from meta), and writes
+         style.width / style.height. Removes the CSS aspect-ratio + max-*
+         trio that was causing overflow into the scrub bar on certain viewport
+         sizes (the constraints could pick a height larger than fit). */
+    }
+
+    /* Live-stats column inside the chyron — POSSESSION + CARRIER. */
+    .chyron-stats {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 18px;
+      border-left: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d1216, #05080a);
+    }
+    .chyron-stats .stat-cell {
+      display: flex; flex-direction: column; gap: 2px;
+      text-align: left;
+      min-width: 70px;
+    }
+    .chyron-stats .stat-cell label {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dimer);
+    }
+    .chyron-stats .stat-cell .big {
+      font-family: var(--font-disp);
+      font-weight: 700;
+      font-size: 18px;
+      color: var(--ink);
+      font-variant-numeric: tabular-nums;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+
+    /* Goal flash + chyron */
+    .goal-flash {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(circle at var(--fx, 50%) 50%,
+          rgba(242,164,75,0.35) 0%,
+          rgba(242,164,75,0) 45%);
+      pointer-events: none;
+      animation: flash 1.8s ease-out;
+      z-index: 3;
+    }
+    .goal-flash.b {
+      background:
+        radial-gradient(circle at var(--fx, 50%) 50%,
+          rgba(176,140,255,0.35) 0%,
+          rgba(176,140,255,0) 45%);
+    }
+    @keyframes flash {
+      0%   { opacity: 0; }
+      15%  { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .goal-chyron {
+      position: absolute;
+      left: 50%;
+      top: 38%;
+      transform: translate(-50%, -50%);
+      padding: 18px 32px;
+      background: #000;
+      border: 1px solid var(--line-2);
+      pointer-events: none;
+      animation: goalPop 1.8s cubic-bezier(0.22, 1.0, 0.36, 1.0);
+      font-family: var(--font-disp);
+      z-index: 4;
+    }
+    .goal-chyron .word {
+      font-weight: 700;
+      font-size: 56px;
+      letter-spacing: 0.04em;
+      line-height: 1;
+    }
+    .goal-chyron .word.a { color: var(--a); }
+    .goal-chyron .word.b { color: var(--b); }
+    .goal-chyron .sub {
+      margin-top: 6px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-dim);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    @keyframes goalPop {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+      15%  { opacity: 1; transform: translate(-50%, -50%) scale(1.05); }
+      85%  { opacity: 1; transform: translate(-50%, -50%) scale(1.0); }
+      100% { opacity: 0; transform: translate(-50%, -50%) scale(1.0); }
+    }
+
+    /* ── Scrubber ────────────────────────────────────────────── */
+    .scrub {
+      display: grid;
+      grid-template-columns: auto 1fr auto auto;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 20px;
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+    }
+    /* Scrubber's play/pause icon button. Distinct from the design-system
+       .btn (uppercase action button) — this one is a 32px square icon. */
+    .scrub-btn {
+      width: 32px; height: 32px;
+      border: 1px solid var(--line-2);
+      background: var(--panel-2);
+      color: var(--ink);
+      display: grid; place-items: center;
+      cursor: pointer;
+      font-family: var(--font-disp);
+      font-size: 14px;
+      transition: background 120ms;
+    }
+    .scrub-btn:hover { background: var(--panel-3); }
+    .scrub-btn.play { width: 38px; height: 38px; }
+    .scrub-track {
+      position: relative;
+      height: 14px;
+      cursor: pointer;
+      display: flex; align-items: center;
+    }
+    .scrub-track::before {
+      content: ""; position: absolute; left: 0; right: 0; top: 4px; height: 6px;
+      background: var(--panel-3); border: 1px solid var(--line);
+      pointer-events: none;
+    }
+    .scrub-fill {
+      position: absolute;
+      left: 0; top: 4px;
+      height: 6px;
+      background: linear-gradient(90deg, var(--a), var(--b));
+      pointer-events: none;
+    }
+    .scrub-markers { position: absolute; inset: 0; pointer-events: none; }
+    .scrub-marker {
+      position: absolute;
+      top: -2px;
+      width: 2px; height: 18px;
+      background: var(--ink-dimer);
+      opacity: 0.6;
+    }
+    .scrub-marker.goal.a { background: var(--a); opacity: 1; box-shadow: 0 0 6px var(--a); }
+    .scrub-marker.goal.b { background: var(--b); opacity: 1; box-shadow: 0 0 6px var(--b); }
+    /* Native range overlays the track but stays transparent — captures input */
+    #scrub-bar {
+      position: absolute;
+      inset: 0;
+      width: 100%; height: 100%;
+      margin: 0; padding: 0;
+      background: transparent;
+      -webkit-appearance: none; appearance: none;
+      cursor: pointer;
+      z-index: 2;
+    }
+    #scrub-bar::-webkit-slider-runnable-track { background: transparent; height: 14px; }
+    #scrub-bar::-moz-range-track { background: transparent; height: 14px; }
+    #scrub-bar::-webkit-slider-thumb {
+      -webkit-appearance: none; appearance: none;
+      width: 4px; height: 18px; margin-top: -2px;
+      background: var(--ink); border: none; border-radius: 1px;
+      cursor: grab;
+    }
+    #scrub-bar::-moz-range-thumb {
+      width: 4px; height: 18px;
+      background: var(--ink); border: none; border-radius: 1px;
+      cursor: grab;
+    }
+
+    .tick-count {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--ink-dim);
+      font-variant-numeric: tabular-nums;
+      letter-spacing: 0.06em;
+      min-width: 110px;
+      text-align: right;
+    }
+    .speed-pill {
+      display: flex; gap: 0;
+      border: 1px solid var(--line-2);
+      height: 32px;
+    }
+    .speed-pill button {
+      background: var(--panel-2);
+      border: none;
+      border-right: 1px solid var(--line-2);
+      color: var(--ink-dim);
+      padding: 0 10px;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      cursor: pointer;
+      min-width: 36px;
+    }
+    .speed-pill button:last-child { border-right: none; }
+    .speed-pill button.active { background: var(--ink); color: #000; }
+
+    /* ── Event ticker (right column) ────────────────────────── */
+    .events {
+      background: var(--panel);
+      border-left: 1px solid var(--line);
+      display: grid;
+      grid-template-rows: auto 1fr;
+      min-height: 0;
+      overflow: hidden;
+    }
+    .events-head {
+      display: grid;
+      grid-template-columns: 1fr auto auto;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--line);
+      font-family: var(--font-mono);
+      font-size: 10px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-dim);
+    }
+    .events-head-label {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    /* Toggle button — sits between the label and filter pills */
+    .events-collapse-btn {
+      background: none;
+      border: none;
+      color: var(--ink-dim);
+      font-size: 9px;
+      padding: 2px 4px;
+      cursor: pointer;
+      line-height: 1;
+      transition: color 100ms, transform 180ms ease;
+      flex-shrink: 0;
+    }
+    .events-collapse-btn:hover { color: var(--ink); }
+
+    /* ── Collapsed state ─────────────────────────────────────── */
+    .body.event-feed-collapsed {
+      grid-template-columns: minmax(0, 1fr) 28px;
+    }
+    /* When collapsed the sidebar becomes a 28px strip:
+       grid switches to a single full-height cell containing just the toggle. */
+    .events.collapsed {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .events.collapsed .events-head {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 8px 0 0;
+      border-bottom: none;
+      width: 100%;
+    }
+    .events.collapsed .events-head-label { display: none; }
+    .events.collapsed .filter-pills { display: none; }
+    .events.collapsed .events-collapse-btn {
+      transform: rotate(180deg);
+      padding: 8px 6px;
+    }
+    .events.collapsed .events-list { display: none; }
+    /* Event-feed segmented filter — sized down to fit the 320px column.
+       Inherits chrome from .seg in design-system.css. */
+    .events-head .filter-pills.seg button { padding: 3px 8px; font-size: 9px; letter-spacing: 0.12em; }
+
+    .events-list {
+      overflow-y: auto;
+      padding: 4px 0 60px;
+      scroll-behavior: smooth;
+    }
+    .events-list::-webkit-scrollbar { width: 6px; }
+    .events-list::-webkit-scrollbar-track { background: var(--panel); }
+    .events-list::-webkit-scrollbar-thumb { background: var(--line-2); }
+
+    .evt {
+      display: grid;
+      grid-template-columns: 56px 18px 1fr;
+      gap: 8px;
+      align-items: baseline;
+      padding: 5px 14px;
+      font-family: var(--font-mono);
+      font-size: 12px;
+      border-left: 2px solid transparent;
+      cursor: pointer;
+      transition: background 100ms;
+    }
+    .evt:hover { background: var(--panel-2); }
+    .evt.selected, .evt.current { background: var(--panel-3); border-left-color: var(--live); }
+    .evt.proximity { border-left-color: var(--ink-dim); }
+    .evt .t {
+      color: var(--ink-dimer);
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      font-variant-numeric: tabular-nums;
+      white-space: nowrap;
+    }
+    .evt .ico { font-size: 13px; text-align: center; }
+    .evt .txt { color: var(--ink); letter-spacing: 0.01em; word-break: break-word; }
+    .evt.placeholder {
+      color: var(--ink-dimer);
+      font-style: italic;
+      cursor: default;
+      display: block;
+      padding: 12px 14px;
+    }
+
+    /* Event-kind colouring (matches old ev-* class taxonomy) */
+    .evt.ev-goal           .ico { color: var(--amber); }
+    .evt.ev-goal           .txt { color: var(--amber); font-weight: 700; }
+    .evt.ev-shot           .ico { color: var(--a); }
+    .evt.ev-pass           .ico { color: var(--neutral); }
+    .evt.ev-pickup         .ico { color: var(--ink-dim); }
+    .evt.ev-pickup-bad     .ico { color: var(--ink-dimer); }
+    .evt.ev-pickup-bad     .txt { color: var(--ink-dimer); font-style: italic; }
+    .evt.ev-tackle         .ico { color: var(--bad); }
+    .evt.ev-tackle-good    .ico { color: var(--bad); }
+    .evt.ev-tackle-good    .txt { font-weight: 600; }
+    .evt.ev-tackle-blocked .ico { color: var(--bad); }
+    .evt.ev-tackle-blocked .txt { color: #d8b888; font-style: italic; }
+    .evt.ev-save           .ico { color: var(--ok); }
+    .evt.ev-save-blocked   .ico { color: var(--ok); }
+    .evt.ev-save-blocked   .txt { color: #b8d8a8; font-style: italic; }
+    .evt.ev-deflection     .ico { color: var(--amber); }
+    .evt.ev-deflection     .txt { color: #f0e890; }
+    .evt.ev-dribble-good   .ico { color: var(--b); }
+    .evt.ev-dribble-good   .txt { color: #f0d090; font-weight: 500; }
+    .evt.ev-dribble-bad    .ico { color: var(--b); }
+    .evt.ev-dribble-bad    .txt { color: #b89860; font-style: italic; }
+    .evt.ev-blocked        .ico { color: var(--ink-dimer); }
+    .evt.ev-blocked        .txt { color: var(--ink-dimer); font-style: italic; }
+    .evt.ev-oob            .ico { color: var(--ink-dim); }
+    .evt.ev-oob            .txt { color: var(--ink-dim); font-style: italic; }
+    .evt.ev-phase          .ico { color: var(--b); }
+    .evt.ev-phase          .txt { color: #c8b8e0; font-weight: 500; }
+    .evt.ev-phase-major    .ico { color: var(--amber); }
+    .evt.ev-phase-major    .txt { color: var(--amber); font-weight: 700; text-transform: uppercase; }
+
+    .evt .team-tag {
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 2px;
+      vertical-align: baseline;
+      transform: translateY(1px);
+      margin-right: 6px;
+    }
+    .evt .team-tag.team_a { background: var(--a); }
+    .evt .team-tag.team_b { background: var(--b); }
+
+    /* ── Status bar ─────────────────────────────────────────── */
+    .statusbar {
+      background: #000;
+      border-top: 1px solid var(--line);
+      padding: 0 16px;
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-family: var(--font-mono);
+      font-size: 10px;
+      color: var(--ink-dimer);
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .statusbar .dot {
+      display: inline-block;
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--ok);
+      margin-right: 6px;
+    }
+    .statusbar .spacer { flex: 1; }
+
+    /* ── Small utilities ────────────────────────────────────── */
+    .mono { font-family: var(--font-mono); }
+    .disp { font-family: var(--font-disp); }
+    .dim  { color: var(--ink-dim); }
+    .dimer{ color: var(--ink-dimer); }
+
+    /* ── INLINE: match-stats.css ── */
+    /* ─────────────────────────────────────────────────────────────────
+       Agent Pitch — Match Statistics Panel
+       Uses design-system.css tokens exclusively. No new custom properties.
+       ───────────────────────────────────────────────────────────────── */
+
+    /* ── Trigger button (in chyron, persistent toggle) ── */
+    .chyron-stats-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 16px;
+      border-left: 1px solid var(--line);
+      background: linear-gradient(180deg, #0d1216, #05080a);
+    }
+    #stats-toggle {
+      height: 28px;
+      padding: 0 12px;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--ink-dim);
+      font-family: var(--font);
+      font-size: 10px;
+      letter-spacing: 0.12em;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      white-space: nowrap;
+    }
+    #stats-toggle:hover {
+      color: var(--ink);
+      border-color: var(--line-2);
+    }
+    #stats-toggle.active {
+      color: var(--a);
+      border-color: var(--a);
+    }
+
+    /* ── Panel container ── */
+    #match-stats-panel {
+      flex-shrink: 0;
+      max-height: 280px;
+      overflow-y: auto;
+      background: var(--panel);
+      border-top: 1px solid var(--line);
+      font-family: var(--font);
+      font-size: 11px;
+    }
+    /* Fullview mode: panel expands to fill the space vacated by the field */
+    #match-stats-panel.stats-fullview {
+      flex: 1;
+      min-height: 0;
+      max-height: none;
+      overflow-y: auto;
+    }
+
+    /* ── Panel header ── */
+    .stats-panel-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 6px 14px;
+      border-bottom: 1px solid var(--line);
+      font-size: 10px;
+      letter-spacing: 0.16em;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      position: sticky;
+      top: 0;
+      background: var(--panel);
+      z-index: 1;
+    }
+
+    /* ── Panel body ── */
+    .stats-panel-body {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 24px;
+      padding: 12px 14px;
+    }
+
+    /* ── Team summary table ── */
+    .stats-team-section {
+      min-width: 320px;
+    }
+    .stats-section-label {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--ink-dimer);
+      text-transform: uppercase;
+      margin-bottom: 6px;
+    }
+    .stats-team-table {
+      border-collapse: collapse;
+      width: 100%;
+    }
+    .stats-team-table th {
+      font-size: 10px;
+      letter-spacing: 0.1em;
+      color: var(--ink-dimer);
+      font-weight: 500;
+      text-align: right;
+      padding: 3px 10px 3px 0;
+      border-bottom: 1px solid var(--line);
+    }
+    .stats-team-table th:first-child {
+      text-align: left;
+      padding-left: 0;
+    }
+    .stats-team-table th.col-a { color: var(--a); }
+    .stats-team-table th.col-b { color: var(--b); }
+    .stats-team-table td {
+      padding: 3px 10px 3px 0;
+      border-bottom: 1px solid var(--line-soft);
+      color: var(--ink);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .stats-team-table td:first-child {
+      text-align: left;
+      color: var(--ink-dim);
+      padding-left: 0;
+    }
+    .stats-team-table td.val-a { color: var(--a); }
+    .stats-team-table td.val-b { color: var(--b); }
+    .stats-team-table td.val-engine { color: var(--ok); }
+
+    /* ── Per-player expandable section ── */
+    .stats-players-section {
+      min-width: 0;
+    }
+    details.stats-team-detail {
+      margin-bottom: 8px;
+    }
+    details.stats-team-detail > summary {
+      font-size: 10px;
+      letter-spacing: 0.14em;
+      color: var(--ink-dim);
+      text-transform: uppercase;
+      cursor: pointer;
+      padding: 4px 0;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 4px;
+    }
+    details.stats-team-detail > summary::before {
+      content: "▶";
+      font-size: 9px;
+      transition: transform 0.15s;
+    }
+    details.stats-team-detail[open] > summary::before {
+      transform: rotate(90deg);
+    }
+    details.stats-team-detail > summary .team-label-a { color: var(--a); }
+    details.stats-team-detail > summary .team-label-b { color: var(--b); }
+
+    .stats-player-table {
+      border-collapse: collapse;
+      width: 100%;
+      font-size: 11px;
+    }
+    .stats-player-table th {
+      font-size: 10px;
+      letter-spacing: 0.08em;
+      color: var(--ink-dimer);
+      font-weight: 500;
+      text-align: right;
+      padding: 2px 8px 2px 0;
+      border-bottom: 1px solid var(--line);
+      white-space: nowrap;
+    }
+    .stats-player-table th:first-child,
+    .stats-player-table th:nth-child(2) {
+      text-align: left;
+      padding-left: 0;
+    }
+    .stats-player-table td {
+      padding: 2px 8px 2px 0;
+      border-bottom: 1px solid var(--line-soft);
+      color: var(--ink);
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+    .stats-player-table td:first-child,
+    .stats-player-table td:nth-child(2) {
+      text-align: left;
+      padding-left: 0;
+    }
+    .stats-player-table td.pid-cell {
+      color: var(--ink-dim);
+      font-size: 10px;
+    }
+    .stats-player-table td.role-cell {
+      color: var(--ink-dimer);
+      font-size: 10px;
+    }
+    .stats-player-table td.dist-cell {
+      color: var(--ink-dim);
+    }
+
+    /* ── Loading / error state ── */
+    .stats-loading,
+    .stats-error {
+      padding: 14px;
+      color: var(--ink-dimer);
+      font-size: 11px;
+      letter-spacing: 0.08em;
+    }
+    .stats-error { color: var(--err); }
+
+    /* ── Status bar (shell.css not included) ── */
+    .status-bar {
+      display: flex; align-items: center; gap: 16px;
+      padding: 0 16px; height: 22px;
+      background: var(--panel); border-top: 1px solid var(--line);
+      font-size: 11px; color: var(--ink-dim);
+      letter-spacing: 0.08em; white-space: nowrap; overflow: hidden;
+    }
+    .status-bar .spacer { flex: 1; }
+    .status-bar b { color: var(--ink); }
+
+    /* ── Loader overlay ── */
+    #loader-screen {
+      position: fixed; inset: 0; z-index: 100;
+      background: var(--bg);
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      gap: 24px;
+    }
+    #loader-screen.hidden { display: none; }
+    .loader-brand {
+      font-family: var(--font-disp);
+      font-size: 28px; font-weight: 900; letter-spacing: 0.06em;
+    }
+    .loader-brand .dot { color: var(--a); }
+    .loader-heading {
+      font-size: 13px; letter-spacing: 0.18em;
+      color: var(--ink-dim); text-transform: uppercase;
+    }
+    .loader-drop-zone {
+      border: 1px solid var(--line);
+      padding: 40px 60px; text-align: center;
+      cursor: pointer; transition: border-color 0.15s;
+    }
+    .loader-drop-zone.drag-over { border-color: var(--a); }
+    .loader-drop-zone:hover { border-color: var(--line-2); }
+    #folder-picker { display: none; }
+    .loader-pick-btn {
+      display: inline-block; padding: 8px 20px;
+      background: var(--panel-2); border: 1px solid var(--line);
+      color: var(--ink); font-family: var(--font); font-size: 12px;
+      letter-spacing: 0.1em; cursor: pointer;
+      text-transform: uppercase;
+    }
+    .loader-pick-btn:hover { border-color: var(--line-2); }
+    .loader-drop-hint {
+      font-size: 11px; color: var(--ink-dimer);
+      margin-top: 12px;
+    }
+    #loader-error {
+      color: var(--err); font-size: 12px;
+      display: none;
+    }
+    #loader-error.visible { display: block; }
+  </style>
+</head>
+<body>
+
+<!-- ── Loader overlay (hidden when BUNDLED_MATCH present or after folder selected) ── -->
+<div id="loader-screen">
+  <div class="loader-brand">A<span class="dot">·</span>P  AGENT PITCH</div>
+  <div class="loader-heading">Match Viewer</div>
+  <div class="loader-drop-zone" id="loader-drop-zone">
+    <input type="file" id="folder-picker" webkitdirectory multiple>
+    <label for="folder-picker" class="loader-pick-btn">▶ Select Match Folder</label>
+    <div class="loader-drop-hint">— or drag &amp; drop the match folder here —</div>
+  </div>
+  <div id="loader-error"></div>
+</div>
+
+<!-- ── Match Viewer (same DOM structure as index.html #section-matches) ── -->
+<div class="app">
+  <div class="chyron">
+    <div class="chyron-brand">
+      <div class="brand-meta">
+        <div class="match-title-line"><b id="match-title">loading…</b></div>
+        <div><span class="dimer">SEED</span> <b id="bug-seed">—</b></div>
+      </div>
+    </div>
+    <div class="score-bar">
+      <div class="team-block home">
+        <div class="team-ident">
+          <div class="badge">HOME</div>
+          <div class="name" id="team-a-name">TEAM A</div>
+          <div class="model" id="team-a-model">strategy</div>
+        </div>
+        <div class="team-swatch a"></div>
+      </div>
+      <div class="score-plate">
+        <div class="score-num a" id="score-team-a">—</div>
+        <div class="score-sep">:</div>
+        <div class="score-num b" id="score-team-b">—</div>
+      </div>
+      <div class="team-block away">
+        <div class="team-ident">
+          <div class="badge">AWAY</div>
+          <div class="name" id="team-b-name">TEAM B</div>
+          <div class="model" id="team-b-model">strategy</div>
+        </div>
+        <div class="team-swatch b"></div>
+      </div>
+    </div>
+    <div class="chyron-stats">
+      <div class="stat-cell">
+        <label>POSSESSION</label>
+        <div class="big" id="bug-possession">—</div>
+      </div>
+      <div class="stat-cell">
+        <label>CARRIER</label>
+        <div class="big" id="bug-carrier">—</div>
+      </div>
+    </div>
+    <div class="clock-bar">
+      <div class="live-pip"><span class="dot"></span> REPLAY</div>
+      <div class="clock">
+        <span id="clock-cur">00:00</span>
+        <span class="total"> / <span id="clock-tot">00:00</span></span>
+      </div>
+    </div>
+    <div class="chyron-stats-toggle">
+      <button id="stats-toggle" title="Toggle match statistics" hidden>STATS</button>
+    </div>
+  </div>
+
+  <div class="body">
+    <div class="pitch-wrap">
+      <div class="pitch-stage">
+        <canvas id="field-canvas" width="800" height="480"></canvas>
+        <div id="goal-flash" class="goal-flash" hidden></div>
+        <div id="goal-chyron" class="goal-chyron" hidden>
+          <div class="word"></div>
+          <div class="sub"></div>
+        </div>
+        <div id="match-waiting-overlay" class="match-waiting-overlay" hidden></div>
+      </div>
+      <div class="scrub">
+        <button class="scrub-btn play" id="play-pause" title="Play/pause (Space)">▶</button>
+        <div class="scrub-track" id="scrub-track">
+          <div class="scrub-fill" id="scrub-fill"></div>
+          <div class="scrub-markers" id="scrub-markers"></div>
+          <input type="range" id="scrub-bar" min="0" max="0" value="0">
+        </div>
+        <div class="tick-count" id="tick-display">T0000 / 0000</div>
+        <div class="speed-pill" id="speed-pill">
+          <button data-speed="0.5">0.5x</button>
+          <button data-speed="1" class="active">1x</button>
+          <button data-speed="2">2x</button>
+          <button data-speed="4">4x</button>
+        </div>
+      </div>
+    </div>
+    <div class="events" id="event-log-sidebar">
+      <div class="events-head">
+        <div class="events-head-label">EVENT FEED · <span id="events-count">0/0</span></div>
+        <button class="events-collapse-btn" id="event-feed-toggle" title="Collapse event feed"
+                aria-label="Collapse event feed" aria-expanded="true">◀</button>
+        <div class="seg filter-pills" id="filter-pills">
+          <button data-filter="all" class="active">ALL</button>
+          <button data-filter="team_a">A</button>
+          <button data-filter="team_b">B</button>
+        </div>
+      </div>
+      <div class="events-list" id="event-log-list">
+        <div class="evt placeholder">(no events yet)</div>
+      </div>
+    </div>
+  </div>
+
+  <div id="match-stats-panel" hidden></div>
+
+  <footer class="status-bar" id="status-bar">
+    <span id="sb-mode">OFFLINE · LOCAL FILE</span>
+    <span id="sb-log">LOG · —</span>
+    <span id="sb-field">FIELD · 100×60m</span>
+    <span>TICK · <b id="bug-tick-rate">10/s</b></span>
+    <span class="spacer"></span>
+    <span id="sb-seed">DETERMINISTIC</span>
+  </footer>
+</div>
+
+<script>
+'use strict';
+/**
+ * JS port of src/api/http_server/match_stats.py::compute_match_stats.
+ * Pure function: takes parsed events array + meta dict, returns stats dict.
+ */
+function computeMatchStats(events, meta) {
+  // Build roster: { player_id: { team, role, number } }
+  const roster = {};
+  for (const [teamId, players] of Object.entries(meta.teams || {})) {
+    for (const p of players) {
+      if (p.player_id) {
+        roster[p.player_id] = { team: teamId, role: p.role || '', number: p.number || 0 };
+      }
+    }
+  }
+
+  // Team stats template
+  function emptyTeam() {
+    return {
+      possession_pct: 50.0, goals: 0, shots: 0, shots_on_target: 0,
+      passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
+      dribbles_attempted: 0, dribbles_successful: 0, callback_failures: 0,
+      oob_corners: 0, oob_throw_ins: 0, oob_goal_kicks: 0,
+      gk_saves_caught: 0, gk_saves_parried: 0,
+    };
+  }
+  // Player stats template
+  function emptyPlayer(info) {
+    return {
+      team: info.team, role: info.role, number: info.number,
+      goals: 0, shots: 0, shots_on_target: 0,
+      passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
+      dribbles_attempted: 0, dribbles_successful: 0,
+      distance_run: 0.0, gk_saves_caught: 0, gk_saves_parried: 0,
+      callback_failures: 0,
+    };
+  }
+
+  const teamStats = { team_a: emptyTeam(), team_b: emptyTeam() };
+  const playerStats = {};
+  for (const [pid, info] of Object.entries(roster)) {
+    playerStats[pid] = emptyPlayer(info);
+  }
+
+  let possA = 0, possB = 0;
+  const prevPositions = {};
+
+  for (const tick of events) {
+    // Possession
+    const bp = tick.ball_possession;
+    if (bp === 'team_a') possA++;
+    else if (bp === 'team_b') possB++;
+
+    // Distance run
+    for (const [pid, pos] of Object.entries(tick.player_positions || {})) {
+      if (!roster[pid]) continue;
+      if (prevPositions[pid]) {
+        const [px, py] = prevPositions[pid];
+        playerStats[pid].distance_run += Math.hypot(pos[0] - px, pos[1] - py);
+      }
+      prevPositions[pid] = pos;
+    }
+
+    // Actions
+    for (const rec of (tick.actions || [])) {
+      _processAction(rec, teamStats, playerStats, roster);
+    }
+  }
+
+  // Possession percentages
+  const totalPoss = possA + possB;
+  if (totalPoss > 0) {
+    teamStats.team_a.possession_pct = 100.0 * possA / totalPoss;
+    teamStats.team_b.possession_pct = 100.0 * possB / totalPoss;
+  }
+  // Round distance
+  for (const ps of Object.values(playerStats)) {
+    ps.distance_run = Math.round(ps.distance_run * 10) / 10;
+  }
+
+  return { match_id: meta.match_id || '', teams: teamStats, players: playerStats };
+}
+
+function _processAction(rec, teamStats, playerStats, roster) {
+  const pid    = rec.player_id || '';
+  const team   = rec.team || '';
+  const action = (rec.action || '').toLowerCase();
+  const result = (rec.result || '').toLowerCase();
+  const details = rec.details || {};
+  const ts = teamStats[team];
+  const ps = playerStats[pid];
+
+  // OOB restart — keyed to restart_team
+  if (details.out_of_bounds) {
+    const restartType = details.restart_type || '';
+    const restartTeam = details.restart_team || '';
+    const rts = teamStats[restartTeam];
+    if (rts) {
+      if (restartType === 'corner_kick') rts.oob_corners++;
+      else if (restartType === 'throw_in') rts.oob_throw_ins++;
+      else if (restartType === 'goal_kick') rts.oob_goal_kicks++;
+    }
+    return;
+  }
+
+  // Goal scored (recorded on GK's action)
+  const goalScoredTeam = details.goal_scored;
+  if (goalScoredTeam) {
+    const scoringTs = teamStats[goalScoredTeam];
+    if (scoringTs) { scoringTs.goals++; scoringTs.shots_on_target++; }
+    const scorerPs = playerStats[details.scored_by || ''];
+    if (scorerPs) { scorerPs.goals++; scorerPs.shots_on_target++; }
+  }
+
+  const gkSave = details.goalkeeper_save;
+  if (gkSave === 'success' || gkSave === 'blocked') {
+    const shooterPs = playerStats[details.saved_from || ''];
+    if (shooterPs) {
+      teamStats[shooterPs.team].shots_on_target++;
+      shooterPs.shots_on_target++;
+    }
+    if (gkSave === 'success') {
+      if (ts) ts.gk_saves_caught++;
+      if (ps) ps.gk_saves_caught++;
+    } else {
+      if (ts) ts.gk_saves_parried++;
+      if (ps) ps.gk_saves_parried++;
+    }
+  }
+
+  // Callback failure
+  if (action === 'hold' && details.fallback_substituted) {
+    if (ts) ts.callback_failures++;
+    if (ps) ps.callback_failures++;
+  }
+
+  if (action === 'shoot') {
+    if (ts) ts.shots++;
+    if (ps) ps.shots++;
+  } else if (action === 'pass') {
+    if (ts) ts.passes_attempted++;
+    if (ps) ps.passes_attempted++;
+  } else if (action === 'tackle') {
+    if (ts) ts.tackles_attempted++;
+    if (ps) ps.tackles_attempted++;
+    if (result === 'controlled') {
+      if (ts) ts.tackles_successful++;
+      if (ps) ps.tackles_successful++;
+    }
+  } else if (action === 'move' && details.dribble_result != null) {
+    if (ts) ts.dribbles_attempted++;
+    if (ps) ps.dribbles_attempted++;
+    if (details.dribble_result === 'success') {
+      if (ts) ts.dribbles_successful++;
+      if (ps) ps.dribbles_successful++;
+    }
+  }
+}
+</script>
+
+<script>
+// Agent Pitch — Match Statistics Panel Module
+// Fetches GET /api/match/stats and renders a team-summary + per-player table
+// below the scrub bar when a completed match is viewed.
+//
+// Public API (window.matchStats):
+//   load(matchId)  — fetch stats for matchId, show panel
+//   loadFromData(meta, ticks)  — compute stats from loaded data, show panel
+//   hide()         — hide panel and toggle button
+//   clear()        — reset to empty state (call on navigation away)
+
+'use strict';
+
+(function () {
+  let _statsCache = null;
+  let _visible = false;
+  let _fetching = false;
+
+  // ── Public API ────────────────────────────────────────────────────────────
+
+  window.matchStats = {
+    load(matchId) {
+      _hidePanel();
+      _statsCache = null;
+      _visible = false;
+      _showButton(matchId);
+    },
+
+    loadFromData(meta, ticks) {
+      _hidePanel();
+      _statsCache = null;
+      _visible = false;
+      // Compute stats synchronously from loaded data
+      _statsCache = computeMatchStats(ticks, meta);
+      _showButton('__local__');
+      // Re-wire button to show cached data (no fetch needed)
+      const btn = document.getElementById('stats-toggle');
+      if (btn) {
+        btn.onclick = () => {
+          if (_visible) {
+            _hidePanel();
+            btn.classList.remove('active');
+            _visible = false;
+          } else {
+            _visible = true;
+            btn.classList.add('active');
+            const panel = document.getElementById('match-stats-panel');
+            if (panel) {
+              panel.removeAttribute('hidden');
+              panel.style.display = '';
+              panel.classList.add('stats-fullview');
+              const body = document.querySelector('.body');
+              if (body) body.style.display = 'none';
+              _renderStats(panel, _statsCache);
+            }
+          }
+        };
+      }
+    },
+
+    hide() {
+      _hidePanel();
+      _hideButton();
+    },
+
+    clear() {
+      _statsCache = null;
+      _visible = false;
+      _fetching = false;
+      _hidePanel();
+      _hideButton();
+    },
+  };
+
+  // ── Button wiring ─────────────────────────────────────────────────────────
+
+  function _showButton(matchId) {
+    const btn = document.getElementById('stats-toggle');
+    if (!btn) return;
+    btn.removeAttribute('hidden');
+    btn.style.display = '';    // clear any inline style from hideAllLiveViewerDOM
+    btn.classList.remove('active');
+    // Re-wire click on each load to bind the current matchId
+    btn.onclick = () => _toggle(matchId);
+  }
+
+  function _hideButton() {
+    const btn = document.getElementById('stats-toggle');
+    if (btn) {
+      btn.setAttribute('hidden', '');
+      btn.classList.remove('active');
+      btn.onclick = null;
+    }
+  }
+
+  // ── Panel toggle ──────────────────────────────────────────────────────────
+
+  async function _toggle(matchId) {
+    if (_fetching) return;  // ignore clicks while fetch is in-flight
+
+    const panel = document.getElementById('match-stats-panel');
+    const btn = document.getElementById('stats-toggle');
+    if (!panel) return;
+
+    if (_visible) {
+      _hidePanel();
+      if (btn) btn.classList.remove('active');
+      _visible = false;
+      return;
+    }
+
+    _visible = true;
+    if (btn) btn.classList.add('active');
+    panel.removeAttribute('hidden');
+    panel.style.display = '';   // clear inline style from hideAllLiveViewerDOM
+    panel.classList.add('stats-fullview');
+
+    // Hide the field area so the stats panel fills the vacated space
+    const body = document.querySelector('#section-matches .body');
+    if (body) body.style.display = 'none';
+
+    if (_statsCache) {
+      _renderStats(panel, _statsCache);
+      return;
+    }
+
+    _fetching = true;
+    _renderLoading(panel);
+    try {
+      const resp = await fetch(`/api/match/stats?match_id=${encodeURIComponent(matchId)}`);
+      if (resp.status === 409) {
+        _renderError(panel, 'Match still in progress — stats available after completion.');
+        return;
+      }
+      if (!resp.ok) throw new Error(`HTTP ${resp.status}`);
+      _statsCache = await resp.json();
+      _renderStats(panel, _statsCache);
+    } catch (err) {
+      console.error('[match-stats.js] fetch failed:', err);
+      _renderError(panel, 'Could not load match statistics.');
+    } finally {
+      _fetching = false;
+    }
+  }
+
+  function _hidePanel() {
+    const panel = document.getElementById('match-stats-panel');
+    if (panel) {
+      panel.setAttribute('hidden', '');
+      panel.classList.remove('stats-fullview');
+    }
+    // Restore the field area when leaving fullview stats
+    const body = document.querySelector('#section-matches .body');
+    if (body) body.style.display = '';
+  }
+
+  // ── Rendering ─────────────────────────────────────────────────────────────
+
+  function _renderLoading(panel) {
+    panel.innerHTML = '<div class="stats-loading">Computing statistics…</div>';
+  }
+
+  function _renderError(panel, msg) {
+    panel.innerHTML = `<div class="stats-error">${_esc(msg)}</div>`;
+  }
+
+  function _renderStats(panel, stats) {
+    const teams = stats.teams || {};
+    const players = stats.players || {};
+    const ta = teams.team_a || {};
+    const tb = teams.team_b || {};
+
+    panel.innerHTML = `
+      <div class="stats-panel-header">
+        <span>MATCH STATISTICS</span>
+      </div>
+      <div class="stats-panel-body">
+        ${_teamSummaryHtml(ta, tb)}
+        ${_playerSectionHtml(players)}
+      </div>
+    `;
+  }
+
+  function _teamSummaryHtml(ta, tb) {
+    const rows = [
+      ['Possession',    _pct(ta.possession_pct),       _pct(tb.possession_pct)],
+      ['Goals',         ta.goals ?? 0,                  tb.goals ?? 0],
+      ['Shots',         ta.shots ?? 0,                  tb.shots ?? 0],
+      ['Shots on target', ta.shots_on_target ?? 0,      tb.shots_on_target ?? 0],
+      ['Passes (attempted)', ta.passes_attempted ?? 0,   tb.passes_attempted ?? 0],
+      ['Tackles',       ta.tackles_attempted ?? 0,       tb.tackles_attempted ?? 0],
+      ['Tackles won',   ta.tackles_successful ?? 0,      tb.tackles_successful ?? 0],
+      ['Dribbles',      ta.dribbles_attempted ?? 0,      tb.dribbles_attempted ?? 0],
+      ['Dribbles won',  ta.dribbles_successful ?? 0,     tb.dribbles_successful ?? 0],
+      ['GK saves (caught)', ta.gk_saves_caught ?? 0,    tb.gk_saves_caught ?? 0],
+      ['GK saves (parried)', ta.gk_saves_parried ?? 0,  tb.gk_saves_parried ?? 0],
+      ['Corners',       ta.oob_corners ?? 0,             tb.oob_corners ?? 0],
+      ['Throw-ins',     ta.oob_throw_ins ?? 0,           tb.oob_throw_ins ?? 0],
+      ['Goal kicks',    ta.oob_goal_kicks ?? 0,          tb.oob_goal_kicks ?? 0],
+      // Engine-specific metrics
+      ['Callback failures', _engineVal(ta.callback_failures ?? 0), _engineVal(tb.callback_failures ?? 0), true],
+    ];
+
+    const rowsHtml = rows.map(([label, aVal, bVal, isEngine]) => `
+      <tr>
+        <td>${_esc(label)}</td>
+        <td class="${isEngine ? 'val-engine' : 'val-a'}">${_esc(String(aVal))}</td>
+        <td class="${isEngine ? 'val-engine' : 'val-b'}">${_esc(String(bVal))}</td>
+      </tr>
+    `).join('');
+
+    return `
+      <div class="stats-team-section">
+        <div class="stats-section-label">Team Summary</div>
+        <table class="stats-team-table" aria-label="Team statistics">
+          <thead>
+            <tr>
+              <th></th>
+              <th class="col-a">TEAM A</th>
+              <th class="col-b">TEAM B</th>
+            </tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      </div>
+    `;
+  }
+
+  function _playerSectionHtml(players) {
+    const teamAPlayers = Object.entries(players)
+      .filter(([, p]) => p.team === 'team_a')
+      .sort(([, a], [, b]) => a.number - b.number);
+    const teamBPlayers = Object.entries(players)
+      .filter(([, p]) => p.team === 'team_b')
+      .sort(([, a], [, b]) => a.number - b.number);
+
+    return `
+      <div class="stats-players-section">
+        <div class="stats-section-label">Per Player</div>
+        ${_teamPlayerTableHtml('team_a', teamAPlayers)}
+        ${_teamPlayerTableHtml('team_b', teamBPlayers)}
+      </div>
+    `;
+  }
+
+  function _teamPlayerTableHtml(teamId, entries) {
+    const isA = teamId === 'team_a';
+    const labelClass = isA ? 'team-label-a' : 'team-label-b';
+    const label = isA ? 'TEAM A' : 'TEAM B';
+
+    const rowsHtml = entries.map(([pid, p]) => {
+      const shortPid = pid.replace('team_a_', '#').replace('team_b_', '#');
+      const gkCols = p.role === 'GK'
+        ? `<td>${p.gk_saves_caught ?? 0}/${(p.gk_saves_caught ?? 0) + (p.gk_saves_parried ?? 0)}</td>`
+        : `<td class="val-dim">—</td>`;
+      return `
+        <tr>
+          <td class="pid-cell">${_esc(shortPid)}</td>
+          <td class="role-cell">${_esc(p.role)}</td>
+          <td>${p.goals ?? 0}</td>
+          <td>${p.shots ?? 0}</td>
+          <td>${p.shots_on_target ?? 0}</td>
+          <td>${p.passes_attempted ?? 0}</td>
+          <td>${p.tackles_attempted ?? 0}/${p.tackles_successful ?? 0}</td>
+          <td>${p.dribbles_attempted ?? 0}/${p.dribbles_successful ?? 0}</td>
+          ${gkCols}
+          <td class="dist-cell">${p.distance_run?.toFixed(0) ?? '—'}m</td>
+          <td>${p.callback_failures ?? 0}</td>
+        </tr>
+      `;
+    }).join('');
+
+    return `
+      <details class="stats-team-detail" open>
+        <summary><span class="${labelClass}">${label}</span> PLAYERS</summary>
+        <table class="stats-player-table" aria-label="${label} player statistics">
+          <thead>
+            <tr>
+              <th>#</th><th>Role</th><th>G</th><th>Sh</th><th>SoT</th>
+              <th>Pass</th><th>Tkl W/A</th><th>Drb W/A</th><th>GK Sv</th>
+              <th>Dist</th><th title="Callback failures">CB Fail</th>
+            </tr>
+          </thead>
+          <tbody>${rowsHtml}</tbody>
+        </table>
+      </details>
+    `;
+  }
+
+  // ── Formatters ────────────────────────────────────────────────────────────
+
+  function _pct(val) {
+    if (val == null) return '—';
+    return `${val.toFixed(1)}%`;
+  }
+
+  function _engineVal(val) {
+    // Engine-specific metric — display as plain number
+    return val;
+  }
+
+  function _esc(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;');
+  }
+})();
+</script>
+
+<script>
+// agent_pitch browser frontend — broadcast viewer.
+// Adapted from prototypes/ui/viewer.jsx to vanilla DOM (per ADR-0010,
+// no framework). Keeps all production data sources: /api/match,
+// /api/match/ticks, /api/match/key-events, /api/strategy/{team_id}.
+//
+// Field is rendered to <canvas> with the broadcast palette; chyron,
+// statbug, seasonbug, goal flash, scrubber, event ticker, code panel
+// and status bar are HTML overlays.
+
+// Field dimensions — start at the most-common 100×60 default, but get
+// overwritten from meta.field_width / meta.field_height on first
+// /api/match fetch (the engine writes these per-match as of 2026-04-25).
+// Letting these be mutable means a 5v5 60×40 pitch renders with the right
+// aspect ratio and player coordinates instead of a stretched 100×60.
+let FIELD_W = 100;
+let FIELD_H = 60;
+
+// ── Mutable state ────────────────────────────────────────────────────
+let allTicks = [];
+let currentTick = 0;
+let realTickToIdx = new Map();   // realTick → idx in allTicks (sparse)
+let firstRealTick = 0;
+let lastRealTick = 0;
+let playing = false;
+let lastTimestamp = 0;
+let playSpeed = 1;               // multiplier on the 10 ticks/sec base rate
+let teamFilter = "all";          // all | team_a | team_b
+let _tickRate = 10;
+let _totalTicks = 0;
+let _phaseTransitions = [];
+let _playerLabels = {};          // player_id → "A #4"
+let _playerNumbers = {};         // player_id → jersey number
+let _eventRows = [];             // cached extracted event rows
+let _activeFx = [];              // [{kind, startTick, lifetime, ...}]
+let _lastFxScannedTick = -1;     // newest tick we've already extracted fx for
+let _matchId = "";
+let _seed = "—";
+let _logDir = "—";
+
+// ── DOM handles ─────────────────────────────────────────────────────
+const canvas = document.getElementById("field-canvas");
+const ctx = canvas.getContext("2d");
+// Hide the canvas until meta.json lands so we never paint a frame at the
+// default 100×60 aspect for a non-default pitch (e.g. 5v5 60×40). loadMeta
+// flips this back to "visible" once FIELD_W/FIELD_H are synced.
+canvas.style.visibility = "hidden";
+// Logical (CSS-pixel) canvas size. Set by _resizeCanvas() on init and
+// on window resize. Drawing code uses these instead of canvas.width /
+// canvas.height (which now hold the DPR-scaled BACKING STORE size).
+let cssW = 800;
+let cssH = 480;
+let _devicePixelRatio = 1;
+
+function _resizeCanvas() {
+  // Compute the canvas's display size from pitch-stage's available space,
+  // then write it back as inline width/height. This is more reliable than
+  // CSS aspect-ratio + max-* constraints, which can produce overflow when
+  // grid/flex sizing hasn't settled — particularly on the first paint
+  // after navigation. The canvas is guaranteed to fit within pitch-stage
+  // (minus padding) and never spills into the scrub bar below.
+  const stage = canvas.parentElement;  // .pitch-stage
+  const stageRect = stage ? stage.getBoundingClientRect() : null;
+  if (stageRect && stageRect.width > 0 && stageRect.height > 0) {
+    const cs = getComputedStyle(stage);
+    const padX = parseFloat(cs.paddingLeft) + parseFloat(cs.paddingRight);
+    const padY = parseFloat(cs.paddingTop) + parseFloat(cs.paddingBottom);
+    const availW = Math.max(100, stageRect.width  - padX);
+    const availH = Math.max(60,  stageRect.height - padY);
+    // Aspect from FIELD_W/FIELD_H (per-match values written by engine in meta).
+    const aspect = FIELD_W / FIELD_H;
+    // Fit-within: pick whichever dimension is the binding constraint.
+    let w = availW, h = w / aspect;
+    if (h > availH) { h = availH; w = h * aspect; }
+    cssW = Math.round(w);
+    cssH = Math.round(h);
+    canvas.style.width  = cssW + "px";
+    canvas.style.height = cssH + "px";
+  } else {
+    // Layout not ready — fall back to HTML attrs so we don't produce a
+    // 0-byte backing store on first call.
+    cssW = Math.max(100, canvas.width || 800);
+    cssH = Math.max(60,  canvas.height || 480);
+  }
+  const dpr = window.devicePixelRatio || 1;
+  _devicePixelRatio = dpr;
+  // Backing store sized for crisp pixels on Retina / 4K.
+  canvas.width  = cssW * dpr;
+  canvas.height = cssH * dpr;
+  // All drawing happens in CSS-pixel coordinates; the transform
+  // upscales those onto the high-DPI backing store.
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+
+// Debounced resize / repaint helper. Used by both the window resize
+// listener and the ResizeObserver below.
+let _resizeTimer = null;
+function _scheduleRepaint() {
+  if (_resizeTimer) clearTimeout(_resizeTimer);
+  _resizeTimer = setTimeout(() => {
+    _resizeCanvas();
+    if (allTicks.length > 0) {
+      const idx = realTickToIdx.get(currentTick);
+      if (idx !== undefined) paintTick(idx);
+    }
+  }, 50);
+}
+window.addEventListener("resize", _scheduleRepaint);
+
+// Observe the PITCH-STAGE (not the canvas itself) so we react to layout
+// changes from font swaps / nav pin toggles / window resize, without the
+// observer becoming a recursive feedback loop on our own canvas resizes.
+if (typeof ResizeObserver !== "undefined") {
+  const stage = canvas.parentElement;
+  if (stage) new ResizeObserver(_scheduleRepaint).observe(stage);
+}
+const matchTitle = document.getElementById("match-title");
+const teamAName = document.getElementById("team-a-name");
+const teamBName = document.getElementById("team-b-name");
+const teamAModel = document.getElementById("team-a-model");
+const teamBModel = document.getElementById("team-b-model");
+const scoreTeamA = document.getElementById("score-team-a");
+const scoreTeamB = document.getElementById("score-team-b");
+const clockCur = document.getElementById("clock-cur");
+const clockTot = document.getElementById("clock-tot");
+const bugSeed = document.getElementById("bug-seed");
+const bugTickRate = document.getElementById("bug-tick-rate");
+const bugPossession = document.getElementById("bug-possession");
+const bugCarrier = document.getElementById("bug-carrier");
+const goalFlash = document.getElementById("goal-flash");
+const goalChyron = document.getElementById("goal-chyron");
+const scrub = document.getElementById("scrub-bar");
+const scrubFill = document.getElementById("scrub-fill");
+const scrubMarkers = document.getElementById("scrub-markers");
+const tickDisplay = document.getElementById("tick-display");
+const playPauseBtn = document.getElementById("play-pause");
+const speedPill = document.getElementById("speed-pill");
+const eventList = document.getElementById("event-log-list");
+const eventsCount = document.getElementById("events-count");
+const filterPills = document.getElementById("filter-pills");
+const sbLog = document.getElementById("sb-log");
+const sbSeed = document.getElementById("sb-seed");
+const sbApi = document.getElementById("sb-api");
+if (sbApi) sbApi.textContent = `API · ${window.location.host}`;
+
+// ============================================================================
+// Field Renderer (Canvas) — broadcast palette
+// ============================================================================
+
+// Goal mouth y-extent is derived per-frame from FIELD_H + _goalHeight (both
+// updated from meta.json on /api/match fetch). Real FIFA goal width is 7.32m.
+let _goalHeight = 7.32;
+const NET_DEPTH_PX = 10;
+
+// FIFA pitch markings (center circle, penalty area, etc.) are specified in
+// real-world meters at the standard 100×60 pitch. On smaller configs they
+// must shrink proportionally or they overflow the field. Scale by FIELD_W/100
+// so a 60×40 pitch gets markings ~60% the size of a real one — preserves
+// the visual layout of a "downsized real pitch" without cluttering it.
+function _markingScale() { return FIELD_W / 100; }
+
+// Returns the half (1 or 2) the given REAL tick falls in.
+function getHalfForTick(realTick) {
+  let half = 1;
+  for (const t of _phaseTransitions) {
+    if (t.tick > realTick) break;
+    if (t.old_phase === "half_time" && t.new_phase === "kick_off") half = 2;
+  }
+  return half;
+}
+
+function paintTick(tickIdx) {
+  const t = allTicks[tickIdx];
+  if (!t) return;
+
+  // First-paint init: sync the backing store to display size × DPR.
+  // Cheap on subsequent calls (only re-syncs when the rect changes).
+  const rect = canvas.getBoundingClientRect();
+  if (Math.round(rect.width) !== cssW || Math.round(rect.height) !== cssH ||
+      window.devicePixelRatio !== _devicePixelRatio) {
+    _resizeCanvas();
+  }
+
+  // Background — dark broadcast green with mown stripes.
+  ctx.fillStyle = "#1f3a2a";
+  ctx.fillRect(0, 0, cssW, cssH);
+  const stripeW = cssW / 10;
+  ctx.fillStyle = "#23422f";
+  for (let i = 0; i < 10; i += 2) {
+    ctx.fillRect(i * stripeW, 0, stripeW, cssH);
+  }
+
+  // Field markings (white, semi-transparent)
+  const sx = cssW / FIELD_W;
+  const sy = cssH / FIELD_H;
+  ctx.strokeStyle = "rgba(232, 237, 241, 0.85)";
+  ctx.lineWidth = 1.5;
+
+  // Scale FIFA-meter constants to the actual pitch size (100×60 reference).
+  const scale = _markingScale();
+  const centerCircleR = 9.15 * scale;
+  const goalAreaDepth = 5.5 * scale;
+  const penaltyDepth = 16.5 * scale;
+  const penaltySpotDist = 11.0 * scale;
+  const penaltyArcRadius = 9.15 * scale;
+  // Goal mouth y-extent — centered on the field, span = engine's goal_height.
+  // (Engine writes goal_height into meta.json as of 2026-04-25; viewer falls
+  // back to FIFA real-world 7.32m if the field doesn't have it.)
+  const goalCenterY = FIELD_H / 2;
+  const goalTopY    = goalCenterY + _goalHeight / 2;  // larger y = lower-on-screen
+  const goalBottomY = goalCenterY - _goalHeight / 2;
+
+  // Outer boundary
+  ctx.strokeRect(0, 0, cssW, cssH);
+  // Center line
+  ctx.beginPath();
+  ctx.moveTo(cssW / 2, 0);
+  ctx.lineTo(cssW / 2, cssH);
+  ctx.stroke();
+  // Center circle
+  ctx.beginPath();
+  ctx.arc(cssW / 2, cssH / 2, centerCircleR * sx, 0, Math.PI * 2);
+  ctx.stroke();
+  ctx.fillStyle = "rgba(232, 237, 241, 0.85)";
+  ctx.beginPath();
+  ctx.arc(cssW / 2, cssH / 2, 2, 0, Math.PI * 2);
+  ctx.fill();
+
+  // Per-end markings
+  const goalAreaY1 = (goalBottomY - goalAreaDepth) * sy;
+  const goalAreaY2 = (goalTopY    + goalAreaDepth) * sy;
+  const penaltyY1  = (goalBottomY - penaltyDepth) * sy;
+  const penaltyY2  = (goalTopY    + penaltyDepth) * sy;
+  const fieldCenterYpx = goalCenterY * sy;
+
+  ctx.strokeRect(0, goalAreaY1, goalAreaDepth * sx, goalAreaY2 - goalAreaY1);
+  ctx.strokeRect(cssW - goalAreaDepth * sx, goalAreaY1, goalAreaDepth * sx, goalAreaY2 - goalAreaY1);
+  ctx.strokeRect(0, penaltyY1, penaltyDepth * sx, penaltyY2 - penaltyY1);
+  ctx.strokeRect(cssW - penaltyDepth * sx, penaltyY1, penaltyDepth * sx, penaltyY2 - penaltyY1);
+
+  ctx.beginPath(); ctx.arc(penaltySpotDist * sx, fieldCenterYpx, 2, 0, Math.PI * 2); ctx.fill();
+  ctx.beginPath(); ctx.arc(cssW - penaltySpotDist * sx, fieldCenterYpx, 2, 0, Math.PI * 2); ctx.fill();
+
+  const arcHalf = Math.acos((penaltyDepth - penaltySpotDist) / penaltyArcRadius);
+  const arcRpx = penaltyArcRadius * sx;
+  ctx.beginPath();
+  ctx.arc(penaltySpotDist * sx, fieldCenterYpx, arcRpx, -arcHalf, arcHalf);
+  ctx.stroke();
+  ctx.beginPath();
+  ctx.arc(cssW - penaltySpotDist * sx, fieldCenterYpx, arcRpx,
+          Math.PI - arcHalf, Math.PI + arcHalf);
+  ctx.stroke();
+
+  // Goal mouths — defending team's tint at low alpha; bright posts on the inner edge.
+  const goalTopPx    = goalTopY    * sy;
+  const goalBottomPx = goalBottomY * sy;
+  const half = getHalfForTick(currentTick);
+  const leftDefender = half === 1 ? "team_a" : "team_b";
+  const rightDefender = half === 1 ? "team_b" : "team_a";
+  const goalTint = (team) => team === "team_a"
+    ? "rgba(242, 164, 75, 0.30)"   // orange (Team A)
+    : "rgba(176, 140, 255, 0.30)"; // purple (Team B)
+  ctx.fillStyle = goalTint(leftDefender);
+  ctx.fillRect(0, goalBottomPx, NET_DEPTH_PX, goalTopPx - goalBottomPx);
+  ctx.fillStyle = goalTint(rightDefender);
+  ctx.fillRect(cssW - NET_DEPTH_PX, goalBottomPx, NET_DEPTH_PX, goalTopPx - goalBottomPx);
+  ctx.strokeStyle = "white"; ctx.lineWidth = 3;
+  ctx.beginPath(); ctx.moveTo(NET_DEPTH_PX, goalBottomPx); ctx.lineTo(NET_DEPTH_PX, goalTopPx); ctx.stroke();
+  ctx.beginPath(); ctx.moveTo(cssW - NET_DEPTH_PX, goalBottomPx); ctx.lineTo(cssW - NET_DEPTH_PX, goalTopPx); ctx.stroke();
+
+  // FX overlay (passes/shots/tackles/saves) — drawn UNDER players so dots
+  // sit on top of trajectory lines and pulse rings.
+  _renderFx(currentTick);
+
+  // Players
+  const positions = t.player_positions || {};
+  const PLAYER_RADIUS = 13;
+  // `ball_possession` is the TEAM id ("team_a"/"team_b"), not a player id.
+  // The carrying player is the one whose position equals ball_position
+  // (per BPS: while carried, ball position is snapped to carrier's pos).
+  // Identify them by scanning that team's players for the closest match.
+  const possessingTeam = t.ball_possession;
+  let carrier = null;
+  if (possessingTeam && t.ball_position) {
+    const [bx, by] = t.ball_position;
+    let bestDistSq = Infinity;
+    for (const pid of Object.keys(positions)) {
+      if (!pid.startsWith(possessingTeam)) continue;
+      const p = positions[pid];
+      const d = (p[0] - bx) ** 2 + (p[1] - by) ** 2;
+      if (d < bestDistSq) { bestDistSq = d; carrier = pid; }
+    }
+    // Only treat as carrier when the player is essentially ON the ball
+    // (≤0.5u). A team in possession but with the ball mid-pass should
+    // NOT highlight any player as the carrier.
+    if (bestDistSq > 0.25) carrier = null;
+  }
+  for (const playerId of Object.keys(positions)) {
+    const pos = positions[playerId];
+    if (!pos) continue;
+    const team = playerId.startsWith("team_a") ? "team_a" : "team_b";
+    const cx = (pos[0] / FIELD_W) * cssW;
+    const cy = (pos[1] / FIELD_H) * cssH;
+    // Carrier highlight ring (drawn first so the dot sits on top)
+    if (carrier && playerId === carrier) {
+      ctx.beginPath();
+      ctx.arc(cx, cy, PLAYER_RADIUS + 4, 0, Math.PI * 2);
+      ctx.strokeStyle = "rgba(255, 255, 255, 0.85)";
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+    // Player dot
+    ctx.beginPath();
+    ctx.arc(cx, cy, PLAYER_RADIUS, 0, Math.PI * 2);
+    ctx.fillStyle = team === "team_a" ? "#f2a44b" : "#b08cff";
+    ctx.fill();
+    // Black outline ring (matches prototype's box-shadow ring)
+    ctx.strokeStyle = "rgba(0, 0, 0, 0.55)";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+    // Jersey number (dark on light Team A, dark on light Team B)
+    const num = _playerNumbers[playerId] !== undefined
+      ? _playerNumbers[playerId]
+      : (parseInt(playerId.split("_").pop(), 10) + 1);
+    ctx.fillStyle = team === "team_a" ? "#1a0f04" : "#110820";
+    ctx.font = "bold 13px 'Space Grotesk', -apple-system, sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText(String(num), cx, cy);
+  }
+
+  // Ball — when carried, offset to the side of the carrier in their
+  // direction of motion so the jersey number stays visible. Direction
+  // is inferred from the carrier's position delta vs the previous tick;
+  // when stationary, default to "toward opponent goal".
+  if (t.ball_position) {
+    let [bx, by] = t.ball_position;
+    if (carrier && positions[carrier]) {
+      const carrierPos = positions[carrier];
+      let dx = 0, dy = 0;
+      const prev = allTicks[tickIdx - 1];
+      if (prev && prev.player_positions && prev.player_positions[carrier]) {
+        const prevPos = prev.player_positions[carrier];
+        dx = carrierPos[0] - prevPos[0];
+        dy = carrierPos[1] - prevPos[1];
+      }
+      const mag = Math.hypot(dx, dy);
+      if (mag < 1e-3) {
+        // Stationary carrier — point toward opponent goal so the ball
+        // sits on the attacking side of the dot.
+        const towardRight = carrier.startsWith("team_a")
+          ? getHalfForTick(currentTick) === 1
+          : getHalfForTick(currentTick) === 2;
+        dx = towardRight ? 1 : -1;
+        dy = 0;
+      } else {
+        dx /= mag; dy /= mag;
+      }
+      // Offset by ~PLAYER_RADIUS in field units. PLAYER_RADIUS is in
+      // pixels, so convert back: radius_units = PLAYER_RADIUS * FIELD_W / cssW.
+      const offsetUnits = (PLAYER_RADIUS + 4) * FIELD_W / cssW;
+      bx = carrierPos[0] + dx * offsetUnits;
+      by = carrierPos[1] + dy * offsetUnits;
+    }
+    const bcx = (bx / FIELD_W) * cssW;
+    const bcy = (by / FIELD_H) * cssH;
+    ctx.font = "13px sans-serif";
+    ctx.textAlign = "center";
+    ctx.textBaseline = "middle";
+    ctx.fillText("⚽", bcx, bcy);
+  }
+
+  // Score overlay
+  if (t.score) {
+    const sa = t.score.team_a !== undefined ? t.score.team_a : t.score[0];
+    const sb = t.score.team_b !== undefined ? t.score.team_b : t.score[1];
+    scoreTeamA.textContent = sa;
+    scoreTeamB.textContent = sb;
+  }
+
+  // Statbug — possession (team) + carrier (player, if anyone is on the ball)
+  const possText = possessingTeam
+    ? (possessingTeam === "team_a" ? "TEAM A" : "TEAM B")
+    : "LOOSE";
+  bugPossession.textContent = possText;
+  bugPossession.style.color = possessingTeam
+    ? (possessingTeam === "team_a" ? "var(--a)" : "var(--b)")
+    : "var(--ink-dim)";
+  bugCarrier.textContent = carrier
+    ? "#" + (_playerNumbers[carrier] || carrier.split("_").pop())
+    : "—";
+}
+
+// Seek to a REAL tick number.
+function seekToTick(realTick) {
+  if (allTicks.length === 0) return;
+  const clamped = Math.max(firstRealTick, Math.min(lastRealTick, realTick));
+  let idx = realTickToIdx.get(clamped);
+  let resolvedTick = clamped;
+  if (idx === undefined) {
+    for (let off = 1; off <= lastRealTick - firstRealTick; off++) {
+      if (realTickToIdx.has(clamped + off)) {
+        idx = realTickToIdx.get(clamped + off); resolvedTick = clamped + off; break;
+      }
+      if (realTickToIdx.has(clamped - off)) {
+        idx = realTickToIdx.get(clamped - off); resolvedTick = clamped - off; break;
+      }
+    }
+    if (idx === undefined) return;
+  }
+  currentTick = resolvedTick;
+  _syncFxQueue(currentTick);
+  paintTick(idx);
+  tickDisplay.textContent = `T${String(currentTick).padStart(4, "0")} / ${String(lastRealTick).padStart(4, "0")}`;
+  scrub.value = currentTick;
+  const span = lastRealTick - firstRealTick || 1;
+  const pct = ((currentTick - firstRealTick) / span) * 100;
+  scrubFill.style.width = `${pct}%`;
+  // Match clock
+  clockCur.textContent = _formatMMSS(currentTick);
+  clockTot.textContent = _formatMMSS(_totalTicks - 1 || lastRealTick);
+  window.dispatchEvent(new CustomEvent("renderer:tickChanged", { detail: { tick: currentTick } }));
+}
+
+function _formatMMSS(tick) {
+  const totalSec = Math.max(0, Math.floor(tick / _tickRate));
+  const m = Math.floor(totalSec / 60);
+  const s = totalSec % 60;
+  return `${String(m).padStart(2, "0")}:${String(s).padStart(2, "0")}`;
+}
+
+// ── Visual FX overlay ───────────────────────────────────────────────
+// Two effect families:
+//   - Trajectory: pass = thin team-coloured dashed line passer→landing
+//                 shot = thick line shooter→approx target with arrowhead
+//   - Pulse ring: tackle / save / block at the actor's position, colour
+//                 by outcome (green=success, amber=blocked, red=failed)
+// Effects live ~10 ticks (1s @ 10 t/s) and fade linearly.
+
+const FX_LIFETIME = 10;
+
+// Map an action's outcome to a ring colour.
+function _outcomeColour(action, result, details) {
+  if (action === "Tackle") {
+    if (result === "controlled") return "#4bdc8b";  // green
+    if (result === "blocked")    return "#f2c14b";  // amber
+    if (result === "failed")     return "#ff6b6b";  // red
+    return "#9aa4ad";                               // grey
+  }
+  if (details && details.goalkeeper_save === "success") return "#4bdc8b";
+  if (details && details.goalkeeper_save === "blocked") return "#f2c14b";
+  if (details && details.shot_deflection)               return "#f2c14b";
+  return "#9aa4ad";
+}
+
+// Walk all actions on `tick`, push fx into `_activeFx`. Idempotent for
+// a given tick (caller must avoid re-scanning the same tick).
+function _scanTickFx(tick) {
+  const idx = realTickToIdx.get(tick);
+  if (idx === undefined) return;
+  const t = allTicks[idx];
+  const positions = t.player_positions || {};
+  for (const a of (t.actions || [])) {
+    const pid = a.player_id;
+    const team = a.team;
+    const result = a.result;
+    const details = a.details || {};
+    const pos = positions[pid];
+
+    // Pass — trajectory from passer to landing.
+    if (a.action === "Pass" && result === "ok" && pos) {
+      const land = Array.isArray(details.landing_pos) ? details.landing_pos
+                 : Array.isArray(details.target_pos)  ? details.target_pos : null;
+      if (land) {
+        _activeFx.push({
+          kind: "pass", team,
+          x1: pos[0], y1: pos[1], x2: land[0], y2: land[1],
+          startTick: tick, lifetime: FX_LIFETIME,
+        });
+      }
+    }
+    // Shot — trajectory from shooter toward goal direction. Use the next
+    // available tick's ball position as the direction proxy (ball was
+    // just kicked, so its motion vector points along the shot path).
+    if (a.action === "Shoot" && result === "ok" && pos) {
+      let target = null;
+      // Look up to 5 ticks ahead for a ball position to define direction.
+      for (let off = 1; off <= 5; off++) {
+        const next = allTicks[idx + off];
+        if (next && next.ball_position) {
+          target = next.ball_position; break;
+        }
+      }
+      if (target) {
+        _activeFx.push({
+          kind: "shot", team,
+          x1: pos[0], y1: pos[1], x2: target[0], y2: target[1],
+          startTick: tick, lifetime: FX_LIFETIME,
+        });
+      }
+    }
+    // Tackle — pulse at tackler position.
+    if (a.action === "Tackle" && pos &&
+        (result === "controlled" || result === "blocked" || result === "failed")) {
+      _activeFx.push({
+        kind: "ring", team, color: _outcomeColour("Tackle", result, details),
+        x: pos[0], y: pos[1],
+        startTick: tick, lifetime: FX_LIFETIME,
+      });
+    }
+    // Save (success / parry) — pulse at GK position.
+    if ((details.goalkeeper_save === "success" || details.goalkeeper_save === "blocked") && pos) {
+      _activeFx.push({
+        kind: "ring", team, color: _outcomeColour(null, null, details),
+        x: pos[0], y: pos[1],
+        startTick: tick, lifetime: FX_LIFETIME,
+      });
+    }
+    // Defender block (BPS shot deflection) — pulse at blocker position.
+    if (details.shot_deflection && pos) {
+      _activeFx.push({
+        kind: "ring", team, color: _outcomeColour(null, null, details),
+        x: pos[0], y: pos[1],
+        startTick: tick, lifetime: FX_LIFETIME,
+      });
+    }
+  }
+}
+
+// Sync the fx queue with the current tick:
+//   - forward jump: scan any unseen ticks in (_lastFxScannedTick, tick]
+//   - backward jump: nuke the queue and rebase
+function _syncFxQueue(tick) {
+  if (tick < _lastFxScannedTick) {
+    _activeFx = [];
+    _lastFxScannedTick = tick - 1;
+  }
+  // Skip large catch-ups (e.g. a long scrub forward) — only scan the
+  // window of ticks whose effects could still be alive at `tick`.
+  const start = Math.max(_lastFxScannedTick + 1, tick - FX_LIFETIME);
+  for (let s = start; s <= tick; s++) _scanTickFx(s);
+  _lastFxScannedTick = Math.max(_lastFxScannedTick, tick);
+  // Prune expired
+  _activeFx = _activeFx.filter((fx) => tick - fx.startTick <= fx.lifetime);
+}
+
+// Render the active fx queue onto the canvas. Called from paintTick.
+function _renderFx(tick) {
+  if (_activeFx.length === 0) return;
+  for (const fx of _activeFx) {
+    const age = tick - fx.startTick;
+    if (age < 0 || age > fx.lifetime) continue;
+    const t01 = age / fx.lifetime;          // 0..1
+    const alpha = Math.max(0, 1 - t01);     // linear fade
+    const teamColor = fx.team === "team_a" ? "#f2a44b" : "#b08cff";
+    if (fx.kind === "pass") {
+      const x1 = (fx.x1 / FIELD_W) * cssW;
+      const y1 = (fx.y1 / FIELD_H) * cssH;
+      const x2 = (fx.x2 / FIELD_W) * cssW;
+      const y2 = (fx.y2 / FIELD_H) * cssH;
+      ctx.save();
+      ctx.globalAlpha = alpha * 0.85;
+      ctx.strokeStyle = teamColor;
+      ctx.lineWidth = 1.5;
+      ctx.setLineDash([4, 4]);
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      // Small dot at landing
+      ctx.setLineDash([]);
+      ctx.fillStyle = teamColor;
+      ctx.beginPath(); ctx.arc(x2, y2, 3, 0, Math.PI * 2); ctx.fill();
+      ctx.restore();
+    } else if (fx.kind === "shot") {
+      const x1 = (fx.x1 / FIELD_W) * cssW;
+      const y1 = (fx.y1 / FIELD_H) * cssH;
+      const x2 = (fx.x2 / FIELD_W) * cssW;
+      const y2 = (fx.y2 / FIELD_H) * cssH;
+      ctx.save();
+      ctx.globalAlpha = alpha;
+      ctx.strokeStyle = teamColor;
+      ctx.lineWidth = 3;
+      ctx.beginPath(); ctx.moveTo(x1, y1); ctx.lineTo(x2, y2); ctx.stroke();
+      // Arrowhead at the destination end
+      const ang = Math.atan2(y2 - y1, x2 - x1);
+      const ah = 9;  // arrowhead length
+      ctx.fillStyle = teamColor;
+      ctx.beginPath();
+      ctx.moveTo(x2, y2);
+      ctx.lineTo(x2 - ah * Math.cos(ang - Math.PI / 6), y2 - ah * Math.sin(ang - Math.PI / 6));
+      ctx.lineTo(x2 - ah * Math.cos(ang + Math.PI / 6), y2 - ah * Math.sin(ang + Math.PI / 6));
+      ctx.closePath(); ctx.fill();
+      ctx.restore();
+    } else if (fx.kind === "ring") {
+      const cx = (fx.x / FIELD_W) * cssW;
+      const cy = (fx.y / FIELD_H) * cssH;
+      // Ring expands from PLAYER_RADIUS+2 to PLAYER_RADIUS+22 over lifetime.
+      const r = 15 + 22 * t01;
+      ctx.save();
+      ctx.globalAlpha = alpha * 0.9;
+      ctx.strokeStyle = fx.color;
+      ctx.lineWidth = 2.5;
+      ctx.beginPath(); ctx.arc(cx, cy, r, 0, Math.PI * 2); ctx.stroke();
+      ctx.restore();
+    }
+  }
+}
+
+// ── Playback loop ───────────────────────────────────────────────────
+function loop(ts) {
+  if (playing && allTicks.length > 0) {
+    const deltaMs = Math.min(200, ts - lastTimestamp);
+    // 10 ticks/sec base × playSpeed → tick interval = 100 / playSpeed ms
+    if (deltaMs >= 100 / playSpeed) {
+      let next = currentTick + 1;
+      while (next <= lastRealTick && !realTickToIdx.has(next)) next++;
+      if (next > lastRealTick) {
+        playing = false;
+        playPauseBtn.textContent = "▶";
+      } else {
+        seekToTick(next);
+      }
+      lastTimestamp = ts;
+    }
+  }
+  requestAnimationFrame(loop);
+}
+requestAnimationFrame(loop);
+
+playPauseBtn.addEventListener("click", () => {
+  playing = !playing;
+  playPauseBtn.textContent = playing ? "❚❚" : "▶";
+  if (playing) lastTimestamp = performance.now();
+});
+
+scrub.addEventListener("input", () => seekToTick(parseInt(scrub.value)));
+
+// Speed pill — pick playback rate
+speedPill.addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-speed]");
+  if (!btn) return;
+  playSpeed = parseFloat(btn.dataset.speed);
+  speedPill.querySelectorAll("button").forEach((b) =>
+    b.classList.toggle("active", b === btn));
+});
+
+window.addEventListener("keydown", (e) => {
+  // Skip when focus is in any text-input element — otherwise this handler
+  // eats space (and arrow keys) inside textareas, name inputs, the LLM
+  // prompt box, etc. `INPUT` covers `<input>`; `TEXTAREA` covers
+  // `<textarea>`; isContentEditable covers contenteditable divs.
+  const t = e.target;
+  if (t && (t.tagName === "INPUT" || t.tagName === "TEXTAREA" || t.isContentEditable)) return;
+  if (e.code === "Space") {
+    e.preventDefault();
+    playPauseBtn.click();
+  } else if (e.code === "ArrowLeft") {
+    seekToTick(currentTick - (e.shiftKey ? 500 : 1));
+  } else if (e.code === "ArrowRight") {
+    seekToTick(currentTick + (e.shiftKey ? 500 : 1));
+  }
+});
+
+// ============================================================================
+// Event Log (ticker)
+// ============================================================================
+
+function _label(pid) { return _playerLabels[pid] || pid; }
+
+function ingestRosters(teams) {
+  if (!teams) return;
+  for (const teamId of Object.keys(teams)) {
+    const teamLetter = teamId === "team_a" ? "A" : "B";
+    for (const p of (teams[teamId] || [])) {
+      _playerLabels[p.player_id] = `${teamLetter} #${p.number}`;
+      _playerNumbers[p.player_id] = p.number;
+    }
+  }
+}
+
+function _refreshPlayerLabels(allTicksData) {
+  for (const t of allTicksData) {
+    for (const pid of Object.keys(t.player_positions || {})) {
+      if (_playerLabels[pid]) continue;
+      const teamLetter = pid.startsWith("team_a") ? "A" : "B";
+      const idx = parseInt(pid.split("_").pop(), 10);
+      const number = isNaN(idx) ? "?" : (idx + 1);
+      _playerLabels[pid] = `${teamLetter} #${number}`;
+      _playerNumbers[pid] = number;
+    }
+  }
+}
+
+function extractEventRows(allTicksData) {
+  _refreshPlayerLabels(allTicksData);
+  const rows = [];
+  for (const t of allTicksData) {
+    for (const a of (t.actions || [])) {
+      const action = a.action;
+      const result = a.result;
+      const pid = a.player_id;
+      const team = a.team;
+      const details = a.details || {};
+
+      if (details.goal_scored) {
+        const scoredBy = details.scored_by || "?";
+        const scoringTeam = details.goal_scored;
+        const teamLetter = scoringTeam === "team_a" ? "A" : "B";
+        rows.push({ tick: t.tick, team: scoringTeam, icon: "⚽",
+          label: `GOAL by ${_label(scoredBy)} (Team ${teamLetter})`, cls: "ev-goal" });
+        continue;
+      }
+      if (details.out_of_bounds) {
+        const restart = details.restart_type;
+        const restartTeam = details.restart_team;
+        const kicker = details.kicker_id;
+        if (restart) {
+          const teamLetter = restartTeam === "team_a" ? "A" : restartTeam === "team_b" ? "B" : "?";
+          const kTxt = kicker ? ` by ${_label(kicker)}` : ` (Team ${teamLetter})`;
+          let icon = "🚩"; let label = "";
+          if (restart === "throw_in") {
+            const spot = details.restart_spot || details.position;
+            const where = (Array.isArray(spot) && spot[1] <= 1) ? "top side"
+                        : (Array.isArray(spot) && spot[1] >= 59) ? "bottom side" : "";
+            icon = "🤾"; label = `THROW-IN${kTxt}${where ? " from " + where : ""}`;
+          } else if (restart === "goal_kick") {
+            icon = "🥅"; label = `GOAL KICK${kTxt}`;
+          } else if (restart === "corner_kick") {
+            const spot = details.restart_spot || details.position;
+            let corner = "";
+            if (Array.isArray(spot)) {
+              const top = spot[1] <= 1; const left = spot[0] <= 1;
+              corner = (top ? "top" : "bottom") + "-" + (left ? "left" : "right");
+            }
+            icon = "🚩"; label = `CORNER${kTxt}${corner ? " from " + corner : ""}`;
+          } else {
+            label = `RESTART (${restart})${kTxt}`;
+          }
+          rows.push({ tick: t.tick, team: restartTeam, icon, label, cls: "ev-oob" });
+          continue;
+        }
+        const pos = details.position; const last = details.last_touched_by;
+        let where = "";
+        if (Array.isArray(pos)) {
+          const isLeft = pos[0] <= 0.5; const isRight = pos[0] >= 99.5;
+          const isTop = pos[1] >= 59.5; const isBottom = pos[1] <= 0.5;
+          if (isLeft || isRight) where = " (end line)";
+          else if (isTop || isBottom) where = " (side line)";
+        }
+        const fromTxt = last ? ` — last touched by ${_label(last)}` : "";
+        rows.push({ tick: t.tick, team: null, icon: "🚩",
+          label: `OUT OF BOUNDS${where}${fromTxt}`, cls: "ev-oob" });
+        continue;
+      }
+      if (details.dribble_result) {
+        const target = details.dribble_target;
+        if (details.dribble_result === "success") {
+          rows.push({ tick: t.tick, team, icon: "💨",
+            label: `DRIBBLE by ${_label(pid)} past ${_label(target)} ✓`, cls: "ev-dribble-good" });
+        } else {
+          rows.push({ tick: t.tick, team, icon: "💨",
+            label: `DRIBBLE by ${_label(pid)} stolen by ${_label(target)}`, cls: "ev-dribble-bad" });
+        }
+        continue;
+      }
+      if (details.shot_deflection) {
+        const from = details.deflected_from;
+        const fromTxt = from ? ` from ${_label(from)}'s shot` : "";
+        rows.push({ tick: t.tick, team, icon: "🛑",
+          label: `BLOCK by ${_label(pid)}${fromTxt}`, cls: "ev-deflection" });
+        continue;
+      }
+      if (details.goalkeeper_save === "success") {
+        const from = details.saved_from || "?";
+        rows.push({ tick: t.tick, team, icon: "🛡",
+          label: `SAVE by ${_label(pid)} from ${_label(from)}`, cls: "ev-save" });
+        continue;
+      }
+      if (details.goalkeeper_save === "blocked") {
+        const from = details.saved_from || "?";
+        rows.push({ tick: t.tick, team, icon: "🥅",
+          label: `PARRY by ${_label(pid)} from ${_label(from)} (loose ball)`, cls: "ev-save-blocked" });
+        continue;
+      }
+      // Cooldown-blocked: action="Hold" (effective), intended_action=original intent.
+      // Render as "[intended] by [pid] [on cooldown]" so it's clear the system
+      // suppressed the action — not a defender block.
+      if (result === "cooldown_blocked") {
+        const intended = details.intended_action || action;
+        let icon = "⏳"; let label = "";
+        if (intended === "Shoot") {
+          icon = "🎯"; label = `SHOT by ${_label(pid)} [on cooldown]`;
+        } else if (intended === "Pass") {
+          icon = "→"; label = `PASS by ${_label(pid)} [on cooldown]`;
+        } else if (intended === "Tackle") {
+          icon = "⚔"; label = `TACKLE by ${_label(pid)} [on cooldown]`;
+        } else {
+          label = `${intended} by ${_label(pid)} [on cooldown]`;
+        }
+        rows.push({ tick: t.tick, team, icon, label, cls: "ev-blocked" });
+        continue;
+      }
+      if (action === "Shoot") {
+        const power = details.effective_power || details.power || "?";
+        rows.push({ tick: t.tick, team, icon: "🎯",
+          label: `SHOT by ${_label(pid)} (power=${power})`,
+          cls: "ev-shot" });
+        continue;
+      }
+      if (action === "Pass") {
+        let target = "";
+        const pos = Array.isArray(details.landing_pos) ? details.landing_pos
+                  : Array.isArray(details.target_pos)  ? details.target_pos : null;
+        if (pos) target = ` → (${pos[0].toFixed(1)},${pos[1].toFixed(1)})`;
+        rows.push({ tick: t.tick, team, icon: "→",
+          label: `PASS by ${_label(pid)}${target}`,
+          cls: "ev-pass" });
+        continue;
+      }
+      if (details.ball_pickup === "success") {
+        rows.push({ tick: t.tick, team, icon: "●",
+          label: `PICKUP by ${_label(pid)}`, cls: "ev-pickup" });
+        continue;
+      }
+      if (details.ball_pickup === "failed") {
+        const reason = details.reason || "?";
+        rows.push({ tick: t.tick, team, icon: "○",
+          label: `PICKUP failed by ${_label(pid)} (${reason})`, cls: "ev-pickup-bad" });
+        continue;
+      }
+      if (action === "Tackle") {
+        let suffix = ""; let cls = "ev-tackle";
+        if (result === "controlled") { suffix = " ✓ (won possession)"; cls = "ev-tackle-good"; }
+        else if (result === "blocked") { suffix = " ⚡ (deflected — loose)"; cls = "ev-tackle-blocked"; }
+        else if (result === "no_op_carrier_changed") suffix = " (carrier moved)";
+        else if (result === "out_of_range") suffix = " (out of range)";
+        rows.push({ tick: t.tick, team, icon: "⚔",
+          label: `TACKLE by ${_label(pid)}${suffix}`, cls });
+        continue;
+      }
+    }
+  }
+  return rows;
+}
+
+function extractPhaseTransitionRows(transitions) {
+  if (!transitions) return [];
+  const rows = [];
+  const PHASE_DISPLAY = {
+    "kick_off":     { icon: "⏱", label: "KICK-OFF",   cls: "ev-phase" },
+    "in_play":      { icon: null, label: null,        cls: null },
+    "goal_scored":  { icon: null, label: null,        cls: null },
+    "half_time":    { icon: "☕", label: "HALF-TIME", cls: "ev-phase-major" },
+    "full_time":    { icon: "🏁", label: "FULL-TIME", cls: "ev-phase-major" },
+    "pre_match":    { icon: null, label: null,        cls: null },
+  };
+  for (const pt of transitions) {
+    const disp = PHASE_DISPLAY[pt.new_phase];
+    if (!disp || !disp.label) continue;
+    rows.push({ tick: pt.tick, team: null, icon: disp.icon, label: disp.label, cls: disp.cls });
+  }
+  return rows;
+}
+
+function _filterRow(ev) {
+  if (teamFilter === "all") return true;
+  // Always show team-agnostic phase / OOB rows so users keep their bearings.
+  if (!ev.team) return ev.cls && (ev.cls.startsWith("ev-phase") || ev.cls === "ev-oob");
+  return ev.team === teamFilter;
+}
+
+function renderEventRows() {
+  eventList.innerHTML = "";
+  const visible = _eventRows.filter(_filterRow);
+  eventsCount.textContent = `${visible.length}/${_eventRows.length}`;
+  if (visible.length === 0) {
+    const placeholder = document.createElement("div");
+    placeholder.className = "evt placeholder";
+    placeholder.textContent = "(no events match filter)";
+    eventList.appendChild(placeholder);
+    return;
+  }
+  for (const ev of visible) {
+    const row = document.createElement("div");
+    row.className = `evt ${ev.cls || ""}`;
+    row.dataset.tick = ev.tick;
+    row.dataset.team = ev.team || "";
+
+    const tEl = document.createElement("span"); tEl.className = "t";
+    tEl.textContent = `T${String(ev.tick).padStart(4, "0")}`;
+    const iEl = document.createElement("span"); iEl.className = "ico";
+    iEl.textContent = ev.icon || "•";
+    const txtEl = document.createElement("span"); txtEl.className = "txt";
+    if (ev.team) {
+      const tag = document.createElement("span");
+      tag.className = `team-tag ${ev.team}`;
+      txtEl.appendChild(tag);
+    }
+    txtEl.appendChild(document.createTextNode(ev.label));
+
+    row.append(tEl, iEl, txtEl);
+    row.addEventListener("click", () => {
+      seekToTick(ev.tick);
+      eventList.querySelectorAll(".evt.selected").forEach((el) => el.classList.remove("selected"));
+      row.classList.add("selected");
+      window.dispatchEvent(new CustomEvent("eventLog:tickSelected", {
+        detail: { tick: ev.tick, team: ev.team }
+      }));
+    });
+    eventList.appendChild(row);
+  }
+}
+
+filterPills.addEventListener("click", (e) => {
+  const btn = e.target.closest("button[data-filter]");
+  if (!btn) return;
+  teamFilter = btn.dataset.filter;
+  filterPills.querySelectorAll("button").forEach((b) =>
+    b.classList.toggle("active", b === btn));
+  renderEventRows();
+});
+
+window.addEventListener("renderer:tickChanged", (e) => {
+  const t = e.detail.tick;
+  eventList.querySelectorAll(".evt.proximity").forEach((el) => el.classList.remove("proximity"));
+  const items = [...eventList.querySelectorAll(".evt[data-tick]")];
+  if (items.length === 0) return;
+  let closest = items[0];
+  let closestDist = Math.abs(parseInt(items[0].dataset.tick) - t);
+  for (const item of items.slice(1)) {
+    const d = Math.abs(parseInt(item.dataset.tick) - t);
+    if (d < closestDist) { closest = item; closestDist = d; }
+  }
+  closest.classList.add("proximity");
+  if (playing) {
+    closest.scrollIntoView({ block: "nearest", behavior: "smooth" });
+  }
+});
+
+// ── Goal flash overlay ──────────────────────────────────────────────
+let _lastGoalTick = -1;
+window.addEventListener("renderer:tickChanged", () => {
+  const intTick = Math.floor(currentTick);
+  for (const ev of _eventRows) {
+    if (ev.cls === "ev-goal" && ev.tick <= intTick && ev.tick > _lastGoalTick) {
+      _lastGoalTick = ev.tick;
+      _showGoalFx(ev);
+      break;
+    }
+  }
+  if (intTick < _lastGoalTick) _lastGoalTick = intTick;
+});
+
+function _showGoalFx(ev) {
+  const side = ev.team === "team_a" ? "a" : "b";
+  goalFlash.className = `goal-flash ${side}`;
+  goalFlash.style.setProperty("--fx", side === "a" ? "82%" : "18%");
+  goalFlash.hidden = false;
+  // Re-trigger the CSS animation by removing+adding the class.
+  goalFlash.style.animation = "none"; void goalFlash.offsetWidth;
+  goalFlash.style.animation = "";
+  goalChyron.hidden = false;
+  goalChyron.querySelector(".word").className = `word ${side}`;
+  goalChyron.querySelector(".word").textContent = "GOAL";
+  goalChyron.querySelector(".sub").textContent = ev.label;
+  goalChyron.style.animation = "none"; void goalChyron.offsetWidth;
+  goalChyron.style.animation = "";
+  setTimeout(() => { goalFlash.hidden = true; goalChyron.hidden = true; }, 1900);
+}
+
+// ── Scrub markers (goal pips) ───────────────────────────────────────
+function renderScrubMarkers() {
+  scrubMarkers.innerHTML = "";
+  const span = lastRealTick - firstRealTick || 1;
+  for (const ev of _eventRows) {
+    if (ev.cls !== "ev-goal") continue;
+    const pct = ((ev.tick - firstRealTick) / span) * 100;
+    const m = document.createElement("div");
+    const side = ev.team === "team_a" ? "a" : "b";
+    m.className = `scrub-marker goal ${side}`;
+    m.style.left = `${pct}%`;
+    m.title = `GOAL · T${ev.tick}`;
+    scrubMarkers.appendChild(m);
+  }
+}
+
+// ============================================================================
+// Bootstrap — fetch all data on load
+// ============================================================================
+
+function _deriveSeed(matchId) {
+  // Match IDs commonly look like "iter11v4_r6_seed600" — pull the trailing seed.
+  const m = /seed(\d+)/i.exec(matchId || "");
+  return m ? m[1] : "—";
+}
+
+/**
+ * Load match data from parsed meta + ticks arrays.
+ * Called by: file loader (after folder pick), or directly from bootstrap() when BUNDLED_MATCH is set.
+ */
+function startFromData(meta, ticks, strategies) {
+  // ── Meta ──────────────────────────────────────────────────────────────
+  _matchId = meta.match_id || '';
+  _seed = (meta.seed !== undefined && meta.seed !== null)
+    ? String(meta.seed)
+    : _deriveSeed(_matchId);
+  matchTitle.textContent = _matchId || '—';
+  bugSeed.textContent = _seed;
+  sbSeed.textContent = `DETERMINISTIC · SEED ${_seed}`;
+  const sbLog = document.getElementById('sb-log');
+  if (sbLog) sbLog.textContent = `LOG · ${_matchId}`;
+
+  if (meta.final_score) {
+    scoreTeamA.textContent = meta.final_score.team_a;
+    scoreTeamB.textContent = meta.final_score.team_b;
+  }
+  ingestRosters(meta.teams);
+  _phaseTransitions = meta.phase_transitions || [];
+  if (typeof meta.tick_rate === 'number') {
+    _tickRate = meta.tick_rate;
+    bugTickRate.textContent = `${_tickRate}/s`;
+  }
+  if (typeof meta.total_ticks === 'number') _totalTicks = meta.total_ticks;
+  if (typeof meta.field_width === 'number' && typeof meta.field_height === 'number') {
+    FIELD_W = meta.field_width;
+    FIELD_H = meta.field_height;
+    if (typeof meta.goal_height === 'number') _goalHeight = meta.goal_height;
+    if (canvas) canvas.style.aspectRatio = '';
+    const sbField = document.getElementById('sb-field');
+    if (sbField) sbField.textContent = `FIELD · ${FIELD_W}×${FIELD_H}m`;
+    if (typeof _resizeCanvas === 'function') _resizeCanvas();
+  }
+  canvas.style.visibility = 'visible';
+
+  // Strategy labels in chyron
+  const rosterSize = (teamId) => (meta.teams && meta.teams[teamId] || []).length;
+  const langTag = (s) => {
+    const lang = s && s.language;
+    if (lang === 'javascript') return ' · JS';
+    if (lang === 'rust')       return ' · RS';
+    if (lang === 'python')     return ' · PY';
+    return '';
+  };
+  const formatStrategy = (teamId) => {
+    const s = meta.strategies && meta.strategies[teamId];
+    const n = rosterSize(teamId);
+    const playersHint = n ? ` · ${n}P` : '';
+    if (!s || s.provider === 'unknown') return n ? `${n} PLAYERS` : '—';
+    if (s.provider === 'baseline') return `${s.name || 'baseline'}${playersHint}${langTag(s)}`;
+    const head = (s.model && s.model !== 'unknown') ? `${s.provider}/${s.model}` : s.provider;
+    const ver = (typeof s.version === 'number' && s.version > 0) ? ` · v${s.version}` : '';
+    return `${head}${ver}${playersHint}${langTag(s)}`;
+  };
+  teamAModel.textContent = formatStrategy('team_a');
+  teamBModel.textContent = formatStrategy('team_b');
+
+  // ── Ticks ─────────────────────────────────────────────────────────────
+  allTicks = ticks;
+  realTickToIdx = new Map();
+  allTicks.forEach((t, i) => realTickToIdx.set(t.tick, i));
+  if (allTicks.length > 0) {
+    firstRealTick = allTicks[0].tick;
+    lastRealTick = allTicks[allTicks.length - 1].tick;
+    if (typeof meta.final_tick === 'number') {
+      lastRealTick = Math.max(lastRealTick, meta.final_tick);
+    }
+    scrub.min = firstRealTick;
+    scrub.max = lastRealTick;
+    _eventRows = [
+      ...extractPhaseTransitionRows(_phaseTransitions),
+      ...extractEventRows(allTicks),
+    ].sort((a, b) => a.tick - b.tick);
+    renderEventRows();
+    renderScrubMarkers();
+    seekToTick(firstRealTick);
+  }
+
+  // ── Match stats ───────────────────────────────────────────────────────
+  if (window.matchStats && typeof window.matchStats.loadFromData === 'function') {
+    window.matchStats.loadFromData(meta, ticks);
+  }
+
+  // ── Hide loader, show viewer ──────────────────────────────────────────
+  const loaderScreen = document.getElementById('loader-screen');
+  if (loaderScreen) loaderScreen.classList.add('hidden');
+}
+
+function bootstrap() {
+  if (window.BUNDLED_MATCH) {
+    startFromData(
+      window.BUNDLED_MATCH.meta,
+      window.BUNDLED_MATCH.ticks,
+      window.BUNDLED_MATCH.strategies || null
+    );
+  }
+  // If no BUNDLED_MATCH, the loader screen stays visible — file loader calls startFromData()
+}
+
+window.startFromData = startFromData;
+bootstrap();
+
+// Public export for testability
+window.seekToTick = seekToTick;
+</script>
+
+<script>
+'use strict';
+
+// ── JSONL parser ──────────────────────────────────────────────────────────────
+function parseJsonl(text) {
+  return text.split('\n')
+    .filter(line => line.trim())
+    .map(line => JSON.parse(line));
+}
+
+// ── File set → data extraction ────────────────────────────────────────────────
+function extractMatchFiles(fileList) {
+  // fileList is either a FileList (from <input>) or an Array of File objects
+  const files = Array.from(fileList);
+  const meta = files.find(f => f.name === 'meta.json');
+  const events = files.find(f => f.name === 'events.jsonl');
+  const stratA = files.find(f => f.name.startsWith('strategy_team_a'));
+  const stratB = files.find(f => f.name.startsWith('strategy_team_b'));
+  return { meta, events, stratA, stratB };
+}
+
+function readFileText(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = e => resolve(e.target.result);
+    reader.onerror = () => reject(new Error(`Failed to read ${file.name}`));
+    reader.readAsText(file);
+  });
+}
+
+function showLoaderError(msg) {
+  const el = document.getElementById('loader-error');
+  if (el) { el.textContent = msg; el.classList.add('visible'); }
+}
+
+async function loadMatchFromFiles(fileList) {
+  const { meta: metaFile, events: eventsFile, stratA, stratB } = extractMatchFiles(fileList);
+
+  if (!metaFile) { showLoaderError('meta.json not found in selected folder'); return; }
+  if (!eventsFile) { showLoaderError('events.jsonl not found in selected folder'); return; }
+
+  try {
+    const [metaText, eventsText] = await Promise.all([
+      readFileText(metaFile),
+      readFileText(eventsFile),
+    ]);
+    const meta = JSON.parse(metaText);
+    const ticks = parseJsonl(eventsText);
+
+    const strategies = {};
+    if (stratA) strategies.team_a = await readFileText(stratA);
+    if (stratB) strategies.team_b = await readFileText(stratB);
+
+    window.startFromData(meta, ticks, Object.keys(strategies).length ? strategies : null);
+  } catch (err) {
+    showLoaderError(`Error loading match: ${err.message}`);
+  }
+}
+
+// ── Folder picker (input[webkitdirectory]) ────────────────────────────────────
+const folderPicker = document.getElementById('folder-picker');
+if (folderPicker) {
+  folderPicker.addEventListener('change', () => {
+    if (folderPicker.files.length > 0) {
+      loadMatchFromFiles(folderPicker.files);
+    }
+  });
+}
+
+// ── Drag-and-drop folder ──────────────────────────────────────────────────────
+const dropZone = document.getElementById('loader-drop-zone');
+if (dropZone) {
+  dropZone.addEventListener('dragover', e => {
+    e.preventDefault();
+    dropZone.classList.add('drag-over');
+  });
+  dropZone.addEventListener('dragleave', () => {
+    dropZone.classList.remove('drag-over');
+  });
+  dropZone.addEventListener('drop', async e => {
+    e.preventDefault();
+    dropZone.classList.remove('drag-over');
+
+    // Collect all files from dropped folder using webkitGetAsEntry
+    const files = [];
+    const readEntry = (entry) => new Promise((resolve) => {
+      if (entry.isFile) {
+        entry.file(f => { files.push(f); resolve(); });
+      } else if (entry.isDirectory) {
+        const reader = entry.createReader();
+        reader.readEntries(async entries => {
+          await Promise.all(entries.map(readEntry));
+          resolve();
+        });
+      } else {
+        resolve();
+      }
+    });
+
+    const items = Array.from(e.dataTransfer.items);
+    await Promise.all(items.map(item => {
+      const entry = item.webkitGetAsEntry && item.webkitGetAsEntry();
+      return entry ? readEntry(entry) : Promise.resolve();
+    }));
+
+    if (files.length > 0) {
+      loadMatchFromFiles(files);
+    } else {
+      showLoaderError('No files found in dropped folder');
+    }
+  });
+}
+</script>
+</body>
+</html>
