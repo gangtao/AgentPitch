@@ -1,0 +1,1279 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AgentPitch · LLM Soccer Simulation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+/* ── AgentPitch Design System Tokens ── */
+:root {
+  --bg:        #0a0d10;
+  --panel:     #11161b;
+  --panel-2:   #161c22;
+  --panel-3:   #1c232a;
+  --line:      #242c34;
+  --line-2:    #2f3a44;
+  --ink:       #e8edf1;
+  --ink-dim:   #9aa4ad;
+  --ink-dimer: #5b6872;
+  --ink-faint: #3a4550;
+  --a:         #f2a44b;
+  --a-dim:     #a87530;
+  --a-ink:     #120a04;
+  --b:         #b08cff;
+  --ok:        #6ee3a5;
+  --warn:      #f2a44b;
+  --err:       #ff6b6b;
+  --pitch:     #1e3a2a;
+  --font:      "JetBrains Mono", ui-monospace, Menlo, monospace;
+  --font-disp: "Space Grotesk", -apple-system, "Segoe UI", sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html, body {
+  width: 100%; height: 100%; overflow: hidden;
+  background: var(--bg); color: var(--ink);
+  font-family: var(--font);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "zero" on, "ss01" on;
+}
+canvas.bg { position: fixed; inset: 0; width: 100vw; height: 100vh; z-index: 0; display: block; }
+#deck { position: fixed; inset: 0; width: 10000vw; height: 100vh; display: flex; flex-wrap: nowrap; transition: transform .9s cubic-bezier(.77,0,.175,1); z-index: 10; will-change: transform; }
+.slide { width: 100vw; height: 100vh; flex: 0 0 100vw; position: relative; padding: 4.5vh 5vw 9vh 5vw; display: flex; flex-direction: column; overflow: hidden; }
+.slide::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; transition: background .7s; }
+.slide.dark::before  { background: rgba(10,13,16,.90); }
+.slide.light::before { background: rgba(17,22,27,.93); }
+.slide.hero.dark::before  { background: rgba(10,13,16,.22); }
+.slide.hero.light::before { background: rgba(17,22,27,.28); }
+.h-hero { font-family: var(--font-disp); font-weight: 900; font-style: italic; font-size: 10vw; line-height: .93; letter-spacing: -.035em; }
+.h-xl   { font-family: var(--font-disp); font-weight: 700; font-size: 5.2vw; line-height: 1.08; letter-spacing: -.025em; }
+.h-md   { font-family: var(--font-disp); font-weight: 600; font-size: 2.2vw; line-height: 1.3; letter-spacing: -.015em; }
+.h-sm   { font-family: var(--font-disp); font-weight: 600; font-size: max(14px,1.3vw); line-height: 1.35; letter-spacing: -.01em; }
+.kicker { font-family: var(--font); font-size: 11px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-dimer); margin-bottom: 2.2vh; }
+.chrome { display: flex; justify-content: space-between; align-items: flex-start; font-family: var(--font); font-size: 11px; letter-spacing: .16em; text-transform: uppercase; color: var(--ink-dimer); margin-bottom: 3vh; }
+.foot   { margin-top: auto; display: flex; justify-content: space-between; align-items: flex-end; font-family: var(--font); font-size: 11px; letter-spacing: .14em; text-transform: uppercase; color: var(--ink-faint); }
+.rule   { width: 100%; height: 1px; background: var(--line); margin: 2.4vh 0; }
+.tile-grid { display: grid; gap: 1px; background: var(--line); border: 1px solid var(--line); }
+.tile { background: var(--panel); padding: 22px 22px 18px; display: flex; flex-direction: column; }
+.tile .lbl { font-size: 10px; letter-spacing: .22em; text-transform: uppercase; color: var(--ink-dimer); margin-bottom: 12px; }
+.stat-n { font-family: var(--font-disp); font-weight: 700; font-size: 5.5vw; line-height: 1; letter-spacing: -.04em; color: var(--a); font-variant-numeric: tabular-nums; }
+.stat-n .unit { font-size: .4em; letter-spacing: 0; color: var(--ink-dim); margin-left: .12em; }
+.stat-note { font-family: var(--font); font-size: max(11px,.85vw); color: var(--ink-dimer); margin-top: 10px; line-height: 1.5; }
+.box { border: 1px solid var(--line); background: var(--panel); }
+.box.a  { border-color: var(--a); background: rgba(242,164,75,.06); }
+.box.b  { border-color: var(--b); background: rgba(176,140,255,.06); }
+.box.ok { border-color: rgba(110,227,165,.4); background: rgba(110,227,165,.05); }
+.box.err { border-left: 3px solid var(--err); background: rgba(255,107,107,.05); }
+.badge { display: inline-flex; align-items: center; font-family: var(--font); font-size: 10px; letter-spacing: .15em; text-transform: uppercase; padding: 3px 8px; border: 1px solid var(--line); color: var(--ink-dim); background: var(--panel); }
+.badge.ok { color: var(--ok); border-color: rgba(110,227,165,.3); background: rgba(110,227,165,.05); }
+.badge.warn { color: var(--a); border-color: rgba(242,164,75,.35); }
+.badge.b { color: var(--b); border-color: rgba(176,140,255,.35); }
+.ap-sect { display: flex; align-items: center; gap: 12px; font-family: var(--font); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-dimer); margin-bottom: 16px; }
+.ap-sect .r { flex: 1; height: 1px; background: var(--line); }
+.tbl { width: 100%; border-collapse: collapse; font-family: var(--font); font-size: max(12px,.92vw); }
+.tbl th, .tbl td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: middle; }
+.tbl th { font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--ink-dimer); background: var(--panel-2); font-weight: 500; }
+.tbl td { color: var(--ink-dim); }
+.tbl .primary { color: var(--ink); font-weight: 600; }
+.tbl .accent { color: var(--a); }
+.tbl .num { font-variant-numeric: tabular-nums; text-align: right; }
+.code { background: #060a0d; border: 1px solid var(--line); padding: 1.8vh 1.6vw; font-family: var(--font); font-size: max(12px,.95vw); line-height: 1.8; color: var(--ink); }
+.kw  { color: var(--b); }
+.fn  { color: var(--a); }
+.str { color: var(--ok); }
+.cm  { color: var(--ink-dimer); }
+.frame-img { overflow: hidden; background: var(--panel-2); border: 1px solid var(--line); flex-shrink: 0; }
+.frame-img img { width: 100%; height: 100%; object-fit: cover; object-position: top center; display: block; }
+.img-cap { margin-top: .6vh; font-family: var(--font); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-dimer); }
+#nav { position: fixed; left: 50%; bottom: 2.4vh; transform: translateX(-50%); z-index: 30; display: flex; gap: 7px; padding: 8px 12px; background: rgba(0,0,0,.45); backdrop-filter: blur(12px); border: 1px solid var(--line); }
+#nav .dot { width: 6px; height: 6px; background: var(--ink-faint); cursor: pointer; border: 0; padding: 0; transition: all .3s; flex-shrink: 0; }
+#nav .dot.active { background: var(--a); width: 20px; box-shadow: 0 0 8px rgba(242,164,75,.4); }
+#nav .dot:hover { background: var(--ink-dim); }
+#hint { position: fixed; bottom: 2.8vh; right: 3vw; z-index: 30; font-family: var(--font); font-size: 10px; letter-spacing: .2em; text-transform: uppercase; color: var(--ink-faint); }
+#ov { position: fixed; inset: 0; z-index: 100; background: rgba(0,0,0,.95); backdrop-filter: blur(14px); display: none; overflow-y: auto; padding: 4vh 4vw; }
+.layer-row { transition: background .18s, border-color .18s; cursor: default; }
+.layer-row:hover { background: rgba(242,164,75,.08) !important; border-color: var(--a) !important; }
+.layer-row:hover .layer-num { color: var(--a) !important; }
+.layer-row:hover svg { stroke: var(--a) !important; opacity: 1 !important; }
+.layer-row:hover .h-sm { color: var(--ink) !important; }
+.phase-col { opacity: 0; transform: translateX(-18px); transition: opacity .45s ease, transform .45s ease; }
+.phase-col.visible { opacity: 1; transform: none; }
+#phase-hint { position: fixed; bottom: 7.5vh; left: 50%; transform: translateX(-50%); z-index: 31; font-family: "JetBrains Mono", monospace; font-size: 12px; letter-spacing: .22em; text-transform: uppercase; color: var(--a); pointer-events: none; display: none; animation: hint-pulse 2s ease-in-out infinite; white-space: nowrap; background: rgba(10,13,16,.75); border: 1px solid rgba(242,164,75,.45); padding: 6px 16px; backdrop-filter: blur(6px); }
+@keyframes hint-pulse { 0%,100%{ opacity:.5 } 50%{ opacity:1 } }
+</style>
+</head>
+<body>
+<canvas id="bg" class="bg"></canvas>
+<div id="hint">← → navigate · ESC overview</div>
+<div id="deck">
+
+<!-- SLIDE 01 · Cover -->
+<section class="slide hero dark" data-screen-label="01 Cover">
+  <div class="chrome">
+    <div style="display:flex;align-items:center;gap:8px">
+      <span style="display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--a);box-shadow:0 0 10px var(--a)"></span>
+      AGENTPITCH
+    </div>
+    <div>01 / 13</div>
+  </div>
+  <div style="flex:1;min-height:0;display:grid;grid-template-columns:1.6fr 0.8fr;gap:4vw;align-items:center;overflow:hidden">
+    <!-- Left: text content -->
+    <div style="display:flex;flex-direction:column;justify-content:center;gap:3vh;overflow:hidden">
+      <div class="kicker">Open Source · Python 3.11+ · Apache 2.0</div>
+      <div style="display:flex;align-items:flex-end;gap:.3em;flex-wrap:nowrap">
+        <h1 class="h-hero" style="white-space:nowrap">AgentPitch</h1>
+        <span style="display:inline-block;width:1.1vw;height:1.1vw;border-radius:50%;background:var(--a);box-shadow:0 0 28px var(--a);margin-bottom:.9vw;flex-shrink:0"></span>
+      </div>
+      <p style="font-family:var(--font);font-size:max(13px,1.15vw);color:var(--ink-dim);line-height:1.65">LLM-powered soccer simulation where every player on the field is an AI agent running a <span style="color:var(--a);font-weight:600">decide()</span> callback — generated, sandboxed, and evolved by large language models.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:.4vh">
+        <span class="badge">Python</span><span class="badge">JavaScript</span><span class="badge">Rust</span>
+        <span class="badge" style="color:var(--ink-dimer)">·</span>
+        <span class="badge warn">OpenAI</span><span class="badge warn">Anthropic</span><span class="badge warn">Gemini</span><span class="badge warn">Custom</span>
+      </div>
+    </div>
+    <!-- Right: pure SVG + CSS animated soccer field — no canvas, no compositing bleed -->
+    <div style="overflow:hidden;display:flex;flex-direction:column;align-self:center">
+      <svg id="cover-field" viewBox="0 0 400 260" preserveAspectRatio="xMidYMid meet" style="width:100%;max-height:42vh;display:block" aria-label="OpenAI vs Anthropic soccer match">
+        <defs>
+          <style>
+            /* Ball */
+            @keyframes ball-move {
+              0%   { transform: translate(200px,130px); }
+              8%   { transform: translate(160px,100px); }
+              16%  { transform: translate(90px,120px); }
+              24%  { transform: translate(60px,130px); }
+              28%  { transform: translate(30px,130px); }
+              32%  { transform: translate(60px,130px); }
+              40%  { transform: translate(120px,90px); }
+              50%  { transform: translate(200px,130px); }
+              58%  { transform: translate(270px,110px); }
+              66%  { transform: translate(330px,90px); }
+              72%  { transform: translate(370px,130px); }
+              76%  { transform: translate(370px,130px); }
+              80%  { transform: translate(330px,130px); }
+              90%  { transform: translate(250px,155px); }
+              100% { transform: translate(200px,130px); }
+            }
+            #ball { animation: ball-move 9s ease-in-out infinite; transform-box: fill-box; transform-origin: center; }
+            /* OpenAI team (amber) */
+            @keyframes a1 { 0%,100%{transform:translate(70px,130px)} 25%{transform:translate(50px,115px)} 50%{transform:translate(80px,100px)} 75%{transform:translate(60px,145px)} }
+            @keyframes a2 { 0%,100%{transform:translate(130px,80px)} 30%{transform:translate(110px,95px)} 60%{transform:translate(140px,70px)} }
+            @keyframes a3 { 0%,100%{transform:translate(130px,180px)} 30%{transform:translate(115px,165px)} 65%{transform:translate(145px,185px)} }
+            @keyframes a4 { 0%,100%{transform:translate(180px,100px)} 20%{transform:translate(160px,120px)} 55%{transform:translate(190px,85px)} 80%{transform:translate(170px,110px)} }
+            @keyframes a5 { 0%,100%{transform:translate(180px,165px)} 20%{transform:translate(160px,145px)} 55%{transform:translate(195px,175px)} 80%{transform:translate(170px,155px)} }
+            .pa1 { animation: a1 5.5s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            .pa2 { animation: a2 6.2s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            .pa3 { animation: a3 6.8s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            .pa4 { animation: a4 5.8s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            .pa5 { animation: a5 6.4s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            /* Anthropic team (purple) */
+            @keyframes b1 { 0%,100%{transform:translate(330px,130px)} 25%{transform:translate(350px,115px)} 50%{transform:translate(320px,100px)} 75%{transform:translate(340px,148px)} }
+            @keyframes b2 { 0%,100%{transform:translate(270px,80px)} 30%{transform:translate(290px,95px)} 60%{transform:translate(260px,70px)} }
+            @keyframes b3 { 0%,100%{transform:translate(270px,180px)} 30%{transform:translate(285px,165px)} 65%{transform:translate(255px,185px)} }
+            @keyframes b4 { 0%,100%{transform:translate(220px,100px)} 20%{transform:translate(240px,115px)} 55%{transform:translate(215px,85px)} 80%{transform:translate(230px,110px)} }
+            @keyframes b5 { 0%,100%{transform:translate(220px,165px)} 20%{transform:translate(240px,148px)} 55%{transform:translate(210px,175px)} 80%{transform:translate(230px,155px)} }
+            .pb1 { animation: b1 5.3s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            .pb2 { animation: b2 6.5s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            .pb3 { animation: b3 7.1s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            .pb4 { animation: b4 5.6s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+            .pb5 { animation: b5 6.0s ease-in-out infinite; transform-box:fill-box; transform-origin:center; }
+          </style>
+        </defs>
+        <!-- Field markings -->
+        <rect x="4" y="4" width="392" height="252" fill="none" stroke="#1e3a2a" stroke-width="1.2"/>
+        <line x1="200" y1="4" x2="200" y2="256" stroke="#1e3a2a" stroke-width=".8"/>
+        <circle cx="200" cy="130" r="38" fill="none" stroke="#1e3a2a" stroke-width=".8"/>
+        <circle cx="200" cy="130" r="2.5" fill="#1e3a2a"/>
+        <!-- Goal boxes -->
+        <rect x="4" y="92" width="52" height="76" fill="none" stroke="#1e3a2a" stroke-width=".8"/>
+        <rect x="344" y="92" width="52" height="76" fill="none" stroke="#1e3a2a" stroke-width=".8"/>
+        <!-- Goals -->
+        <rect x="0" y="110" width="4" height="40" fill="#152a1e" stroke="#1e3a2a"/>
+        <rect x="396" y="110" width="4" height="40" fill="#152a1e" stroke="#1e3a2a"/>
+        <!-- OpenAI players (amber) -->
+        <g class="pa1"><circle r="10" fill="rgba(242,164,75,.15)" stroke="#f2a44b" stroke-width="1.5"/>
+          <text y="1" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="11" font-weight="900" fill="#f2a44b">✦</text></g>
+        <g class="pa2"><circle r="10" fill="rgba(242,164,75,.15)" stroke="#f2a44b" stroke-width="1.5"/>
+          <text y="1" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="11" font-weight="900" fill="#f2a44b">✦</text></g>
+        <g class="pa3"><circle r="10" fill="rgba(242,164,75,.15)" stroke="#f2a44b" stroke-width="1.5"/>
+          <text y="1" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="11" font-weight="900" fill="#f2a44b">✦</text></g>
+        <g class="pa4"><circle r="10" fill="rgba(242,164,75,.15)" stroke="#f2a44b" stroke-width="1.5"/>
+          <text y="1" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="11" font-weight="900" fill="#f2a44b">✦</text></g>
+        <g class="pa5"><circle r="10" fill="rgba(242,164,75,.15)" stroke="#f2a44b" stroke-width="1.5"/>
+          <text y="1" text-anchor="middle" dominant-baseline="middle" font-family="Arial" font-size="11" font-weight="900" fill="#f2a44b">✦</text></g>
+        <!-- Anthropic players (purple) -->
+        <g class="pb1"><circle r="10" fill="rgba(176,140,255,.15)" stroke="#b08cff" stroke-width="1.5"/>
+          <text y="1.5" text-anchor="middle" dominant-baseline="middle" font-family="serif" font-size="13" font-weight="700" fill="#b08cff" font-style="italic">A</text></g>
+        <g class="pb2"><circle r="10" fill="rgba(176,140,255,.15)" stroke="#b08cff" stroke-width="1.5"/>
+          <text y="1.5" text-anchor="middle" dominant-baseline="middle" font-family="serif" font-size="13" font-weight="700" fill="#b08cff" font-style="italic">A</text></g>
+        <g class="pb3"><circle r="10" fill="rgba(176,140,255,.15)" stroke="#b08cff" stroke-width="1.5"/>
+          <text y="1.5" text-anchor="middle" dominant-baseline="middle" font-family="serif" font-size="13" font-weight="700" fill="#b08cff" font-style="italic">A</text></g>
+        <g class="pb4"><circle r="10" fill="rgba(176,140,255,.15)" stroke="#b08cff" stroke-width="1.5"/>
+          <text y="1.5" text-anchor="middle" dominant-baseline="middle" font-family="serif" font-size="13" font-weight="700" fill="#b08cff" font-style="italic">A</text></g>
+        <g class="pb5"><circle r="10" fill="rgba(176,140,255,.15)" stroke="#b08cff" stroke-width="1.5"/>
+          <text y="1.5" text-anchor="middle" dominant-baseline="middle" font-family="serif" font-size="13" font-weight="700" fill="#b08cff" font-style="italic">A</text></g>
+        <!-- Ball -->
+        <g id="ball"><circle r="5.5" fill="#e8edf1" opacity=".9"/><circle r="5.5" fill="none" stroke="#9aa4ad" stroke-width=".8" opacity=".5"/></g>
+        <!-- Score bar -->
+        <rect x="0" y="240" width="400" height="20" fill="rgba(10,13,16,.8)"/>
+        <text x="14" y="253" font-family="'JetBrains Mono',monospace" font-size="10" letter-spacing="2" fill="#f2a44b">OPENAI</text>
+        <text x="200" y="253" text-anchor="middle" font-family="'JetBrains Mono',monospace" font-size="10" letter-spacing="2" fill="#5b6872">VS</text>
+        <text x="386" y="253" text-anchor="end" font-family="'JetBrains Mono',monospace" font-size="10" letter-spacing="2" fill="#b08cff">ANTHROPIC</text>
+      </svg>
+    </div>
+  </div>
+  <div class="foot"><div>github.com/gangtao/AgentPitch</div><div>Apache 2.0 — 2026</div></div>
+</section>
+
+<!-- SLIDE 02 · Numbers -->
+<section class="slide dark" data-screen-label="02 Numbers">
+  <div class="chrome"><div>By the Numbers</div><div>02 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:2.8vh">
+    <div>
+      <div class="kicker">What AgentPitch is</div>
+      <h2 class="h-xl">A complete soccer simulation engine</h2>
+    </div>
+    <!-- Provider Types row -->
+    <div>
+      <div style="font-family:var(--font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:1vh">LLM Provider Types</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--line);border:1px solid var(--line)">
+        <div style="background:var(--panel);padding:1.5vh 1.3vw">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.6vh">Native</div>
+          <div style="font-family:var(--font-disp);font-weight:700;font-size:max(15px,1.3vw)">OpenAI</div>
+          <div style="font-family:var(--font);font-size:max(10px,.78vw);color:var(--ink-dimer);margin-top:.5vh;line-height:1.5">gpt-4o · o1 · o3 and latest</div>
+        </div>
+        <div style="background:var(--panel);padding:1.5vh 1.3vw">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.6vh">Native</div>
+          <div style="font-family:var(--font-disp);font-weight:700;font-size:max(15px,1.3vw)">Anthropic</div>
+          <div style="font-family:var(--font);font-size:max(10px,.78vw);color:var(--ink-dimer);margin-top:.5vh;line-height:1.5">claude-3.5 · claude-4 series</div>
+        </div>
+        <div style="background:var(--panel);padding:1.5vh 1.3vw">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.6vh">Native</div>
+          <div style="font-family:var(--font-disp);font-weight:700;font-size:max(15px,1.3vw)">Gemini</div>
+          <div style="font-family:var(--font);font-size:max(10px,.78vw);color:var(--ink-dimer);margin-top:.5vh;line-height:1.5">gemini-1.5 · gemini-2 · flash</div>
+        </div>
+        <div style="background:rgba(242,164,75,.06);border-left:1px solid var(--a);padding:1.5vh 1.3vw">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:.6vh">OpenAI-Compatible</div>
+          <div style="font-family:var(--font-disp);font-weight:700;font-size:max(15px,1.3vw);color:var(--a)">Custom</div>
+          <div style="font-family:var(--font);font-size:max(10px,.78vw);color:var(--ink-dim);margin-top:.5vh;line-height:1.5">DeepSeek · OpenRouter · Ollama · any compatible endpoint</div>
+        </div>
+      </div>
+    </div>
+    <!-- Languages + Player config row -->
+    <div style="display:grid;grid-template-columns:1.7fr 1fr;gap:3vw;flex:1;min-height:0;align-items:start">
+      <!-- Languages + Sandboxes -->
+      <div>
+        <div style="font-family:var(--font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:1vh">Strategy Language + Sandbox (each language ships its own runtime)</div>
+        <div style="display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)">
+          <div style="background:var(--panel);display:grid;grid-template-columns:1fr 28px 1fr;align-items:center;padding:1.3vh 1.3vw;gap:.8vw">
+            <div style="display:flex;align-items:center;gap:.7vw">
+              <!-- Python logo — monochrome -->
+              <svg width="28" height="28" viewBox="0 0 256 255" style="flex-shrink:0" aria-label="Python">
+                <path fill="var(--ink-dim)" d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zm-34.107 19.462a11.13 11.13 0 0 1 11.13 11.13 11.13 11.13 0 0 1-11.13 11.13 11.13 11.13 0 0 1-11.13-11.13 11.13 11.13 0 0 1 11.13-11.13z"/>
+                <path fill="var(--ink-dim)" d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.519 33.897zm34.107-19.556a11.13 11.13 0 0 1-11.13-11.13 11.13 11.13 0 0 1 11.13-11.13 11.13 11.13 0 0 1 11.13 11.13 11.13 11.13 0 0 1-11.13 11.13z"/>
+              </svg>
+              <div><div style="font-family:var(--font);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.3vh">.py</div><div style="font-family:var(--font-disp);font-weight:700;font-size:max(14px,1.2vw)">Python</div></div>
+            </div>
+            <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5 H14 M10 1 L17 5 L10 9" stroke="rgba(242,164,75,.45)" stroke-width="1.5" fill="none"/></svg>
+            <div><div style="font-family:var(--font);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.3vh">Sandbox</div><div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.1vw);color:var(--a)">RestrictedPython</div><div style="font-family:var(--font);font-size:max(10px,.76vw);color:var(--ink-dimer);margin-top:.2vh">Built-in · no install · whitelist builtins</div></div>
+          </div>
+          <div style="background:var(--panel);display:grid;grid-template-columns:1fr 28px 1fr;align-items:center;padding:1.3vh 1.3vw;gap:.8vw">
+            <div style="display:flex;align-items:center;gap:.7vw">
+              <!-- JavaScript logo — monochrome -->
+              <svg width="28" height="28" viewBox="0 0 28 28" fill="none" style="flex-shrink:0" aria-label="JavaScript">
+                <rect x=".75" y=".75" width="26.5" height="26.5" stroke="var(--ink-dim)" stroke-width="1.5"/>
+                <text x="4.5" y="21" font-family="JetBrains Mono,ui-monospace,monospace" font-size="14" font-weight="700" fill="var(--ink-dim)">JS</text>
+              </svg>
+              <div><div style="font-family:var(--font);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.3vh">.js</div><div style="font-family:var(--font-disp);font-weight:700;font-size:max(14px,1.2vw)">JavaScript</div></div>
+            </div>
+            <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5 H14 M10 1 L17 5 L10 9" stroke="rgba(242,164,75,.45)" stroke-width="1.5" fill="none"/></svg>
+            <div><div style="font-family:var(--font);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.3vh">Sandbox</div><div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.1vw);color:var(--a)">QuickJS</div><div style="font-family:var(--font);font-size:max(10px,.76vw);color:var(--ink-dimer);margin-top:.2vh">Embedded C engine · <span style="font-family:var(--font)">pip install .[js]</span></div></div>
+          </div>
+          <div style="background:var(--panel);display:grid;grid-template-columns:1fr 28px 1fr;align-items:center;padding:1.3vh 1.3vw;gap:.8vw">
+            <div style="display:flex;align-items:center;gap:.7vw">
+              <!-- Rust logo — monochrome -->
+              <svg width="28" height="28" viewBox="0 0 144 144" style="flex-shrink:0" aria-label="Rust">
+                <path fill="var(--ink-dim)" d="M71.994 11.477a6.118 6.118 0 0 0-2.182 11.824l.37.097-7.08 13.534a55.506 55.506 0 0 0-26.76 13.648l-11.692-8.668a6.118 6.118 0 1 0-1.66 2.249l11.34 8.41a55.48 55.48 0 0 0-10.918 26.518H9.944a6.118 6.118 0 1 0 .124 2.678h13.602a55.484 55.484 0 0 0 11.003 26.14L24.26 116.2a6.118 6.118 0 1 0 1.896 2.031l10.27-9.053a55.511 55.511 0 0 0 26.906 12.87l.366 13.964a6.118 6.118 0 1 0 2.677-.07l-.36-13.744a55.487 55.487 0 0 0 27.397-13.012l10.226 8.992a6.118 6.118 0 1 0 1.898-2.032l-10.44-9.178a55.48 55.48 0 0 0 11.05-26.768h13.605a6.118 6.118 0 1 0 .123-2.678h-13.473a55.481 55.481 0 0 0-10.885-26.458l11.288-8.368a6.118 6.118 0 1 0-1.66-2.249l-11.637 8.627a55.509 55.509 0 0 0-26.71-13.573L74.53 23.62l.37-.097a6.118 6.118 0 0 0-2.906-11.978zm.018 27.327c18.91 0 34.208 15.298 34.208 34.208S90.922 107.22 72.012 107.22 37.804 91.922 37.804 73.012 53.102 38.804 72.012 38.804zm-7.53 17.36v34.416l29.8-17.208-29.8-17.208z"/>
+              </svg>
+              <div><div style="font-family:var(--font);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.3vh">.rs</div><div style="font-family:var(--font-disp);font-weight:700;font-size:max(14px,1.2vw)">Rust</div></div>
+            </div>
+            <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5 H14 M10 1 L17 5 L10 9" stroke="rgba(242,164,75,.45)" stroke-width="1.5" fill="none"/></svg>
+            <div><div style="font-family:var(--font);font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.3vh">Sandbox</div><div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.1vw);color:var(--a)">Wasmtime</div><div style="font-family:var(--font);font-size:max(10px,.76vw);color:var(--ink-dimer);margin-top:.2vh">Compiles Rust → WASM · <span style="font-family:var(--font)">pip install .[wasm]</span></div></div>
+          </div>
+        </div>
+      </div>
+      <!-- Player config + quick stats -->
+      <div style="display:flex;flex-direction:column;gap:1.8vh">
+        <div>
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:1vh">Formation Config (fully configurable)</div>
+          <div style="border:1px solid var(--line);background:var(--panel);padding:1.4vh 1.3vw">
+            <svg width="100%" viewBox="0 0 300 76" style="display:block;margin-bottom:1.2vh" aria-label="Formation presets 5v5 and 11v11">
+              <!-- 5v5 -->
+              <rect x="0" y="0" width="140" height="76" fill="#0d1e16" rx="2"/>
+              <rect x="3" y="3" width="134" height="70" fill="none" stroke="#1e3a2a" stroke-width="1"/>
+              <line x1="70" y1="3" x2="70" y2="73" stroke="#1e3a2a" stroke-width=".8"/>
+              <circle cx="70" cy="38" r="16" fill="none" stroke="#1e3a2a" stroke-width=".8"/>
+              <g fill="#f2a44b"><circle cx="16" cy="38" r="4"/><circle cx="40" cy="18" r="4"/><circle cx="40" cy="58" r="4"/><circle cx="57" cy="28" r="4"/><circle cx="57" cy="48" r="4"/></g>
+              <g fill="#b08cff"><circle cx="124" cy="38" r="4"/><circle cx="100" cy="18" r="4"/><circle cx="100" cy="58" r="4"/><circle cx="83" cy="28" r="4"/><circle cx="83" cy="48" r="4"/></g>
+              <text x="70" y="68" font-family="JetBrains Mono,monospace" font-size="9" fill="#f2a44b" text-anchor="middle" dy="0">5 v 5 · default</text>
+              <!-- 11v11 -->
+              <rect x="160" y="0" width="140" height="76" fill="#0d1e16" rx="2"/>
+              <rect x="163" y="3" width="134" height="70" fill="none" stroke="#1e3a2a" stroke-width="1"/>
+              <line x1="230" y1="3" x2="230" y2="73" stroke="#1e3a2a" stroke-width=".8"/>
+              <circle cx="230" cy="38" r="16" fill="none" stroke="#1e3a2a" stroke-width=".8"/>
+              <g fill="#f2a44b"><circle cx="167" cy="38" r="2.5"/><circle cx="180" cy="22" r="2.5"/><circle cx="180" cy="38" r="2.5"/><circle cx="180" cy="54" r="2.5"/><circle cx="196" cy="12" r="2.5"/><circle cx="196" cy="28" r="2.5"/><circle cx="196" cy="48" r="2.5"/><circle cx="196" cy="64" r="2.5"/><circle cx="212" cy="22" r="2.5"/><circle cx="212" cy="38" r="2.5"/><circle cx="212" cy="54" r="2.5"/></g>
+              <g fill="#b08cff"><circle cx="293" cy="38" r="2.5"/><circle cx="280" cy="22" r="2.5"/><circle cx="280" cy="38" r="2.5"/><circle cx="280" cy="54" r="2.5"/><circle cx="264" cy="12" r="2.5"/><circle cx="264" cy="28" r="2.5"/><circle cx="264" cy="48" r="2.5"/><circle cx="264" cy="64" r="2.5"/><circle cx="248" cy="22" r="2.5"/><circle cx="248" cy="38" r="2.5"/><circle cx="248" cy="54" r="2.5"/></g>
+              <text x="230" y="68" font-family="JetBrains Mono,monospace" font-size="9" fill="#9aa4ad" text-anchor="middle" dy="0">11 v 11 · preset</text>
+            </svg>
+            <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">Any N v N — set <span style="color:var(--a)">players_per_team: N</span> in YAML config.</div>
+          </div>
+        </div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)">
+          <div style="background:var(--panel);padding:1.2vh 1.2vw"><div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:5px">Tick Phases</div><div style="font-family:var(--font-disp);font-weight:700;font-size:2.8vw;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">7</div></div>
+          <div style="background:var(--panel);padding:1.2vh 1.2vw"><div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:5px">Tournament Modes</div><div style="font-family:var(--font-disp);font-weight:700;font-size:2.8vw;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">3</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>AgentPitch · Core Metrics</div><div>02</div></div>
+</section>
+
+<!-- SLIDE 03 · decide() Data Flow -->
+<section class="slide light" data-screen-label="03 Core Concept">
+  <div class="chrome"><div>Core Design · The decide() Interface</div><div>03 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:3vh">
+    <div>
+      <div class="kicker">Every player is a single function</div>
+      <h2 class="h-xl">The <span style="color:var(--a)">decide( )</span> interface</h2>
+    </div>
+    <div style="flex:1;display:flex;align-items:center;gap:0">
+      <!-- Inputs -->
+      <div style="flex:1.1;display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)">
+        <div style="padding:10px 14px;background:var(--panel-2);font-family:var(--font);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer)">Inputs (per tick)</div>
+        <div style="background:var(--panel);padding:1.6vh 1.4vw;display:flex;flex-direction:column;gap:.5vh;flex:1">
+          <div style="font-family:var(--font);font-size:max(13px,1vw);color:var(--a);font-weight:600">game_state</div>
+          <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">Field positions · Ball location<br>Scores · Phase · Tick number</div>
+        </div>
+        <div style="background:var(--panel);padding:1.6vh 1.4vw;display:flex;flex-direction:column;gap:.5vh;flex:1">
+          <div style="font-family:var(--font);font-size:max(13px,1vw);color:var(--a);font-weight:600">player_state</div>
+          <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">Position · Speed · Role<br>Stamina · Player ID</div>
+        </div>
+        <div style="background:var(--panel);padding:1.6vh 1.4vw;display:flex;flex-direction:column;gap:.5vh;flex:1">
+          <div style="font-family:var(--font);font-size:max(13px,1vw);color:var(--a);font-weight:600">history</div>
+          <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">Recent actions · Last 5 decisions<br>Reward signal from PMEP</div>
+        </div>
+      </div>
+      <!-- Arrow 1 -->
+      <div style="display:flex;align-items:center;justify-content:center;padding:0 1.2vw;flex-shrink:0">
+        <svg width="40" height="14" viewBox="0 0 40 14"><path d="M0 7 H32 M28 2 L36 7 L28 12" stroke="var(--a)" stroke-width="2" fill="none"/></svg>
+      </div>
+      <!-- decide() -->
+      <div style="flex:1.2;display:flex;flex-direction:column;border:1px solid var(--a);background:rgba(242,164,75,.06);min-height:0">
+        <div style="padding:10px 14px;background:rgba(242,164,75,.12);border-bottom:1px solid var(--a);font-family:var(--font);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--a)">LLM-Generated Code</div>
+        <div style="flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2.5vh 2vw;gap:1.6vh">
+          <div style="display:flex;flex-direction:column;align-items:flex-start">
+            <div style="font-family:var(--font-disp);font-weight:700;font-size:3vw;color:var(--a);letter-spacing:-.025em;line-height:1">decide<span style="color:var(--ink-dim)"> (</span></div>
+            <div style="font-family:var(--font);font-size:max(11px,.9vw);color:var(--ink-dim);text-align:left;line-height:2;padding-left:2vw">game_state,<br>player_state,<br>history</div>
+            <div style="font-family:var(--font-disp);font-weight:700;font-size:3vw;color:var(--ink-dim);letter-spacing:-.025em">)</div>
+          </div>
+          <div class="rule" style="margin:0"></div>
+          <div style="display:flex;flex-direction:column;gap:6px;align-items:center">
+            <div style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer)">Python · JavaScript · Rust</div>
+            <div style="font-family:var(--font);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dimer)">Runs in sandbox · 100ms timeout</div>
+            <div style="font-family:var(--font);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-dimer)">Compiled + cached between ticks</div>
+          </div>
+        </div>
+      </div>
+      <!-- Arrow 2 -->
+      <div style="display:flex;align-items:center;justify-content:center;padding:0 1.2vw;flex-shrink:0">
+        <svg width="40" height="14" viewBox="0 0 40 14"><path d="M0 7 H32 M28 2 L36 7 L28 12" stroke="var(--a)" stroke-width="2" fill="none"/></svg>
+      </div>
+      <!-- Actions -->
+      <div style="flex:1;display:flex;flex-direction:column;gap:1px;background:var(--line);border:1px solid var(--line)">
+        <div style="padding:10px 14px;background:var(--panel-2);font-family:var(--font);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer)">Returns (Action)</div>
+        <div style="background:var(--panel);padding:1.4vh 1.4vw;font-family:var(--font);font-size:max(12px,.95vw);flex:1;display:flex;align-items:center"><span style="color:var(--a);font-weight:600">Move</span><span style="color:var(--ink-dimer);margin-left:.8em">→ dx, dy vector</span></div>
+        <div style="background:var(--panel);padding:1.4vh 1.4vw;font-family:var(--font);font-size:max(12px,.95vw);flex:1;display:flex;align-items:center"><span style="color:var(--a);font-weight:600">Pass</span><span style="color:var(--ink-dimer);margin-left:.8em">→ target_player_id</span></div>
+        <div style="background:var(--panel);padding:1.4vh 1.4vw;font-family:var(--font);font-size:max(12px,.95vw);flex:1;display:flex;align-items:center"><span style="color:var(--a);font-weight:600">Shoot</span><span style="color:var(--ink-dimer);margin-left:.8em">→ goal direction</span></div>
+        <div style="background:var(--panel);padding:1.4vh 1.4vw;font-family:var(--font);font-size:max(12px,.95vw);flex:1;display:flex;align-items:center"><span style="color:var(--a);font-weight:600">Tackle</span><span style="color:var(--ink-dimer);margin-left:.8em">→ opponent_id</span></div>
+        <div style="background:var(--panel);padding:1.4vh 1.4vw;font-family:var(--font);font-size:max(12px,.95vw);flex:1;display:flex;align-items:center"><span style="color:var(--a);font-weight:600">Hold</span><span style="color:var(--ink-dimer);margin-left:.8em">→ stay in place</span></div>
+      </div>
+    </div>
+    <div class="code">
+      <span class="kw">def</span> <span class="fn">decide</span>(<span style="color:var(--ink)">game_state, player_state, history</span>) <span style="color:var(--ink-dimer)">-&gt;</span> <span style="color:var(--ok)">Action</span><span style="color:var(--ink-dimer)">:</span>&nbsp;&nbsp;<span class="cm"># Generated by LLM · evolved by PMEP after each match</span>
+    </div>
+  </div>
+  <div class="foot"><div>The single interface between LLM and the field engine</div><div>03</div></div>
+</section>
+
+<!-- SLIDE 04 · Pipeline Flowchart -->
+<section class="slide dark" data-screen-label="04 Pipeline">
+  <div class="chrome"><div>End-to-End Flow</div><div>04 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:3.5vh">
+    <div>
+      <div class="kicker">How a match runs</div>
+      <h2 class="h-xl">Config → code → sandbox → play → evolve</h2>
+    </div>
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:4.5vh">
+      <div style="display:flex;align-items:stretch;gap:0">
+        <div class="box" style="flex:1;padding:2.4vh 1.4vw;border-right:none">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.8vh">01 · Config</div>
+          <div class="h-sm" style="margin-bottom:.8vh">YAML / API</div>
+          <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">Teams · LLM providers · Match settings</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 .5vw;flex-shrink:0;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5 H14 M10 1 L17 5 L10 9" stroke="rgba(242,164,75,.6)" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="box a" style="flex:1.2;padding:2.4vh 1.4vw;border-right:none">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:.8vh">02 · CGP</div>
+          <div class="h-sm" style="color:var(--a);margin-bottom:.8vh">Code Gen Pipeline</div>
+          <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">LLM writes decide() · Jinja2 prompt · 3 compile retries</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 .5vw;flex-shrink:0;background:rgba(242,164,75,.04);border-top:1px solid var(--a);border-bottom:1px solid var(--a);border-left:none;border-right:1px solid var(--a)"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5 H14 M10 1 L17 5 L10 9" stroke="rgba(242,164,75,.8)" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="box" style="flex:1;padding:2.4vh 1.4vw;border-right:none">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.8vh">03 · Sandbox</div>
+          <div class="h-sm" style="margin-bottom:.8vh">Compile + Cache</div>
+          <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">RestrictedPy · QuickJS · Wasmtime · 100ms timeout</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 .5vw;flex-shrink:0;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5 H14 M10 1 L17 5 L10 9" stroke="rgba(242,164,75,.6)" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="box" style="flex:1.2;padding:2.4vh 1.4vw;border-right:none">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.8vh">04 · TickEngine</div>
+          <div class="h-sm" style="margin-bottom:.8vh">Match Simulation</div>
+          <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">Snapshot → Execute → Resolve → Physics → Log</div>
+        </div>
+        <div style="display:flex;align-items:center;padding:0 .5vw;flex-shrink:0;background:var(--panel);border-top:1px solid var(--line);border-bottom:1px solid var(--line)"><svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5 H14 M10 1 L17 5 L10 9" stroke="rgba(242,164,75,.6)" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="box a" style="flex:1.2;padding:2.4vh 1.4vw">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--a);margin-bottom:.8vh">05 · PMEP</div>
+          <div class="h-sm" style="color:var(--a);margin-bottom:.8vh">Post-Match Evolution</div>
+          <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">LLM improves strategy from match log · top 5 events</div>
+        </div>
+      </div>
+      <!-- Feedback loop -->
+      <div style="position:relative;height:4vh">
+        <svg style="position:absolute;left:0;right:0;width:100%;height:100%;overflow:visible" viewBox="0 0 900 40" preserveAspectRatio="none">
+          <defs><marker id="arrowback" markerWidth="8" markerHeight="6" refX="6" refY="3" orient="auto"><path d="M0 0 L6 3 L0 6" fill="none" stroke="rgba(242,164,75,.9)" stroke-width="1.5"/></marker></defs>
+          <path d="M 790 4 Q 790 36 450 36 Q 170 36 170 4" stroke="rgba(242,164,75,.8)" stroke-width="2" fill="none" stroke-dasharray="6 4" marker-end="url(#arrowback)"/>
+        </svg>
+        <div style="position:absolute;left:50%;transform:translateX(-50%);top:calc(100% + 6px);font-family:var(--font);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:rgba(242,164,75,.8);white-space:nowrap">evolved strategy fed back into next match</div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>CGP → Sandbox → TickEngine → PMEP → loop</div><div>04</div></div>
+</section>
+
+<!-- SLIDE 05 · Act Divider -->
+<section class="slide hero dark" data-screen-label="05 Architecture Act">
+  <div class="chrome"><div>AgentPitch · Architecture</div><div>Act II · 05 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:4vh">
+    <div class="kicker">Act II</div>
+    <h1 class="h-hero" style="font-size:8.5vw;white-space:nowrap">Under the Hood</h1>
+    <div style="width:5vw;height:1px;background:var(--a)"></div>
+    <p style="font-family:var(--font);font-size:max(13px,1.1vw);color:var(--ink-dim);max-width:50vw;line-height:1.7">Four clean layers. Hard boundaries between the API surface and the simulation engine. Real sandboxes that protect the host from arbitrary LLM-generated code.</p>
+  </div>
+  <div class="foot"><div>Architecture · Sandboxes · Strategy Runtime</div><div>— · —</div></div>
+</section>
+
+<!-- SLIDE 06 · Architecture Diagram -->
+<section class="slide dark" data-screen-label="06 Architecture">
+  <div class="chrome"><div>Layer Architecture</div><div>06 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:0;max-width:72vw">
+    <div class="kicker" style="margin-bottom:2vh">Four layers · dependency: foundation → api · upper imports lower</div>
+    <div class="layer-row" style="border:1px solid var(--line-2);border-bottom:none;background:var(--panel-3);padding:2.2vh 2vw;display:flex;align-items:center;gap:2vw">
+      <div class="layer-num" style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);flex-shrink:0;width:4.5vw;text-align:right;line-height:1.4">04<br>TOP</div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--ink-dim)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.7"><path d="M7 17L3 21"/><path d="M17 7L21 3"/><path d="M9 7l-2 2 8 8 2-2-8-8z"/><path d="M7 9l-2 6 6-2-4-4z"/><path d="M17 15l2-6-6 2 4 4z"/></svg>
+      <div><div class="h-sm">API Layer</div><div style="font-family:var(--font);font-size:max(11px,.9vw);color:var(--ink-dimer);margin-top:.6vh;line-height:1.55">FastAPI (HTTP server) · React (browser UI) · SSE (server-sent events, live stream) · Pydantic (independent API models)</div></div>
+    </div>
+    <div class="layer-row" style="border:1px solid var(--line-2);border-bottom:none;background:var(--panel-2);padding:2.2vh 2vw;display:flex;align-items:center;gap:2vw">
+      <div class="layer-num" style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);flex-shrink:0;width:4.5vw;text-align:right">03</div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--ink-dim)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.7"><circle cx="12" cy="5" r="2"/><circle cx="5" cy="19" r="2"/><circle cx="19" cy="19" r="2"/><path d="M12 7v4"/><path d="M12 11l-5 6"/><path d="M12 11l5 6"/></svg>
+      <div><div class="h-sm">Orchestration Layer</div><div style="font-family:var(--font);font-size:max(11px,.9vw);color:var(--ink-dimer);margin-top:.6vh;line-height:1.55">TE (TickEngine) · ARE (ActionResolutionEngine) · CLI (command-line runners: season / cup / league)</div></div>
+    </div>
+    <div class="layer-row" style="border:1px solid var(--line-2);border-bottom:none;background:var(--panel);padding:2.2vh 2vw;display:flex;align-items:center;gap:2vw">
+      <div class="layer-num" style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);flex-shrink:0;width:4.5vw;text-align:right">02</div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--ink-dim)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.7"><circle cx="12" cy="12" r="3"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+      <div><div class="h-sm">Core Layer</div><div style="font-family:var(--font);font-size:max(11px,.9vw);color:var(--ink-dimer);margin-top:.6vh;line-height:1.55">GSM (GameStateManager) · PMS (PlayerMovementSystem) · BPS (BallPhysicsSystem) · MLS (MatchLogSystem)</div></div>
+    </div>
+    <div class="layer-row" style="border:1px solid var(--line-2);background:var(--panel);padding:2.2vh 2vw;display:flex;align-items:center;gap:2vw">
+      <div class="layer-num" style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);flex-shrink:0;width:4.5vw;text-align:right;line-height:1.4">01<br>BASE</div>
+      <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--ink-dim)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.7"><ellipse cx="12" cy="5" rx="9" ry="3"/><path d="M3 5v4c0 1.66 4.03 3 9 3s9-1.34 9-3V5"/><path d="M3 9v4c0 1.66 4.03 3 9 3s9-1.34 9-3V9"/><path d="M3 13v4c0 1.66 4.03 3 9 3s9-1.34 9-3v-4"/></svg>
+      <div><div class="h-sm">Foundation Layer</div><div style="font-family:var(--font);font-size:max(11px,.9vw);color:var(--ink-dimer);margin-top:.6vh;line-height:1.55">PAL (Provider Abstraction Layer) · SF (SandboxFactory) · CGP (Code Generation Pipeline) · PMEP (Post-Match Evolution Pipeline) · ARE (ActionResolutionEngine) · GSS (Game State Schema)</div></div>
+    </div>
+    <div style="margin-top:2.4vh;display:flex;align-items:center;gap:.8vw">
+      <svg width="20" height="10" viewBox="0 0 20 10"><path d="M0 5 H14 M10 1 L17 5 L10 9" stroke="var(--ink-dimer)" stroke-width="1.5" fill="none"/></svg>
+      <span style="font-family:var(--font);font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink-dimer)">Upper layers import lower — not the reverse</span>
+    </div>
+  </div>
+  <div class="foot"><div>Foundation · Core · Orchestration · API</div><div>06</div></div>
+</section>
+
+<!-- SLIDE 07 · 7 Tick Phases -->
+<section class="slide light" data-screen-label="07 Tick Phases">
+  <div class="chrome"><div>TickEngine · Per-Tick Resolution Pipeline</div><div>07 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:3vh">
+    <div>
+      <div class="kicker">What happens inside every single game tick</div>
+      <h2 class="h-xl">7 tick phases</h2>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(7,1fr);gap:1px;background:var(--line);border:1px solid var(--line);min-height:0">
+      <!-- Phase 1 -->
+      <div class="phase-col" style="background:var(--panel);display:flex;flex-direction:column;padding:2vh 1.2vw;gap:1.4vh">
+        <div style="display:flex;flex-direction:column;gap:.6vh">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer)">Phase 01</div>
+          <div style="font-family:var(--font-disp);font-size:max(22px,1.7vw);font-weight:700;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">1</div>
+        </div>
+        <div style="width:100%;height:1px;background:var(--line-2)"></div>
+        <div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.05vw);line-height:1.25">Snapshot Collection</div>
+        <div style="font-family:var(--font);font-size:max(11px,.82vw);color:var(--ink-dimer);line-height:1.55;flex:1">Capture full game state from GSM — positions, scores, ball, phase, tick index.</div>
+        <div style="margin-top:auto"><span style="font-family:var(--font);font-size:9px;letter-spacing:.16em;text-transform:uppercase;background:rgba(242,164,75,.08);border:1px solid rgba(242,164,75,.2);color:var(--a);padding:2px 7px">GSM</span></div>
+      </div>
+      <!-- Phase 2 -->
+      <div class="phase-col" style="background:var(--panel-2);display:flex;flex-direction:column;padding:2vh 1.2vw;gap:1.4vh">
+        <div style="display:flex;flex-direction:column;gap:.6vh">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer)">Phase 02</div>
+          <div style="font-family:var(--font-disp);font-size:max(22px,1.7vw);font-weight:700;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">2</div>
+        </div>
+        <div style="width:100%;height:1px;background:var(--line-2)"></div>
+        <div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.05vw);line-height:1.25">Action Generation</div>
+        <div style="font-family:var(--font);font-size:max(11px,.82vw);color:var(--ink-dimer);line-height:1.55;flex:1">Invoke each player's <span style="color:var(--a);font-weight:600">decide()</span> in sandbox. Failures routed to FallbackHandler.</div>
+        <div style="margin-top:auto"><span style="font-family:var(--font);font-size:9px;letter-spacing:.16em;text-transform:uppercase;background:rgba(242,164,75,.08);border:1px solid rgba(242,164,75,.2);color:var(--a);padding:2px 7px">Sandbox</span></div>
+      </div>
+      <!-- Phase 3 -->
+      <div class="phase-col" style="background:var(--panel);display:flex;flex-direction:column;padding:2vh 1.2vw;gap:1.4vh">
+        <div style="display:flex;flex-direction:column;gap:.6vh">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer)">Phase 03</div>
+          <div style="font-family:var(--font-disp);font-size:max(22px,1.7vw);font-weight:700;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">3</div>
+        </div>
+        <div style="width:100%;height:1px;background:var(--line-2)"></div>
+        <div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.05vw);line-height:1.25">Validation &amp; Normalization</div>
+        <div style="font-family:var(--font);font-size:max(11px,.82vw);color:var(--ink-dimer);line-height:1.55;flex:1">Cooldown checks, Move speed clamping, Pass/Shoot power capping, Tackle target validation.</div>
+        <div style="margin-top:auto"><span style="font-family:var(--font);font-size:9px;letter-spacing:.16em;text-transform:uppercase;background:rgba(110,227,165,.07);border:1px solid rgba(110,227,165,.2);color:var(--ok);padding:2px 7px">Validate</span></div>
+      </div>
+      <!-- Phase 4 -->
+      <div class="phase-col" style="background:var(--panel-2);display:flex;flex-direction:column;padding:2vh 1.2vw;gap:1.4vh">
+        <div style="display:flex;flex-direction:column;gap:.6vh">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer)">Phase 04</div>
+          <div style="font-family:var(--font-disp);font-size:max(22px,1.7vw);font-weight:700;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">4</div>
+        </div>
+        <div style="width:100%;height:1px;background:var(--line-2)"></div>
+        <div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.05vw);line-height:1.25">Player Movement</div>
+        <div style="font-family:var(--font);font-size:max(11px,.82vw);color:var(--ink-dimer);line-height:1.55;flex:1">Compute-all-then-commit. PMS resolves Move actions, player separation, dribble contests.</div>
+        <div style="margin-top:auto"><span style="font-family:var(--font);font-size:9px;letter-spacing:.16em;text-transform:uppercase;background:rgba(242,164,75,.08);border:1px solid rgba(242,164,75,.2);color:var(--a);padding:2px 7px">PMS</span></div>
+      </div>
+      <!-- Phase 5 -->
+      <div class="phase-col" style="background:var(--panel);display:flex;flex-direction:column;padding:2vh 1.2vw;gap:1.4vh">
+        <div style="display:flex;flex-direction:column;gap:.6vh">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer)">Phase 05</div>
+          <div style="font-family:var(--font-disp);font-size:max(22px,1.7vw);font-weight:700;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">5</div>
+        </div>
+        <div style="width:100%;height:1px;background:var(--line-2)"></div>
+        <div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.05vw);line-height:1.25">Ball Actions</div>
+        <div style="font-family:var(--font);font-size:max(11px,.82vw);color:var(--ink-dimer);line-height:1.55;flex:1">Pass &amp; Shoot resolution. Set ball velocity, landing zone, skill-based deviation, transfer possession.</div>
+        <div style="margin-top:auto"><span style="font-family:var(--font);font-size:9px;letter-spacing:.16em;text-transform:uppercase;background:rgba(242,164,75,.08);border:1px solid rgba(242,164,75,.2);color:var(--a);padding:2px 7px">Ball</span></div>
+      </div>
+      <!-- Phase 6 -->
+      <div class="phase-col" style="background:var(--panel-2);display:flex;flex-direction:column;padding:2vh 1.2vw;gap:1.4vh">
+        <div style="display:flex;flex-direction:column;gap:.6vh">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer)">Phase 06</div>
+          <div style="font-family:var(--font-disp);font-size:max(22px,1.7vw);font-weight:700;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">6</div>
+        </div>
+        <div style="width:100%;height:1px;background:var(--line-2)"></div>
+        <div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.05vw);line-height:1.25">Tackle Resolution</div>
+        <div style="font-family:var(--font);font-size:max(11px,.82vw);color:var(--ink-dimer);line-height:1.55;flex:1">Range check, possession verification, strength-based success probability per Tackle action.</div>
+        <div style="margin-top:auto"><span style="font-family:var(--font);font-size:9px;letter-spacing:.16em;text-transform:uppercase;background:rgba(255,107,107,.07);border:1px solid rgba(255,107,107,.2);color:var(--err);padding:2px 7px">Contest</span></div>
+      </div>
+      <!-- Phase 7 -->
+      <div class="phase-col" style="background:rgba(242,164,75,.06);border-left:1px solid var(--a);display:flex;flex-direction:column;padding:2vh 1.2vw;gap:1.4vh">
+        <div style="display:flex;flex-direction:column;gap:.6vh">
+          <div style="font-family:var(--font);font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--a)">Phase 07</div>
+          <div style="font-family:var(--font-disp);font-size:max(22px,1.7vw);font-weight:700;color:var(--a);line-height:1;font-variant-numeric:tabular-nums">7</div>
+        </div>
+        <div style="width:100%;height:1px;background:rgba(242,164,75,.25)"></div>
+        <div style="font-family:var(--font-disp);font-weight:600;font-size:max(13px,1.05vw);line-height:1.25;color:var(--a)">Ball Physics &amp; Goal</div>
+        <div style="font-family:var(--font);font-size:max(11px,.82vw);color:var(--ink-dim);line-height:1.55;flex:1">BPS advances ball. Goal-line crossing, scoring, and goalkeeper save attempts resolved.</div>
+        <div style="margin-top:auto"><span style="font-family:var(--font);font-size:9px;letter-spacing:.16em;text-transform:uppercase;background:rgba(242,164,75,.12);border:1px solid var(--a);color:var(--a);padding:2px 7px">BPS · Goal</span></div>
+      </div>
+    </div>
+    <!-- Flow arrow row -->
+    <div style="display:flex;align-items:center;justify-content:center;gap:.8vw;flex-shrink:0">
+      <svg width="100%" height="14" viewBox="0 0 900 14" preserveAspectRatio="none" style="max-width:900px">
+        <path d="M0 7 H870 M856 2 L875 7 L856 12" stroke="rgba(242,164,75,.45)" stroke-width="1.5" fill="none"/>
+      </svg>
+    </div>
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-shrink:0">
+      <span style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer)">Phases execute sequentially · results merged into action_records dict · logged to MatchLogSystem</span>
+      <span class="badge ok">~100ms timeout per decide()</span>
+    </div>
+  </div>
+  <div class="foot"><div></div><div>07</div></div>
+</section>
+
+<!-- SLIDE 07 · Strategy Languages -->
+<section class="slide light" data-screen-label="07 Strategies">
+  <div class="chrome"><div>Strategy Runtime · Language &amp; Provider Support</div><div>08 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:3vh">
+    <div>
+      <div class="kicker">Write code · run in a sandbox · evolved after every match</div>
+      <h2 class="h-xl">Three strategy languages</h2>
+    </div>
+    <div style="border:1px solid var(--line);flex-shrink:0">
+      <table class="tbl">
+        <thead>
+          <tr>
+            <th>Language</th><th>Sandbox Backend</th><th>Security Model</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="primary" style="display:flex;align-items:center;gap:10px">
+              <svg width="26" height="26" viewBox="0 0 256 255" style="flex-shrink:0" aria-label="Python">
+                <path fill="var(--ink-dim)" d="M126.916.072c-64.832 0-60.784 28.115-60.784 28.115l.072 29.128h61.868v8.745H41.631S.145 61.355.145 126.77c0 65.417 36.21 63.097 36.21 63.097h21.61v-30.356s-1.165-36.21 35.632-36.21h61.362s34.475.557 34.475-33.319V33.97S194.67.072 126.916.072zm-34.107 19.462a11.13 11.13 0 0 1 11.13 11.13 11.13 11.13 0 0 1-11.13 11.13 11.13 11.13 0 0 1-11.13-11.13 11.13 11.13 0 0 1 11.13-11.13z"/>
+                <path fill="var(--ink-dim)" d="M128.757 254.126c64.832 0 60.784-28.115 60.784-28.115l-.072-29.127H127.6v-8.745h86.441s41.486 4.705 41.486-60.712c0-65.416-36.21-63.096-36.21-63.096h-21.61v30.355s1.165 36.21-35.632 36.21h-61.362s-34.475-.557-34.475 33.32v56.013s-5.235 33.897 62.519 33.897zm34.107-19.556a11.13 11.13 0 0 1-11.13-11.13 11.13 11.13 0 0 1 11.13-11.13 11.13 11.13 0 0 1 11.13 11.13 11.13 11.13 0 0 1-11.13 11.13z"/>
+              </svg>
+              Python
+            </td>
+            <td>RestrictedPython</td>
+            <td style="color:var(--ink-dim)">Whitelist builtins · no imports · exec isolated</td>
+          </tr>
+          <tr>
+            <td class="primary" style="display:flex;align-items:center;gap:10px">
+              <svg width="26" height="26" viewBox="0 0 28 28" fill="none" style="flex-shrink:0" aria-label="JavaScript">
+                <rect x=".75" y=".75" width="26.5" height="26.5" stroke="var(--ink-dim)" stroke-width="1.5"/>
+                <text x="4.5" y="21" font-family="JetBrains Mono,ui-monospace,monospace" font-size="14" font-weight="700" fill="var(--ink-dim)">JS</text>
+              </svg>
+              JavaScript
+            </td>
+            <td>QuickJS (embedded C engine)</td>
+            <td style="color:var(--ink-dim)">Isolated JS runtime · no Node APIs</td>
+          </tr>
+          <tr>
+            <td class="primary" style="display:flex;align-items:center;gap:10px">
+              <svg width="26" height="26" viewBox="0 0 144 144" style="flex-shrink:0" aria-label="Rust">
+                <path fill="var(--ink-dim)" d="M71.994 11.477a6.118 6.118 0 0 0-2.182 11.824l.37.097-7.08 13.534a55.506 55.506 0 0 0-26.76 13.648l-11.692-8.668a6.118 6.118 0 1 0-1.66 2.249l11.34 8.41a55.48 55.48 0 0 0-10.918 26.518H9.944a6.118 6.118 0 1 0 .124 2.678h13.602a55.484 55.484 0 0 0 11.003 26.14L24.26 116.2a6.118 6.118 0 1 0 1.896 2.031l10.27-9.053a55.511 55.511 0 0 0 26.906 12.87l.366 13.964a6.118 6.118 0 1 0 2.677-.07l-.36-13.744a55.487 55.487 0 0 0 27.397-13.012l10.226 8.992a6.118 6.118 0 1 0 1.898-2.032l-10.44-9.178a55.48 55.48 0 0 0 11.05-26.768h13.605a6.118 6.118 0 1 0 .123-2.678h-13.473a55.481 55.481 0 0 0-10.885-26.458l11.288-8.368a6.118 6.118 0 1 0-1.66-2.249l-11.637 8.627a55.509 55.509 0 0 0-26.71-13.573L74.53 23.62l.37-.097a6.118 6.118 0 0 0-2.906-11.978zm.018 27.327c18.91 0 34.208 15.298 34.208 34.208S90.922 107.22 72.012 107.22 37.804 91.922 37.804 73.012 53.102 38.804 72.012 38.804zm-7.53 17.36v34.416l29.8-17.208-29.8-17.208z"/>
+              </svg>
+              Rust → WASM
+            </td>
+            <td>Wasmtime</td>
+            <td style="color:var(--ink-dim)">WASM sandbox · memory-isolated · AOT compiled</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div>
+      <div class="ap-sect"><span>LLM Providers (via PAL — Provider Abstraction Layer)</span><div class="r"></div></div>
+      <div style="display:grid;grid-template-columns:repeat(6,1fr);gap:1px;background:var(--line);border:1px solid var(--line)">
+        <div style="background:var(--panel);padding:1.4vh 1.2vw"><div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:8px">openai/</div><div class="h-sm" style="font-size:max(13px,1.1vw)">OpenAI</div><div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:6px">gpt-4o · o1 · o3</div></div>
+        <div style="background:var(--panel);padding:1.4vh 1.2vw"><div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:8px">anthropic/</div><div class="h-sm" style="font-size:max(13px,1.1vw)">Anthropic</div><div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:6px">claude-3.5 · claude-4</div></div>
+        <div style="background:var(--panel);padding:1.4vh 1.2vw"><div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:8px">google/</div><div class="h-sm" style="font-size:max(13px,1.1vw)">Gemini</div><div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:6px">gemini-1.5 · gemini-2</div></div>
+        <div style="background:var(--panel);padding:1.4vh 1.2vw"><div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:8px">deepseek/</div><div class="h-sm" style="font-size:max(13px,1.1vw)">DeepSeek</div><div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:6px">deepseek-v3 · v4</div></div>
+        <div style="background:var(--panel);padding:1.4vh 1.2vw"><div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:8px">openrouter/</div><div class="h-sm" style="font-size:max(13px,1.1vw)">OpenRouter</div><div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:6px">Any hosted model</div></div>
+        <div style="background:var(--panel);padding:1.4vh 1.2vw"><div style="font-family:var(--font);font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:8px">local/</div><div class="h-sm" style="font-size:max(13px,1.1vw)">Ollama</div><div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:6px">Fully offline · no API key</div></div>
+      </div>
+    </div>
+  </div>
+    <div class="box ok" style="padding:1.6vh 1.6vw;flex-shrink:0">
+      <div style="font-family:var(--font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ok);margin-bottom:.8vh">Safety Guarantee</div>
+      <div style="font-family:var(--font);font-size:max(12px,.92vw);color:var(--ink-dim);line-height:1.65">LLM-generated code never touches the host filesystem, network, or OS — it lives entirely inside the sandbox with a 100ms execution budget per tick.</div>
+    </div>
+  <div class="foot"><div>All code runs in a language-appropriate sandbox — no host access</div><div>08</div></div>
+</section>
+
+<!-- SLIDE 09 · Match Viewer -->
+<section class="slide dark" data-screen-label="08 Browser UI">
+  <div class="chrome"><div>Browser UI · Live Match Viewer</div><div>09 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:3vh">
+    <div>
+      <div class="kicker">Real-time simulation · browser on port 8765</div>
+      <h2 class="h-xl">Live match viewer</h2>
+    </div>
+    <div style="flex:1;display:grid;grid-template-columns:repeat(3,1fr);gap:2vw;min-height:0">
+      <div style="display:flex;flex-direction:column;gap:.8vh">
+        <div class="frame-img" style="height:38vh"><img src="images/match-liveview.png" alt="Live field view"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="img-cap">Field · Live View</span><span style="font-family:var(--font);font-size:10px;color:var(--ink-dimer)">SVG canvas · real-time</span></div>
+        <div class="box" style="padding:1vh 1.2vw"><div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dim);line-height:1.5">5v5 field in SVG. Player positions and ball updated every tick via SSE stream.</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.8vh">
+        <div class="frame-img" style="height:38vh"><img src="images/match-live-events.png" alt="Event feed"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="img-cap">Event Feed</span><span style="font-family:var(--font);font-size:10px;color:var(--ink-dimer)">Color-coded by type</span></div>
+        <div class="box" style="padding:1vh 1.2vw"><div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dim);line-height:1.5">Goal · Shot · Pass · Tackle events in scrollable log. Click any event to scrub to that tick.</div></div>
+      </div>
+      <div style="display:flex;flex-direction:column;gap:.8vh">
+        <div class="frame-img" style="height:38vh"><img src="images/match-stats.png" alt="Match statistics"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span class="img-cap">Stats Panel</span><span style="font-family:var(--font);font-size:10px;color:var(--ink-dimer)">Post-match breakdown</span></div>
+        <div class="box" style="padding:1vh 1.2vw"><div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dim);line-height:1.5">Possession · shots · passes · tackles per player. Tabular monospace numerics.</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>FastAPI + React · SSE for live events · port 8765</div><div>08</div></div>
+</section>
+
+<!-- SLIDE 09 · Act Divider Tournaments -->
+<section class="slide hero dark" data-screen-label="09 Tournaments Act">
+  <div class="chrome"><div>AgentPitch · Tournament Modes</div><div>Act III · 09 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:4vh">
+    <div class="kicker">Act III</div>
+    <h1 class="h-hero" style="font-size:9.5vw">Tournaments</h1>
+    <div style="width:5vw;height:1px;background:var(--a)"></div>
+    <p style="font-family:var(--font);font-size:max(13px,1.1vw);color:var(--ink-dim);max-width:52vw;line-height:1.7">Three structured formats for AI competition. Every match feeds back into strategy evolution — the longer the tournament, the smarter the agents become.</p>
+  </div>
+  <div class="foot"><div>Arena · Cup · League</div><div>— · —</div></div>
+</section>
+
+<!-- SLIDE 10 · Arena Timeline -->
+<section class="slide dark" data-screen-label="10 Arena">
+  <div class="chrome"><div>Arena Mode · Head-to-Head Evolution</div><div>11 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:3vh">
+    <div>
+      <div class="kicker">Arena · two LLMs · configurable match series · default 3 matches · one evolving rivalry</div>
+      <h2 class="h-xl">LLM <span style="color:var(--a)">A</span> vs LLM <span style="color:var(--b)">B</span> · evolving across matches</h2>
+    </div>
+    <!-- Team row -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line);flex-shrink:0">
+      <div style="background:rgba(242,164,75,.06);padding:1.2vh 1.4vw;display:flex;align-items:center;gap:1vw">
+        <span style="display:inline-block;width:6px;height:36px;background:var(--a);box-shadow:0 0 14px rgba(242,164,75,.4);flex-shrink:0"></span>
+        <div><div style="font-family:var(--font-disp);font-weight:700;font-size:max(15px,1.3vw);color:var(--a)">Team A</div><div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);margin-top:.4vh">deepseek/deepseek-v4-flash · Python strategy</div></div>
+      </div>
+      <div style="background:rgba(176,140,255,.05);padding:1.2vh 1.4vw;display:flex;align-items:center;gap:1vw">
+        <span style="display:inline-block;width:6px;height:36px;background:var(--b);box-shadow:0 0 14px rgba(176,140,255,.35);flex-shrink:0"></span>
+        <div><div style="font-family:var(--font-disp);font-weight:700;font-size:max(15px,1.3vw);color:var(--b)">Team B</div><div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);margin-top:.4vh">openai/gpt-4o · Python strategy</div></div>
+      </div>
+    </div>
+    <!-- Timeline -->
+    <div style="flex:1;display:flex;flex-direction:column;justify-content:center;gap:2.5vh">
+      <div style="display:grid;grid-template-columns:1fr 80px 1fr 80px 1fr 80px 1fr 80px 1fr;align-items:center;gap:0">
+        <div class="box a" style="padding:1.8vh 1.2vw;text-align:center">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--a);margin-bottom:.6vh">Start · CGP</div>
+          <div class="h-sm" style="font-size:max(13px,1vw)">Initial<br>Strategies</div>
+          <div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:.6vh">LLM generates<br>decide() for both</div>
+        </div>
+        <div style="text-align:center"><svg width="60" height="14" viewBox="0 0 60 14"><path d="M4 7 H52 M46 2 L55 7 L46 12" stroke="rgba(242,164,75,.6)" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="box" style="padding:1.8vh 1.2vw;text-align:center;border-top:2px solid var(--a)">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.6vh">Match 1</div>
+          <div class="h-sm" style="font-size:max(13px,1vw)">First encounter</div>
+          <div style="font-family:var(--font);font-size:max(12px,.9vw);color:var(--a);margin-top:.8vh;font-weight:700">A 2 — 1 B</div>
+          <div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:.4vh">Strategy v1</div>
+        </div>
+        <div style="text-align:center"><svg width="60" height="14" viewBox="0 0 60 14"><path d="M4 7 H52 M46 2 L55 7 L46 12" stroke="rgba(242,164,75,.6)" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="box a" style="padding:1.8vh 1.2vw;text-align:center">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--a);margin-bottom:.6vh">PMEP · Evolve</div>
+          <div class="h-sm" style="font-size:max(13px,1vw)">Post-Match<br>Evolution</div>
+          <div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:.6vh">Both strategies<br>improved from log</div>
+        </div>
+        <div style="text-align:center"><svg width="60" height="14" viewBox="0 0 60 14"><path d="M4 7 H52 M46 2 L55 7 L46 12" stroke="rgba(242,164,75,.6)" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="box" style="padding:1.8vh 1.2vw;text-align:center;border-top:2px solid var(--a)">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.6vh">Match 2</div>
+          <div class="h-sm" style="font-size:max(13px,1vw)">Evolved play</div>
+          <div style="font-family:var(--font);font-size:max(12px,.9vw);color:var(--a);margin-top:.8vh;font-weight:700">A 3 — 1 B</div>
+          <div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:.4vh">Strategy v2</div>
+        </div>
+        <div style="text-align:center"><svg width="60" height="14" viewBox="0 0 60 14"><path d="M4 7 H52 M46 2 L55 7 L46 12" stroke="rgba(242,164,75,.6)" stroke-width="1.5" fill="none"/></svg></div>
+        <div class="box" style="padding:1.8vh 1.2vw;text-align:center;border-top:2px solid var(--a)">
+          <div style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer);margin-bottom:.6vh">Match 3</div>
+          <div class="h-sm" style="font-size:max(13px,1vw)">Final — evolved²</div>
+          <div style="font-family:var(--font);font-size:max(12px,.9vw);color:var(--a);margin-top:.8vh;font-weight:700">A 2 — 0 B</div>
+          <div style="font-family:var(--font);font-size:10px;color:var(--ink-dimer);margin-top:.4vh">Strategy v3</div>
+        </div>
+      </div>
+      <div style="display:grid;grid-template-columns:1fr 80px 1fr;gap:0;align-items:start">
+        <div class="frame-img" style="height:18vh"><img src="images/arena.png" alt="Arena match running"></div>
+        <div></div>
+        <div class="frame-img" style="height:18vh"><img src="images/arena-complete.png" alt="Arena complete"></div>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>CGP generates initial code · PMEP evolves after each match</div><div>10</div></div>
+</section>
+
+<!-- SLIDE 11 · Cup & League -->
+<section class="slide light" data-screen-label="11 Cup & League">
+  <div class="chrome"><div>Tournament Formats · Cup &amp; League</div><div>12 / 13</div></div>
+  <div style="flex:1;display:grid;grid-template-columns:1fr 1fr;gap:4vw">
+    <!-- Cup bracket -->
+    <div style="display:flex;flex-direction:column;gap:2.5vh">
+      <div class="ap-sect"><span>Cup Mode · Single-Elimination Bracket</span><div class="r"></div></div>
+      <svg width="100%" viewBox="0 0 520 280" style="flex:1;min-height:0;max-height:40vh" aria-label="Cup bracket">
+        <rect x="10" y="20" width="130" height="40" fill="#11161b" stroke="#242c34"/>
+        <text x="20" y="36" font-family="JetBrains Mono,monospace" font-size="12" fill="#9aa4ad" letter-spacing="1">Team A</text>
+        <text x="20" y="52" font-family="Space Grotesk,sans-serif" font-size="13" font-weight="700" fill="#f2a44b">OpenAI gpt-4o</text>
+        <rect x="10" y="80" width="130" height="40" fill="#11161b" stroke="#242c34"/>
+        <text x="20" y="96" font-family="JetBrains Mono,monospace" font-size="12" fill="#9aa4ad" letter-spacing="1">Team B</text>
+        <text x="20" y="112" font-family="Space Grotesk,sans-serif" font-size="13" font-weight="700" fill="#b08cff">Anthropic claude</text>
+        <rect x="10" y="160" width="130" height="40" fill="#11161b" stroke="#242c34"/>
+        <text x="20" y="176" font-family="JetBrains Mono,monospace" font-size="12" fill="#9aa4ad" letter-spacing="1">Team C</text>
+        <text x="20" y="192" font-family="Space Grotesk,sans-serif" font-size="13" font-weight="700" fill="#f2a44b">Gemini 1.5</text>
+        <rect x="10" y="220" width="130" height="40" fill="#11161b" stroke="#242c34"/>
+        <text x="20" y="236" font-family="JetBrains Mono,monospace" font-size="12" fill="#9aa4ad" letter-spacing="1">Team D</text>
+        <text x="20" y="252" font-family="Space Grotesk,sans-serif" font-size="13" font-weight="700" fill="#b08cff">DeepSeek v4</text>
+        <line x1="140" y1="40" x2="180" y2="40" stroke="#2f3a44"/><line x1="140" y1="100" x2="180" y2="100" stroke="#2f3a44"/><line x1="180" y1="40" x2="180" y2="100" stroke="#2f3a44"/><line x1="180" y1="70" x2="230" y2="70" stroke="#2f3a44"/>
+        <line x1="140" y1="180" x2="180" y2="180" stroke="#2f3a44"/><line x1="140" y1="240" x2="180" y2="240" stroke="#2f3a44"/><line x1="180" y1="180" x2="180" y2="240" stroke="#2f3a44"/><line x1="180" y1="210" x2="230" y2="210" stroke="#2f3a44"/>
+        <rect x="230" y="48" width="130" height="44" fill="#161c22" stroke="#f2a44b" stroke-width="1.5"/>
+        <text x="240" y="64" font-family="JetBrains Mono,monospace" font-size="11" fill="#5b6872" letter-spacing="1">SEMI-FINAL 1</text>
+        <text x="240" y="82" font-family="Space Grotesk,sans-serif" font-size="14" font-weight="700" fill="#f2a44b">A wins  2-1</text>
+        <rect x="230" y="188" width="130" height="44" fill="#161c22" stroke="#242c34"/>
+        <text x="240" y="204" font-family="JetBrains Mono,monospace" font-size="11" fill="#5b6872" letter-spacing="1">SEMI-FINAL 2</text>
+        <text x="240" y="222" font-family="Space Grotesk,sans-serif" font-size="14" font-weight="700" fill="#f2a44b">C wins  3-2</text>
+        <line x1="360" y1="70" x2="400" y2="70" stroke="#2f3a44"/><line x1="360" y1="210" x2="400" y2="210" stroke="#2f3a44"/><line x1="400" y1="70" x2="400" y2="210" stroke="#2f3a44"/><line x1="400" y1="140" x2="428" y2="140" stroke="#f2a44b"/>
+        <rect x="428" y="100" width="88" height="80" fill="rgba(242,164,75,.08)" stroke="#f2a44b"/>
+        <text x="472" y="120" font-family="JetBrains Mono,monospace" font-size="10" fill="#f2a44b" text-anchor="middle" letter-spacing="1">FINAL</text>
+        <text x="472" y="148" font-family="Space Grotesk,sans-serif" font-size="20" font-weight="700" fill="#f2a44b" text-anchor="middle">A</text>
+        <text x="472" y="168" font-family="JetBrains Mono,monospace" font-size="10" fill="#9aa4ad" text-anchor="middle">Champion</text>
+      </svg>
+      <div style="display:flex;gap:.8vw;align-items:center;flex-wrap:wrap;margin-top:1vh">
+        <span style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer)">CLI:</span>
+        <code style="font-family:var(--font);font-size:max(11px,.88vw);background:var(--panel);border:1px solid var(--line);padding:3px 8px;color:var(--a)">agent-pitch cup-run</code>
+      </div>
+    </div>
+    <!-- League standings -->
+    <div style="display:flex;flex-direction:column;gap:2.5vh">
+      <div class="ap-sect"><span>League Mode · Round-Robin Standings</span><div class="r"></div></div>
+      <div style="border:1px solid var(--line)">
+        <table class="tbl" style="width:100%">
+          <thead>
+            <tr><th>#</th><th>Team</th><th class="num">P</th><th class="num">W</th><th class="num">D</th><th class="num">L</th><th class="num">GF</th><th class="num">GA</th><th class="num" style="color:var(--a)">Pts</th></tr>
+          </thead>
+          <tbody>
+            <tr><td class="num" style="color:var(--a)">1</td><td class="primary"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--a);margin-right:8px;vertical-align:middle"></span>Alpha</td><td class="num">6</td><td class="num">4</td><td class="num">1</td><td class="num">1</td><td class="num">14</td><td class="num">7</td><td class="num accent" style="font-weight:700">13</td></tr>
+            <tr><td class="num">2</td><td class="primary"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--b);margin-right:8px;vertical-align:middle"></span>Bravo</td><td class="num">6</td><td class="num">3</td><td class="num">2</td><td class="num">1</td><td class="num">11</td><td class="num">8</td><td class="num">11</td></tr>
+            <tr><td class="num">3</td><td class="primary"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--ok);margin-right:8px;vertical-align:middle"></span>Charlie</td><td class="num">6</td><td class="num">2</td><td class="num">1</td><td class="num">3</td><td class="num">9</td><td class="num">13</td><td class="num">7</td></tr>
+            <tr><td class="num">4</td><td class="primary"><span style="display:inline-block;width:5px;height:5px;border-radius:50%;background:var(--err);margin-right:8px;vertical-align:middle"></span>Delta</td><td class="num">6</td><td class="num">1</td><td class="num">0</td><td class="num">5</td><td class="num">5</td><td class="num">11</td><td class="num">3</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="frame-img" style="height:18vh"><img src="images/league-standings.png" alt="League standings UI"></div>
+      <div style="display:flex;gap:.8vw;align-items:center;flex-wrap:wrap">
+        <span style="font-family:var(--font);font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--ink-dimer)">CLI:</span>
+        <code style="font-family:var(--font);font-size:max(11px,.88vw);background:var(--panel);border:1px solid var(--line);padding:3px 8px;color:var(--a)">agent-pitch league-run</code>
+      </div>
+    </div>
+  </div>
+  <div class="foot"><div>Cup: single-elimination · League: all fixtures across match days</div><div>11</div></div>
+</section>
+
+<!-- SLIDE 12 · Quickstart -->
+<section class="slide hero dark" data-screen-label="12 Quickstart">
+  <div class="chrome"><div>Get Started</div><div>13 / 13</div></div>
+  <div style="flex:1;display:flex;flex-direction:column;gap:3.5vh;justify-content:center">
+    <div>
+      <div class="kicker">Quick start · links · star us</div>
+      <h2 class="h-xl" style="font-size:4.8vw">Get started in 30 seconds</h2>
+    </div>
+    <!-- Quick run -->
+    <div class="box a" style="padding:2.4vh 2vw">
+      <div style="font-family:var(--font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--a);margin-bottom:1.4vh">Quick Run · Docker</div>
+      <div class="code" style="padding:1.4vh 1.6vw;font-size:max(13px,1.05vw);border-color:var(--a)"><span style="color:var(--ink-dimer)">$</span> <span style="color:var(--a)">docker run</span> <span style="color:var(--ink-dim)">-p 8756:8756</span> <span style="color:var(--ok)">ghcr.io/gangtao/agentpitch:0.1.0</span></div>
+      <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dim);margin-top:1.2vh">Opens the browser UI on <span style="color:var(--ok)">http://localhost:8756</span> — no install required.</div>
+    </div>
+    <!-- Links -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--line);border:1px solid var(--line)">
+      <a href="https://github.com/gangtao/AgentPitch" target="_blank" rel="noopener" onclick="window.open('https://github.com/gangtao/AgentPitch','_blank');return false;" style="cursor:pointer;background:var(--panel);padding:2.4vh 2vw;display:flex;flex-direction:column;gap:1.2vh;text-decoration:none;transition:background .2s" onmouseenter="this.style.background='rgba(242,164,75,.08)'" onmouseleave="this.style.background='var(--panel)'">
+        <div style="font-family:var(--font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer)">GitHub · ⭐ Star us!</div>
+        <div style="font-family:var(--font-disp);font-weight:700;font-size:max(16px,1.4vw);color:var(--a)">github.com/gangtao/AgentPitch</div>
+        <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">Source code · issues · PRs welcome · Apache 2.0</div>
+      </a>
+      <a href="https://taogang.medium.com/agentpitch-when-the-llm-writes-the-tactics-1bf07ace1b2a" target="_blank" rel="noopener" onclick="window.open('https://taogang.medium.com/agentpitch-when-the-llm-writes-the-tactics-1bf07ace1b2a','_blank');return false;" style="cursor:pointer;background:var(--panel);padding:2.4vh 2vw;display:flex;flex-direction:column;gap:1.2vh;text-decoration:none;transition:background .2s" onmouseenter="this.style.background='rgba(232,237,241,.04)'" onmouseleave="this.style.background='var(--panel)'">
+        <div style="font-family:var(--font);font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--ink-dimer)">Introduction Blog · Medium</div>
+        <div style="font-family:var(--font-disp);font-weight:700;font-size:max(14px,1.15vw);color:var(--ink);line-height:1.3">AgentPitch: When the LLM<br>Writes the Tactics</div>
+        <div style="font-family:var(--font);font-size:max(11px,.85vw);color:var(--ink-dimer);line-height:1.5">taogang.medium.com · full design walkthrough &amp; architecture deep-dive</div>
+      </a>
+    </div>
+  </div>
+  <div class="foot"><div>github.com/gangtao/AgentPitch · Star us!</div><div>2026</div></div>
+</section>
+
+</div><!-- #deck -->
+<div id="nav"></div>
+<div id="ov"></div>
+<div id="phase-hint">click to reveal next phase →</div>
+
+<script>
+const VS=`attribute vec2 pos;void main(){gl_Position=vec4(pos,0,1);}`;
+const FS=`precision highp float;
+uniform vec2 res;uniform float t;uniform vec2 mouse;
+float h(vec2 p){return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453);}
+float n(vec2 p){vec2 i=floor(p),f=fract(p);float a=h(i),b=h(i+vec2(1,0)),c=h(i+vec2(0,1)),d=h(i+vec2(1,1));vec2 u=f*f*(3.-2.*f);return mix(a,b,u.x)+(c-a)*u.y*(1.-u.x)+(d-b)*u.x*u.y;}
+float fbm(vec2 p){float v=0.;float a=.5;for(int i=0;i<4;i++){v+=a*n(p);p*=2.01;a*=.5;}return v;}
+void main(){
+  vec2 uv=gl_FragCoord.xy/res;vec2 p=uv*2.-1.;p.x*=res.x/res.y;
+  vec2 m=mouse*2.-1.;m.x*=res.x/res.y;float md=length(p-m);
+  vec2 q=vec2(fbm(p*1.6+t*.05),fbm(p*1.6+5.2+t*.045));
+  float f=fbm(p*2.+q*1.2+t*.04);
+  vec3 col=mix(vec3(.04,.052,.065),vec3(.09,.075,.05),f*.7);
+  float hi=pow(max(0.,1.-md*2.8),3.)*.18;
+  col+=vec3(hi*.9,hi*.6,hi*.1);
+  col+=fbm(p*4.+t*.08)*.02;
+  gl_FragColor=vec4(col,1.);}`;
+const mouse={x:.5,y:.5};
+addEventListener('mousemove',e=>{mouse.x=e.clientX/innerWidth;mouse.y=1-e.clientY/innerHeight;});
+(function(){
+  const c=document.getElementById('bg'),gl=c.getContext('webgl',{alpha:false});
+  if(!gl)return;
+  const mk=(t,s)=>{const sh=gl.createShader(t);gl.shaderSource(sh,s);gl.compileShader(sh);return sh};
+  const p=gl.createProgram();gl.attachShader(p,mk(gl.VERTEX_SHADER,VS));gl.attachShader(p,mk(gl.FRAGMENT_SHADER,FS));gl.linkProgram(p);gl.useProgram(p);
+  const buf=gl.createBuffer();gl.bindBuffer(gl.ARRAY_BUFFER,buf);
+  gl.bufferData(gl.ARRAY_BUFFER,new Float32Array([-1,-1,1,-1,-1,1,-1,1,1,-1,1,1]),gl.STATIC_DRAW);
+  const pos=gl.getAttribLocation(p,'pos');gl.enableVertexAttribArray(pos);gl.vertexAttribPointer(pos,2,gl.FLOAT,false,0,0);
+  const lR=gl.getUniformLocation(p,'res'),lT=gl.getUniformLocation(p,'t'),lM=gl.getUniformLocation(p,'mouse');
+  const resize=()=>{const d=Math.min(devicePixelRatio||1,2);c.width=innerWidth*d;c.height=innerHeight*d;gl.viewport(0,0,c.width,c.height)};
+  addEventListener('resize',resize);resize();
+  const t0=Date.now();
+  (function loop(){
+    const t=(Date.now()-t0)/1000;
+    gl.uniform2f(lR,c.width,c.height);gl.uniform1f(lT,t);gl.uniform2f(lM,mouse.x,mouse.y);
+    gl.drawArrays(gl.TRIANGLES,0,6);requestAnimationFrame(loop);
+  })();
+})();
+const deck=document.getElementById('deck');
+const slides=[...deck.querySelectorAll('.slide')];
+const nav=document.getElementById('nav');
+const ov=document.getElementById('ov');
+let idx=0,total=slides.length,lock=false;
+const PHASE_SLIDE=6;let phaseRevealed=0;const phaseHint=document.getElementById('phase-hint');
+deck.style.width=(total*100)+'vw';
+slides.forEach((_,i)=>{
+  const b=document.createElement('button');
+  b.className='dot';b.setAttribute('aria-label','Slide '+(i+1));
+  b.onclick=()=>go(i);nav.appendChild(b);
+});
+function go(n){
+  if(lock)return;
+  idx=Math.max(0,Math.min(total-1,n));
+  deck.style.transform=`translateX(${-idx*100}vw)`;
+  slides.forEach((s,i)=>s.classList.toggle('active',i===idx));
+  nav.querySelectorAll('.dot').forEach((d,i)=>d.classList.toggle('active',i===idx));
+  lock=true;setTimeout(()=>lock=false,700);
+  try{localStorage.setItem('ap2-slide',idx);}catch(e){}
+  if(idx !== PHASE_SLIDE){ phaseRevealed = 0; }
+  updatePhaseHint();
+}
+
+/* ── Tick-phases reveal (slide index 6, 0-based) ── */
+
+function updatePhaseHint() {
+  const onPhaseSlide = (idx === PHASE_SLIDE);
+  phaseHint.style.display = onPhaseSlide ? 'block' : 'none';
+  if (!onPhaseSlide) return;
+  const cols = slides[PHASE_SLIDE].querySelectorAll('.phase-col');
+  // reset if we re-enter the slide
+  if (phaseRevealed === 0) cols.forEach(c => c.classList.remove('visible'));
+  phaseHint.textContent = phaseRevealed >= cols.length
+    ? '✓ all phases revealed · click to advance →'
+    : `click to reveal phase ${phaseRevealed + 1} of ${cols.length}`;
+}
+
+function revealNextPhase() {
+  if (idx !== PHASE_SLIDE) return false;
+  const cols = slides[PHASE_SLIDE].querySelectorAll('.phase-col');
+  if (phaseRevealed < cols.length) {
+    cols[phaseRevealed].classList.add('visible');
+    phaseRevealed++;
+    phaseHint.textContent = phaseRevealed >= cols.length
+      ? '✓ all phases revealed · click to advance →'
+      : `click to reveal phase ${phaseRevealed + 1} of ${cols.length}`;
+    return true; // consumed the click
+  }
+  return false; // all revealed — let the normal "advance slide" logic run
+}
+
+// Reset phase state when leaving slide 7
+const _origGo = go;
+slides[PHASE_SLIDE].addEventListener('click', e => {
+  if (ovOn) return;
+  if (revealNextPhase()) e.stopImmediatePropagation();
+});
+// When arriving at phase slide, reset reveal count
+deck.addEventListener('transitionend', () => {
+  if (idx === PHASE_SLIDE && phaseRevealed === 0) {
+    slides[PHASE_SLIDE].querySelectorAll('.phase-col').forEach(c => c.classList.remove('visible'));
+    updatePhaseHint();
+  }
+});
+let ovOn=false;
+function buildOv(){
+  ov.innerHTML='';
+  const g=document.createElement('div');
+  g.style.cssText='display:grid;grid-template-columns:repeat(4,1fr);gap:2vh 1.5vw;max-width:92vw;margin:0 auto';
+  slides.forEach((s,i)=>{
+    const card=document.createElement('div');
+    card.style.cssText='cursor:pointer;border:1px solid '+(i===idx?'rgba(242,164,75,.8)':'#242c34')+';background:#11161b;overflow:hidden;transition:border-color .2s';
+    card.onmouseenter=()=>card.style.borderColor=i===idx?'rgba(242,164,75,.8)':'rgba(242,164,75,.4)';
+    card.onmouseleave=()=>card.style.borderColor=i===idx?'rgba(242,164,75,.8)':'#242c34';
+    const wrap=document.createElement('div');
+    wrap.style.cssText='width:100%;aspect-ratio:16/9;overflow:hidden;position:relative;pointer-events:none;background:#0a0d10';
+    const clone=s.cloneNode(true);
+    clone.style.cssText='width:100vw;height:100vh;transform:scale('+(1/4.5)+');transform-origin:top left;position:absolute;top:0;left:0;pointer-events:none';
+    wrap.appendChild(clone);
+    const lbl=document.createElement('div');
+    lbl.style.cssText='padding:5px 10px;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:#5b6872';
+    lbl.textContent=(i+1)+' / '+total+'  '+(s.dataset.screenLabel||'');
+    card.appendChild(wrap);card.appendChild(lbl);
+    card.onclick=()=>{toggleOv();go(i);};
+    g.appendChild(card);
+  });
+  ov.appendChild(g);
+}
+function toggleOv(){ovOn=!ovOn;if(ovOn){buildOv();ov.style.display='block';}else ov.style.display='none';}
+addEventListener('keydown',e=>{
+  if(e.key==='Escape'){e.preventDefault();toggleOv();return;}
+  if(ovOn)return;
+  if(['ArrowRight','PageDown',' ','ArrowDown'].includes(e.key)){e.preventDefault();go(idx+1);}
+  if(['ArrowLeft','PageUp','ArrowUp'].includes(e.key)){e.preventDefault();go(idx-1);}
+  if(e.key==='Home')go(0);if(e.key==='End')go(total-1);
+});
+let wAcc=0,wTO;
+addEventListener('wheel',e=>{wAcc+=e.deltaY+e.deltaX;if(Math.abs(wAcc)>60){go(idx+(wAcc>0?1:-1));wAcc=0;}clearTimeout(wTO);wTO=setTimeout(()=>wAcc=0,200);},{passive:true});
+let tx=0,ty=0;
+addEventListener('touchstart',e=>{tx=e.touches[0].clientX;ty=e.touches[0].clientY;},{passive:true});
+addEventListener('touchend',e=>{const dx=e.changedTouches[0].clientX-tx,dy=e.changedTouches[0].clientY-ty;if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy))go(idx+(dx<0?1:-1));},{passive:true});
+try{const s=parseInt(localStorage.getItem('ap2-slide'));if(!isNaN(s)&&s<total)go(s);else go(0);}catch(e){go(0);}
+
+/* ── Cover slide animation is pure SVG + CSS keyframes — no JS needed ── */
+(function(){
+  const cvs=document.getElementById('cover-anim');if(!cvs)return;
+  if(!cvs)return;
+  const c=cvs.getContext('2d');
+  const scoreA=document.getElementById('cover-score-a');
+  const scoreB=document.getElementById('cover-score-b');
+  const DPR=Math.min(window.devicePixelRatio||1,2);
+
+  function resize(){
+    cvs.width=cvs.offsetWidth*DPR;
+    cvs.height=cvs.offsetHeight*DPR;
+    c.scale(DPR,DPR);
+  }
+
+  // ── Logo drawing helpers ──
+  function drawOpenAI(cx,cy,r,alpha){
+    // Amber circle
+    c.beginPath();c.arc(cx,cy,r,0,Math.PI*2);
+    c.fillStyle=`rgba(242,164,75,${alpha})`;c.fill();
+    c.strokeStyle=`rgba(255,210,140,${alpha*0.6})`;c.lineWidth=1.2;c.stroke();
+    // OpenAI 6-petal asterisk
+    c.save();c.translate(cx,cy);
+    const ir=r*0.52;
+    c.strokeStyle=`rgba(10,13,16,0.88)`;c.lineWidth=r*0.14;c.lineCap='round';
+    for(let i=0;i<6;i++){
+      const a=(i/6)*Math.PI*2-Math.PI/6;
+      c.beginPath();
+      c.moveTo(Math.cos(a)*ir*0.28,Math.sin(a)*ir*0.28);
+      c.lineTo(Math.cos(a)*ir,Math.sin(a)*ir);
+      c.stroke();
+    }
+    c.restore();
+  }
+
+  function drawAnthropic(cx,cy,r,alpha){
+    // Purple circle
+    c.beginPath();c.arc(cx,cy,r,0,Math.PI*2);
+    c.fillStyle=`rgba(176,140,255,${alpha})`;c.fill();
+    c.strokeStyle=`rgba(210,185,255,${alpha*0.6})`;c.lineWidth=1.2;c.stroke();
+    // Anthropic "A"
+    c.save();c.translate(cx,cy);
+    const h=r*0.58;
+    c.strokeStyle=`rgba(10,13,16,0.88)`;c.lineWidth=r*0.15;c.lineCap='round';c.lineJoin='round';
+    c.beginPath();
+    c.moveTo(-h*0.54,h*0.48);
+    c.lineTo(0,-h*0.52);
+    c.lineTo(h*0.54,h*0.48);
+    c.stroke();
+    c.beginPath();
+    c.moveTo(-h*0.27,h*0.1);
+    c.lineTo(h*0.27,h*0.1);
+    c.stroke();
+    c.restore();
+  }
+
+  // ── Field dimensions (logical px, pre-DPR) ──
+  const PAD=22,GW=10,GH_RATIO=0.22;
+  function W(){return cvs.offsetWidth;}
+  function H(){return cvs.offsetHeight;}
+
+  function fieldRect(){
+    return{x:PAD,y:PAD,w:W()-PAD*2,h:H()-PAD*2-20};
+  }
+
+  // ── Draw pitch ──
+  function drawField(){
+    const f=fieldRect();
+    // Background
+    c.fillStyle='#0d1e16';
+    c.fillRect(f.x,f.y,f.w,f.h);
+    // Stripes
+    const stripes=8;
+    for(let i=0;i<stripes;i++){
+      c.fillStyle=i%2===0?'rgba(255,255,255,0.018)':'transparent';
+      c.fillRect(f.x+f.w/stripes*i,f.y,f.w/stripes,f.h);
+    }
+    // Outline
+    c.strokeStyle='#1e3a2a';c.lineWidth=1.5;
+    c.strokeRect(f.x,f.y,f.w,f.h);
+    // Centre line
+    c.beginPath();c.moveTo(f.x+f.w/2,f.y);c.lineTo(f.x+f.w/2,f.y+f.h);c.stroke();
+    // Centre circle
+    c.beginPath();c.arc(f.x+f.w/2,f.y+f.h/2,f.h*0.2,0,Math.PI*2);c.stroke();
+    c.beginPath();c.arc(f.x+f.w/2,f.y+f.h/2,2.5,0,Math.PI*2);c.fillStyle='#1e3a2a';c.fill();
+    // Goal boxes
+    const gH=f.h*GH_RATIO,gD=f.w*0.12;
+    c.strokeRect(f.x,f.y+(f.h-gH)/2,gD,gH);
+    c.strokeRect(f.x+f.w-gD,f.y+(f.h-gH)/2,gD,gH);
+    // Goals (nets)
+    const netD=GW,netH=f.h*0.16;
+    c.fillStyle='rgba(30,58,42,0.7)';
+    c.fillRect(f.x-netD,f.y+(f.h-netH)/2,netD,netH);
+    c.fillRect(f.x+f.w,f.y+(f.h-netH)/2,netD,netH);
+    c.strokeStyle='#1e3a2a';
+    c.strokeRect(f.x-netD,f.y+(f.h-netH)/2,netD,netH);
+    c.strokeRect(f.x+f.w,f.y+(f.h-netH)/2,netD,netH);
+  }
+
+  // ── Game state ──
+  let ball,players,scores=[0,0],goalFlash=0,goalSide=-1,resetCountdown=0;
+  const PLAYER_R=12,BALL_R=6,FRICTION=0.978,KICK_DIST=18,KICK_FORCE=3.2;
+
+  function initPositions(){
+    const f=fieldRect(),cx=f.x+f.w/2,cy=f.y+f.h/2;
+    const jr=()=>(Math.random()-.5);
+    ball={x:cx,y:cy,vx:(jr()*1.4+0.7),vy:(jr()*1.2)};
+    // 5v5 — Team A (OpenAI/amber) left, Team B (Anthropic/purple) right
+    players=[
+      // Team A
+      {team:0,x:f.x+f.w*0.10+jr()*f.w*0.04,y:cy+jr()*f.h*0.18,vx:0,vy:0,role:'keeper'},
+      {team:0,x:f.x+f.w*0.22+jr()*f.w*0.06,y:cy-f.h*0.22+jr()*f.h*0.12,vx:0,vy:0,role:'def'},
+      {team:0,x:f.x+f.w*0.22+jr()*f.w*0.06,y:cy+f.h*0.22+jr()*f.h*0.12,vx:0,vy:0,role:'def'},
+      {team:0,x:f.x+f.w*0.34+jr()*f.w*0.08,y:cy+jr()*f.h*0.25,vx:0,vy:0,role:'mid'},
+      {team:0,x:f.x+f.w*0.38+jr()*f.w*0.08,y:cy+jr()*f.h*0.28,vx:0,vy:0,role:'fwd'},
+      // Team B
+      {team:1,x:f.x+f.w*0.90+jr()*f.w*0.04,y:cy+jr()*f.h*0.18,vx:0,vy:0,role:'keeper'},
+      {team:1,x:f.x+f.w*0.78+jr()*f.w*0.06,y:cy+f.h*0.22+jr()*f.h*0.12,vx:0,vy:0,role:'def'},
+      {team:1,x:f.x+f.w*0.78+jr()*f.w*0.06,y:cy-f.h*0.22+jr()*f.h*0.12,vx:0,vy:0,role:'def'},
+      {team:1,x:f.x+f.w*0.66+jr()*f.w*0.08,y:cy+jr()*f.h*0.25,vx:0,vy:0,role:'mid'},
+      {team:1,x:f.x+f.w*0.62+jr()*f.w*0.08,y:cy+jr()*f.h*0.28,vx:0,vy:0,role:'fwd'},
+    ];
+  }
+
+  function update(){
+    if(resetCountdown>0){resetCountdown--;if(resetCountdown===0)initPositions();return;}
+    const f=fieldRect();
+    const cx=f.x+f.w/2,cy=f.y+f.h/2;
+    const netH=f.h*0.16,netTop=f.y+(f.h-netH)/2,netBot=netTop+netH;
+
+    // Player AI
+    players.forEach(p=>{
+      const goalX=p.team===0?f.x+f.w:f.x; // attack toward opponent's goal
+      const myGoalX=p.team===0?f.x:f.x+f.w;
+      let tx=ball.x,ty=ball.y;
+
+      if(p.role==='keeper'){
+        // Stay near own goal, track ball vertically
+        tx=myGoalX+(p.team===0?f.w*0.08:-f.w*0.08);
+        ty=Math.max(f.y+PLAYER_R+10,Math.min(f.y+f.h-PLAYER_R-10,ball.y));
+      } else if(p.role==='def'){
+        // Stay in defensive half, move to intercept
+        const midX=p.team===0?f.x+f.w*0.3:f.x+f.w*0.7;
+        if((p.team===0&&ball.x<midX)||(p.team===1&&ball.x>midX)){
+          tx=ball.x;ty=ball.y;
+        } else {
+          tx=midX;ty=p.y+(ball.y-p.y)*0.3;
+        }
+      } else if(p.role==='mid'){
+        tx=ball.x;ty=ball.y;
+      } else { // fwd
+        tx=ball.x;ty=ball.y;
+      }
+
+      const dx=tx-p.x,dy=ty-p.y,dist=Math.sqrt(dx*dx+dy*dy);
+      const speed=p.role==='keeper'?0.85:p.role==='fwd'?1.15:1.0;
+      if(dist>2){p.vx+=dx/dist*speed*0.10;p.vy+=dy/dist*speed*0.10;}
+      const maxSpd=speed*1.3;
+      const spd=Math.sqrt(p.vx*p.vx+p.vy*p.vy);
+      if(spd>maxSpd){p.vx=p.vx/spd*maxSpd;p.vy=p.vy/spd*maxSpd;}
+      p.x+=p.vx;p.y+=p.vy;
+      p.vx*=0.82;p.vy*=0.82;
+      p.x=Math.max(f.x+PLAYER_R,Math.min(f.x+f.w-PLAYER_R,p.x));
+      p.y=Math.max(f.y+PLAYER_R,Math.min(f.y+f.h-PLAYER_R,p.y));
+
+      // Kick ball if close
+      const bdx=ball.x-p.x,bdy=ball.y-p.y;
+      const bd=Math.sqrt(bdx*bdx+bdy*bdy);
+      if(bd<KICK_DIST+BALL_R){
+        const aimX=goalX+(Math.random()-.5)*f.h*0.1;
+        const aimY=cy+(Math.random()-.5)*netH*0.6;
+        const adx=aimX-p.x,ady=aimY-p.y,ad=Math.sqrt(adx*adx+ady*ady);
+        ball.vx+=(adx/ad)*KICK_FORCE;ball.vy+=(ady/ad)*KICK_FORCE;
+      }
+    });
+
+    // Ball physics
+    ball.vx*=FRICTION;ball.vy*=FRICTION;
+    ball.x+=ball.vx;ball.y+=ball.vy;
+    // Wall bounce
+    if(ball.y-BALL_R<f.y){ball.y=f.y+BALL_R;ball.vy*=-0.75;}
+    if(ball.y+BALL_R>f.y+f.h){ball.y=f.y+f.h-BALL_R;ball.vy*=-0.75;}
+    // Left goal check
+    if(ball.x-BALL_R<f.x){
+      if(ball.y>netTop&&ball.y<netBot){
+        scores[1]++;goalFlash=45;goalSide=1;resetCountdown=80;
+        scoreB.textContent='Anthropic · '+scores[1];
+      } else {ball.x=f.x+BALL_R;ball.vx*=-0.75;}
+    }
+    // Right goal check
+    if(ball.x+BALL_R>f.x+f.w){
+      if(ball.y>netTop&&ball.y<netBot){
+        scores[0]++;goalFlash=45;goalSide=0;resetCountdown=80;
+        scoreA.textContent='OpenAI · '+scores[0];
+      } else {ball.x=f.x+f.w-BALL_R;ball.vx*=-0.75;}
+    }
+    if(goalFlash>0)goalFlash--;
+  }
+
+  function draw(){
+    const ow=W(),oh=H();
+    c.clearRect(0,0,ow,oh);
+    drawField();
+    const f=fieldRect();
+
+    // Goal flash
+    if(goalFlash>0){
+      const alpha=(goalFlash/45)*0.28;
+      const col=goalSide===0?`rgba(242,164,75,${alpha})`:`rgba(176,140,255,${alpha})`;
+      c.fillStyle=col;c.fillRect(f.x,f.y,f.w,f.h);
+      // GOAL text
+      if(goalFlash>20){
+        c.font=`bold ${f.h*0.18}px "Space Grotesk",sans-serif`;
+        c.fillStyle=goalSide===0?'rgba(242,164,75,0.9)':'rgba(176,140,255,0.9)';
+        c.textAlign='center';
+        c.fillText('GOAL',f.x+f.w/2,f.y+f.h/2+f.h*0.06);
+        c.textAlign='left';
+      }
+    }
+
+    // Players
+    players.forEach(p=>{
+      const r=PLAYER_R;
+      if(p.team===0)drawOpenAI(p.x,p.y,r,0.95);
+      else drawAnthropic(p.x,p.y,r,0.95);
+    });
+
+    // Ball
+    c.beginPath();c.arc(ball.x,ball.y,BALL_R,0,Math.PI*2);
+    c.fillStyle='#e8edf1';c.fill();
+    c.strokeStyle='rgba(255,255,255,0.3)';c.lineWidth=1;c.stroke();
+    // Ball pentagon marks
+    c.beginPath();c.arc(ball.x,ball.y,BALL_R*0.45,0,Math.PI*2);
+    c.fillStyle='rgba(10,13,16,0.4)';c.fill();
+  }
+
+  function loop(){update();draw();requestAnimationFrame(loop);}
+
+  // Wait for layout, then start
+  setTimeout(()=>{
+    resize();
+    new ResizeObserver(()=>{
+      c.resetTransform();c.scale(DPR,DPR);
+    }).observe(cvs);
+    initPositions();
+    loop();
+  },120);
+})();
+</script>
+</body>
+</html>
