@@ -555,33 +555,13 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 _BASELINE_SOURCE_PATH = _PROJECT_ROOT / "src" / "strategy" / "baseline.py"
 
 
-def _player(role: str, speed: int, skill: int, strength: int, save: int = 0) -> dict:
-    """Compact player factory for the seed configs.
-
-    `save` is GK-only (engine validator forces non-GK players to save=0).
-    Other tactical attrs (discipline / dribbling / passing / shooting / stamina)
-    fall to schema defaults — the user can edit later in the roster table.
-    """
-    p = {"role": role, "speed": speed, "skill": skill, "strength": strength}
-    if save:
-        p["save"] = save
-    return p
-
-
 def _seed_5v5_config() -> dict:
-    """5v5 with 2-1-1 (1 GK + 2 DEF + 1 MID + 1 FWD = 5 players per team).
+    """5v5 with 2-1-1, referencing the seeded red / blue team configs.
 
-    Standard 5-a-side roster split. The GK counts as one of the 5 — formation
-    notation excludes GK by convention, hence "2-1-1" not "1-2-1-1".
+    Per ADR (Task E3) the API only accepts slug-form match configs — `team_a`
+    and `team_b` are string references to team config files under
+    <data_home>/configs/teams/<slug>.yaml, which are seeded alongside.
     """
-    def team():
-        return {"players": [
-            _player("GK",  speed=8,  skill=10, strength=8,  save=16),
-            _player("DEF", speed=12, skill=12, strength=14),
-            _player("DEF", speed=12, skill=12, strength=14),
-            _player("MID", speed=14, skill=14, strength=12),
-            _player("FWD", speed=16, skill=14, strength=10),
-        ]}
     return {
         "match": {
             "seed": 42,
@@ -597,23 +577,17 @@ def _seed_5v5_config() -> dict:
         "output": {"log_dir": "./logs"},
         # simulation intentionally omitted — overlaid from global-defaults
         # at run time via --global-defaults.
-        "team_a": team(),
-        "team_b": team(),
+        "team_a": "red",
+        "team_b": "blue",
     }
 
 
 def _seed_11v11_config() -> dict:
-    """11v11 with 4-4-2 (1 GK + 4 DEF + 4 MID + 2 FWD = 11 players per team).
+    """11v11 with 4-4-2, referencing the seeded manchester / barcelona team configs.
 
-    Classic FIFA full-side formation. Field uses standard pitch proportions.
+    Slug-form references resolved via <data_home>/configs/teams/<slug>.yaml,
+    which are seeded alongside this match config.
     """
-    def team():
-        return {"players": [
-            _player("GK",  speed=8,  skill=10, strength=8,  save=16),
-            *[_player("DEF", speed=12, skill=12, strength=14) for _ in range(4)],
-            *[_player("MID", speed=14, skill=14, strength=12) for _ in range(4)],
-            *[_player("FWD", speed=16, skill=14, strength=10) for _ in range(2)],
-        ]}
     return {
         "match": {
             "seed": 42,
@@ -624,26 +598,110 @@ def _seed_11v11_config() -> dict:
         },
         # output is required by the engine's MatchConfig schema (see _seed_5v5_config).
         "output": {"log_dir": "./logs"},
-        "team_a": team(),
-        "team_b": team(),
+        "team_a": "manchester",
+        "team_b": "barcelona",
+    }
+
+
+def _seed_team_red() -> dict:
+    """5-player Red Lions team — referenced by the seeded 5v5 match config."""
+    return {
+        "team_id": "red",
+        "name": "Red Lions",
+        "players": [
+            {"role": "GK", "save": 16, "name": "Reece"},
+            {"role": "DEF", "name": "Rex"},
+            {"role": "DEF", "name": "Ramon"},
+            {"role": "MID", "name": "Rina"},
+            {"role": "FWD", "name": "Romeo"},
+        ],
+    }
+
+
+def _seed_team_blue() -> dict:
+    """5-player Blue Sharks team — referenced by the seeded 5v5 match config."""
+    return {
+        "team_id": "blue",
+        "name": "Blue Sharks",
+        "players": [
+            {"role": "GK", "save": 16, "name": "Beck"},
+            {"role": "DEF", "name": "Bram"},
+            {"role": "DEF", "name": "Bo"},
+            {"role": "MID", "name": "Beni"},
+            {"role": "FWD", "name": "Blake"},
+        ],
+    }
+
+
+def _seed_team_manchester() -> dict:
+    """11-player Manchester United team — referenced by the seeded 11v11 match config."""
+    return {
+        "team_id": "manchester",
+        "name": "Manchester United",
+        "players": [
+            {"role": "GK", "save": 16, "name": "Onana"},
+            {"role": "DEF", "name": "Dalot"},
+            {"role": "DEF", "name": "Maguire"},
+            {"role": "DEF", "name": "Lisandro"},
+            {"role": "DEF", "name": "Shaw"},
+            {"role": "MID", "name": "Bruno"},
+            {"role": "MID", "name": "Casemiro"},
+            {"role": "MID", "name": "Mainoo"},
+            {"role": "MID", "name": "Mount"},
+            {"role": "FWD", "name": "Rashford"},
+            {"role": "FWD", "name": "Hojlund"},
+        ],
+    }
+
+
+def _seed_team_barcelona() -> dict:
+    """11-player FC Barcelona team — referenced by the seeded 11v11 match config."""
+    return {
+        "team_id": "barcelona",
+        "name": "FC Barcelona",
+        "players": [
+            {"role": "GK", "save": 16, "name": "TerStegen"},
+            {"role": "DEF", "name": "Kounde"},
+            {"role": "DEF", "name": "Araujo"},
+            {"role": "DEF", "name": "Christensen"},
+            {"role": "DEF", "name": "Balde"},
+            {"role": "MID", "name": "Pedri"},
+            {"role": "MID", "name": "Gavi"},
+            {"role": "MID", "name": "DeJong"},
+            {"role": "MID", "name": "Yamal"},
+            {"role": "FWD", "name": "Lewandowski"},
+            {"role": "FWD", "name": "Felix"},
+        ],
     }
 
 
 def _seed_default_data(data_home: Path) -> None:
-    """Write default match configs + baseline strategy to data_home if missing.
+    """Write default team + match configs + baseline strategy to data_home if missing.
 
     Idempotent — existing files are NEVER overwritten so user edits survive
     a server restart. Tolerant of read-only filesystems and missing project
     sources (silently skips on OSError).
 
+    Team configs are seeded BEFORE the match configs that reference them so
+    that load_config() of the match files resolves the slug references
+    successfully on first startup.
+
     Files created:
-      <data_home>/configs/5v5.yaml   — 5v5 with 2-1-1 formation
-      <data_home>/configs/11v11.yaml — 11v11 with 4-4-2 formation
-      <data_home>/strategies/baseline.py — copy of src/strategy/baseline.py
+      <data_home>/configs/teams/red.yaml         — 5-player red team
+      <data_home>/configs/teams/blue.yaml        — 5-player blue team
+      <data_home>/configs/teams/manchester.yaml  — 11-player manchester team
+      <data_home>/configs/teams/barcelona.yaml   — 11-player barcelona team
+      <data_home>/configs/5v5.yaml               — 5v5 referencing red / blue
+      <data_home>/configs/11v11.yaml             — 11v11 referencing manchester / barcelona
+      <data_home>/strategies/baseline.py         — copy of src/strategy/baseline.py
     """
     seeds = [
-        (data_home / "configs" / "5v5.yaml",   lambda: yaml.safe_dump(_seed_5v5_config(),   default_flow_style=False)),
-        (data_home / "configs" / "11v11.yaml", lambda: yaml.safe_dump(_seed_11v11_config(), default_flow_style=False)),
+        (data_home / "configs" / "teams" / "red.yaml",        lambda: yaml.safe_dump(_seed_team_red(),        default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "blue.yaml",       lambda: yaml.safe_dump(_seed_team_blue(),       default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "manchester.yaml", lambda: yaml.safe_dump(_seed_team_manchester(), default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "barcelona.yaml",  lambda: yaml.safe_dump(_seed_team_barcelona(),  default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "5v5.yaml",                  lambda: yaml.safe_dump(_seed_5v5_config(),     default_flow_style=False)),
+        (data_home / "configs" / "11v11.yaml",                lambda: yaml.safe_dump(_seed_11v11_config(),   default_flow_style=False)),
     ]
     try:
         for path, builder in seeds:
