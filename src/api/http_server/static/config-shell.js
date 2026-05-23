@@ -16,7 +16,7 @@ let tabBody;
 let actionRow;
 
 // Tab buttons
-let gameTabBtn, llmTabBtn, storageTabBtn, matchTabBtn;
+let gameTabBtn, llmTabBtn, storageTabBtn, matchTabBtn, teamsTabBtn;
 
 // Action buttons
 let resetBtn, discardBtn, saveBtn;
@@ -81,7 +81,7 @@ function activateTab(tab, subtab = null) {
 
   // Update tab button states (visual + ARIA in tandem so screen readers
   // and sighted users see the same active-tab signal).
-  [gameTabBtn, llmTabBtn, storageTabBtn, matchTabBtn].forEach(btn => {
+  [gameTabBtn, llmTabBtn, storageTabBtn, matchTabBtn, teamsTabBtn].forEach(btn => {
     if (btn) {
       btn.classList.remove('active');
       btn.setAttribute('aria-selected', 'false');
@@ -93,7 +93,8 @@ function activateTab(tab, subtab = null) {
     game: gameTabBtn,
     llm: llmTabBtn,
     storage: storageTabBtn,
-    match: matchTabBtn
+    match: matchTabBtn,
+    teams: teamsTabBtn
   }[tab];
 
   if (activeBtn) {
@@ -103,11 +104,12 @@ function activateTab(tab, subtab = null) {
 
   // Action row visibility:
   //   Game / LLM / Storage  → always visible (singleton tab forms)
-  //   Match List            → hidden (no save concept on the list)
-  //   Match Editor / New    → visible (saves act on the open form)
+  //   Match / Teams List    → hidden (no save concept on the list)
+  //   Match / Teams Editor / New → visible (saves act on the open form)
   if (actionRow) {
     const matchListView = tab === 'match' && (!subtab || subtab === '');
-    actionRow.style.display = matchListView ? 'none' : 'flex';
+    const teamsListView = tab === 'teams' && (!subtab || subtab === '');
+    actionRow.style.display = (matchListView || teamsListView) ? 'none' : 'flex';
   }
 
   // Render tab body content
@@ -118,7 +120,8 @@ function activateTab(tab, subtab = null) {
     game: 'CONFIG · GAME',
     llm: 'CONFIG · LLM',
     storage: 'CONFIG · STORAGE',
-    match: 'CONFIG · MATCH'
+    match: 'CONFIG · MATCH',
+    teams: 'CONFIG · TEAMS'
   };
 
   window.dispatchEvent(new CustomEvent('shell:subtitleChanged', {
@@ -169,6 +172,13 @@ function renderTabBody(tab, subtab = null) {
     } else {
       tabBody.innerHTML = `<div class="tab-placeholder">Loading Match tab...</div>`;
     }
+  } else if (tab === 'teams') {
+    // Teams tab - mount the Teams module (list/editor/new routed by subtab)
+    if (window.configTeamsTab) {
+      window.configTeamsTab.mount(tabBody, configData?.teams || null);
+    } else {
+      tabBody.innerHTML = `<div class="tab-placeholder">Loading Teams tab...</div>`;
+    }
   } else {
     // Other tabs still show placeholder
     const placeholders = {
@@ -191,6 +201,8 @@ function renderConfigShell() {
                 role="tab" aria-selected="false" aria-controls="config-tab-body">Game</button>
         <button class="tab" id="config-match-tab" data-tab="match"
                 role="tab" aria-selected="false" aria-controls="config-tab-body">Match</button>
+        <button class="tab" id="config-teams-tab" data-tab="teams"
+                role="tab" aria-selected="false" aria-controls="config-tab-body">Teams</button>
         <button class="tab" id="config-llm-tab" data-tab="llm"
                 role="tab" aria-selected="false" aria-controls="config-tab-body">LLM</button>
         <button class="tab" id="config-storage-tab" data-tab="storage"
@@ -226,13 +238,14 @@ function renderConfigShell() {
   llmTabBtn = document.getElementById('config-llm-tab');
   storageTabBtn = document.getElementById('config-storage-tab');
   matchTabBtn = document.getElementById('config-match-tab');
+  teamsTabBtn = document.getElementById('config-teams-tab');
 
   resetBtn = document.getElementById('config-reset-btn');
   discardBtn = document.getElementById('config-discard-btn');
   saveBtn = document.getElementById('config-save-btn');
 
   // Set up tab button event handlers
-  [gameTabBtn, llmTabBtn, storageTabBtn, matchTabBtn].forEach(btn => {
+  [gameTabBtn, llmTabBtn, storageTabBtn, matchTabBtn, teamsTabBtn].forEach(btn => {
     if (btn) {
       btn.addEventListener('click', () => {
         const tab = btn.dataset.tab;
@@ -299,7 +312,7 @@ async function activate({ section, subsection } = {}) {
   if (initialTab === 'game' && !subsection) {
     try {
       const lastTab = localStorage.getItem('ap_config_lastTab');
-      if (lastTab && ['game', 'llm', 'storage', 'match'].includes(lastTab)) {
+      if (lastTab && ['game', 'llm', 'storage', 'match', 'teams'].includes(lastTab)) {
         initialTab = lastTab;
       }
     } catch (e) {
@@ -320,7 +333,7 @@ function deactivate() {
   tabStrip = null;
   tabBody = null;
   actionRow = null;
-  gameTabBtn = llmTabBtn = storageTabBtn = matchTabBtn = null;
+  gameTabBtn = llmTabBtn = storageTabBtn = matchTabBtn = teamsTabBtn = null;
   resetBtn = discardBtn = saveBtn = null;
 
   console.log('[config-shell] Deactivated');
@@ -339,6 +352,12 @@ async function handleSave() {
     // (saves to the open name) or New (creates new from the name input).
     if (window.configMatchTab && typeof window.configMatchTab.save === 'function') {
       await window.configMatchTab.save();
+    }
+  } else if (currentTab === 'teams') {
+    // Delegate to Teams-tab module — it knows whether we're in Editor
+    // (saves to the open slug) or New (creates new from the form values).
+    if (window.configTeamsTab && typeof window.configTeamsTab.save === 'function') {
+      await window.configTeamsTab.save();
     }
   } else {
     console.log(`[config-shell] Save not implemented for ${currentTab} tab`);
@@ -506,7 +525,7 @@ async function handleLLMSave() {
 }
 
 function handleResetToDefaults() {
-  if (currentTab === 'game' || currentTab === 'storage' || currentTab === 'llm' || currentTab === 'match') {
+  if (currentTab === 'game' || currentTab === 'storage' || currentTab === 'llm' || currentTab === 'match' || currentTab === 'teams') {
     showResetConfirmModal();
   } else {
     console.log(`[config-shell] Reset not implemented for ${currentTab} tab`);
@@ -514,7 +533,7 @@ function handleResetToDefaults() {
 }
 
 function handleDiscardChanges() {
-  if (currentTab === 'game' || currentTab === 'storage' || currentTab === 'llm' || currentTab === 'match') {
+  if (currentTab === 'game' || currentTab === 'storage' || currentTab === 'llm' || currentTab === 'match' || currentTab === 'teams') {
     showDiscardConfirmModal();
   } else {
     console.log(`[config-shell] Discard not implemented for ${currentTab} tab`);
@@ -594,6 +613,8 @@ function showResetConfirmModal() {
       window.configLLMTab.reset();
     } else if (currentTab === 'match' && window.configMatchTab && typeof window.configMatchTab.reset === 'function') {
       window.configMatchTab.reset();
+    } else if (currentTab === 'teams' && window.configTeamsTab && typeof window.configTeamsTab.reset === 'function') {
+      window.configTeamsTab.reset();
     }
     modal.close();
     modal.remove();
@@ -643,6 +664,8 @@ function showDiscardConfirmModal() {
       window.configLLMTab.mount(tabBody, configData.llm);
     } else if (currentTab === 'match' && window.configMatchTab && typeof window.configMatchTab.discard === 'function') {
       window.configMatchTab.discard();
+    } else if (currentTab === 'teams' && window.configTeamsTab && typeof window.configTeamsTab.discard === 'function') {
+      window.configTeamsTab.discard();
     }
     modal.close();
     modal.remove();
@@ -700,7 +723,8 @@ function handleTabDirtyChanged(detail) {
       game: gameTabBtn,
       llm: llmTabBtn,
       storage: storageTabBtn,
-      match: matchTabBtn
+      match: matchTabBtn,
+      teams: teamsTabBtn
     }[tab];
 
     if (tabBtn) {
