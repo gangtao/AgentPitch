@@ -90,7 +90,7 @@ def load_config(path: str) -> "MatchConfig":
 
     # Phase 2: Preprocess (section checks first, then per-team transformation)
     _check_required_sections(raw, path)
-    preprocessed = _preprocess(raw)
+    preprocessed = _preprocess(raw, path)
 
     # Phase 3: Validate via Pydantic
     try:
@@ -118,45 +118,77 @@ def _check_required_sections(raw: dict, path: str) -> None:
             raise ConfigError(f"{os.path.basename(path)} is missing required section: {section}")
 
 
-def _preprocess(raw: dict) -> dict:
+def _preprocess(raw: dict, match_path: str) -> dict:
     """Apply role defaults, assign player IDs, read API keys per team.
 
-    Transforms the raw parsed YAML into a structure ready for Pydantic validation:
-    - Applies role-based attribute defaults for players
-    - Assigns player_id by position (team_a_0, team_a_1, etc.)
-    - Reads API keys from environment variables
-    - Strips any YAML-supplied api_key values (defensive)
-
-    Args:
-        raw: Parsed YAML dict with all required sections
-
-    Returns:
-        Preprocessed dict ready for MatchConfig construction
+    `team_a` and `team_b` in the match YAML are team-id slugs that resolve to
+    `<configs_dir>/teams/<slug>.yaml`. Inline team dicts are rejected with a
+    migration hint.
     """
     from src.foundation.config_preprocessor import (
-        apply_role_defaults, assign_player_ids, read_api_key
+        apply_role_defaults,
+        assign_player_ids,
+        read_api_key,
+        apply_player_name_default,
     )
 
+    configs_dir = os.path.dirname(os.path.abspath(match_path))
+
     out: dict = {"match": raw["match"], "output": raw["output"]}
-    # Preserve the optional simulation section if present. Without this,
-    # YAML-supplied simulation overrides (e.g. formation_snap_enabled,
-    # min_player_separation) would be silently dropped — fall back to
-    # SimulationConfig defaults regardless of what the user wrote.
     if "simulation" in raw:
         out["simulation"] = raw["simulation"]
-    for team_id in ("team_a", "team_b"):
-        team_raw = dict(raw[team_id])  # shallow copy so we don't mutate input
-        team_raw.pop("api_key", None)  # defensive: never trust YAML-supplied api_key
+
+    for slot in ("team_a", "team_b"):
+        team_raw = _resolve_team(raw[slot], slot, configs_dir)
+        team_raw.pop("api_key", None)  # defensive
         provider = team_raw.get("llm_provider")
         team_raw["api_key"] = read_api_key(provider) if provider else ""
+
         raw_players = team_raw.get("players")
-        ided = assign_player_ids(team_id, raw_players)
-        team_raw["players"] = [
-            {**apply_role_defaults(p, p.get("role", "")), "player_id": p["player_id"]}
-            for p in ided
-        ]
-        out[team_id] = team_raw
+        ided = assign_player_ids(slot, raw_players)
+        players = []
+        for i, p in enumerate(ided):
+            with_role = apply_role_defaults(p, p.get("role", ""))
+            with_role["player_id"] = p["player_id"]
+            with_name = apply_player_name_default(with_role, i)
+            players.append(with_name)
+        team_raw["players"] = players
+        out[slot] = team_raw
+
     return out
+
+
+def _resolve_team(value, slot: str, configs_dir: str) -> dict:
+    """Resolve a match-config team reference to a raw team dict.
+
+    `value` must be a slug string (e.g. "manchester"). Inline dicts are
+    rejected with a migration hint pointing at `data/configs/teams/`.
+    """
+    if isinstance(value, dict):
+        raise ConfigError(
+            f"{slot} must be a team slug string; inline team definitions are no longer "
+            f"supported. Move the team to data/configs/teams/<slug>.yaml and reference "
+            f"it as `{slot}: <slug>`."
+        )
+    if not isinstance(value, str):
+        raise ConfigError(
+            f"{slot} must be a team slug string, got {type(value).__name__}: {value!r}"
+        )
+
+    slug = value
+    team_path = os.path.join(configs_dir, "teams", f"{slug}.yaml")
+    if not os.path.exists(team_path):
+        raise ConfigError(
+            f"team config '{slug}' not found at {team_path}"
+        )
+
+    team_raw = parse_yaml(team_path)
+    declared = team_raw.get("team_id")
+    if declared != slug:
+        raise ConfigError(
+            f"team config '{slug}.yaml' declares team_id {declared!r} — must match filename"
+        )
+    return team_raw
 
 
 def _format_validation_error(e: ValidationError) -> str:
