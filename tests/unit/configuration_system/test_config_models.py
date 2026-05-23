@@ -54,6 +54,8 @@ def _valid_team_kwargs(**overrides) -> dict:
     ]
 
     base = {
+        "team_id": "team_a",
+        "name": "Team A",
         "llm_provider": "openai",
         "llm_model": "gpt-4o",
         "api_key": "sk-test-key",

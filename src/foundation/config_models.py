@@ -30,6 +30,7 @@ class PlayerConfig(BaseModel):
     model_config = ConfigDict(frozen=True, strict=True, populate_by_name=True)
 
     player_id: str
+    name: str = Field(default="", max_length=64)
     role: Literal["GK", "DEF", "MID", "FWD"]
     speed: int = Field(ge=1, le=20)
     skill: int = Field(ge=1, le=20)
@@ -74,6 +75,8 @@ class TeamConfig(BaseModel):
 
     model_config = ConfigDict(frozen=True, strict=True)
 
+    team_id: str = Field(pattern=r"^[a-z0-9_-]+$")
+    name: str = Field(min_length=1, max_length=64)
     # Post-ADR-0021: api_key may be empty when llm_provider is None (LLM
     # settings now live in <DATA_HOME>/llm-providers.yaml + .secrets.json).
     # Provider-call sites validate non-empty before actually calling the LLM.

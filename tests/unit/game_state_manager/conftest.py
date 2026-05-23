@@ -62,12 +62,16 @@ def _create_test_config(
         ),
         output=OutputConfig(log_dir=log_dir),
         team_a=TeamConfig(
+            team_id="team_a",
+            name="Team A",
             llm_provider="openai",
             llm_model="gpt-4o",
             api_key="test_key",
             players=_build_team_players("team_a"),
         ),
         team_b=TeamConfig(
+            team_id="team_b",
+            name="Team B",
             llm_provider="anthropic",
             llm_model="claude-opus-4",
             api_key="test_key",

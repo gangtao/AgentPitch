@@ -39,6 +39,8 @@ output:
   log_dir: "{log_dir}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
@@ -75,6 +77,8 @@ team_a:
       dribbling: 16
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -158,6 +162,8 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
@@ -168,6 +174,8 @@ team_a:
     - role: "FWD"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -217,6 +225,8 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
@@ -229,6 +239,8 @@ team_a:
     - role: "FWD"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -274,12 +286,16 @@ output:
   log_dir: "/tmp/logs"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
     - role: "GK"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -313,6 +329,8 @@ match:
   seed: 42
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
@@ -359,6 +377,8 @@ output:
   log_dir: "{readonly_dir / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
@@ -369,6 +389,8 @@ team_a:
     - role: "FWD"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -517,6 +539,8 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
@@ -528,6 +552,8 @@ team_a:
     - role: "FWD"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -571,6 +597,8 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
@@ -582,6 +610,8 @@ team_a:
     - role: "FWD"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -660,6 +690,8 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   api_key: "smuggled-bad-key"
@@ -671,6 +703,8 @@ team_a:
     - role: "FWD"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   api_key: "another-bad-key"
@@ -710,6 +744,8 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   api_key: null
@@ -721,6 +757,8 @@ team_a:
     - role: "FWD"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   api_key: ""
@@ -763,6 +801,8 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
@@ -773,6 +813,8 @@ team_a:
     - role: "FWD"
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -877,11 +919,15 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players:
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:
@@ -923,11 +969,15 @@ output:
   log_dir: "{tmp_path / "logs"}"
 
 team_a:
+  team_id: "team_a"
+  name: "Team A"
   llm_provider: "openai"
   llm_model: "gpt-4o"
   players: []
 
 team_b:
+  team_id: "team_b"
+  name: "Team B"
   llm_provider: "anthropic"
   llm_model: "claude-3-5-sonnet-20241022"
   players:

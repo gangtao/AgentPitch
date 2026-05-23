@@ -26,9 +26,11 @@ from src.foundation.config_models import (
 from src.orchestration.cli import main
 
 
-def _five_player_team() -> TeamConfig:
+def _five_player_team(team_id: str = "team_a", name: str = "Team A") -> TeamConfig:
     """Minimal valid 5-player roster (1 GK + 4 outfield)."""
     return TeamConfig(
+        team_id=team_id,
+        name=name,
         players=[
             PlayerConfig(player_id="p1", role="GK",  speed=8,  skill=10, strength=8,
                          save=16, discipline=10, dribbling=10),
@@ -55,8 +57,8 @@ def _baseline_config() -> MatchConfig:
         ),
         simulation=SimulationConfig(),  # all defaults
         output=OutputConfig(log_dir="./logs"),
-        team_a=_five_player_team(),
-        team_b=_five_player_team(),
+        team_a=_five_player_team("team_a", "Team A"),
+        team_b=_five_player_team("team_b", "Team B"),
     )
 
 
