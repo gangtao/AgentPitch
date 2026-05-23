@@ -24,73 +24,141 @@ from src.foundation.config_loader import load_config
 from src.foundation.config_errors import ConfigError
 
 
-def _write_valid_match_yaml(tmp_path):
-    """Helper to write a complete valid match.yaml for testing."""
-    yaml_content = """
+# ---------------------------------------------------------------------------
+# Helpers — write slug-based team configs + match yaml to a tmp_path
+# ---------------------------------------------------------------------------
+
+_DEFAULT_PLAYERS_BLOCK = """  - role: "GK"
+  - role: "DEF"
+  - role: "DEF"
+  - role: "MID"
+  - role: "FWD"
+"""
+
+
+def _write_team_files(
+    tmp_path,
+    *,
+    a_slug="team_a",
+    b_slug="team_b",
+    a_name="Team A",
+    b_name="Team B",
+    a_provider="openai",
+    b_provider="anthropic",
+    a_model="gpt-4o",
+    b_model="claude-3-5-sonnet-20241022",
+    a_players_block=None,
+    b_players_block=None,
+    a_extra_lines="",
+    b_extra_lines="",
+):
+    """Seed <tmp_path>/teams/<slug>.yaml for team_a and team_b.
+
+    `*_players_block` is the indented YAML block for the `players:` key;
+    when None, a 5-player minimal roster is used.
+
+    `*_extra_lines` is inserted at the top of the file (after team_id+name
+    but before players); useful for things like `api_key:` smuggling tests.
+    """
+    teams_dir = tmp_path / "teams"
+    teams_dir.mkdir(exist_ok=True)
+
+    def _body(slug, name, provider, model, players_block, extra):
+        if players_block is None:
+            players_block = _DEFAULT_PLAYERS_BLOCK
+        lines = [f'team_id: "{slug}"', f'name: "{name}"']
+        if provider is not None:
+            lines.append(f'llm_provider: "{provider}"')
+        if model is not None:
+            lines.append(f'llm_model: "{model}"')
+        if extra:
+            lines.append(extra.rstrip("\n"))
+        lines.append("players:")
+        lines.append(players_block.rstrip("\n"))
+        return "\n".join(lines) + "\n"
+
+    (teams_dir / f"{a_slug}.yaml").write_text(
+        _body(a_slug, a_name, a_provider, a_model, a_players_block, a_extra_lines)
+    )
+    (teams_dir / f"{b_slug}.yaml").write_text(
+        _body(b_slug, b_name, b_provider, b_model, b_players_block, b_extra_lines)
+    )
+
+
+def _write_match_yaml(
+    tmp_path,
+    *,
+    log_dir=None,
+    match_id="test_match",
+    a_slug="team_a",
+    b_slug="team_b",
+    filename="match.yaml",
+):
+    """Write a match.yaml referencing team_a/team_b slugs. Returns the Path."""
+    if log_dir is None:
+        log_dir = tmp_path / "logs"
+
+    yaml_content = f"""\
 match:
   seed: 42
   tick_rate: 10
   duration_minutes: 90
   field_width: 100.0
   field_height: 60.0
-  match_id: "test_match"
+  match_id: "{match_id}"
 
 output:
   log_dir: "{log_dir}"
 
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
-      speed: 8
-      skill: 10
-      strength: 8
-      save: 16
-      discipline: 14
-      dribbling: 4
-    - role: "DEF"
-      speed: 12
-      skill: 8
-      strength: 16
-      discipline: 16
-      dribbling: 6
-    - role: "DEF"
-      speed: 13
-      skill: 9
-      strength: 15
-      discipline: 17
-      dribbling: 7
-    - role: "MID"
-      speed: 14
-      skill: 16
-      strength: 10
-      discipline: 14
-      dribbling: 12
-    - role: "FWD"
-      speed: 16
-      skill: 14
-      strength: 14
-      discipline: 10
-      dribbling: 16
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
+team_a: {a_slug}
+team_b: {b_slug}
 """
-    path = tmp_path / "match.yaml"
-    path.write_text(yaml_content.format(log_dir=str(tmp_path / "logs")))
+    path = tmp_path / filename
+    path.write_text(yaml_content)
     return path
+
+
+def _write_valid_match_yaml(tmp_path):
+    """Helper to seed teams + write a complete valid match.yaml for testing.
+
+    Returns the Path to the match yaml. team_a has fully-specified players
+    matching the pre-migration inline config so AC-1's id/api-key assertions
+    still hold.
+    """
+    a_players = """  - role: "GK"
+    speed: 8
+    skill: 10
+    strength: 8
+    save: 16
+    discipline: 14
+    dribbling: 4
+  - role: "DEF"
+    speed: 12
+    skill: 8
+    strength: 16
+    discipline: 16
+    dribbling: 6
+  - role: "DEF"
+    speed: 13
+    skill: 9
+    strength: 15
+    discipline: 17
+    dribbling: 7
+  - role: "MID"
+    speed: 14
+    skill: 16
+    strength: 10
+    discipline: 14
+    dribbling: 12
+  - role: "FWD"
+    speed: 16
+    skill: 14
+    strength: 14
+    discipline: 10
+    dribbling: 16
+"""
+    _write_team_files(tmp_path, a_players_block=a_players)
+    return _write_match_yaml(tmp_path)
 
 
 class TestAC1RoundTripHappyPath:
@@ -150,43 +218,8 @@ class TestAC2DefaultInjectionEndToEnd:
         monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
-
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-"""
-        path = tmp_path / "minimal.yaml"
-        path.write_text(yaml_content)
+        _write_team_files(tmp_path)
+        path = _write_match_yaml(tmp_path, filename="minimal.yaml")
 
         # Act
         cfg = load_config(str(path))
@@ -213,45 +246,16 @@ team_b:
         monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
-
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
-    - role: "MID"
-      speed: 18
-      dribbling: 20
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
+        a_players = """  - role: "GK"
+  - role: "MID"
+    speed: 18
+    dribbling: 20
+  - role: "DEF"
+  - role: "MID"
+  - role: "FWD"
 """
-        path = tmp_path / "mixed.yaml"
-        path.write_text(yaml_content)
+        _write_team_files(tmp_path, a_players_block=a_players)
+        path = _write_match_yaml(tmp_path, filename="mixed.yaml")
 
         # Act
         cfg = load_config(str(path))
@@ -273,7 +277,7 @@ class TestAC3MissingRequiredSection:
     @pytest.mark.parametrize("missing_section", ["match", "output", "team_a", "team_b"])
     def test_load_config_missing_section_raises_config_error(self, tmp_path, missing_section):
         """Each missing required section should raise ConfigError with specific message."""
-        # Arrange
+        # Arrange — write a complete YAML using slug-style refs, then drop one section
         yaml_content = """
 match:
   seed: 42
@@ -285,21 +289,8 @@ match:
 output:
   log_dir: "/tmp/logs"
 
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
+team_a: team_a
+team_b: team_b
 """
         # Parse into dict and remove the specified section
         import yaml
@@ -328,13 +319,7 @@ team_b:
 match:
   seed: 42
 
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
+team_a: team_a
 """
         path = tmp_path / "missing_two.yaml"
         path.write_text(yaml_content)
@@ -365,43 +350,12 @@ class TestAC4UnwritableLogDir:
         readonly_dir.mkdir()
         readonly_dir.chmod(0o000)  # Remove all permissions
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
-
-output:
-  log_dir: "{readonly_dir / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-"""
-        path = tmp_path / "unwritable.yaml"
-        path.write_text(yaml_content)
+        _write_team_files(tmp_path)
+        path = _write_match_yaml(
+            tmp_path,
+            log_dir=readonly_dir / "logs",
+            filename="unwritable.yaml",
+        )
 
         try:
             # Act & Assert
@@ -426,10 +380,8 @@ team_b:
         log_dir = tmp_path / "existing_logs"
         log_dir.mkdir()
 
-        path = _write_valid_match_yaml(tmp_path)
-        # Update the log_dir path in the YAML
-        content = path.read_text().replace(str(tmp_path / "logs"), str(log_dir))
-        path.write_text(content)
+        _write_team_files(tmp_path)
+        path = _write_match_yaml(tmp_path, log_dir=log_dir)
 
         # Act
         cfg = load_config(str(path))
@@ -527,44 +479,15 @@ class TestAC7ValidationErrorConvertedToConfigError:
         monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
-
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-      speed: 25
-    - role: "MID"
-    - role: "FWD"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
+        a_players = """  - role: "GK"
+  - role: "DEF"
+  - role: "DEF"
+    speed: 25
+  - role: "MID"
+  - role: "FWD"
 """
-        path = tmp_path / "invalid_speed.yaml"
-        path.write_text(yaml_content)
+        _write_team_files(tmp_path, a_players_block=a_players)
+        path = _write_match_yaml(tmp_path, filename="invalid_speed.yaml")
 
         # Act & Assert
         with pytest.raises(ConfigError) as exc_info:
@@ -585,44 +508,15 @@ team_b:
         monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
-
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
-    - role: "DEF"
-      save: 10
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
+        a_players = """  - role: "GK"
+  - role: "DEF"
+    save: 10
+  - role: "DEF"
+  - role: "MID"
+  - role: "FWD"
 """
-        path = tmp_path / "invalid_save.yaml"
-        path.write_text(yaml_content)
+        _write_team_files(tmp_path, a_players_block=a_players)
+        path = _write_match_yaml(tmp_path, filename="invalid_save.yaml")
 
         # Act & Assert
         with pytest.raises(ConfigError) as exc_info:
@@ -678,45 +572,12 @@ class TestAC9DefensiveAPIKeyStrip:
         monkeypatch.setenv("OPENAI_API_KEY", "sk-real-key")
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-real-key")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
-
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  api_key: "smuggled-bad-key"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  api_key: "another-bad-key"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-"""
-        path = tmp_path / "smuggled_keys.yaml"
-        path.write_text(yaml_content)
+        _write_team_files(
+            tmp_path,
+            a_extra_lines='api_key: "smuggled-bad-key"',
+            b_extra_lines='api_key: "another-bad-key"',
+        )
+        path = _write_match_yaml(tmp_path, filename="smuggled_keys.yaml")
 
         # Act
         cfg = load_config(str(path))
@@ -732,45 +593,12 @@ team_b:
         monkeypatch.setenv("OPENAI_API_KEY", "sk-real")
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-real")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
-
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  api_key: null
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  api_key: ""
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-"""
-        path = tmp_path / "null_keys.yaml"
-        path.write_text(yaml_content)
+        _write_team_files(
+            tmp_path,
+            a_extra_lines="api_key: null",
+            b_extra_lines='api_key: ""',
+        )
+        path = _write_match_yaml(tmp_path, filename="null_keys.yaml")
 
         # Act
         cfg = load_config(str(path))
@@ -789,43 +617,8 @@ class TestAC10MissingEnvVarFailsFast:
         monkeypatch.delenv("OPENAI_API_KEY", raising=False)
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
-
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-"""
-        path = tmp_path / "missing_openai.yaml"
-        path.write_text(yaml_content)
+        _write_team_files(tmp_path)
+        path = _write_match_yaml(tmp_path, filename="missing_openai.yaml")
 
         # Act & Assert
         with pytest.raises(ConfigError) as exc_info:
@@ -863,10 +656,8 @@ class TestAC11LogDirCreatedOnSuccess:
         fresh_log_dir = tmp_path / "fresh_logs"
         assert not fresh_log_dir.exists()  # Verify it doesn't exist initially
 
-        path = _write_valid_match_yaml(tmp_path)
-        # Update the log_dir path
-        content = path.read_text().replace(str(tmp_path / "logs"), str(fresh_log_dir))
-        path.write_text(content)
+        _write_team_files(tmp_path)
+        path = _write_match_yaml(tmp_path, log_dir=fresh_log_dir)
 
         # Act
         cfg = load_config(str(path))
@@ -885,9 +676,8 @@ class TestAC11LogDirCreatedOnSuccess:
         nested_log_dir = tmp_path / "a" / "b" / "c"
         assert not nested_log_dir.exists()
 
-        path = _write_valid_match_yaml(tmp_path)
-        content = path.read_text().replace(str(tmp_path / "logs"), str(nested_log_dir))
-        path.write_text(content)
+        _write_team_files(tmp_path)
+        path = _write_match_yaml(tmp_path, log_dir=nested_log_dir)
 
         # Act
         cfg = load_config(str(path))
@@ -907,38 +697,26 @@ class TestAC12EdgeCase7PlayersNull:
         monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
+        # Write team_a yaml with players: null directly (helper doesn't support this)
+        teams_dir = tmp_path / "teams"
+        teams_dir.mkdir(exist_ok=True)
+        (teams_dir / "team_a.yaml").write_text(
+            'team_id: "team_a"\n'
+            'name: "Team A"\n'
+            'llm_provider: "openai"\n'
+            'llm_model: "gpt-4o"\n'
+            'players:\n'
+        )
+        (teams_dir / "team_b.yaml").write_text(
+            'team_id: "team_b"\n'
+            'name: "Team B"\n'
+            'llm_provider: "anthropic"\n'
+            'llm_model: "claude-3-5-sonnet-20241022"\n'
+            'players:\n'
+            + _DEFAULT_PLAYERS_BLOCK
+        )
 
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players:
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-"""
-        path = tmp_path / "players_null.yaml"
-        path.write_text(yaml_content)
+        path = _write_match_yaml(tmp_path, filename="players_null.yaml")
 
         # Act & Assert
         with pytest.raises(ConfigError) as exc_info:
@@ -957,38 +735,25 @@ team_b:
         monkeypatch.setenv("OPENAI_API_KEY", "sk-test")
         monkeypatch.setenv("ANTHROPIC_API_KEY", "sk-test")
 
-        yaml_content = f"""
-match:
-  seed: 42
-  tick_rate: 10
-  duration_minutes: 90
-  field_width: 100.0
-  field_height: 60.0
+        teams_dir = tmp_path / "teams"
+        teams_dir.mkdir(exist_ok=True)
+        (teams_dir / "team_a.yaml").write_text(
+            'team_id: "team_a"\n'
+            'name: "Team A"\n'
+            'llm_provider: "openai"\n'
+            'llm_model: "gpt-4o"\n'
+            'players: []\n'
+        )
+        (teams_dir / "team_b.yaml").write_text(
+            'team_id: "team_b"\n'
+            'name: "Team B"\n'
+            'llm_provider: "anthropic"\n'
+            'llm_model: "claude-3-5-sonnet-20241022"\n'
+            'players:\n'
+            + _DEFAULT_PLAYERS_BLOCK
+        )
 
-output:
-  log_dir: "{tmp_path / "logs"}"
-
-team_a:
-  team_id: "team_a"
-  name: "Team A"
-  llm_provider: "openai"
-  llm_model: "gpt-4o"
-  players: []
-
-team_b:
-  team_id: "team_b"
-  name: "Team B"
-  llm_provider: "anthropic"
-  llm_model: "claude-3-5-sonnet-20241022"
-  players:
-    - role: "GK"
-    - role: "DEF"
-    - role: "DEF"
-    - role: "MID"
-    - role: "FWD"
-"""
-        path = tmp_path / "players_empty.yaml"
-        path.write_text(yaml_content)
+        path = _write_match_yaml(tmp_path, filename="players_empty.yaml")
 
         # Act & Assert
         with pytest.raises(ConfigError) as exc_info:

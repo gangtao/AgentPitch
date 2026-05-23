@@ -76,12 +76,16 @@ def _create_match_config(
         ),
         output=OutputConfig(log_dir="/tmp/test"),
         team_a=TeamConfig(
+            team_id="team_a",
+            name="Team A",
             llm_provider="openai",
             llm_model="gpt-4o",
             api_key="test_key",
             players=team_a_players,
         ),
         team_b=TeamConfig(
+            team_id="team_b",
+            name="Team B",
             llm_provider="openai",
             llm_model="gpt-4o",
             api_key="test_key",
