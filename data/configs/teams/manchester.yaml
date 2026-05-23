@@ -1,0 +1,26 @@
+team_id: manchester
+name: Manchester United
+players:
+  - name: Onana
+    role: GK
+    save: 16
+  - name: Dalot
+    role: DEF
+  - name: Maguire
+    role: DEF
+  - name: Lisandro
+    role: DEF
+  - name: Shaw
+    role: DEF
+  - name: Bruno
+    role: MID
+  - name: Casemiro
+    role: MID
+  - name: Mainoo
+    role: MID
+  - name: Mount
+    role: MID
+  - name: Rashford
+    role: FWD
+  - name: Hojlund
+    role: FWD

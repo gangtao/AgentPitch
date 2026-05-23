@@ -1,0 +1,14 @@
+team_id: red
+name: Red Lions
+players:
+  - name: Reece
+    role: GK
+    save: 16
+  - name: Rex
+    role: DEF
+  - name: Ramon
+    role: DEF
+  - name: Rina
+    role: MID
+  - name: Romeo
+    role: FWD
