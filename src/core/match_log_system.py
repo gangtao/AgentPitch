@@ -648,15 +648,18 @@ class MatchLog:
             }
 
     def set_teams_meta(self, teams_meta: dict) -> None:
-        """Publish team rosters for inclusion in meta.json.
+        """Publish team rosters and display data for inclusion in meta.json.
 
-        Expected shape:
-          {"team_a": [{"player_id", "number", "role"}, ...],
-           "team_b": [...]}
+        Expected shape (per team_id key 'team_a' / 'team_b'):
+          {
+            "team_id": "manchester",   # slug from data/configs/teams/<slug>.yaml
+            "name": "Manchester United",  # display name
+            "roster": [{"player_id", "name", "number", "role"}, ...],
+          }
 
-        Used by the browser to render "A #4" labels in the event log + on
-        player dots. Optional — if not called, meta.json omits "teams" and
-        the UI falls back to player_id-index-based labels.
+        Used by the browser to render team and player display names in the
+        event log + on player dots. Optional — if not called, meta.json
+        omits "teams" and the UI falls back to slot-id-based labels.
         """
         self._teams_meta = teams_meta
 
