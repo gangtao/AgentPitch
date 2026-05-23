@@ -79,3 +79,42 @@ class TestParsePlayerId:
     def test_parse_team_is_str(self):
         team, _ = parse_player_id("team_b_1")
         assert isinstance(team, str)
+
+
+def test_player_ids_stay_slot_based_with_custom_team_id(tmp_path):
+    """ADR-0004: player_id format `team_a_*` / `team_b_*` is independent of
+    the team's team_id slug. A team named `manchester` still produces
+    player ids `team_a_0`...`team_a_4` when it occupies the team_a slot.
+    """
+    import os
+    from src.foundation.config_loader import load_config
+
+    teams_dir = tmp_path / "configs" / "teams"
+    teams_dir.mkdir(parents=True)
+    body = (
+        "team_id: {slug}\n"
+        "name: {name}\n"
+        "players:\n"
+        "  - role: GK\n    save: 16\n"
+        "  - role: DEF\n"
+        "  - role: DEF\n"
+        "  - role: MID\n"
+        "  - role: FWD\n"
+    )
+    (teams_dir / "manchester.yaml").write_text(body.format(slug="manchester", name="Manchester"))
+    (teams_dir / "barcelona.yaml").write_text(body.format(slug="barcelona", name="Barcelona"))
+
+    match_yaml = (
+        "match:\n  seed: 1\n  tick_rate: 10\n  duration_minutes: 5\n"
+        f"  field_width: 60.0\n  field_height: 40.0\noutput:\n  log_dir: {tmp_path / 'logs'}\n"
+        "team_a: manchester\nteam_b: barcelona\n"
+    )
+    match_path = tmp_path / "configs" / "match.yaml"
+    match_path.write_text(match_yaml)
+
+    cfg = load_config(str(match_path))
+
+    for i, p in enumerate(cfg.team_a.players):
+        assert p.player_id == f"team_a_{i}"
+    for i, p in enumerate(cfg.team_b.players):
+        assert p.player_id == f"team_b_{i}"
