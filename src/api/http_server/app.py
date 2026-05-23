@@ -35,7 +35,7 @@ from src.api.http_server.series_metadata import (
     write_series_json as _write_series_json,
     list_series as _list_series,
 )
-from src.api.http_server.cup_payload import StartCupPayload
+from src.api.http_server.cup_payload import StartCupPayload, team_names_for_match
 from src.cup_metadata import (
     cup_dir as _cup_dir,
     read_cup_json as _read_cup_json,
@@ -2649,6 +2649,16 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
             data = _read_cup_json(cup_d)
         except Exception:
             raise HTTPException(status_code=404, detail=f"Cup '{cup_id}' not found")
+        matches_dir = app.state.matches_dir
+        for round_entry in data.get("rounds", []):
+            for match in round_entry.get("matches", []):
+                match_id = match.get("match_id")
+                if not match_id:
+                    continue
+                match_dir = matches_dir / f"match_{match_id}"
+                names = team_names_for_match(match_dir)
+                match["team_a_name"] = names["team_a"]
+                match["team_b_name"] = names["team_b"]
         return JSONResponse(data)
 
     @app.get("/api/cups/{cup_id}/stream")
