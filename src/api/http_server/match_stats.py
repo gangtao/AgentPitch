@@ -64,6 +64,17 @@ def compute_match_stats(events: list[dict], meta: dict) -> dict:
     for pstats in player_stats.values():
         pstats["distance_run"] = round(pstats["distance_run"], 1)
 
+    # Surface team display names (team_id / name) from meta.teams.
+    teams_meta = (meta or {}).get("teams") or {}
+    for slot in ("team_a", "team_b"):
+        td = teams_meta.get(slot)
+        if isinstance(td, dict):
+            team_stats[slot]["team_id"] = td.get("team_id") or slot
+            team_stats[slot]["name"] = td.get("name") or _slot_default(slot)
+        else:
+            team_stats[slot]["team_id"] = slot
+            team_stats[slot]["name"] = _slot_default(slot)
+
     return {
         "match_id": meta.get("match_id", ""),
         "teams": team_stats,
@@ -71,12 +82,27 @@ def compute_match_stats(events: list[dict], meta: dict) -> dict:
     }
 
 
+def _slot_default(slot: str) -> str:
+    return "Team A" if slot == "team_a" else "Team B"
+
+
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _build_roster(meta: dict) -> dict[str, dict]:
-    """Extract {player_id: {team, role, number}} from meta['teams']."""
+    """Extract {player_id: {team, role, number}} from meta['teams'].
+
+    Tolerates both meta shapes:
+      - Legacy bare list: meta.teams.team_a = [{player_id, ...}, ...]
+      - New dict shape:   meta.teams.team_a = {"team_id", "name", "roster": [...]}
+    """
     roster: dict[str, dict] = {}
-    for team_id, players in (meta.get("teams") or {}).items():
+    for team_id, team_block in (meta.get("teams") or {}).items():
+        if isinstance(team_block, list):
+            players = team_block
+        elif isinstance(team_block, dict):
+            players = team_block.get("roster") or []
+        else:
+            players = []
         for p in players:
             pid = p.get("player_id")
             if pid:
