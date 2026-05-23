@@ -9,9 +9,27 @@ import yaml
 from src.api.http_server.app import create_app
 
 
+def _seed_team_yaml(teams_dir: Path, slug: str, display_name: str) -> None:
+    """Write a minimal valid team YAML so match configs can reference it."""
+    teams_dir.mkdir(parents=True, exist_ok=True)
+    team_doc = {
+        "team_id": slug,
+        "name": display_name,
+        "players": [
+            {"role": "GK",  "save": 16},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "MID"},
+            {"role": "FWD"},
+        ],
+    }
+    with open(teams_dir / f"{slug}.yaml", "w") as f:
+        yaml.safe_dump(team_doc, f, default_flow_style=False)
+
+
 @pytest.fixture
 def temp_dir():
-    """Create a temporary directory with sample configs."""
+    """Create a temporary directory with sample configs and seeded team files."""
     with tempfile.TemporaryDirectory() as tmpdir:
         temp_path = Path(tmpdir)
 
@@ -19,7 +37,14 @@ def temp_dir():
         configs_dir = temp_path / "configs"
         configs_dir.mkdir()
 
-        # Create sample match configs
+        # Seed team YAMLs referenced by the sample match configs (and by
+        # subsequent PUT tests). The PUT handler validates that referenced
+        # team slugs exist on disk before saving, so tests must seed first.
+        teams_dir = configs_dir / "teams"
+        _seed_team_yaml(teams_dir, "red", "Red Lions")
+        _seed_team_yaml(teams_dir, "blue", "Blue Wolves")
+
+        # Create sample match configs (now slug-based, not inline rosters)
         sample_config_1 = {
             "match": {
                 "seed": 42,
@@ -37,24 +62,8 @@ def temp_dir():
             "output": {
                 "log_dir": "./playtest/logs"
             },
-            "team_a": {
-                "players": [
-                    {"role": "GK", "speed": 8, "skill": 10, "strength": 8, "save_reach": 16},
-                    {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                    {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                    {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                    {"role": "FWD", "speed": 16, "skill": 8, "strength": 10}
-                ]
-            },
-            "team_b": {
-                "players": [
-                    {"role": "GK", "speed": 8, "skill": 10, "strength": 8, "save_reach": 16},
-                    {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                    {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                    {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                    {"role": "FWD", "speed": 16, "skill": 8, "strength": 10}
-                ]
-            }
+            "team_a": "red",
+            "team_b": "blue",
         }
 
         sample_config_2 = {
@@ -74,20 +83,8 @@ def temp_dir():
             "output": {
                 "log_dir": "./playtest/logs"
             },
-            "team_a": {
-                "players": [
-                    {"role": "GK", "speed": 9, "skill": 11, "strength": 9, "save_reach": 18},
-                    {"role": "DEF", "speed": 13, "skill": 13, "strength": 15},
-                    {"role": "MID", "speed": 15, "skill": 15, "strength": 13}
-                ]
-            },
-            "team_b": {
-                "players": [
-                    {"role": "GK", "speed": 7, "skill": 9, "strength": 7, "save_reach": 14},
-                    {"role": "DEF", "speed": 11, "skill": 11, "strength": 13},
-                    {"role": "MID", "speed": 13, "skill": 13, "strength": 11}
-                ]
-            }
+            "team_a": "red",
+            "team_b": "blue",
         }
 
         # Write configs to files (with different mtimes)
@@ -162,9 +159,9 @@ def test_get_match_config_single(client, temp_dir):
     assert match_section["field_height"] == 60.0
     assert match_section["match_id"] == "test_match_1"
 
-    # Check teams
-    assert len(config["team_a"]["players"]) == 5
-    assert len(config["team_b"]["players"]) == 5
+    # Teams are slug strings, not inline rosters.
+    assert config["team_a"] == "red"
+    assert config["team_b"] == "blue"
 
 
 def test_get_match_config_not_found(client, temp_dir):
@@ -193,24 +190,8 @@ def test_put_match_config_new(client, temp_dir):
         "output": {
             "log_dir": "./test/logs"
         },
-        "team_a": {
-            "players": [
-                {"role": "GK", "speed": 10, "skill": 12, "strength": 10, "save_reach": 20},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 18, "skill": 10, "strength": 12},
-            ],
-        },
-        "team_b": {
-            "players": [
-                {"role": "GK", "speed": 9, "skill": 11, "strength": 9, "save_reach": 18},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 17, "skill": 9, "strength": 11},
-            ],
-        },
+        "team_a": "red",
+        "team_b": "blue",
     }
 
     response = client.put("/api/config/match/new_match", json=new_config)
@@ -229,6 +210,8 @@ def test_put_match_config_new(client, temp_dir):
     with open(config_path, 'r') as f:
         saved_data = yaml.safe_load(f)
     assert saved_data["match"]["seed"] == 999
+    assert saved_data["team_a"] == "red"
+    assert saved_data["team_b"] == "blue"
 
 
 def test_put_match_config_update_existing(client, temp_dir):
@@ -250,24 +233,8 @@ def test_put_match_config_update_existing(client, temp_dir):
         "output": {
             "log_dir": "./updated/logs"
         },
-        "team_a": {
-            "players": [
-                {"role": "GK", "speed": 8, "skill": 10, "strength": 8, "save_reach": 16},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
-        "team_b": {
-            "players": [
-                {"role": "GK", "speed": 7, "skill": 9, "strength": 7, "save_reach": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
+        "team_a": "red",
+        "team_b": "blue",
     }
 
     response = client.put("/api/config/match/match_5v5", json=updated_config)
@@ -303,24 +270,8 @@ def test_put_match_config_with_llm_provider_field_forbidden(client, temp_dir):
         "output": {
             "log_dir": "./test/logs"
         },
-        "team_a": {
-            "players": [
-                {"role": "GK", "speed": 10, "skill": 12, "strength": 10, "save_reach": 20},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
-        "team_b": {
-            "players": [
-                {"role": "GK", "speed": 9, "skill": 11, "strength": 9, "save_reach": 18},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
+        "team_a": "red",
+        "team_b": "blue",
         "llm_provider": "openai"  # This should be rejected
     }
 
@@ -350,24 +301,8 @@ def test_put_match_config_invalid_name(client, temp_dir):
         },
         "simulation": {},
         "output": {"log_dir": "./test"},
-        "team_a": {
-            "players": [
-                {"role": "GK", "speed": 10, "skill": 12, "strength": 10, "save_reach": 20},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
-        "team_b": {
-            "players": [
-                {"role": "GK", "speed": 9, "skill": 11, "strength": 9, "save_reach": 18},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        }
+        "team_a": "red",
+        "team_b": "blue",
     }
 
     # Test with invalid characters — `..` rejected by name regex (422).
@@ -428,62 +363,6 @@ def test_get_api_config_includes_match_configs(client, temp_dir):
     assert "summary" in config
 
 
-def test_put_match_config_save_alias_round_trip(client, temp_dir):
-    """PUT accepts the legacy `save_reach` GK field and writes it as canonical
-    `save` in the saved YAML. Regression for the rename done 2026-04-23 — the
-    UI sent `save_reach`, the engine read `save`, edits silently fell back to
-    role defaults. Now both spellings populate the same Pydantic field via
-    AliasChoices, but only the canonical name is written back to disk so YAML
-    naturally migrates on next save.
-    """
-    # Arrange — half the GKs use legacy alias, half use canonical (one config).
-    payload = {
-        "match": {
-            "seed": 7, "tick_rate": 10, "duration_minutes": 5,
-            "field_width": 100.0, "field_height": 60.0, "match_id": "alias_check",
-        },
-        "team_a": {
-            "players": [
-                {"role": "GK",  "speed": 8, "skill": 10, "strength": 8, "save_reach": 17},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
-        "team_b": {
-            "players": [
-                {"role": "GK",  "speed": 8, "skill": 10, "strength": 8, "save": 19},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
-    }
-
-    # Act
-    resp = client.put("/api/config/match/alias_check", json=payload)
-    assert resp.status_code == 200, resp.text
-
-    # Assert (1) — saved YAML rewrote both forms as canonical `save`.
-    saved_path = temp_dir / "configs" / "alias_check.yaml"
-    assert saved_path.exists()
-    with open(saved_path, "r") as f:
-        on_disk = yaml.safe_load(f)
-    gk_a = on_disk["team_a"]["players"][0]
-    gk_b = on_disk["team_b"]["players"][0]
-    assert gk_a.get("save") == 17, "legacy save_reach should normalize to save=17 on disk"
-    assert gk_b.get("save") == 19, "canonical save should round-trip as save=19 on disk"
-    assert "save_reach" not in gk_a, "legacy spelling must not be re-emitted"
-    assert "save_reach" not in gk_b, "legacy spelling must not be re-emitted"
-
-    # Assert (2) — GET returns the canonical name to the UI.
-    fetched = client.get("/api/config/match/alias_check").json()
-    assert fetched["team_a"]["players"][0]["save"] == 17
-    assert fetched["team_b"]["players"][0]["save"] == 19
-
-
 def test_put_match_config_auto_fills_output_when_omitted(client, temp_dir):
     """PUT auto-fills the `output` block when the UI omits it. The UI never
     edits output (the API always passes --log-dir to the CLI) but the engine's
@@ -496,24 +375,8 @@ def test_put_match_config_auto_fills_output_when_omitted(client, temp_dir):
             "seed": 1, "tick_rate": 10, "duration_minutes": 5,
             "field_width": 100.0, "field_height": 60.0, "match_id": "no_output",
         },
-        "team_a": {
-            "players": [
-                {"role": "GK",  "speed": 8, "skill": 10, "strength": 8, "save": 16},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
-        "team_b": {
-            "players": [
-                {"role": "GK",  "speed": 8, "skill": 10, "strength": 8, "save": 16},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "DEF", "speed": 12, "skill": 12, "strength": 14},
-                {"role": "MID", "speed": 14, "skill": 14, "strength": 12},
-                {"role": "FWD", "speed": 16, "skill": 8, "strength": 10},
-            ],
-        },
+        "team_a": "red",
+        "team_b": "blue",
     }
 
     # Act
@@ -533,3 +396,65 @@ def test_put_match_config_auto_fills_output_when_omitted(client, temp_dir):
         "Omitted simulation block must not be persisted (it is overlaid from "
         "global-defaults.yaml at match-start time)"
     )
+
+
+def test_put_match_config_with_team_slugs(client, temp_dir):
+    """Happy path: PUT with valid team slugs that exist on disk."""
+    body = {
+        "match": {
+            "seed": 42, "tick_rate": 10, "duration_minutes": 5,
+            "field_width": 60.0, "field_height": 40.0,
+        },
+        "team_a": "red",
+        "team_b": "blue",
+    }
+    response = client.put("/api/config/match/test5v5", json=body)
+    assert response.status_code == 200, response.text
+
+    # Saved YAML stores slug strings, not inline rosters.
+    saved_path = temp_dir / "configs" / "test5v5.yaml"
+    with open(saved_path, "r") as f:
+        on_disk = yaml.safe_load(f)
+    assert on_disk["team_a"] == "red"
+    assert on_disk["team_b"] == "blue"
+    # Neither value should be a dict / contain a nested players list.
+    assert isinstance(on_disk["team_a"], str)
+    assert isinstance(on_disk["team_b"], str)
+
+
+def test_put_match_config_rejects_missing_team_slug(client, temp_dir):
+    """422 when a team slug does not exist on disk."""
+    body = {
+        "match": {
+            "seed": 42, "tick_rate": 10, "duration_minutes": 5,
+            "field_width": 60.0, "field_height": 40.0,
+        },
+        "team_a": "red",
+        "team_b": "doesnotexist",
+    }
+    response = client.put("/api/config/match/test_missing", json=body)
+    assert response.status_code == 422
+    detail = response.json()["detail"]
+    # The handler raises HTTPException with a plain string detail (not a list).
+    assert "team_b" in detail
+    assert "doesnotexist" in detail
+
+    # File must NOT have been created.
+    assert not (temp_dir / "configs" / "test_missing.yaml").exists()
+
+
+def test_put_match_config_rejects_uppercase_team_slug(client, temp_dir):
+    """422 when a team slug contains uppercase characters (pydantic regex)."""
+    body = {
+        "match": {
+            "seed": 42, "tick_rate": 10, "duration_minutes": 5,
+            "field_width": 60.0, "field_height": 40.0,
+        },
+        "team_a": "Red",  # uppercase — must be rejected
+        "team_b": "blue",
+    }
+    response = client.put("/api/config/match/test_upper", json=body)
+    assert response.status_code == 422
+    errors = response.json()["detail"]
+    # Pydantic 422 returns a list of {"loc": [...], "msg": ...} entries
+    assert any("team_a" in str(err.get("loc", [])) for err in errors)

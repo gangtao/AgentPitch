@@ -5,36 +5,8 @@ mirror config_models.py field constraints but live independently here so
 the API layer satisfies ADR-0006 import isolation.
 """
 from __future__ import annotations
-from typing import Literal, Optional
-from pydantic import AliasChoices, BaseModel, ConfigDict, Field
-
-
-class PlayerPayload(BaseModel):
-    # populate_by_name lets the schema accept legacy YAMLs that still spell
-    # `save` as `save_reach` (the previous API field name). New saves write
-    # the canonical `save` so the YAML naturally migrates on next edit.
-    model_config = ConfigDict(frozen=True, populate_by_name=True)
-    role: Literal["GK", "DEF", "MID", "FWD"]
-    speed: int = Field(ge=1, le=20)
-    skill: int = Field(ge=1, le=20)
-    strength: int = Field(ge=1, le=20)
-    discipline: int = Field(ge=1, le=20, default=10)
-    dribbling: int = Field(ge=1, le=20, default=10)
-    # `save` is GK-only. Constraints mirror the engine's PlayerConfig.save
-    # (ge=0 — non-GK rows are 0). `validation_alias` accepts both `save`
-    # (canonical) and `save_reach` (legacy) on incoming YAML/JSON.
-    save: Optional[int] = Field(
-        default=None, ge=0, le=20,
-        validation_alias=AliasChoices("save", "save_reach"),
-    )
-    passing: Optional[int] = Field(ge=1, le=20, default=None)
-    shooting: Optional[int] = Field(ge=1, le=20, default=None)
-    stamina: int = Field(ge=1, le=20, default=10)
-
-
-class TeamPayload(BaseModel):
-    model_config = ConfigDict(frozen=True)
-    players: list[PlayerPayload] = Field(min_length=5, max_length=11)
+from typing import Optional
+from pydantic import BaseModel, ConfigDict, Field
 
 
 class MatchSection(BaseModel):
@@ -71,6 +43,12 @@ class MatchConfigPayload(BaseModel):
 
     Schema is post-ADR-0021: NO llm_provider / llm_model fields anywhere.
 
+    `team_a` / `team_b` are team-id slugs referencing
+    ``<data_home>/configs/teams/<slug>.yaml`` (per the team-config split).
+    Roster details live entirely in those team YAMLs; the match config only
+    points at them. The PUT handler additionally verifies that both slugs
+    exist on disk before saving.
+
     `simulation` and `output` are Optional. Both are runtime concerns supplied
     at match-start time:
       - `simulation` — overlaid from the global Game tab via --global-defaults
@@ -83,5 +61,5 @@ class MatchConfigPayload(BaseModel):
     match: MatchSection
     simulation: Optional[SimulationSection] = None
     output: Optional[OutputSection] = None
-    team_a: TeamPayload
-    team_b: TeamPayload
+    team_a: str = Field(pattern=r"^[a-z0-9_-]+$")
+    team_b: str = Field(pattern=r"^[a-z0-9_-]+$")

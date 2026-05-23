@@ -375,8 +375,9 @@ def _load_match_configs(data_home: Path) -> list:
                 mtime = config_file.stat().st_mtime
                 modified_iso = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(mtime))
 
-                # Create summary from config data
-                summary = _create_config_summary(data)
+                # Create summary from config data. Pass data_home so slug-form
+                # team references can be resolved to their roster YAMLs.
+                summary = _create_config_summary(data, data_home)
 
                 configs.append({
                     "name": name,
@@ -397,12 +398,18 @@ def _load_match_configs(data_home: Path) -> list:
     return configs
 
 
-def _create_config_summary(data: dict) -> dict:
-    """Create summary object from config data."""
+def _create_config_summary(data: dict, data_home: Path | None = None) -> dict:
+    """Create summary object from config data.
+
+    Match configs now reference teams by slug (str) — the roster lives in
+    ``<data_home>/configs/teams/<slug>.yaml``. To render formation /
+    players-per-team for the match-list view we resolve each slug to its
+    team YAML and read the players from there. Falls back to the legacy
+    inline-team shape if a saved config still has dict-shaped team_a /
+    team_b (defensive; should not occur post-migration).
+    """
     try:
         match_data = data.get("match", {})
-        team_a_data = data.get("team_a", {})
-        team_b_data = data.get("team_b", {})
 
         # Extract basic params (defaults match GameConfig — see game_config.py)
         tick_rate = match_data.get("tick_rate", 10)
@@ -410,14 +417,37 @@ def _create_config_summary(data: dict) -> dict:
         field_w = match_data.get("field_width", 100.0)
         field_h = match_data.get("field_height", 60.0)
 
+        def _players_for(slot_value) -> list:
+            # New shape: slot_value is a slug string — resolve to team YAML.
+            if isinstance(slot_value, str) and data_home is not None:
+                team_path = data_home / "configs" / "teams" / f"{slot_value}.yaml"
+                if team_path.exists():
+                    try:
+                        with open(team_path, "r") as tf:
+                            team_doc = yaml.safe_load(tf) or {}
+                        roster = team_doc.get("players", [])
+                        if isinstance(roster, list):
+                            return roster
+                    except (yaml.YAMLError, OSError):
+                        pass
+                return []
+            # Legacy inline shape: {"players": [...]} — back-compat fallback.
+            if isinstance(slot_value, dict):
+                roster = slot_value.get("players", [])
+                return roster if isinstance(roster, list) else []
+            return []
+
+        team_a_roster = _players_for(data.get("team_a"))
+        team_b_roster = _players_for(data.get("team_b"))
+
         # Count players per team
-        team_a_players = len(team_a_data.get("players", []))
-        team_b_players = len(team_b_data.get("players", []))
+        team_a_players = len(team_a_roster)
+        team_b_players = len(team_b_roster)
         players_per_team = max(team_a_players, team_b_players)
 
         # Derive formations
-        team_a_formation = _derive_formation(team_a_data.get("players", []))
-        team_b_formation = _derive_formation(team_b_data.get("players", []))
+        team_a_formation = _derive_formation(team_a_roster)
+        team_b_formation = _derive_formation(team_b_roster)
 
         return {
             "tick_rate": tick_rate,
@@ -472,12 +502,17 @@ def _derive_formation(players: list) -> str:
 
 
 def _strip_deprecated_llm_fields(data: dict) -> dict:
-    """Remove deprecated llm_provider/llm_model fields from config data."""
+    """Remove deprecated llm_provider/llm_model fields from config data.
+
+    Post-team-slug migration, ``team_a`` / ``team_b`` are slug strings and
+    cannot themselves carry these fields; only the legacy inline-dict shape
+    is scrubbed (back-compat for any unmigrated YAMLs still on disk).
+    """
     cleaned = data.copy()
 
-    # Remove from team configs
+    # Remove from team configs (legacy inline shape only)
     for team_key in ["team_a", "team_b"]:
-        if team_key in cleaned:
+        if team_key in cleaned and isinstance(cleaned[team_key], dict):
             team_data = cleaned[team_key].copy()
             team_data.pop("llm_provider", None)
             team_data.pop("llm_model", None)
@@ -1251,6 +1286,19 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         configs_dir = data_home / "configs"
         config_path = configs_dir / f"{name}.yaml"
         temp_path = configs_dir / f"{name}.yaml.tmp"
+
+        # Verify both team slugs exist as files on disk before writing.
+        # team_a / team_b are slug references into <data_home>/configs/teams/;
+        # saving a match that points at a missing team would create a broken
+        # config that the engine could not load at match-start time.
+        teams_dir = data_home / "configs" / "teams"
+        for slot in ("team_a", "team_b"):
+            slug = getattr(payload, slot)
+            if not (teams_dir / f"{slug}.yaml").exists():
+                raise HTTPException(
+                    status_code=422,
+                    detail=f"{slot}: team '{slug}' not found at {teams_dir / (slug + '.yaml')}",
+                )
 
         # Check if this is a new file
         is_new = not config_path.exists()
