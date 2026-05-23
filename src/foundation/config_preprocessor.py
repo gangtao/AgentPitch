@@ -72,3 +72,15 @@ def read_api_key(provider: str) -> str:
             else f"{env_key} is not set — provider {provider} cannot initialize"
         )
     return raw
+
+
+def apply_player_name_default(raw_player: dict[str, Any], index: int) -> dict[str, Any]:
+    """Return a copy of `raw_player` with a non-empty `name`.
+
+    Missing / None / empty / whitespace-only names become `"Player {index+1}"`.
+    Pure function; does not mutate input.
+    """
+    name = raw_player.get("name")
+    if not isinstance(name, str) or name.strip() == "":
+        name = f"Player {index + 1}"
+    return {**raw_player, "name": name}
