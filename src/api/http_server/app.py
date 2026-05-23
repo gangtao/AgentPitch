@@ -25,6 +25,7 @@ from src.api.http_server.game_config import GameConfig
 from src.api.http_server.storage_config import StorageConfig, validate_data_home
 from src.api.http_server.llm_config import LLMConfigPayload, TestConnectionRequest
 from src.api.http_server.match_config_payload import MatchConfigPayload
+from src.api.http_server.team_config_payload import TeamConfigPayload
 from src.api.http_server.start_match_payload import StartMatchPayload
 from src.api.http_server.strategy_payload import StrategyPayload
 from src.api.http_server.strategy_create_payload import StrategyCreatePayload, StrategyGeneratePayload
@@ -1311,6 +1312,113 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
             raise HTTPException(status_code=500, detail=f"File deletion error: {str(e)}")
 
         return Response(status_code=204)
+
+    @app.get("/api/config/teams")
+    async def list_teams():
+        """List all team configs as {slug: TeamConfigPayload-shaped dict}."""
+        log_dir = app.state.log_dir
+        storage_settings = _load_storage_config(log_dir)
+        data_home = Path(storage_settings["data_home"])
+        teams_dir = data_home / "configs" / "teams"
+
+        out: dict = {}
+        if not teams_dir.exists():
+            return JSONResponse({"teams": out})
+
+        for path in sorted(teams_dir.glob("*.yaml")):
+            slug = path.stem
+            try:
+                with open(path, "r") as f:
+                    data = yaml.safe_load(f) or {}
+                out[slug] = data
+            except Exception:
+                # Tolerate malformed team files — skip them in the list
+                continue
+        return JSONResponse({"teams": out})
+
+    @app.get("/api/config/teams/{slug}")
+    async def get_team(slug: str = PathParam(..., pattern=r"^[a-z0-9_-]+$")):
+        """Get a single team config by slug."""
+        log_dir = app.state.log_dir
+        storage_settings = _load_storage_config(log_dir)
+        data_home = Path(storage_settings["data_home"])
+
+        path = data_home / "configs" / "teams" / f"{slug}.yaml"
+        if not path.exists():
+            raise HTTPException(status_code=404, detail=f"team {slug} not found")
+
+        try:
+            with open(path, "r") as f:
+                data = yaml.safe_load(f) or {}
+            return JSONResponse(data)
+        except yaml.YAMLError as e:
+            raise HTTPException(status_code=422, detail=f"YAML parse error: {str(e)}")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"File read error: {str(e)}")
+
+    @app.put("/api/config/teams/{slug}")
+    async def put_team(
+        slug: str = PathParam(..., pattern=r"^[a-z0-9_-]+$"),
+        payload: TeamConfigPayload = ...,
+    ):
+        """Create or update a team config."""
+        if payload.team_id != slug:
+            raise HTTPException(status_code=400, detail="team_id must match URL slug")
+
+        log_dir = app.state.log_dir
+        storage_settings = _load_storage_config(log_dir)
+        data_home = Path(storage_settings["data_home"])
+
+        teams_dir = data_home / "configs" / "teams"
+        teams_dir.mkdir(parents=True, exist_ok=True)
+        config_path = teams_dir / f"{slug}.yaml"
+        temp_path = teams_dir / f"{slug}.yaml.tmp"
+
+        is_new = not config_path.exists()
+        try:
+            data = payload.model_dump(exclude_none=True)
+            with open(temp_path, "w") as f:
+                yaml.safe_dump(data, f, default_flow_style=False, sort_keys=False)
+            os.replace(temp_path, config_path)
+            mtime = config_path.stat().st_mtime
+            modified_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(mtime))
+            return JSONResponse({"slug": slug, "modified_iso": modified_iso, "created": is_new})
+        except Exception as e:
+            if temp_path.exists():
+                temp_path.unlink(missing_ok=True)
+            raise HTTPException(status_code=500, detail=f"File write error: {str(e)}")
+
+    @app.delete("/api/config/teams/{slug}")
+    async def delete_team(slug: str = PathParam(..., pattern=r"^[a-z0-9_-]+$")):
+        """Delete a team config. Refuses if any match config references this slug."""
+        log_dir = app.state.log_dir
+        storage_settings = _load_storage_config(log_dir)
+        data_home = Path(storage_settings["data_home"])
+
+        teams_dir = data_home / "configs" / "teams"
+        config_path = teams_dir / f"{slug}.yaml"
+        if not config_path.exists():
+            raise HTTPException(status_code=404, detail=f"team {slug} not found")
+
+        # Refuse delete if any match config references this slug
+        configs_dir = data_home / "configs"
+        for match_path in configs_dir.glob("*.yaml"):
+            try:
+                with open(match_path, "r") as f:
+                    match_data = yaml.safe_load(f) or {}
+            except Exception:
+                continue
+            if match_data.get("team_a") == slug or match_data.get("team_b") == slug:
+                raise HTTPException(
+                    status_code=409,
+                    detail=f"team {slug} is referenced by match config {match_path.stem}",
+                )
+
+        try:
+            config_path.unlink()
+            return JSONResponse({"slug": slug, "deleted": True})
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"File delete error: {str(e)}")
 
     @app.get("/api/matches")
     async def get_matches():
