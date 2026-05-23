@@ -212,16 +212,21 @@ class TickEngine:
         # numbers + roles. Browser uses this to display "A #4" labels.
         if hasattr(log, "set_teams_meta"):
             try:
-                teams_meta = {}
+                teams_meta: dict = {}
                 for team_id, team_cfg in (("team_a", config.team_a), ("team_b", config.team_b)):
                     roster = []
                     for i, p in enumerate(team_cfg.players):
                         roster.append({
                             "player_id": f"{team_id}_{i}",
+                            "name": p.name,
                             "number": p.number if getattr(p, "number", 0) > 0 else (i + 1),
                             "role": p.role,
                         })
-                    teams_meta[team_id] = roster
+                    teams_meta[team_id] = {
+                        "team_id": team_cfg.team_id,
+                        "name": team_cfg.name,
+                        "roster": roster,
+                    }
                 log.set_teams_meta(teams_meta)
             except Exception:
                 pass  # tolerant of mock variations
