@@ -35,12 +35,39 @@ function renderSubView(subView, slug = null) {
   currentSlug = slug;
   if (!rootElement) return;
   if (subView === 'list') {
+    removeBackButton();
     renderListSubView();
   } else if (subView === 'editor' && slug) {
+    addBackButton();
     renderEditorSubView(slug);
   } else if (subView === 'new') {
+    addBackButton();
     renderNewSubView();
   }
+}
+
+// ── Top-strip "Back to list" button ─────────────────────────────
+// Mirrors config-match.js: mounts a .btn-link into the App Shell's #right-cap
+// while in editor / new sub-views so the back affordance lives in the same
+// spot across all Config sub-pages.
+function addBackButton() {
+  const rightCap = document.getElementById('right-cap');
+  if (!rightCap) return;
+  if (rightCap.querySelector('.config-teams-back-btn')) return;
+
+  const backBtn = document.createElement('button');
+  backBtn.className = 'btn-link config-teams-back-btn';
+  backBtn.textContent = 'Back to list';
+  backBtn.onclick = () => navigateToSubView('list');
+
+  rightCap.innerHTML = '';
+  rightCap.appendChild(backBtn);
+}
+
+function removeBackButton() {
+  const rightCap = document.getElementById('right-cap');
+  const backBtn = rightCap && rightCap.querySelector('.config-teams-back-btn');
+  if (backBtn) backBtn.remove();
 }
 
 // ── List sub-view ───────────────────────────────────────────────
@@ -488,5 +515,12 @@ function mount(root, _data) {
   renderSubView(route.subView, route.slug);
 }
 
-window.configTeamsTab = { mount, save, discard, reset, refresh: refreshList };
+function unmount() {
+  // Tear down the right-cap back button so it doesn't linger when the
+  // user switches to a different config tab.
+  removeBackButton();
+  rootElement = null;
+}
+
+window.configTeamsTab = { mount, unmount, save, discard, reset, refresh: refreshList };
 console.log('[config-teams] module loaded');
