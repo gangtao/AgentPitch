@@ -30,6 +30,7 @@ let _totalTicks = 0;
 let _phaseTransitions = [];
 let _playerLabels = {};          // player_id → "A #4"
 let _playerNumbers = {};         // player_id → jersey number
+let _playerNames = {};           // player_id → display name (empty if absent)
 let _eventRows = [];             // cached extracted event rows
 let _activeFx = [];              // [{kind, startTick, lifetime, ...}]
 let _lastFxScannedTick = -1;     // newest tick we've already extracted fx for
@@ -328,6 +329,20 @@ function paintTick(tickIdx) {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(String(num), cx, cy);
+
+    // Player name above the dot (only when name is known from roster).
+    const nm = _playerNames[playerId];
+    if (nm) {
+      const nameY = cy - PLAYER_RADIUS - 4;
+      ctx.font = "500 10px 'Space Grotesk', -apple-system, sans-serif";
+      ctx.textBaseline = "bottom";
+      // Dark stroke for legibility on light field stripes.
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.65)";
+      ctx.strokeText(nm, cx, nameY);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+      ctx.fillText(nm, cx, nameY);
+    }
   }
 
   // Ball — when carried, offset to the side of the carrier in their
@@ -679,6 +694,7 @@ function ingestRosters(teams) {
         ? `${p.name} ${numTag}`.trim()
         : `${teamLetter} ${numTag}`.trim();
       _playerNumbers[p.player_id] = p.number;
+      _playerNames[p.player_id] = p.name || "";
     }
   }
 }
@@ -1352,6 +1368,8 @@ window.reloadLiveViewer = function reloadLiveViewer() {
   _activeFx = [];
   _lastFxScannedTick = -1;
   _playerLabels = {};
+  _playerNumbers = {};
+  _playerNames = {};
 
   // Reset chyron + scoreboard text to the initial loading state.
   matchTitle.textContent = "loading…";
