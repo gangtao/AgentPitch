@@ -1,14 +1,25 @@
 team_id: red
 name: Red Lions
 players:
-  - role: GK
-  - role: DEF
-  - role: DEF
-  - role: DEF
-  - role: DEF
-  - role: MID
-  - role: MID
-  - role: MID
-  - role: MID
-  - role: FWD
-  - role: FWD
+  - name: Leo
+    role: GK
+  - name: Roar
+    role: DEF
+  - name: Mane
+    role: DEF
+  - name: Pride
+    role: DEF
+  - name: Cub
+    role: DEF
+  - name: Tawny
+    role: MID
+  - name: Felix
+    role: MID
+  - name: Simba
+    role: MID
+  - name: Aslan
+    role: MID
+  - name: Rex
+    role: FWD
+  - name: King
+    role: FWD

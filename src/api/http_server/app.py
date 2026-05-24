@@ -606,24 +606,24 @@ def _seed_11v11_config() -> dict:
 def _seed_team_red() -> dict:
     """11-player Red Lions team — referenced by the seeded 11v11 match config.
 
-    Players carry only role; preprocessor fills attributes from ROLE_DEFAULTS
-    and names from the "Player {N}" default.
+    Players carry name + role only; preprocessor fills attributes from
+    ROLE_DEFAULTS.
     """
     return {
         "team_id": "red",
         "name": "Red Lions",
         "players": [
-            {"role": "GK"},
-            {"role": "DEF"},
-            {"role": "DEF"},
-            {"role": "DEF"},
-            {"role": "DEF"},
-            {"role": "MID"},
-            {"role": "MID"},
-            {"role": "MID"},
-            {"role": "MID"},
-            {"role": "FWD"},
-            {"role": "FWD"},
+            {"name": "Leo",   "role": "GK"},
+            {"name": "Roar",  "role": "DEF"},
+            {"name": "Mane",  "role": "DEF"},
+            {"name": "Pride", "role": "DEF"},
+            {"name": "Cub",   "role": "DEF"},
+            {"name": "Tawny", "role": "MID"},
+            {"name": "Felix", "role": "MID"},
+            {"name": "Simba", "role": "MID"},
+            {"name": "Aslan", "role": "MID"},
+            {"name": "Rex",   "role": "FWD"},
+            {"name": "King",  "role": "FWD"},
         ],
     }
 
@@ -634,17 +634,17 @@ def _seed_team_blue() -> dict:
         "team_id": "blue",
         "name": "Blue Sharks",
         "players": [
-            {"role": "GK"},
-            {"role": "DEF"},
-            {"role": "DEF"},
-            {"role": "DEF"},
-            {"role": "DEF"},
-            {"role": "MID"},
-            {"role": "MID"},
-            {"role": "MID"},
-            {"role": "MID"},
-            {"role": "FWD"},
-            {"role": "FWD"},
+            {"name": "Finn",   "role": "GK"},
+            {"name": "Tide",   "role": "DEF"},
+            {"name": "Reef",   "role": "DEF"},
+            {"name": "Wave",   "role": "DEF"},
+            {"name": "Storm",  "role": "DEF"},
+            {"name": "Coral",  "role": "MID"},
+            {"name": "Marlin", "role": "MID"},
+            {"name": "Ray",    "role": "MID"},
+            {"name": "Bay",    "role": "MID"},
+            {"name": "Splash", "role": "FWD"},
+            {"name": "Hook",   "role": "FWD"},
         ],
     }
 
@@ -655,11 +655,11 @@ def _seed_team_red5() -> dict:
         "team_id": "red5",
         "name": "Red Lions (5)",
         "players": [
-            {"role": "GK"},
-            {"role": "DEF"},
-            {"role": "DEF"},
-            {"role": "MID"},
-            {"role": "FWD"},
+            {"name": "Leo",   "role": "GK"},
+            {"name": "Roar",  "role": "DEF"},
+            {"name": "Mane",  "role": "DEF"},
+            {"name": "Tawny", "role": "MID"},
+            {"name": "Rex",   "role": "FWD"},
         ],
     }
 
@@ -670,11 +670,11 @@ def _seed_team_blue5() -> dict:
         "team_id": "blue5",
         "name": "Blue Sharks (5)",
         "players": [
-            {"role": "GK"},
-            {"role": "DEF"},
-            {"role": "DEF"},
-            {"role": "MID"},
-            {"role": "FWD"},
+            {"name": "Finn",   "role": "GK"},
+            {"name": "Tide",   "role": "DEF"},
+            {"name": "Reef",   "role": "DEF"},
+            {"name": "Coral",  "role": "MID"},
+            {"name": "Splash", "role": "FWD"},
         ],
     }
 

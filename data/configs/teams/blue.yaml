@@ -1,14 +1,25 @@
 team_id: blue
 name: Blue Sharks
 players:
-  - role: GK
-  - role: DEF
-  - role: DEF
-  - role: DEF
-  - role: DEF
-  - role: MID
-  - role: MID
-  - role: MID
-  - role: MID
-  - role: FWD
-  - role: FWD
+  - name: Finn
+    role: GK
+  - name: Tide
+    role: DEF
+  - name: Reef
+    role: DEF
+  - name: Wave
+    role: DEF
+  - name: Storm
+    role: DEF
+  - name: Coral
+    role: MID
+  - name: Marlin
+    role: MID
+  - name: Ray
+    role: MID
+  - name: Bay
+    role: MID
+  - name: Splash
+    role: FWD
+  - name: Hook
+    role: FWD
