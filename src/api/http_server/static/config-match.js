@@ -401,20 +401,23 @@ function renderConfigForm(config) {
 
         <!-- Team selection: pick a team slug for each side. Rosters are
              managed in the Teams tab (Config → Teams) — this editor only
-             stores references. -->
+             stores references. Field markup mirrors the MATCH PARAMETERS
+             rows above: .form-field-row > .field-label + .sel control. -->
         <section class="form-section">
-          <h3 class="section-title">── TEAMS ──</h3>
-          <div class="config-match-teams">
-            <label class="config-field">
-              <span>Team A</span>
-              <select id="match-team-a"></select>
-            </label>
-            <label class="config-field">
-              <span>Team B</span>
-              <select id="match-team-b"></select>
-            </label>
-            <p class="config-hint">Manage team rosters in the <a href="#/config/teams">Teams</a> tab.</p>
+          <div class="section-header">
+            <span class="section-title">── TEAMS ──</span>
           </div>
+          <div class="form-field-row">
+            <label class="field-label" for="match-team-a">TEAM A</label>
+            <select id="match-team-a" class="sel" style="grid-column: 2 / -1; width: 100%;"></select>
+          </div>
+          <div class="form-field-row">
+            <label class="field-label" for="match-team-b">TEAM B</label>
+            <select id="match-team-b" class="sel" style="grid-column: 2 / -1; width: 100%;"></select>
+          </div>
+          <p class="config-hint" style="font-size: 11px; color: var(--ink-dimer); margin: 12px 0 0;">
+            Manage team rosters in the <a href="#/config/teams" style="color: var(--a); text-decoration: none;">Teams</a> tab.
+          </p>
         </section>
       </div>
     </div>

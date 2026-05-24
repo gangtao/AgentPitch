@@ -1,5 +1,8 @@
 // Agent Pitch — Config Teams Tab Module
 // Implements list / editor / new sub-views for /api/config/teams.
+// Visual chrome is provided by design-system.css (.list-row, .ipt, .sel,
+// .btn, .form-section, .section-title, .field-label) — this file does
+// not introduce its own colors / fonts / borders, only layout glue.
 
 let rootElement = null;
 let currentSubView = 'list';
@@ -41,14 +44,23 @@ function renderSubView(subView, slug = null) {
 }
 
 // ── List sub-view ───────────────────────────────────────────────
+// Mirrors config-match.js list layout: .list-action-bar with a primary
+// CTA + count on the right; .list-body containing .list-row entries with
+// .list-row-content + trailing .list-row-actions buttons.
 async function renderListSubView() {
   rootElement.innerHTML = `
-    <div class="config-teams-list">
-      <div class="config-teams-list-header">
-        <h3>Teams</h3>
+    <div class="teams-list-view">
+      <div class="list-action-bar">
         <button class="btn btn-primary" id="new-team-btn">+ New team</button>
+        <div class="list-count" id="teams-list-count">…</div>
       </div>
-      <div id="teams-table"></div>
+      <div class="list-body" id="teams-list-body">
+        <div class="list-row skeleton">
+          <div class="list-row-content">
+            <div class="list-row-line-1">Loading teams…</div>
+          </div>
+        </div>
+      </div>
     </div>
   `;
   document.getElementById('new-team-btn').onclick = () => navigateToSubView('new');
@@ -56,34 +68,77 @@ async function renderListSubView() {
 }
 
 async function refreshList() {
+  const body = document.getElementById('teams-list-body');
+  const count = document.getElementById('teams-list-count');
   let data;
   try {
     const res = await fetch(`${apiBase()}/api/config/teams`);
     if (!res.ok) throw new Error(res.statusText);
     data = await res.json();
   } catch (e) {
-    document.getElementById('teams-table').innerHTML = `<p class="error">Failed to load teams: ${e.message}</p>`;
+    if (body) body.innerHTML = `
+      <div class="list-error">
+        <div class="error-message">Failed to load teams: ${e.message}</div>
+        <button class="btn" onclick="window.configTeamsTab.refresh()">Retry</button>
+      </div>`;
+    if (count) count.textContent = 'Error';
     return;
   }
   const teams = data.teams || {};
-  if (Object.keys(teams).length === 0) {
-    document.getElementById('teams-table').innerHTML = `<p class="empty">No teams yet. Click "+ New team" to create one.</p>`;
+  const entries = Object.entries(teams);
+  if (count) {
+    count.textContent = `${entries.length} ${entries.length === 1 ? 'team' : 'teams'}`;
+  }
+  if (entries.length === 0) {
+    if (body) body.innerHTML = `
+      <div class="list-empty-state">
+        <div class="empty-heading">no teams yet</div>
+        <div class="empty-subtext">create your first team to get started</div>
+        <button class="btn btn-primary btn-lg" id="new-team-btn-empty">+ New team</button>
+      </div>`;
+    const emptyBtn = document.getElementById('new-team-btn-empty');
+    if (emptyBtn) emptyBtn.onclick = () => navigateToSubView('new');
     return;
   }
-  const html = Object.entries(teams).map(([slug, t]) => `
-    <div class="team-row" data-slug="${slug}">
-      <span class="team-slug">${slug}</span>
-      <span class="team-name">${t.name || ''}</span>
-      <span class="team-size">${(t.players || []).length} players</span>
-      <button class="btn" data-action="edit">Edit</button>
-      <button class="btn btn-danger" data-action="delete">Delete</button>
-    </div>
-  `).join('');
-  document.getElementById('teams-table').innerHTML = html;
-  document.querySelectorAll('.team-row').forEach(row => {
+  body.innerHTML = entries.map(([slug, t]) => {
+    const playerCount = (t.players || []).length;
+    const displayName = t.name || slug;
+    return `
+      <div class="list-row" data-slug="${slug}">
+        <div class="list-row-content"
+             role="button"
+             tabindex="0"
+             aria-label="Edit team ${slug}">
+          <div class="list-row-line-1">${displayName}</div>
+          <div class="list-row-line-2">${slug} · ${playerCount} ${playerCount === 1 ? 'player' : 'players'}</div>
+        </div>
+        <div class="list-row-actions">
+          <button class="btn btn-sm" data-action="edit">Edit</button>
+          <button class="btn btn-sm btn-danger" data-action="delete">Del</button>
+        </div>
+      </div>
+    `;
+  }).join('');
+  body.querySelectorAll('.list-row').forEach(row => {
     const slug = row.dataset.slug;
-    row.querySelector('[data-action="edit"]').onclick = () => navigateToSubView('editor', slug);
-    row.querySelector('[data-action="delete"]').onclick = () => handleDelete(slug);
+    const content = row.querySelector('.list-row-content');
+    if (content) {
+      content.addEventListener('click', () => navigateToSubView('editor', slug));
+      content.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          navigateToSubView('editor', slug);
+        }
+      });
+    }
+    row.querySelector('[data-action="edit"]').onclick = (e) => {
+      e.stopPropagation();
+      navigateToSubView('editor', slug);
+    };
+    row.querySelector('[data-action="delete"]').onclick = (e) => {
+      e.stopPropagation();
+      handleDelete(slug);
+    };
   });
 }
 
@@ -110,7 +165,15 @@ async function renderEditorSubView(slug) {
     if (!res.ok) throw new Error(res.statusText);
     data = await res.json();
   } catch (e) {
-    rootElement.innerHTML = `<p class="error">Team not found: ${slug} (${e.message})</p>`;
+    rootElement.innerHTML = `
+      <div class="teams-editor-view">
+        <div class="match-form-column">
+          <div class="banner err">
+            <span class="b-mark">ERR</span>
+            <span>Team not found: ${slug} (${e.message})</span>
+          </div>
+        </div>
+      </div>`;
     return;
   }
   savedFormData = data;
@@ -138,36 +201,83 @@ function renderEditorForm(slug, isNew) {
   const tid = currentFormData.team_id ?? '';
   const tname = currentFormData.name ?? '';
   const idDisabled = isNew ? '' : 'disabled';
+  const title = isNew ? 'New team' : (tname || slug);
+  const wrapperClass = isNew ? 'teams-new-view' : 'teams-editor-view';
+
   rootElement.innerHTML = `
-    <div class="config-teams-editor">
-      <label class="config-field">
-        <span>Team ID (slug)</span>
-        <input id="team-id-input" value="${tid}" ${idDisabled} pattern="^[a-z0-9_-]+$" maxlength="64">
-      </label>
-      <label class="config-field">
-        <span>Display name</span>
-        <input id="team-name-input" value="${tname}" maxlength="64">
-      </label>
-      <h4>Roster</h4>
-      <div class="players-header-row">
-        <span class="hdr-name">Name</span>
-        <span class="hdr-num">#</span>
-        <span class="hdr-role">Role</span>
-        <span class="hdr-attr" title="Speed">SPD</span>
-        <span class="hdr-attr" title="Skill">SKL</span>
-        <span class="hdr-attr" title="Strength">STR</span>
-        <span class="hdr-attr" title="Save (GK only)">SAV</span>
-        <span class="hdr-attr" title="Discipline">DIS</span>
-        <span class="hdr-attr" title="Dribbling">DRB</span>
-        <span class="hdr-attr" title="Passing (blank = skill)">PAS</span>
-        <span class="hdr-attr" title="Shooting (blank = skill)">SHO</span>
-        <span class="hdr-attr" title="Stamina (blank = 10)">STA</span>
-        <span class="hdr-del"></span>
+    <div class="${wrapperClass}">
+      <div class="editor-header">
+        <h2 class="config-title">${title}</h2>
       </div>
-      <div id="players-table"></div>
-      <button class="btn" id="add-player-btn">+ Add player</button>
+
+      <div class="match-form-column">
+        <section class="form-section">
+          <div class="section-header">
+            <span class="section-title">── TEAM ──</span>
+          </div>
+
+          <div class="form-field-row">
+            <label class="field-label" for="team-id-input">TEAM ID</label>
+            <input
+              id="team-id-input"
+              type="text"
+              class="ipt"
+              value="${tid}"
+              ${idDisabled}
+              pattern="^[a-z0-9_-]+$"
+              maxlength="64"
+              placeholder="lowercase_slug"
+              spellcheck="false"
+              autocapitalize="none"
+              autocorrect="off"
+              style="grid-column: 2 / -1; width: 100%;"
+            />
+          </div>
+
+          <div class="form-field-row">
+            <label class="field-label" for="team-name-input">DISPLAY NAME</label>
+            <input
+              id="team-name-input"
+              type="text"
+              class="ipt"
+              value="${tname}"
+              maxlength="64"
+              placeholder="Team display name"
+              style="grid-column: 2 / -1; width: 100%;"
+            />
+          </div>
+        </section>
+      </div>
+
+      <section class="form-section team-section">
+        <div class="section-header">
+          <span class="section-title">── ROSTER ──</span>
+        </div>
+        <div class="roster-panel">
+          <div class="players-header-row">
+            <span>Name</span>
+            <span class="hdr-attr">#</span>
+            <span>Role</span>
+            <span class="hdr-attr" title="Speed">SPD</span>
+            <span class="hdr-attr" title="Skill">SKL</span>
+            <span class="hdr-attr" title="Strength">STR</span>
+            <span class="hdr-attr" title="Save (GK only)">SAV</span>
+            <span class="hdr-attr" title="Discipline">DIS</span>
+            <span class="hdr-attr" title="Dribbling">DRB</span>
+            <span class="hdr-attr" title="Passing (blank = skill)">PAS</span>
+            <span class="hdr-attr" title="Shooting (blank = skill)">SHO</span>
+            <span class="hdr-attr" title="Stamina (blank = 10)">STA</span>
+            <span></span>
+          </div>
+          <div id="players-table"></div>
+          <div class="roster-footer">
+            <button class="btn btn-sm" id="add-player-btn">+ Add player</button>
+          </div>
+        </div>
+      </section>
     </div>
   `;
+
   document.getElementById('team-id-input').oninput = (e) => {
     currentFormData.team_id = e.target.value;
     markDirty();
@@ -195,19 +305,20 @@ function renderPlayersTable() {
   const attrHtml = (p, key, min, max, placeholder = '') => {
     const v = p[key];
     const value = (v === undefined || v === null) ? '' : v;
-    return `<input class="p-attr p-${key}" type="number" min="${min}" max="${max}" placeholder="${placeholder}" value="${value}">`;
+    return `<input class="ipt ipt-cell p-attr p-${key}" type="number" min="${min}" max="${max}" placeholder="${placeholder}" value="${value}">`;
   };
 
   tbl.innerHTML = currentFormData.players.map((p, i) => {
     const isGK = p.role === 'GK';
     const saveCell = isGK
-      ? `<input class="p-attr p-save" type="number" min="0" max="20" placeholder="0" value="${p.save ?? ''}">`
-      : `<input class="p-attr p-save" type="number" min="0" max="20" placeholder="—" value="" disabled>`;
+      ? `<input class="ipt ipt-cell p-attr p-save" type="number" min="0" max="20" placeholder="0" value="${p.save ?? ''}">`
+      : `<input class="ipt ipt-cell p-attr p-save" type="number" min="0" max="20" placeholder="—" value="" disabled>`;
+    const delDisabled = currentFormData.players.length <= 5 ? 'disabled' : '';
     return `
       <div class="player-row" data-i="${i}">
-        <input class="p-name" placeholder="Name" value="${(p.name ?? '').replace(/"/g, '&quot;')}" maxlength="64">
-        <input class="p-num" type="number" min="0" max="99" placeholder="#" value="${p.number ?? ''}">
-        <select class="p-role">
+        <input class="ipt p-name" placeholder="Name" value="${(p.name ?? '').replace(/"/g, '&quot;')}" maxlength="64">
+        <input class="ipt ipt-cell p-num" type="number" min="0" max="99" placeholder="#" value="${p.number ?? ''}">
+        <select class="sel sel-cell p-role">
           ${['GK','DEF','MID','FWD'].map(r => `<option value="${r}" ${p.role===r?'selected':''}>${r}</option>`).join('')}
         </select>
         ${attrHtml(p, 'speed', 1, 20)}
@@ -219,7 +330,7 @@ function renderPlayersTable() {
         ${attrHtml(p, 'passing', 1, 20, '—')}
         ${attrHtml(p, 'shooting', 1, 20, '—')}
         ${attrHtml(p, 'stamina', 1, 20, '10')}
-        <button class="btn btn-danger p-del" ${currentFormData.players.length <= 5 ? 'disabled' : ''}>×</button>
+        <button class="btn btn-icon btn-danger p-del" ${delDisabled} aria-label="Remove player">×</button>
       </div>
     `;
   }).join('');
@@ -377,5 +488,5 @@ function mount(root, _data) {
   renderSubView(route.subView, route.slug);
 }
 
-window.configTeamsTab = { mount, save, discard, reset };
+window.configTeamsTab = { mount, save, discard, reset, refresh: refreshList };
 console.log('[config-teams] module loaded');
