@@ -1572,6 +1572,14 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                     team_a_count = len(teams.get("team_a", []))
                     team_b_count = len(teams.get("team_b", []))
 
+                    def _team_name(slot: str, fallback: str) -> str:
+                        td = teams.get(slot)
+                        if isinstance(td, dict) and td.get("name"):
+                            return td["name"]
+                        return fallback
+                    team_a_name = _team_name("team_a", "Team A")
+                    team_b_name = _team_name("team_b", "Team B")
+
                     # Prefer meta.seed (engine writes it as of 2026-04-24).
                     # Legacy matches without it fall back to extracting from
                     # the match_id (only works when id contains "seedN").
@@ -1616,6 +1624,10 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                         "strategies": {
                             "team_a": _team_strat_field("team_a", "name"),
                             "team_b": _team_strat_field("team_b", "name"),
+                        },
+                        "team_names": {
+                            "team_a": team_a_name,
+                            "team_b": team_b_name,
                         },
                     }
 
