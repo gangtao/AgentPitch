@@ -1,0 +1,136 @@
+# Formation: 4-3-3
+team_id: portugal
+name: Portugal
+players:
+  - name: Diogo Costa
+    number: 22
+    role: GK
+    speed: 13
+    skill: 16
+    strength: 15
+    save: 18
+    discipline: 16
+    dribbling: 7
+    stamina: 14
+    pass: 16
+    shoot: 4
+  - name: Nuno Mendes
+    number: 19
+    role: DEF
+    speed: 18
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 18
+    pass: 15
+    shoot: 12
+  - name: Rúben Dias
+    number: 4
+    role: DEF
+    speed: 14
+    skill: 17
+    strength: 18
+    save: 0
+    discipline: 17
+    dribbling: 11
+    stamina: 16
+    pass: 17
+    shoot: 8
+  - name: Gonçalo Inácio
+    number: 3
+    role: DEF
+    speed: 15
+    skill: 16
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 16
+    pass: 16
+    shoot: 8
+  - name: Nélson Semedo
+    number: 20
+    role: DEF
+    speed: 16
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 17
+    pass: 14
+    shoot: 10
+  - name: Vitinha
+    number: 23
+    role: MID
+    speed: 15
+    skill: 18
+    strength: 13
+    save: 0
+    discipline: 16
+    dribbling: 17
+    stamina: 18
+    pass: 18
+    shoot: 14
+  - name: João Neves
+    number: 18
+    role: MID
+    speed: 15
+    skill: 17
+    strength: 13
+    save: 0
+    discipline: 16
+    dribbling: 16
+    stamina: 18
+    pass: 17
+    shoot: 13
+  - name: Bruno Fernandes
+    number: 8
+    role: MID
+    speed: 14
+    skill: 18
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 18
+    pass: 18
+    shoot: 16
+  - name: Bernardo Silva
+    number: 10
+    role: FWD
+    speed: 15
+    skill: 18
+    strength: 12
+    save: 0
+    discipline: 16
+    dribbling: 18
+    stamina: 17
+    pass: 18
+    shoot: 15
+  - name: Cristiano Ronaldo
+    number: 7
+    role: FWD
+    speed: 13
+    skill: 17
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 14
+    pass: 14
+    shoot: 18
+  - name: Rafael Leão
+    number: 17
+    role: FWD
+    speed: 19
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 18
+    stamina: 16
+    pass: 15
+    shoot: 16

@@ -1,0 +1,136 @@
+# Formation: 4-4-2
+team_id: paraguay
+name: Paraguay
+players:
+  - name: Roberto Fernández
+    number: 1
+    role: GK
+    speed: 10
+    skill: 12
+    strength: 14
+    save: 15
+    discipline: 14
+    dribbling: 4
+    stamina: 12
+    pass: 11
+    shoot: 3
+  - name: Junior Alonso
+    number: 6
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 12
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 7
+  - name: Omar Alderete
+    number: 22
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 12
+    dribbling: 9
+    stamina: 15
+    pass: 13
+    shoot: 7
+  - name: Gustavo Gómez
+    number: 2
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 17
+    save: 0
+    discipline: 11
+    dribbling: 9
+    stamina: 15
+    pass: 13
+    shoot: 8
+  - name: Juan José Cáceres
+    number: 4
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 15
+    pass: 12
+    shoot: 8
+  - name: Andrés Cubas
+    number: 5
+    role: MID
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 11
+    dribbling: 12
+    stamina: 16
+    pass: 13
+    shoot: 10
+  - name: Mathías Villasanti
+    number: 14
+    role: MID
+    speed: 14
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 16
+    pass: 13
+    shoot: 11
+  - name: Miguel Almirón
+    number: 7
+    role: MID
+    speed: 16
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 15
+    stamina: 17
+    pass: 14
+    shoot: 14
+  - name: Diego Gómez
+    number: 11
+    role: MID
+    speed: 14
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 16
+    pass: 14
+    shoot: 13
+  - name: Antonio Sanabria
+    number: 9
+    role: FWD
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 12
+    shoot: 15
+  - name: Julio Enciso
+    number: 20
+    role: FWD
+    speed: 15
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 14
+    pass: 13
+    shoot: 15

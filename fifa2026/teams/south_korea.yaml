@@ -1,0 +1,136 @@
+# Formation: 4-3-3
+team_id: south_korea
+name: South Korea
+players:
+  - name: Jo Hyeon-woo
+    number: 1
+    role: GK
+    speed: 12
+    skill: 13
+    strength: 15
+    save: 15
+    discipline: 15
+    dribbling: 5
+    stamina: 13
+    pass: 13
+    shoot: 4
+  - name: Kim Jin-su
+    number: 17
+    role: DEF
+    speed: 14
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 9
+  - name: Kim Min-jae
+    number: 4
+    role: DEF
+    speed: 14
+    skill: 16
+    strength: 18
+    save: 0
+    discipline: 17
+    dribbling: 12
+    stamina: 16
+    pass: 15
+    shoot: 9
+  - name: Kim Young-gwon
+    number: 19
+    role: DEF
+    speed: 12
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 16
+    dribbling: 10
+    stamina: 14
+    pass: 14
+    shoot: 8
+  - name: Kim Moon-hwan
+    number: 22
+    role: DEF
+    speed: 15
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 16
+    pass: 13
+    shoot: 9
+  - name: Hwang In-beom
+    number: 6
+    role: MID
+    speed: 14
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 15
+    dribbling: 14
+    stamina: 16
+    pass: 16
+    shoot: 12
+  - name: Lee Kang-in
+    number: 18
+    role: MID
+    speed: 14
+    skill: 17
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 17
+    stamina: 15
+    pass: 16
+    shoot: 15
+  - name: Lee Jae-sung
+    number: 17
+    role: MID
+    speed: 14
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 15
+    dribbling: 14
+    stamina: 17
+    pass: 16
+    shoot: 13
+  - name: Son Heung-min
+    number: 7
+    role: FWD
+    speed: 18
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 16
+    dribbling: 17
+    stamina: 17
+    pass: 16
+    shoot: 18
+  - name: Oh Hyeon-gyu
+    number: 16
+    role: FWD
+    speed: 15
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 15
+    pass: 12
+    shoot: 15
+  - name: Hwang Hee-chan
+    number: 11
+    role: FWD
+    speed: 17
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 13
+    shoot: 15

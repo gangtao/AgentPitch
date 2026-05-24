@@ -1,0 +1,136 @@
+# Formation: 4-2-3-1
+team_id: saudi_arabia
+name: Saudi Arabia
+players:
+  - name: Mohammed Al-Owais
+    number: 21
+    role: GK
+    speed: 11
+    skill: 13
+    strength: 14
+    save: 14
+    discipline: 13
+    dribbling: 5
+    stamina: 13
+    pass: 12
+    shoot: 4
+  - name: Ali Lajami
+    number: 13
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 8
+  - name: Ali Al-Bulayhi
+    number: 5
+    role: DEF
+    speed: 12
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 9
+    stamina: 14
+    pass: 12
+    shoot: 8
+  - name: Hassan Tambakti
+    number: 4
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 8
+  - name: Saud Abdulhamid
+    number: 2
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 9
+  - name: Mohamed Kanno
+    number: 23
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 11
+  - name: Abdulelah Al-Malki
+    number: 14
+    role: MID
+    speed: 13
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 10
+  - name: Nasser Al-Dawsari
+    number: 17
+    role: MID
+    speed: 14
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 15
+    pass: 14
+    shoot: 13
+  - name: Salem Al-Dawsari
+    number: 10
+    role: MID
+    speed: 15
+    skill: 16
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 15
+    pass: 14
+    shoot: 16
+  - name: Musab Al-Juwayr
+    number: 7
+    role: MID
+    speed: 14
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 16
+    pass: 15
+    shoot: 13
+  - name: Firas Al-Buraikan
+    number: 9
+    role: FWD
+    speed: 14
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 13
+    shoot: 14

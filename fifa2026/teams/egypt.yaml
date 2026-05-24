@@ -1,0 +1,136 @@
+# Formation: 4-3-3
+team_id: egypt
+name: Egypt
+players:
+  - name: Mohamed El Shenawy
+    number: 1
+    role: GK
+    speed: 10
+    skill: 14
+    strength: 15
+    save: 16
+    discipline: 15
+    dribbling: 5
+    stamina: 13
+    pass: 13
+    shoot: 4
+  - name: Mohamed Hany
+    number: 12
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 9
+  - name: Mohamed Abdelmonem
+    number: 3
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 8
+  - name: Omar Kamal
+    number: 2
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 7
+  - name: Ahmed Hegazi
+    number: 6
+    role: DEF
+    speed: 12
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 8
+  - name: Mohamed Elneny
+    number: 17
+    role: MID
+    speed: 13
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 15
+    dribbling: 13
+    stamina: 16
+    pass: 16
+    shoot: 11
+  - name: Hamdi Fathi
+    number: 8
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 17
+    pass: 14
+    shoot: 11
+  - name: Ibrahim Adel
+    number: 19
+    role: MID
+    speed: 15
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 14
+    shoot: 13
+  - name: Omar Marmoush
+    number: 11
+    role: FWD
+    speed: 17
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 17
+    pass: 14
+    shoot: 16
+  - name: Mostafa Mohamed
+    number: 9
+    role: FWD
+    speed: 14
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 12
+    shoot: 15
+  - name: Mohamed Salah
+    number: 10
+    role: FWD
+    speed: 17
+    skill: 18
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 18
+    stamina: 16
+    pass: 16
+    shoot: 18

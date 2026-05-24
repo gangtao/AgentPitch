@@ -1,0 +1,136 @@
+# Formation: 4-2-3-1
+team_id: colombia
+name: Colombia
+players:
+  - name: Camilo Vargas
+    number: 1
+    role: GK
+    speed: 11
+    skill: 14
+    strength: 15
+    save: 17
+    discipline: 15
+    dribbling: 5
+    stamina: 13
+    pass: 12
+    shoot: 4
+  - name: Johan Mojica
+    number: 12
+    role: DEF
+    speed: 16
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 16
+    pass: 13
+    shoot: 8
+  - name: Davinson Sánchez
+    number: 23
+    role: DEF
+    speed: 14
+    skill: 14
+    strength: 17
+    save: 0
+    discipline: 13
+    dribbling: 9
+    stamina: 15
+    pass: 13
+    shoot: 7
+  - name: Jhon Lucumí
+    number: 3
+    role: DEF
+    speed: 14
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 7
+  - name: Daniel Muñoz
+    number: 4
+    role: DEF
+    speed: 15
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 16
+    pass: 13
+    shoot: 9
+  - name: Richard Ríos
+    number: 16
+    role: MID
+    speed: 14
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 17
+    pass: 15
+    shoot: 12
+  - name: Jefferson Lerma
+    number: 6
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 11
+  - name: Luis Díaz
+    number: 7
+    role: MID
+    speed: 17
+    skill: 17
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 18
+    stamina: 16
+    pass: 15
+    shoot: 16
+  - name: James Rodríguez
+    number: 10
+    role: MID
+    speed: 12
+    skill: 18
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 13
+    pass: 18
+    shoot: 16
+  - name: Jhon Arias
+    number: 11
+    role: MID
+    speed: 15
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 16
+    pass: 15
+    shoot: 14
+  - name: Jhon Córdoba
+    number: 9
+    role: FWD
+    speed: 14
+    skill: 15
+    strength: 17
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 15
+    pass: 13
+    shoot: 16

@@ -1,0 +1,136 @@
+# Formation: 4-4-2
+team_id: new_zealand
+name: New Zealand
+players:
+  - name: Max Crocombe
+    number: 1
+    role: GK
+    speed: 9
+    skill: 11
+    strength: 13
+    save: 13
+    discipline: 13
+    dribbling: 4
+    stamina: 11
+    pass: 10
+    shoot: 3
+  - name: Liberato Cacace
+    number: 3
+    role: DEF
+    speed: 13
+    skill: 12
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 11
+    stamina: 14
+    pass: 12
+    shoot: 7
+  - name: Michael Boxall
+    number: 5
+    role: DEF
+    speed: 11
+    skill: 11
+    strength: 15
+    save: 0
+    discipline: 11
+    dribbling: 8
+    stamina: 13
+    pass: 11
+    shoot: 6
+  - name: Tyler Bindon
+    number: 4
+    role: DEF
+    speed: 12
+    skill: 11
+    strength: 14
+    save: 0
+    discipline: 11
+    dribbling: 8
+    stamina: 13
+    pass: 11
+    shoot: 6
+  - name: Tim Payne
+    number: 2
+    role: DEF
+    speed: 12
+    skill: 11
+    strength: 13
+    save: 0
+    discipline: 12
+    dribbling: 10
+    stamina: 13
+    pass: 11
+    shoot: 7
+  - name: Marko Stamenic
+    number: 6
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 14
+    pass: 13
+    shoot: 10
+  - name: Joe Bell
+    number: 8
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 12
+    dribbling: 11
+    stamina: 14
+    pass: 13
+    shoot: 9
+  - name: Matthew Garbett
+    number: 10
+    role: MID
+    speed: 13
+    skill: 13
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 13
+    shoot: 11
+  - name: Elijah Just
+    number: 11
+    role: MID
+    speed: 14
+    skill: 12
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 12
+    shoot: 11
+  - name: Chris Wood
+    number: 9
+    role: FWD
+    speed: 12
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 14
+    pass: 12
+    shoot: 15
+  - name: Kosta Barbarouses
+    number: 7
+    role: FWD
+    speed: 13
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 13
+    pass: 12
+    shoot: 13

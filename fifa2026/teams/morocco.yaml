@@ -1,0 +1,136 @@
+# Formation: 4-3-3
+team_id: morocco
+name: Morocco
+players:
+  - name: Yassine Bounou
+    number: 1
+    role: GK
+    speed: 11
+    skill: 16
+    strength: 16
+    save: 18
+    discipline: 16
+    dribbling: 5
+    stamina: 14
+    pass: 14
+    shoot: 4
+  - name: Noussair Mazraoui
+    number: 3
+    role: DEF
+    speed: 15
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 15
+    shoot: 10
+  - name: Adam Masina
+    number: 13
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 9
+  - name: Nayef Aguerd
+    number: 5
+    role: DEF
+    speed: 14
+    skill: 15
+    strength: 17
+    save: 0
+    discipline: 16
+    dribbling: 11
+    stamina: 16
+    pass: 15
+    shoot: 8
+  - name: Achraf Hakimi
+    number: 2
+    role: DEF
+    speed: 18
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 17
+    stamina: 18
+    pass: 16
+    shoot: 13
+  - name: Sofyan Amrabat
+    number: 4
+    role: MID
+    speed: 14
+    skill: 16
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 14
+    stamina: 18
+    pass: 16
+    shoot: 11
+  - name: Azzedine Ounahi
+    number: 8
+    role: MID
+    speed: 15
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 17
+    pass: 16
+    shoot: 14
+  - name: Bilal El Khannouss
+    number: 7
+    role: MID
+    speed: 15
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 16
+    pass: 16
+    shoot: 14
+  - name: Ismael Saibari
+    number: 11
+    role: FWD
+    speed: 15
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 16
+    pass: 15
+    shoot: 15
+  - name: Youssef En-Nesyri
+    number: 19
+    role: FWD
+    speed: 16
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 13
+    shoot: 17
+  - name: Brahim Díaz
+    number: 21
+    role: FWD
+    speed: 16
+    skill: 17
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 18
+    stamina: 16
+    pass: 16
+    shoot: 16

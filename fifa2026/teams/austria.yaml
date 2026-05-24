@@ -1,0 +1,136 @@
+# Formation: 4-2-3-1
+team_id: austria
+name: Austria
+players:
+  - name: Patrick Pentz
+    number: 1
+    role: GK
+    speed: 11
+    skill: 13
+    strength: 14
+    save: 14
+    discipline: 14
+    dribbling: 5
+    stamina: 13
+    pass: 12
+    shoot: 4
+  - name: Phillipp Mwene
+    number: 21
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 16
+    pass: 13
+    shoot: 9
+  - name: Kevin Danso
+    number: 4
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 7
+  - name: David Alaba
+    number: 8
+    role: DEF
+    speed: 13
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 14
+    stamina: 15
+    pass: 16
+    shoot: 12
+  - name: Stefan Posch
+    number: 16
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 16
+    pass: 13
+    shoot: 8
+  - name: Nicolas Seiwald
+    number: 6
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 15
+    dribbling: 13
+    stamina: 17
+    pass: 15
+    shoot: 11
+  - name: Konrad Laimer
+    number: 19
+    role: MID
+    speed: 16
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 15
+    dribbling: 13
+    stamina: 18
+    pass: 14
+    shoot: 11
+  - name: Christoph Baumgartner
+    number: 17
+    role: MID
+    speed: 15
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 14
+    shoot: 14
+  - name: Marcel Sabitzer
+    number: 7
+    role: MID
+    speed: 14
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 15
+    stamina: 16
+    pass: 16
+    shoot: 14
+  - name: Patrick Wimmer
+    number: 22
+    role: MID
+    speed: 16
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 15
+    pass: 13
+    shoot: 12
+  - name: Marko Arnautović
+    number: 9
+    role: FWD
+    speed: 12
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 13
+    pass: 13
+    shoot: 15

@@ -1,0 +1,136 @@
+# Formation: 4-2-3-1
+team_id: bosnia_and_herzegovina
+name: Bosnia and Herzegovina
+players:
+  - name: Nikola Vasilj
+    number: 1
+    role: GK
+    speed: 10
+    skill: 12
+    strength: 14
+    save: 13
+    discipline: 13
+    dribbling: 5
+    stamina: 12
+    pass: 11
+    shoot: 4
+  - name: Sead Kolašinac
+    number: 23
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 9
+  - name: Tarik Muharemović
+    number: 5
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 7
+  - name: Nihad Mujakić
+    number: 4
+    role: DEF
+    speed: 12
+    skill: 12
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 9
+    stamina: 14
+    pass: 12
+    shoot: 7
+  - name: Amar Dedić
+    number: 21
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 8
+  - name: Gojko Cimirot
+    number: 6
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 10
+  - name: Benjamin Tahirović
+    number: 8
+    role: MID
+    speed: 13
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 15
+    shoot: 12
+  - name: Edin Višća
+    number: 11
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 14
+    pass: 14
+    shoot: 13
+  - name: Rade Krunić
+    number: 14
+    role: MID
+    speed: 12
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 15
+    pass: 14
+    shoot: 11
+  - name: Ermedin Demirović
+    number: 9
+    role: MID
+    speed: 13
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 14
+    pass: 12
+    shoot: 13
+  - name: Edin Džeko
+    number: 10
+    role: FWD
+    speed: 10
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 12
+    pass: 13
+    shoot: 15

@@ -1,0 +1,136 @@
+# Formation: 4-3-3
+team_id: spain
+name: Spain
+players:
+  - name: Unai Simón
+    number: 23
+    role: GK
+    speed: 12
+    skill: 16
+    strength: 15
+    save: 18
+    discipline: 16
+    dribbling: 6
+    stamina: 14
+    pass: 15
+    shoot: 4
+  - name: Marc Cucurella
+    number: 24
+    role: DEF
+    speed: 16
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 18
+    pass: 15
+    shoot: 10
+  - name: Robin Le Normand
+    number: 3
+    role: DEF
+    speed: 14
+    skill: 15
+    strength: 17
+    save: 0
+    discipline: 16
+    dribbling: 10
+    stamina: 16
+    pass: 15
+    shoot: 7
+  - name: Aymeric Laporte
+    number: 14
+    role: DEF
+    speed: 13
+    skill: 16
+    strength: 17
+    save: 0
+    discipline: 15
+    dribbling: 11
+    stamina: 15
+    pass: 17
+    shoot: 8
+  - name: Dani Carvajal
+    number: 2
+    role: DEF
+    speed: 15
+    skill: 16
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 17
+    pass: 16
+    shoot: 10
+  - name: Fabián Ruiz
+    number: 8
+    role: MID
+    speed: 14
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 16
+    stamina: 17
+    pass: 17
+    shoot: 14
+  - name: Rodri
+    number: 16
+    role: MID
+    speed: 13
+    skill: 18
+    strength: 17
+    save: 0
+    discipline: 17
+    dribbling: 15
+    stamina: 18
+    pass: 19
+    shoot: 13
+  - name: Pedri
+    number: 20
+    role: MID
+    speed: 15
+    skill: 19
+    strength: 12
+    save: 0
+    discipline: 16
+    dribbling: 18
+    stamina: 17
+    pass: 19
+    shoot: 14
+  - name: Nico Williams
+    number: 17
+    role: FWD
+    speed: 19
+    skill: 17
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 18
+    stamina: 17
+    pass: 15
+    shoot: 16
+  - name: Álvaro Morata
+    number: 7
+    role: FWD
+    speed: 14
+    skill: 16
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 15
+    pass: 14
+    shoot: 17
+  - name: Lamine Yamal
+    number: 19
+    role: FWD
+    speed: 18
+    skill: 19
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 19
+    stamina: 16
+    pass: 17
+    shoot: 17

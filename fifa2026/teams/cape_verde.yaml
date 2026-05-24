@@ -1,0 +1,136 @@
+# Formation: 4-4-2
+team_id: cape_verde
+name: Cape Verde
+players:
+  - name: Vozinha
+    number: 1
+    role: GK
+    speed: 10
+    skill: 12
+    strength: 13
+    save: 13
+    discipline: 13
+    dribbling: 4
+    stamina: 12
+    pass: 11
+    shoot: 3
+  - name: Logan Costa
+    number: 4
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 7
+  - name: Roberto Lopes
+    number: 13
+    role: DEF
+    speed: 11
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 9
+    stamina: 13
+    pass: 12
+    shoot: 6
+  - name: Steven Moreira
+    number: 2
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 14
+    pass: 12
+    shoot: 8
+  - name: Stopira
+    number: 3
+    role: DEF
+    speed: 11
+    skill: 12
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 9
+    stamina: 13
+    pass: 12
+    shoot: 6
+  - name: Jamiro Monteiro
+    number: 7
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 15
+    pass: 14
+    shoot: 12
+  - name: Laros Duarte
+    number: 8
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 14
+    pass: 13
+    shoot: 10
+  - name: Deroy Duarte
+    number: 6
+    role: MID
+    speed: 12
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 14
+    shoot: 11
+  - name: Ryan Mendes
+    number: 11
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 13
+    pass: 13
+    shoot: 12
+  - name: Garry Rodrigues
+    number: 17
+    role: FWD
+    speed: 13
+    skill: 14
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 13
+    pass: 13
+    shoot: 13
+  - name: Dailon Livramento
+    number: 9
+    role: FWD
+    speed: 14
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 12
+    shoot: 14

@@ -1,0 +1,136 @@
+# Formation: 4-2-3-1
+team_id: turkiye
+name: Türkiye
+players:
+  - name: Mert Günok
+    number: 1
+    role: GK
+    speed: 11
+    skill: 13
+    strength: 15
+    save: 15
+    discipline: 14
+    dribbling: 5
+    stamina: 13
+    pass: 12
+    shoot: 4
+  - name: Ferdi Kadıoğlu
+    number: 14
+    role: DEF
+    speed: 15
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 14
+    shoot: 10
+  - name: Merih Demiral
+    number: 3
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 9
+  - name: Samet Akaydın
+    number: 4
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 8
+  - name: Zeki Çelik
+    number: 2
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 16
+    pass: 13
+    shoot: 9
+  - name: Hakan Çalhanoğlu
+    number: 10
+    role: MID
+    speed: 13
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 15
+    stamina: 16
+    pass: 18
+    shoot: 16
+  - name: İsmail Yüksek
+    number: 8
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 17
+    pass: 14
+    shoot: 11
+  - name: Kerem Aktürkoğlu
+    number: 7
+    role: MID
+    speed: 16
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 16
+    pass: 14
+    shoot: 14
+  - name: Arda Güler
+    number: 21
+    role: MID
+    speed: 14
+    skill: 17
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 15
+    pass: 17
+    shoot: 15
+  - name: Kenan Yıldız
+    number: 17
+    role: MID
+    speed: 16
+    skill: 16
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 17
+    stamina: 15
+    pass: 14
+    shoot: 15
+  - name: Barış Alper Yılmaz
+    number: 19
+    role: FWD
+    speed: 16
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 16
+    pass: 13
+    shoot: 14
