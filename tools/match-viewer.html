@@ -2554,6 +2554,8 @@ let _phaseTransitions = [];
 let _playerLabels = {};          // player_id → "A #4"
 let _playerNumbers = {};         // player_id → jersey number
 let _playerNames = {};           // player_id → display name (empty if absent)
+let _teamADisplay = "TEAM A";    // populated from meta.teams.team_a.name
+let _teamBDisplay = "TEAM B";    // populated from meta.teams.team_b.name
 let _eventRows = [];             // cached extracted event rows
 let _activeFx = [];              // [{kind, startTick, lifetime, ...}]
 let _lastFxScannedTick = -1;     // newest tick we've already extracted fx for
@@ -2916,7 +2918,7 @@ function paintTick(tickIdx) {
 
   // Statbug — possession (team) + carrier (player, if anyone is on the ball)
   const possText = possessingTeam
-    ? (possessingTeam === "team_a" ? "TEAM A" : "TEAM B")
+    ? (possessingTeam === "team_a" ? _teamADisplay : _teamBDisplay)
     : "LOOSE";
   bugPossession.textContent = possText;
   bugPossession.style.color = possessingTeam
@@ -3215,6 +3217,18 @@ function ingestRosters(teams) {
       _playerNames[p.player_id] = p.name || "";
     }
   }
+}
+
+function _setTeamDisplayNames(teams) {
+  function nameFor(slot, fallback) {
+    const td = teams && teams[slot];
+    if (td && !Array.isArray(td) && td.name) return td.name;
+    return fallback;
+  }
+  _teamADisplay = nameFor("team_a", "TEAM A");
+  _teamBDisplay = nameFor("team_b", "TEAM B");
+  if (teamAName) teamAName.textContent = _teamADisplay;
+  if (teamBName) teamBName.textContent = _teamBDisplay;
 }
 
 function _refreshPlayerLabels(allTicksData) {
@@ -3554,6 +3568,7 @@ function startFromData(meta, ticks, strategies) {
     scoreTeamB.textContent = meta.final_score.team_b;
   }
   ingestRosters(meta.teams);
+  _setTeamDisplayNames(meta.teams);
   _phaseTransitions = meta.phase_transitions || [];
   if (typeof meta.tick_rate === 'number') {
     _tickRate = meta.tick_rate;
