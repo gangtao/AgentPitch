@@ -1,14 +1,14 @@
 team_id: blue
 name: Blue Sharks
 players:
-  - name: Beck
-    role: GK
-    save: 16
-  - name: Bram
-    role: DEF
-  - name: Bo
-    role: DEF
-  - name: Beni
-    role: MID
-  - name: Blake
-    role: FWD
+  - role: GK
+  - role: DEF
+  - role: DEF
+  - role: DEF
+  - role: DEF
+  - role: MID
+  - role: MID
+  - role: MID
+  - role: MID
+  - role: FWD
+  - role: FWD

@@ -1,0 +1,8 @@
+team_id: red5
+name: Red Lions (5)
+players:
+  - role: GK
+  - role: DEF
+  - role: DEF
+  - role: MID
+  - role: FWD

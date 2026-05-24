@@ -1,0 +1,8 @@
+team_id: blue5
+name: Blue Sharks (5)
+players:
+  - role: GK
+  - role: DEF
+  - role: DEF
+  - role: MID
+  - role: FWD

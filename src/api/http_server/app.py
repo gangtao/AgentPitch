@@ -577,13 +577,13 @@ def _seed_5v5_config() -> dict:
         "output": {"log_dir": "./logs"},
         # simulation intentionally omitted — overlaid from global-defaults
         # at run time via --global-defaults.
-        "team_a": "red",
-        "team_b": "blue",
+        "team_a": "red5",
+        "team_b": "blue5",
     }
 
 
 def _seed_11v11_config() -> dict:
-    """11v11 with 4-4-2, referencing the seeded manchester / barcelona team configs.
+    """11v11 with 4-4-2, referencing the seeded red / blue team configs.
 
     Slug-form references resolved via <data_home>/configs/teams/<slug>.yaml,
     which are seeded alongside this match config.
@@ -598,79 +598,83 @@ def _seed_11v11_config() -> dict:
         },
         # output is required by the engine's MatchConfig schema (see _seed_5v5_config).
         "output": {"log_dir": "./logs"},
-        "team_a": "manchester",
-        "team_b": "barcelona",
+        "team_a": "red",
+        "team_b": "blue",
     }
 
 
 def _seed_team_red() -> dict:
-    """5-player Red Lions team — referenced by the seeded 5v5 match config."""
+    """11-player Red Lions team — referenced by the seeded 11v11 match config.
+
+    Players carry only role; preprocessor fills attributes from ROLE_DEFAULTS
+    and names from the "Player {N}" default.
+    """
     return {
         "team_id": "red",
         "name": "Red Lions",
         "players": [
-            {"role": "GK", "save": 16, "name": "Reece"},
-            {"role": "DEF", "name": "Rex"},
-            {"role": "DEF", "name": "Ramon"},
-            {"role": "MID", "name": "Rina"},
-            {"role": "FWD", "name": "Romeo"},
+            {"role": "GK"},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "MID"},
+            {"role": "MID"},
+            {"role": "MID"},
+            {"role": "MID"},
+            {"role": "FWD"},
+            {"role": "FWD"},
         ],
     }
 
 
 def _seed_team_blue() -> dict:
-    """5-player Blue Sharks team — referenced by the seeded 5v5 match config."""
+    """11-player Blue Sharks team — referenced by the seeded 11v11 match config."""
     return {
         "team_id": "blue",
         "name": "Blue Sharks",
         "players": [
-            {"role": "GK", "save": 16, "name": "Beck"},
-            {"role": "DEF", "name": "Bram"},
-            {"role": "DEF", "name": "Bo"},
-            {"role": "MID", "name": "Beni"},
-            {"role": "FWD", "name": "Blake"},
+            {"role": "GK"},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "MID"},
+            {"role": "MID"},
+            {"role": "MID"},
+            {"role": "MID"},
+            {"role": "FWD"},
+            {"role": "FWD"},
         ],
     }
 
 
-def _seed_team_manchester() -> dict:
-    """11-player Manchester United team — referenced by the seeded 11v11 match config."""
+def _seed_team_red5() -> dict:
+    """5-player Red Lions (5) team — referenced by the seeded 5v5 match config."""
     return {
-        "team_id": "manchester",
-        "name": "Manchester United",
+        "team_id": "red5",
+        "name": "Red Lions (5)",
         "players": [
-            {"role": "GK", "save": 16, "name": "Onana"},
-            {"role": "DEF", "name": "Dalot"},
-            {"role": "DEF", "name": "Maguire"},
-            {"role": "DEF", "name": "Lisandro"},
-            {"role": "DEF", "name": "Shaw"},
-            {"role": "MID", "name": "Bruno"},
-            {"role": "MID", "name": "Casemiro"},
-            {"role": "MID", "name": "Mainoo"},
-            {"role": "MID", "name": "Mount"},
-            {"role": "FWD", "name": "Rashford"},
-            {"role": "FWD", "name": "Hojlund"},
+            {"role": "GK"},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "MID"},
+            {"role": "FWD"},
         ],
     }
 
 
-def _seed_team_barcelona() -> dict:
-    """11-player FC Barcelona team — referenced by the seeded 11v11 match config."""
+def _seed_team_blue5() -> dict:
+    """5-player Blue Sharks (5) team — referenced by the seeded 5v5 match config."""
     return {
-        "team_id": "barcelona",
-        "name": "FC Barcelona",
+        "team_id": "blue5",
+        "name": "Blue Sharks (5)",
         "players": [
-            {"role": "GK", "save": 16, "name": "TerStegen"},
-            {"role": "DEF", "name": "Kounde"},
-            {"role": "DEF", "name": "Araujo"},
-            {"role": "DEF", "name": "Christensen"},
-            {"role": "DEF", "name": "Balde"},
-            {"role": "MID", "name": "Pedri"},
-            {"role": "MID", "name": "Gavi"},
-            {"role": "MID", "name": "DeJong"},
-            {"role": "MID", "name": "Yamal"},
-            {"role": "FWD", "name": "Lewandowski"},
-            {"role": "FWD", "name": "Felix"},
+            {"role": "GK"},
+            {"role": "DEF"},
+            {"role": "DEF"},
+            {"role": "MID"},
+            {"role": "FWD"},
         ],
     }
 
@@ -687,21 +691,21 @@ def _seed_default_data(data_home: Path) -> None:
     successfully on first startup.
 
     Files created:
-      <data_home>/configs/teams/red.yaml         — 5-player red team
-      <data_home>/configs/teams/blue.yaml        — 5-player blue team
-      <data_home>/configs/teams/manchester.yaml  — 11-player manchester team
-      <data_home>/configs/teams/barcelona.yaml   — 11-player barcelona team
-      <data_home>/configs/5v5.yaml               — 5v5 referencing red / blue
-      <data_home>/configs/11v11.yaml             — 11v11 referencing manchester / barcelona
-      <data_home>/strategies/baseline.py         — copy of src/strategy/baseline.py
+      <data_home>/configs/teams/red.yaml    — 11-player Red Lions
+      <data_home>/configs/teams/blue.yaml   — 11-player Blue Sharks
+      <data_home>/configs/teams/red5.yaml   — 5-player Red Lions (5)
+      <data_home>/configs/teams/blue5.yaml  — 5-player Blue Sharks (5)
+      <data_home>/configs/5v5.yaml          — 5v5 referencing red5 / blue5
+      <data_home>/configs/11v11.yaml        — 11v11 referencing red / blue
+      <data_home>/strategies/baseline.py    — copy of src/strategy/baseline.py
     """
     seeds = [
-        (data_home / "configs" / "teams" / "red.yaml",        lambda: yaml.safe_dump(_seed_team_red(),        default_flow_style=False, sort_keys=False)),
-        (data_home / "configs" / "teams" / "blue.yaml",       lambda: yaml.safe_dump(_seed_team_blue(),       default_flow_style=False, sort_keys=False)),
-        (data_home / "configs" / "teams" / "manchester.yaml", lambda: yaml.safe_dump(_seed_team_manchester(), default_flow_style=False, sort_keys=False)),
-        (data_home / "configs" / "teams" / "barcelona.yaml",  lambda: yaml.safe_dump(_seed_team_barcelona(),  default_flow_style=False, sort_keys=False)),
-        (data_home / "configs" / "5v5.yaml",                  lambda: yaml.safe_dump(_seed_5v5_config(),     default_flow_style=False)),
-        (data_home / "configs" / "11v11.yaml",                lambda: yaml.safe_dump(_seed_11v11_config(),   default_flow_style=False)),
+        (data_home / "configs" / "teams" / "red.yaml",   lambda: yaml.safe_dump(_seed_team_red(),   default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "blue.yaml",  lambda: yaml.safe_dump(_seed_team_blue(),  default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "red5.yaml",  lambda: yaml.safe_dump(_seed_team_red5(),  default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "blue5.yaml", lambda: yaml.safe_dump(_seed_team_blue5(), default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "5v5.yaml",             lambda: yaml.safe_dump(_seed_5v5_config(),   default_flow_style=False)),
+        (data_home / "configs" / "11v11.yaml",           lambda: yaml.safe_dump(_seed_11v11_config(), default_flow_style=False)),
     ]
     try:
         for path, builder in seeds:
