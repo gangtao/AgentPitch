@@ -1,0 +1,136 @@
+# Formation: 4-2-3-1
+team_id: dr_congo
+name: DR Congo
+players:
+  - name: Lionel Mpasi
+    number: 1
+    role: GK
+    speed: 10
+    skill: 13
+    strength: 14
+    save: 14
+    discipline: 13
+    dribbling: 4
+    stamina: 12
+    pass: 12
+    shoot: 3
+  - name: Arthur Masuaku
+    number: 3
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 13
+    shoot: 9
+  - name: Chancel Mbemba
+    number: 4
+    role: DEF
+    speed: 12
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 14
+    pass: 14
+    shoot: 8
+  - name: Axel Tuanzebe
+    number: 5
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 14
+    pass: 13
+    shoot: 7
+  - name: Aaron Wan-Bissaka
+    number: 2
+    role: DEF
+    speed: 16
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 13
+    shoot: 9
+  - name: Noah Sadiki
+    number: 6
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 14
+    shoot: 11
+  - name: Ngal'ayel Mukau
+    number: 8
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 14
+    shoot: 11
+  - name: Théo Bongonda
+    number: 7
+    role: MID
+    speed: 14
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 14
+    pass: 13
+    shoot: 13
+  - name: Cédric Bakambu
+    number: 11
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 14
+    pass: 13
+    shoot: 15
+  - name: Meschack Elia
+    number: 10
+    role: MID
+    speed: 14
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 14
+    pass: 13
+    shoot: 13
+  - name: Fiston Mayele
+    number: 9
+    role: FWD
+    speed: 15
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 13
+    shoot: 16

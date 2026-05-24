@@ -1,0 +1,136 @@
+# Formation: 4-3-3
+team_id: sweden
+name: Sweden
+players:
+  - name: Robin Olsen
+    number: 1
+    role: GK
+    speed: 11
+    skill: 13
+    strength: 16
+    save: 15
+    discipline: 14
+    dribbling: 5
+    stamina: 13
+    pass: 13
+    shoot: 4
+  - name: Ludwig Augustinsson
+    number: 6
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 9
+  - name: Victor Lindelöf
+    number: 3
+    role: DEF
+    speed: 13
+    skill: 15
+    strength: 15
+    save: 0
+    discipline: 15
+    dribbling: 11
+    stamina: 16
+    pass: 15
+    shoot: 9
+  - name: Isak Hien
+    number: 4
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 7
+  - name: Emil Krafth
+    number: 2
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 16
+    pass: 13
+    shoot: 8
+  - name: Mattias Svanberg
+    number: 8
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 17
+    pass: 15
+    shoot: 13
+  - name: Lucas Bergvall
+    number: 15
+    role: MID
+    speed: 14
+    skill: 16
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 15
+    stamina: 17
+    pass: 16
+    shoot: 12
+  - name: Emil Forsberg
+    number: 10
+    role: MID
+    speed: 13
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 15
+    stamina: 15
+    pass: 16
+    shoot: 15
+  - name: Anthony Elanga
+    number: 11
+    role: FWD
+    speed: 18
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 13
+    shoot: 13
+  - name: Alexander Isak
+    number: 9
+    role: FWD
+    speed: 16
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 16
+    pass: 14
+    shoot: 17
+  - name: Viktor Gyökeres
+    number: 7
+    role: FWD
+    speed: 16
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 17
+    pass: 13
+    shoot: 17

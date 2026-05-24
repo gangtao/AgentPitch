@@ -1,0 +1,136 @@
+# Formation: 4-2-3-1
+team_id: czechia
+name: Czechia
+players:
+  - name: Jindřich Staněk
+    number: 1
+    role: GK
+    speed: 11
+    skill: 13
+    strength: 14
+    save: 14
+    discipline: 14
+    dribbling: 5
+    stamina: 13
+    pass: 12
+    shoot: 4
+  - name: Ladislav Krejčí
+    number: 13
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 15
+    pass: 14
+    shoot: 10
+  - name: Robin Hranáč
+    number: 24
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 7
+  - name: Tomáš Holeš
+    number: 4
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 15
+    dribbling: 11
+    stamina: 16
+    pass: 13
+    shoot: 8
+  - name: Vladimír Coufal
+    number: 22
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 16
+    pass: 13
+    shoot: 9
+  - name: Tomáš Souček
+    number: 8
+    role: MID
+    speed: 12
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 17
+    pass: 14
+    shoot: 14
+  - name: Pavel Šulc
+    number: 11
+    role: MID
+    speed: 14
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 15
+    shoot: 13
+  - name: Lukáš Provod
+    number: 18
+    role: MID
+    speed: 14
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 14
+    shoot: 13
+  - name: Antonín Barák
+    number: 17
+    role: MID
+    speed: 13
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 16
+    pass: 15
+    shoot: 14
+  - name: Adam Hložek
+    number: 15
+    role: MID
+    speed: 15
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 15
+    pass: 13
+    shoot: 13
+  - name: Patrik Schick
+    number: 10
+    role: FWD
+    speed: 13
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 14
+    pass: 13
+    shoot: 16

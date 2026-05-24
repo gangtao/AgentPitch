@@ -1,0 +1,136 @@
+# Formation: 4-2-3-1
+team_id: germany
+name: Germany
+players:
+  - name: Marc-André ter Stegen
+    number: 1
+    role: GK
+    speed: 13
+    skill: 17
+    strength: 15
+    save: 18
+    discipline: 16
+    dribbling: 7
+    stamina: 14
+    pass: 17
+    shoot: 4
+  - name: David Raum
+    number: 22
+    role: DEF
+    speed: 16
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 18
+    pass: 16
+    shoot: 11
+  - name: Antonio Rüdiger
+    number: 2
+    role: DEF
+    speed: 15
+    skill: 15
+    strength: 18
+    save: 0
+    discipline: 12
+    dribbling: 11
+    stamina: 16
+    pass: 15
+    shoot: 7
+  - name: Jonathan Tah
+    number: 4
+    role: DEF
+    speed: 14
+    skill: 15
+    strength: 18
+    save: 0
+    discipline: 15
+    dribbling: 11
+    stamina: 16
+    pass: 15
+    shoot: 7
+  - name: Joshua Kimmich
+    number: 6
+    role: DEF
+    speed: 14
+    skill: 18
+    strength: 14
+    save: 0
+    discipline: 16
+    dribbling: 14
+    stamina: 17
+    pass: 18
+    shoot: 13
+  - name: Aleksandar Pavlović
+    number: 23
+    role: MID
+    speed: 13
+    skill: 17
+    strength: 15
+    save: 0
+    discipline: 16
+    dribbling: 15
+    stamina: 17
+    pass: 17
+    shoot: 12
+  - name: Leon Goretzka
+    number: 8
+    role: MID
+    speed: 14
+    skill: 17
+    strength: 17
+    save: 0
+    discipline: 15
+    dribbling: 14
+    stamina: 17
+    pass: 16
+    shoot: 15
+  - name: Florian Wirtz
+    number: 17
+    role: MID
+    speed: 16
+    skill: 18
+    strength: 13
+    save: 0
+    discipline: 16
+    dribbling: 18
+    stamina: 17
+    pass: 18
+    shoot: 16
+  - name: Jamal Musiala
+    number: 10
+    role: MID
+    speed: 16
+    skill: 18
+    strength: 13
+    save: 0
+    discipline: 16
+    dribbling: 19
+    stamina: 17
+    pass: 17
+    shoot: 16
+  - name: Leroy Sané
+    number: 19
+    role: MID
+    speed: 18
+    skill: 17
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 17
+    stamina: 16
+    pass: 15
+    shoot: 16
+  - name: Kai Havertz
+    number: 7
+    role: FWD
+    speed: 15
+    skill: 17
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 15
+    stamina: 16
+    pass: 16
+    shoot: 17

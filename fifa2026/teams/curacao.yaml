@@ -1,0 +1,136 @@
+# Formation: 4-4-2
+team_id: curacao
+name: Curaçao
+players:
+  - name: Eloy Room
+    number: 1
+    role: GK
+    speed: 9
+    skill: 12
+    strength: 13
+    save: 13
+    discipline: 13
+    dribbling: 5
+    stamina: 12
+    pass: 11
+    shoot: 3
+  - name: Joshua Brenet
+    number: 2
+    role: DEF
+    speed: 13
+    skill: 12
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 13
+    pass: 11
+    shoot: 7
+  - name: Juninho Bacuna
+    number: 5
+    role: DEF
+    speed: 11
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 13
+    pass: 12
+    shoot: 8
+  - name: Armando Obispo
+    number: 4
+    role: DEF
+    speed: 12
+    skill: 12
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 10
+    stamina: 13
+    pass: 11
+    shoot: 7
+  - name: Sherel Floranus
+    number: 3
+    role: DEF
+    speed: 12
+    skill: 11
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 11
+    stamina: 13
+    pass: 11
+    shoot: 7
+  - name: Leandro Bacuna
+    number: 8
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 13
+    shoot: 11
+  - name: Godfried Roemeratoe
+    number: 7
+    role: MID
+    speed: 12
+    skill: 12
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 13
+    pass: 12
+    shoot: 10
+  - name: Roshon van Eijma
+    number: 6
+    role: MID
+    speed: 11
+    skill: 11
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 13
+    pass: 11
+    shoot: 9
+  - name: Tahith Chong
+    number: 10
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 13
+    pass: 13
+    shoot: 12
+  - name: Jürgen Locadia
+    number: 11
+    role: FWD
+    speed: 12
+    skill: 12
+    strength: 14
+    save: 0
+    discipline: 11
+    dribbling: 12
+    stamina: 13
+    pass: 11
+    shoot: 13
+  - name: Gervane Kastaneer
+    number: 9
+    role: FWD
+    speed: 13
+    skill: 12
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 13
+    pass: 11
+    shoot: 12

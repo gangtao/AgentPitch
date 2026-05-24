@@ -1,0 +1,136 @@
+# Formation: 4-3-3
+team_id: senegal
+name: Senegal
+players:
+  - name: Édouard Mendy
+    number: 16
+    role: GK
+    speed: 12
+    skill: 16
+    strength: 17
+    save: 17
+    discipline: 16
+    dribbling: 6
+    stamina: 14
+    pass: 14
+    shoot: 4
+  - name: El Hadji Malick Diouf
+    number: 12
+    role: DEF
+    speed: 16
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 17
+    pass: 14
+    shoot: 10
+  - name: Kalidou Koulibaly
+    number: 3
+    role: DEF
+    speed: 12
+    skill: 16
+    strength: 17
+    save: 0
+    discipline: 16
+    dribbling: 11
+    stamina: 15
+    pass: 15
+    shoot: 8
+  - name: Moussa Niakhaté
+    number: 22
+    role: DEF
+    speed: 13
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 11
+    stamina: 16
+    pass: 14
+    shoot: 8
+  - name: Krépin Diatta
+    number: 15
+    role: DEF
+    speed: 17
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 17
+    pass: 14
+    shoot: 12
+  - name: Idrissa Gueye
+    number: 5
+    role: MID
+    speed: 14
+    skill: 16
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 17
+    pass: 15
+    shoot: 12
+  - name: Pape Matar Sarr
+    number: 6
+    role: MID
+    speed: 15
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 17
+    pass: 16
+    shoot: 13
+  - name: Habib Diarra
+    number: 8
+    role: MID
+    speed: 14
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 15
+    stamina: 17
+    pass: 15
+    shoot: 12
+  - name: Sadio Mané
+    number: 10
+    role: FWD
+    speed: 16
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 17
+    stamina: 16
+    pass: 16
+    shoot: 16
+  - name: Nicolas Jackson
+    number: 9
+    role: FWD
+    speed: 17
+    skill: 15
+    strength: 15
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 17
+    pass: 13
+    shoot: 16
+  - name: Iliman Ndiaye
+    number: 18
+    role: FWD
+    speed: 17
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 17
+    stamina: 17
+    pass: 15
+    shoot: 15

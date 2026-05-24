@@ -1,0 +1,136 @@
+# Formation: 4-3-3
+team_id: argentina
+name: Argentina
+players:
+  - name: Emiliano Martínez
+    number: 23
+    role: GK
+    speed: 12
+    skill: 16
+    strength: 16
+    save: 19
+    discipline: 15
+    dribbling: 5
+    stamina: 14
+    pass: 13
+    shoot: 4
+  - name: Nicolás Tagliafico
+    number: 3
+    role: DEF
+    speed: 15
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 16
+    dribbling: 12
+    stamina: 17
+    pass: 15
+    shoot: 9
+  - name: Cristian Romero
+    number: 13
+    role: DEF
+    speed: 14
+    skill: 16
+    strength: 18
+    save: 0
+    discipline: 13
+    dribbling: 10
+    stamina: 16
+    pass: 15
+    shoot: 8
+  - name: Lisandro Martínez
+    number: 25
+    role: DEF
+    speed: 14
+    skill: 16
+    strength: 17
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 16
+    pass: 16
+    shoot: 8
+  - name: Nahuel Molina
+    number: 26
+    role: DEF
+    speed: 16
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 13
+    stamina: 17
+    pass: 15
+    shoot: 10
+  - name: Rodrigo De Paul
+    number: 7
+    role: MID
+    speed: 15
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 18
+    pass: 17
+    shoot: 13
+  - name: Enzo Fernández
+    number: 24
+    role: MID
+    speed: 14
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 15
+    stamina: 17
+    pass: 18
+    shoot: 14
+  - name: Alexis Mac Allister
+    number: 20
+    role: MID
+    speed: 14
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 16
+    dribbling: 15
+    stamina: 17
+    pass: 17
+    shoot: 14
+  - name: Thiago Almada
+    number: 16
+    role: FWD
+    speed: 17
+    skill: 17
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 17
+    stamina: 16
+    pass: 16
+    shoot: 15
+  - name: Julián Álvarez
+    number: 9
+    role: FWD
+    speed: 17
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 16
+    stamina: 17
+    pass: 15
+    shoot: 18
+  - name: Lionel Messi
+    number: 10
+    role: FWD
+    speed: 15
+    skill: 20
+    strength: 13
+    save: 0
+    discipline: 16
+    dribbling: 19
+    stamina: 14
+    pass: 19
+    shoot: 19
