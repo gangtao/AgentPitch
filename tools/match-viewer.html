@@ -2037,12 +2037,18 @@
  * Pure function: takes parsed events array + meta dict, returns stats dict.
  */
 function computeMatchStats(events, meta) {
-  // Build roster: { player_id: { team, role, number } }
+  // Build roster: { player_id: { team, name, role, number } }
   const roster = {};
-  for (const [teamId, players] of Object.entries(meta.teams || {})) {
+  for (const [teamId, teamData] of Object.entries(meta.teams || {})) {
+    const players = Array.isArray(teamData) ? teamData : (teamData?.roster || []);
     for (const p of players) {
       if (p.player_id) {
-        roster[p.player_id] = { team: teamId, role: p.role || '', number: p.number || 0 };
+        roster[p.player_id] = {
+          team: teamId,
+          name: p.name || '',
+          role: p.role || '',
+          number: p.number || 0,
+        };
       }
     }
   }
@@ -2060,7 +2066,7 @@ function computeMatchStats(events, meta) {
   // Player stats template
   function emptyPlayer(info) {
     return {
-      team: info.team, role: info.role, number: info.number,
+      team: info.team, role: info.role, number: info.number, name: info.name || '',
       goals: 0, shots: 0, shots_on_target: 0,
       passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
       dribbles_attempted: 0, dribbles_successful: 0,
@@ -2109,6 +2115,17 @@ function computeMatchStats(events, meta) {
   // Round distance
   for (const ps of Object.values(playerStats)) {
     ps.distance_run = Math.round(ps.distance_run * 10) / 10;
+  }
+
+  for (const slot of ['team_a', 'team_b']) {
+    const td = (meta.teams || {})[slot];
+    if (td && !Array.isArray(td)) {
+      teamStats[slot].team_id = td.team_id || slot;
+      teamStats[slot].name = td.name || (slot === 'team_a' ? 'Team A' : 'Team B');
+    } else {
+      teamStats[slot].team_id = slot;
+      teamStats[slot].name = slot === 'team_a' ? 'Team A' : 'Team B';
+    }
   }
 
   return { match_id: meta.match_id || '', teams: teamStats, players: playerStats };
@@ -2369,7 +2386,7 @@ function _processAction(rec, teamStats, playerStats, roster) {
       </div>
       <div class="stats-panel-body">
         ${_teamSummaryHtml(ta, tb)}
-        ${_playerSectionHtml(players)}
+        ${_playerSectionHtml(players, { team_a: ta.name, team_b: tb.name })}
       </div>
     `;
   }
@@ -2409,8 +2426,8 @@ function _processAction(rec, teamStats, playerStats, roster) {
           <thead>
             <tr>
               <th></th>
-              <th class="col-a">TEAM A</th>
-              <th class="col-b">TEAM B</th>
+              <th class="col-a">${_esc((ta.name || 'TEAM A').toUpperCase())}</th>
+              <th class="col-b">${_esc((tb.name || 'TEAM B').toUpperCase())}</th>
             </tr>
           </thead>
           <tbody>${rowsHtml}</tbody>
@@ -2419,7 +2436,7 @@ function _processAction(rec, teamStats, playerStats, roster) {
     `;
   }
 
-  function _playerSectionHtml(players) {
+  function _playerSectionHtml(players, teamLabels) {
     const teamAPlayers = Object.entries(players)
       .filter(([, p]) => p.team === 'team_a')
       .sort(([, a], [, b]) => a.number - b.number);
@@ -2430,19 +2447,20 @@ function _processAction(rec, teamStats, playerStats, roster) {
     return `
       <div class="stats-players-section">
         <div class="stats-section-label">Per Player</div>
-        ${_teamPlayerTableHtml('team_a', teamAPlayers)}
-        ${_teamPlayerTableHtml('team_b', teamBPlayers)}
+        ${_teamPlayerTableHtml('team_a', teamLabels.team_a || 'TEAM A', teamAPlayers)}
+        ${_teamPlayerTableHtml('team_b', teamLabels.team_b || 'TEAM B', teamBPlayers)}
       </div>
     `;
   }
 
-  function _teamPlayerTableHtml(teamId, entries) {
+  function _teamPlayerTableHtml(teamId, label, entries) {
     const isA = teamId === 'team_a';
     const labelClass = isA ? 'team-label-a' : 'team-label-b';
-    const label = isA ? 'TEAM A' : 'TEAM B';
+    label = label.toUpperCase();
 
     const rowsHtml = entries.map(([pid, p]) => {
-      const shortPid = pid.replace('team_a_', '#').replace('team_b_', '#');
+      const numTag = p.number ? `#${p.number}` : pid.replace('team_a_', '#').replace('team_b_', '#');
+      const shortPid = p.name ? `${p.name} ${numTag}` : numTag;
       const gkCols = p.role === 'GK'
         ? `<td>${p.gk_saves_caught ?? 0}/${(p.gk_saves_caught ?? 0) + (p.gk_saves_parried ?? 0)}</td>`
         : `<td class="val-dim">—</td>`;
@@ -2535,6 +2553,9 @@ let _totalTicks = 0;
 let _phaseTransitions = [];
 let _playerLabels = {};          // player_id → "A #4"
 let _playerNumbers = {};         // player_id → jersey number
+let _playerNames = {};           // player_id → display name (empty if absent)
+let _teamADisplay = "TEAM A";    // populated from meta.teams.team_a.name
+let _teamBDisplay = "TEAM B";    // populated from meta.teams.team_b.name
 let _eventRows = [];             // cached extracted event rows
 let _activeFx = [];              // [{kind, startTick, lifetime, ...}]
 let _lastFxScannedTick = -1;     // newest tick we've already extracted fx for
@@ -2831,6 +2852,19 @@ function paintTick(tickIdx) {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(String(num), cx, cy);
+
+    // Player name above the dot (only when name is known from roster).
+    const nm = _playerNames[playerId];
+    if (nm) {
+      const nameY = cy - PLAYER_RADIUS - 4;
+      ctx.font = "500 10px 'Space Grotesk', -apple-system, sans-serif";
+      ctx.textBaseline = "bottom";
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.65)";
+      ctx.strokeText(nm, cx, nameY);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+      ctx.fillText(nm, cx, nameY);
+    }
   }
 
   // Ball — when carried, offset to the side of the carrier in their
@@ -2884,7 +2918,7 @@ function paintTick(tickIdx) {
 
   // Statbug — possession (team) + carrier (player, if anyone is on the ball)
   const possText = possessingTeam
-    ? (possessingTeam === "team_a" ? "TEAM A" : "TEAM B")
+    ? (possessingTeam === "team_a" ? _teamADisplay : _teamBDisplay)
     : "LOOSE";
   bugPossession.textContent = possText;
   bugPossession.style.color = possessingTeam
@@ -3173,11 +3207,28 @@ function ingestRosters(teams) {
   if (!teams) return;
   for (const teamId of Object.keys(teams)) {
     const teamLetter = teamId === "team_a" ? "A" : "B";
-    for (const p of (teams[teamId] || [])) {
-      _playerLabels[p.player_id] = `${teamLetter} #${p.number}`;
+    const teamData = teams[teamId];
+    const players = Array.isArray(teamData) ? teamData : (teamData?.roster || []);
+    for (const p of players) {
+      const num = p.number;
+      const numTag = num ? `#${num}` : "";
+      _playerLabels[p.player_id] = p.name ? `${p.name} ${numTag}`.trim() : `${teamLetter} ${numTag}`.trim();
       _playerNumbers[p.player_id] = p.number;
+      _playerNames[p.player_id] = p.name || "";
     }
   }
+}
+
+function _setTeamDisplayNames(teams) {
+  function nameFor(slot, fallback) {
+    const td = teams && teams[slot];
+    if (td && !Array.isArray(td) && td.name) return td.name;
+    return fallback;
+  }
+  _teamADisplay = nameFor("team_a", "TEAM A");
+  _teamBDisplay = nameFor("team_b", "TEAM B");
+  if (teamAName) teamAName.textContent = _teamADisplay;
+  if (teamBName) teamBName.textContent = _teamBDisplay;
 }
 
 function _refreshPlayerLabels(allTicksData) {
@@ -3517,6 +3568,7 @@ function startFromData(meta, ticks, strategies) {
     scoreTeamB.textContent = meta.final_score.team_b;
   }
   ingestRosters(meta.teams);
+  _setTeamDisplayNames(meta.teams);
   _phaseTransitions = meta.phase_transitions || [];
   if (typeof meta.tick_rate === 'number') {
     _tickRate = meta.tick_rate;

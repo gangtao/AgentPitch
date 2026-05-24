@@ -40,6 +40,8 @@ def _player(player_id: str, role: str, save: int = 0) -> PlayerConfig:
 def _team(team_id: str = "team_a", llm_provider: str = "openai", llm_model: str = "gpt-4o") -> TeamConfig:
     """Factory for test TeamConfig objects."""
     return TeamConfig(
+        team_id=team_id,
+        name=team_id.replace("_", " ").title(),
         llm_provider=llm_provider,
         llm_model=llm_model,
         api_key="sk-test",

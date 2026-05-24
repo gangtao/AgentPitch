@@ -25,6 +25,7 @@ from src.api.http_server.game_config import GameConfig
 from src.api.http_server.storage_config import StorageConfig, validate_data_home
 from src.api.http_server.llm_config import LLMConfigPayload, TestConnectionRequest
 from src.api.http_server.match_config_payload import MatchConfigPayload
+from src.api.http_server.team_config_payload import TeamConfigPayload
 from src.api.http_server.start_match_payload import StartMatchPayload
 from src.api.http_server.strategy_payload import StrategyPayload
 from src.api.http_server.strategy_create_payload import StrategyCreatePayload, StrategyGeneratePayload
@@ -35,7 +36,7 @@ from src.api.http_server.series_metadata import (
     write_series_json as _write_series_json,
     list_series as _list_series,
 )
-from src.api.http_server.cup_payload import StartCupPayload
+from src.api.http_server.cup_payload import StartCupPayload, team_names_for_match
 from src.cup_metadata import (
     cup_dir as _cup_dir,
     read_cup_json as _read_cup_json,
@@ -374,8 +375,9 @@ def _load_match_configs(data_home: Path) -> list:
                 mtime = config_file.stat().st_mtime
                 modified_iso = time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime(mtime))
 
-                # Create summary from config data
-                summary = _create_config_summary(data)
+                # Create summary from config data. Pass data_home so slug-form
+                # team references can be resolved to their roster YAMLs.
+                summary = _create_config_summary(data, data_home)
 
                 configs.append({
                     "name": name,
@@ -396,12 +398,18 @@ def _load_match_configs(data_home: Path) -> list:
     return configs
 
 
-def _create_config_summary(data: dict) -> dict:
-    """Create summary object from config data."""
+def _create_config_summary(data: dict, data_home: Path | None = None) -> dict:
+    """Create summary object from config data.
+
+    Match configs now reference teams by slug (str) — the roster lives in
+    ``<data_home>/configs/teams/<slug>.yaml``. To render formation /
+    players-per-team for the match-list view we resolve each slug to its
+    team YAML and read the players from there. Falls back to the legacy
+    inline-team shape if a saved config still has dict-shaped team_a /
+    team_b (defensive; should not occur post-migration).
+    """
     try:
         match_data = data.get("match", {})
-        team_a_data = data.get("team_a", {})
-        team_b_data = data.get("team_b", {})
 
         # Extract basic params (defaults match GameConfig — see game_config.py)
         tick_rate = match_data.get("tick_rate", 10)
@@ -409,14 +417,37 @@ def _create_config_summary(data: dict) -> dict:
         field_w = match_data.get("field_width", 100.0)
         field_h = match_data.get("field_height", 60.0)
 
+        def _players_for(slot_value) -> list:
+            # New shape: slot_value is a slug string — resolve to team YAML.
+            if isinstance(slot_value, str) and data_home is not None:
+                team_path = data_home / "configs" / "teams" / f"{slot_value}.yaml"
+                if team_path.exists():
+                    try:
+                        with open(team_path, "r") as tf:
+                            team_doc = yaml.safe_load(tf) or {}
+                        roster = team_doc.get("players", [])
+                        if isinstance(roster, list):
+                            return roster
+                    except (yaml.YAMLError, OSError):
+                        pass
+                return []
+            # Legacy inline shape: {"players": [...]} — back-compat fallback.
+            if isinstance(slot_value, dict):
+                roster = slot_value.get("players", [])
+                return roster if isinstance(roster, list) else []
+            return []
+
+        team_a_roster = _players_for(data.get("team_a"))
+        team_b_roster = _players_for(data.get("team_b"))
+
         # Count players per team
-        team_a_players = len(team_a_data.get("players", []))
-        team_b_players = len(team_b_data.get("players", []))
+        team_a_players = len(team_a_roster)
+        team_b_players = len(team_b_roster)
         players_per_team = max(team_a_players, team_b_players)
 
         # Derive formations
-        team_a_formation = _derive_formation(team_a_data.get("players", []))
-        team_b_formation = _derive_formation(team_b_data.get("players", []))
+        team_a_formation = _derive_formation(team_a_roster)
+        team_b_formation = _derive_formation(team_b_roster)
 
         return {
             "tick_rate": tick_rate,
@@ -471,12 +502,17 @@ def _derive_formation(players: list) -> str:
 
 
 def _strip_deprecated_llm_fields(data: dict) -> dict:
-    """Remove deprecated llm_provider/llm_model fields from config data."""
+    """Remove deprecated llm_provider/llm_model fields from config data.
+
+    Post-team-slug migration, ``team_a`` / ``team_b`` are slug strings and
+    cannot themselves carry these fields; only the legacy inline-dict shape
+    is scrubbed (back-compat for any unmigrated YAMLs still on disk).
+    """
     cleaned = data.copy()
 
-    # Remove from team configs
+    # Remove from team configs (legacy inline shape only)
     for team_key in ["team_a", "team_b"]:
-        if team_key in cleaned:
+        if team_key in cleaned and isinstance(cleaned[team_key], dict):
             team_data = cleaned[team_key].copy()
             team_data.pop("llm_provider", None)
             team_data.pop("llm_model", None)
@@ -519,33 +555,13 @@ _PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 _BASELINE_SOURCE_PATH = _PROJECT_ROOT / "src" / "strategy" / "baseline.py"
 
 
-def _player(role: str, speed: int, skill: int, strength: int, save: int = 0) -> dict:
-    """Compact player factory for the seed configs.
-
-    `save` is GK-only (engine validator forces non-GK players to save=0).
-    Other tactical attrs (discipline / dribbling / passing / shooting / stamina)
-    fall to schema defaults — the user can edit later in the roster table.
-    """
-    p = {"role": role, "speed": speed, "skill": skill, "strength": strength}
-    if save:
-        p["save"] = save
-    return p
-
-
 def _seed_5v5_config() -> dict:
-    """5v5 with 2-1-1 (1 GK + 2 DEF + 1 MID + 1 FWD = 5 players per team).
+    """5v5 with 2-1-1, referencing the seeded red / blue team configs.
 
-    Standard 5-a-side roster split. The GK counts as one of the 5 — formation
-    notation excludes GK by convention, hence "2-1-1" not "1-2-1-1".
+    Per ADR (Task E3) the API only accepts slug-form match configs — `team_a`
+    and `team_b` are string references to team config files under
+    <data_home>/configs/teams/<slug>.yaml, which are seeded alongside.
     """
-    def team():
-        return {"players": [
-            _player("GK",  speed=8,  skill=10, strength=8,  save=16),
-            _player("DEF", speed=12, skill=12, strength=14),
-            _player("DEF", speed=12, skill=12, strength=14),
-            _player("MID", speed=14, skill=14, strength=12),
-            _player("FWD", speed=16, skill=14, strength=10),
-        ]}
     return {
         "match": {
             "seed": 42,
@@ -561,23 +577,17 @@ def _seed_5v5_config() -> dict:
         "output": {"log_dir": "./logs"},
         # simulation intentionally omitted — overlaid from global-defaults
         # at run time via --global-defaults.
-        "team_a": team(),
-        "team_b": team(),
+        "team_a": "red5",
+        "team_b": "blue5",
     }
 
 
 def _seed_11v11_config() -> dict:
-    """11v11 with 4-4-2 (1 GK + 4 DEF + 4 MID + 2 FWD = 11 players per team).
+    """11v11 with 4-4-2, referencing the seeded red / blue team configs.
 
-    Classic FIFA full-side formation. Field uses standard pitch proportions.
+    Slug-form references resolved via <data_home>/configs/teams/<slug>.yaml,
+    which are seeded alongside this match config.
     """
-    def team():
-        return {"players": [
-            _player("GK",  speed=8,  skill=10, strength=8,  save=16),
-            *[_player("DEF", speed=12, skill=12, strength=14) for _ in range(4)],
-            *[_player("MID", speed=14, skill=14, strength=12) for _ in range(4)],
-            *[_player("FWD", speed=16, skill=14, strength=10) for _ in range(2)],
-        ]}
     return {
         "match": {
             "seed": 42,
@@ -588,26 +598,114 @@ def _seed_11v11_config() -> dict:
         },
         # output is required by the engine's MatchConfig schema (see _seed_5v5_config).
         "output": {"log_dir": "./logs"},
-        "team_a": team(),
-        "team_b": team(),
+        "team_a": "red",
+        "team_b": "blue",
+    }
+
+
+def _seed_team_red() -> dict:
+    """11-player Red Lions team — referenced by the seeded 11v11 match config.
+
+    Players carry name + role only; preprocessor fills attributes from
+    ROLE_DEFAULTS.
+    """
+    return {
+        "team_id": "red",
+        "name": "Red Lions",
+        "players": [
+            {"name": "Leo",   "role": "GK"},
+            {"name": "Roar",  "role": "DEF"},
+            {"name": "Mane",  "role": "DEF"},
+            {"name": "Pride", "role": "DEF"},
+            {"name": "Cub",   "role": "DEF"},
+            {"name": "Tawny", "role": "MID"},
+            {"name": "Felix", "role": "MID"},
+            {"name": "Simba", "role": "MID"},
+            {"name": "Aslan", "role": "MID"},
+            {"name": "Rex",   "role": "FWD"},
+            {"name": "King",  "role": "FWD"},
+        ],
+    }
+
+
+def _seed_team_blue() -> dict:
+    """11-player Blue Sharks team — referenced by the seeded 11v11 match config."""
+    return {
+        "team_id": "blue",
+        "name": "Blue Sharks",
+        "players": [
+            {"name": "Finn",   "role": "GK"},
+            {"name": "Tide",   "role": "DEF"},
+            {"name": "Reef",   "role": "DEF"},
+            {"name": "Wave",   "role": "DEF"},
+            {"name": "Storm",  "role": "DEF"},
+            {"name": "Coral",  "role": "MID"},
+            {"name": "Marlin", "role": "MID"},
+            {"name": "Ray",    "role": "MID"},
+            {"name": "Bay",    "role": "MID"},
+            {"name": "Splash", "role": "FWD"},
+            {"name": "Hook",   "role": "FWD"},
+        ],
+    }
+
+
+def _seed_team_red5() -> dict:
+    """5-player Red Lions (5) team — referenced by the seeded 5v5 match config."""
+    return {
+        "team_id": "red5",
+        "name": "Red Lions (5)",
+        "players": [
+            {"name": "Leo",   "role": "GK"},
+            {"name": "Roar",  "role": "DEF"},
+            {"name": "Mane",  "role": "DEF"},
+            {"name": "Tawny", "role": "MID"},
+            {"name": "Rex",   "role": "FWD"},
+        ],
+    }
+
+
+def _seed_team_blue5() -> dict:
+    """5-player Blue Sharks (5) team — referenced by the seeded 5v5 match config."""
+    return {
+        "team_id": "blue5",
+        "name": "Blue Sharks (5)",
+        "players": [
+            {"name": "Finn",   "role": "GK"},
+            {"name": "Tide",   "role": "DEF"},
+            {"name": "Reef",   "role": "DEF"},
+            {"name": "Coral",  "role": "MID"},
+            {"name": "Splash", "role": "FWD"},
+        ],
     }
 
 
 def _seed_default_data(data_home: Path) -> None:
-    """Write default match configs + baseline strategy to data_home if missing.
+    """Write default team + match configs + baseline strategy to data_home if missing.
 
     Idempotent — existing files are NEVER overwritten so user edits survive
     a server restart. Tolerant of read-only filesystems and missing project
     sources (silently skips on OSError).
 
+    Team configs are seeded BEFORE the match configs that reference them so
+    that load_config() of the match files resolves the slug references
+    successfully on first startup.
+
     Files created:
-      <data_home>/configs/5v5.yaml   — 5v5 with 2-1-1 formation
-      <data_home>/configs/11v11.yaml — 11v11 with 4-4-2 formation
-      <data_home>/strategies/baseline.py — copy of src/strategy/baseline.py
+      <data_home>/configs/teams/red.yaml    — 11-player Red Lions
+      <data_home>/configs/teams/blue.yaml   — 11-player Blue Sharks
+      <data_home>/configs/teams/red5.yaml   — 5-player Red Lions (5)
+      <data_home>/configs/teams/blue5.yaml  — 5-player Blue Sharks (5)
+      <data_home>/configs/5v5.yaml          — 5v5 referencing red5 / blue5
+      <data_home>/configs/11v11.yaml        — 11v11 referencing red / blue
+      <data_home>/strategies/baseline.py    — copy of src/strategy/baseline.py
     """
     seeds = [
-        (data_home / "configs" / "5v5.yaml",   lambda: yaml.safe_dump(_seed_5v5_config(),   default_flow_style=False)),
-        (data_home / "configs" / "11v11.yaml", lambda: yaml.safe_dump(_seed_11v11_config(), default_flow_style=False)),
+        (data_home / "configs" / "teams" / "red.yaml",   lambda: yaml.safe_dump(_seed_team_red(),   default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "blue.yaml",  lambda: yaml.safe_dump(_seed_team_blue(),  default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "red5.yaml",  lambda: yaml.safe_dump(_seed_team_red5(),  default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "teams" / "blue5.yaml", lambda: yaml.safe_dump(_seed_team_blue5(), default_flow_style=False, sort_keys=False)),
+        (data_home / "configs" / "5v5.yaml",             lambda: yaml.safe_dump(_seed_5v5_config(),   default_flow_style=False)),
+        (data_home / "configs" / "11v11.yaml",           lambda: yaml.safe_dump(_seed_11v11_config(), default_flow_style=False)),
     ]
     try:
         for path, builder in seeds:
@@ -1251,6 +1349,19 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         config_path = configs_dir / f"{name}.yaml"
         temp_path = configs_dir / f"{name}.yaml.tmp"
 
+        # Verify both team slugs exist as files on disk before writing.
+        # team_a / team_b are slug references into <data_home>/configs/teams/;
+        # saving a match that points at a missing team would create a broken
+        # config that the engine could not load at match-start time.
+        teams_dir = data_home / "configs" / "teams"
+        for slot in ("team_a", "team_b"):
+            slug = getattr(payload, slot)
+            if not (teams_dir / f"{slug}.yaml").exists():
+                raise HTTPException(
+                    status_code=422,
+                    detail=f"{slot}: team '{slug}' not found at {teams_dir / (slug + '.yaml')}",
+                )
+
         # Check if this is a new file
         is_new = not config_path.exists()
 
@@ -1312,6 +1423,113 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
 
         return Response(status_code=204)
 
+    @app.get("/api/config/teams")
+    async def list_teams():
+        """List all team configs as {slug: TeamConfigPayload-shaped dict}."""
+        log_dir = app.state.log_dir
+        storage_settings = _load_storage_config(log_dir)
+        data_home = Path(storage_settings["data_home"])
+        teams_dir = data_home / "configs" / "teams"
+
+        out: dict = {}
+        if not teams_dir.exists():
+            return JSONResponse({"teams": out})
+
+        for path in sorted(teams_dir.glob("*.yaml")):
+            slug = path.stem
+            try:
+                with open(path, "r") as f:
+                    data = yaml.safe_load(f) or {}
+                out[slug] = data
+            except Exception:
+                # Tolerate malformed team files — skip them in the list
+                continue
+        return JSONResponse({"teams": out})
+
+    @app.get("/api/config/teams/{slug}")
+    async def get_team(slug: str = PathParam(..., pattern=r"^[a-z0-9_-]+$")):
+        """Get a single team config by slug."""
+        log_dir = app.state.log_dir
+        storage_settings = _load_storage_config(log_dir)
+        data_home = Path(storage_settings["data_home"])
+
+        path = data_home / "configs" / "teams" / f"{slug}.yaml"
+        if not path.exists():
+            raise HTTPException(status_code=404, detail=f"team {slug} not found")
+
+        try:
+            with open(path, "r") as f:
+                data = yaml.safe_load(f) or {}
+            return JSONResponse(data)
+        except yaml.YAMLError as e:
+            raise HTTPException(status_code=422, detail=f"YAML parse error: {str(e)}")
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"File read error: {str(e)}")
+
+    @app.put("/api/config/teams/{slug}")
+    async def put_team(
+        slug: str = PathParam(..., pattern=r"^[a-z0-9_-]+$"),
+        payload: TeamConfigPayload = ...,
+    ):
+        """Create or update a team config."""
+        if payload.team_id != slug:
+            raise HTTPException(status_code=400, detail="team_id must match URL slug")
+
+        log_dir = app.state.log_dir
+        storage_settings = _load_storage_config(log_dir)
+        data_home = Path(storage_settings["data_home"])
+
+        teams_dir = data_home / "configs" / "teams"
+        teams_dir.mkdir(parents=True, exist_ok=True)
+        config_path = teams_dir / f"{slug}.yaml"
+        temp_path = teams_dir / f"{slug}.yaml.tmp"
+
+        is_new = not config_path.exists()
+        try:
+            data = payload.model_dump(exclude_none=True)
+            with open(temp_path, "w") as f:
+                yaml.safe_dump(data, f, default_flow_style=False, sort_keys=False)
+            os.replace(temp_path, config_path)
+            mtime = config_path.stat().st_mtime
+            modified_iso = time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime(mtime))
+            return JSONResponse({"slug": slug, "modified_iso": modified_iso, "created": is_new})
+        except Exception as e:
+            if temp_path.exists():
+                temp_path.unlink(missing_ok=True)
+            raise HTTPException(status_code=500, detail=f"File write error: {str(e)}")
+
+    @app.delete("/api/config/teams/{slug}")
+    async def delete_team(slug: str = PathParam(..., pattern=r"^[a-z0-9_-]+$")):
+        """Delete a team config. Refuses if any match config references this slug."""
+        log_dir = app.state.log_dir
+        storage_settings = _load_storage_config(log_dir)
+        data_home = Path(storage_settings["data_home"])
+
+        teams_dir = data_home / "configs" / "teams"
+        config_path = teams_dir / f"{slug}.yaml"
+        if not config_path.exists():
+            raise HTTPException(status_code=404, detail=f"team {slug} not found")
+
+        # Refuse delete if any match config references this slug
+        configs_dir = data_home / "configs"
+        for match_path in configs_dir.glob("*.yaml"):
+            try:
+                with open(match_path, "r") as f:
+                    match_data = yaml.safe_load(f) or {}
+            except Exception:
+                continue
+            if match_data.get("team_a") == slug or match_data.get("team_b") == slug:
+                raise HTTPException(
+                    status_code=409,
+                    detail=f"team {slug} is referenced by match config {match_path.stem}",
+                )
+
+        try:
+            config_path.unlink()
+            return JSONResponse({"slug": slug, "deleted": True})
+        except Exception as e:
+            raise HTTPException(status_code=500, detail=f"File delete error: {str(e)}")
+
     @app.get("/api/matches")
     async def get_matches():
         """Get list of past matches with metadata, sorted by date descending."""
@@ -1358,6 +1576,14 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                     team_a_count = len(teams.get("team_a", []))
                     team_b_count = len(teams.get("team_b", []))
 
+                    def _team_name(slot: str, fallback: str) -> str:
+                        td = teams.get(slot)
+                        if isinstance(td, dict) and td.get("name"):
+                            return td["name"]
+                        return fallback
+                    team_a_name = _team_name("team_a", "Team A")
+                    team_b_name = _team_name("team_b", "Team B")
+
                     # Prefer meta.seed (engine writes it as of 2026-04-24).
                     # Legacy matches without it fall back to extracting from
                     # the match_id (only works when id contains "seedN").
@@ -1402,6 +1628,10 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                         "strategies": {
                             "team_a": _team_strat_field("team_a", "name"),
                             "team_b": _team_strat_field("team_b", "name"),
+                        },
+                        "team_names": {
+                            "team_a": team_a_name,
+                            "team_b": team_b_name,
                         },
                     }
 
@@ -2649,6 +2879,16 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
             data = _read_cup_json(cup_d)
         except Exception:
             raise HTTPException(status_code=404, detail=f"Cup '{cup_id}' not found")
+        matches_dir = app.state.matches_dir
+        for round_entry in data.get("rounds", []):
+            for match in round_entry.get("matches", []):
+                match_id = match.get("match_id")
+                if not match_id:
+                    continue
+                match_dir = matches_dir / f"match_{match_id}"
+                names = team_names_for_match(match_dir)
+                match["team_a_name"] = names["team_a"]
+                match["team_b_name"] = names["team_b"]
         return JSONResponse(data)
 
     @app.get("/api/cups/{cup_id}/stream")

@@ -227,6 +227,8 @@ async function renderEditorSubView(configName) {
     `;
 
     setupEditorEventHandlers(configName);
+    // Populate team-slug dropdowns from /api/config/teams (async, non-blocking).
+    _populateTeamPickers();
 
   } catch (error) {
     console.error('[config-match] Failed to load config for editing:', error);
@@ -307,6 +309,8 @@ function renderNewSubView() {
   currentEditingConfigName = null;
 
   setupNewEventHandlers();
+  // Populate team-slug dropdowns from /api/config/teams (async, non-blocking).
+  _populateTeamPickers();
 }
 
 function setupNewEventHandlers() {
@@ -394,99 +398,64 @@ function renderConfigForm(config) {
              the global Game tab (Config → Game) at match-start time. The CLI
              overlays them onto MatchConfig at match-start so saved match
              configs no longer carry their own copy. -->
-      </div>
 
-      <!-- Team rosters break out of the 720px column — wide data tables
-           with all 9 player attributes need full available width. -->
-      ${renderTeamSection('team_a', 'A. Team A', config.team_a)}
-      ${renderTeamSection('team_b', 'B. Team B', config.team_b)}
+        <!-- Team selection: pick a team slug for each side. Rosters are
+             managed in the Teams tab (Config → Teams) — this editor only
+             stores references. Field markup mirrors the MATCH PARAMETERS
+             rows above: .form-field-row > .field-label + .sel control. -->
+        <section class="form-section">
+          <div class="section-header">
+            <span class="section-title">── TEAMS ──</span>
+          </div>
+          <div class="form-field-row">
+            <label class="field-label" for="match-team-a">TEAM A</label>
+            <select id="match-team-a" class="sel" style="grid-column: 2 / -1; width: 100%;"></select>
+          </div>
+          <div class="form-field-row">
+            <label class="field-label" for="match-team-b">TEAM B</label>
+            <select id="match-team-b" class="sel" style="grid-column: 2 / -1; width: 100%;"></select>
+          </div>
+          <p class="config-hint" style="font-size: 11px; color: var(--ink-dimer); margin: 12px 0 0;">
+            Manage team rosters in the <a href="#/config/teams" style="color: var(--a); text-decoration: none;">Teams</a> tab.
+          </p>
+        </section>
+      </div>
     </div>
   `;
 }
 
-// Roster editor — uses the design-system .tbl pattern (Data Display A. Table).
-// Each row is one player; the Role <select> drives whether the REACH cell is
-// editable (GK only) or shows an em-dash. Mirrors PlayerPayload's full schema:
-// every editable attribute (speed, skill, strength, dribbling, passing,
-// shooting, stamina, discipline, save) gets a column. Optional fields
-// (passing, shooting) default to 10 in the form so users always see a value
-// they can edit; on save Pydantic preserves whatever's set.
-function renderTeamSection(teamKey, teamLabel, teamData) {
-  const ROLES = ['GK', 'DEF', 'MID', 'FWD'];
+// Fetches the list of available teams and populates the two <select>s.
+// Called after the editor / new sub-view renders so the dropdowns can pick
+// up the slugs from /api/config/teams. Seeds the current selections from
+// currentFormData and wires change handlers so edits flow back into state.
+async function _populateTeamPickers() {
+  const apiBase = window.shell ? window.shell.getApiBase() : `${window.location.protocol}//${window.location.host}`;
+  let opts = '<option value="">— select a team —</option>';
+  try {
+    const res = await fetch(`${apiBase}/api/config/teams`);
+    if (res.ok) {
+      const data = await res.json();
+      opts += Object.entries(data.teams || {}).map(([slug, t]) =>
+        `<option value="${slug}">${slug}${t && t.name ? ' — ' + t.name : ''}</option>`
+      ).join('');
+    }
+  } catch (_) { /* leave with the empty placeholder option */ }
 
-  // <attr key>, <header>, <whether GK-only or fully optional>.
-  // Order matches the rendering order; non-GK rows render "—" for save.
-  const ATTR_COLS = [
-    { key: 'speed',      header: 'SPD' },
-    { key: 'skill',      header: 'SKL' },
-    { key: 'strength',   header: 'STR' },
-    { key: 'dribbling',  header: 'DRB' },
-    { key: 'passing',    header: 'PAS' },
-    { key: 'shooting',   header: 'SHO' },
-    { key: 'stamina',    header: 'STA' },
-    { key: 'discipline', header: 'DSC' },
-  ];
-
-  const numCell = (player, fieldPath, attr) => {
-    // Optional fields (passing, shooting) come back as null when unset.
-    // Show 10 as a starting point so the cell is always editable; the
-    // user-edited value lands in currentFormData via existing handleFieldChange.
-    const val = player[attr] != null ? player[attr] : 10;
-    return `<td class="num"><input type="number" class="ipt ipt-num ipt-cell" value="${val}" min="1" max="20" step="1" data-field="${fieldPath(attr)}" /></td>`;
-  };
-
-  const playersHTML = teamData.players.map((player, index) => {
-    const fieldPath = (attr) => `${teamKey}.players.${index}.${attr}`;
-    const reachCell = player.role === 'GK'
-      ? `<input type="number" class="ipt ipt-num ipt-cell" value="${player.save ?? 16}" min="0" max="20" step="1" data-field="${fieldPath('save')}" />`
-      : `<span class="dimer">—</span>`;
-    const attrCellsHTML = ATTR_COLS.map(c => numCell(player, fieldPath, c.key)).join('');
-    return `
-      <tr data-team="${teamKey}" data-index="${index}">
-        <td>
-          <select class="sel sel-cell role-select" data-field="${fieldPath('role')}">
-            ${ROLES.map(r => `<option value="${r}" ${player.role === r ? 'selected' : ''}>${r}</option>`).join('')}
-          </select>
-        </td>
-        ${attrCellsHTML}
-        <td class="num">${reachCell}</td>
-        <td class="cell-action">
-          <button class="btn btn-icon btn-ghost remove-player-btn"
-                  data-team="${teamKey}" data-index="${index}"
-                  aria-label="Remove player ${index + 1}">×</button>
-        </td>
-      </tr>
-    `;
-  }).join('');
-
-  const headerCellsHTML = ATTR_COLS.map(c => `<th class="num">${c.header}</th>`).join('');
-
-  return `
-    <section class="form-section team-section" data-team="${teamKey}">
-      <div class="ap-section" style="margin-top:32px;margin-bottom:14px">
-        <span>${teamLabel}</span><span class="rule"></span>
-        <span class="dimer" style="font-size:11px">${teamData.players.length} players</span>
-      </div>
-      <div class="ap-panel" style="padding:0">
-        <table class="tbl">
-          <thead>
-            <tr>
-              <th style="width:90px">Role</th>
-              ${headerCellsHTML}
-              <th class="num">SAV</th>
-              <th style="width:50px"></th>
-            </tr>
-          </thead>
-          <tbody>
-            ${playersHTML}
-          </tbody>
-        </table>
-        <div class="tbl-footer">
-          <button class="btn btn-sm add-player-btn" data-team="${teamKey}">+ Add player</button>
-        </div>
-      </div>
-    </section>
-  `;
+  const sa = document.getElementById('match-team-a');
+  const sb = document.getElementById('match-team-b');
+  if (sa) sa.innerHTML = opts;
+  if (sb) sb.innerHTML = opts;
+  // Seed selections from current form state
+  if (sa) sa.value = currentFormData.team_a || '';
+  if (sb) sb.value = currentFormData.team_b || '';
+  if (sa) sa.addEventListener('change', (e) => {
+    currentFormData.team_a = e.target.value;
+    _emitDirtyState();
+  });
+  if (sb) sb.addEventListener('change', (e) => {
+    currentFormData.team_b = e.target.value;
+    _emitDirtyState();
+  });
 }
 
 function createDefaultConfig() {
@@ -505,51 +474,22 @@ function createDefaultConfig() {
     //   output     → overridden by --log-dir (API always passes it)
     // The PUT handler auto-fills output with a sensible default so the
     // saved YAML stays loadable by the engine.
-    team_a: {
-      players: [
-        { role: "GK", speed: 8, skill: 10, strength: 8, save: 16 },
-        { role: "DEF", speed: 12, skill: 12, strength: 14 },
-        { role: "DEF", speed: 12, skill: 12, strength: 14 },
-        { role: "MID", speed: 14, skill: 14, strength: 12 },
-        { role: "FWD", speed: 16, skill: 8, strength: 10 }
-      ]
-    },
-    team_b: {
-      players: [
-        { role: "GK", speed: 8, skill: 10, strength: 8, save: 16 },
-        { role: "DEF", speed: 12, skill: 12, strength: 14 },
-        { role: "DEF", speed: 12, skill: 12, strength: 14 },
-        { role: "MID", speed: 14, skill: 14, strength: 12 },
-        { role: "FWD", speed: 16, skill: 8, strength: 10 }
-      ]
-    }
+    //
+    // team_a / team_b are plain slug strings referencing entries in
+    // /api/config/teams. Empty defaults force the user to pick before save.
+    team_a: "",
+    team_b: ""
   };
 }
 
 function setupFormEventHandlers() {
   if (!rootElement) return;
 
-  // Field change handlers
-  rootElement.querySelectorAll('.field-input').forEach(input => {
+  // Match-parameter input change handlers. Inputs with a data-field attribute
+  // (e.g. "match.seed") flow back into currentFormData via setNestedValue.
+  rootElement.querySelectorAll('input[data-field]').forEach(input => {
     input.addEventListener('input', () => {
       handleFieldChange(input);
-    });
-  });
-
-  // Add player buttons
-  rootElement.querySelectorAll('.add-player-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const team = btn.dataset.team;
-      addPlayer(team);
-    });
-  });
-
-  // Remove player buttons
-  rootElement.querySelectorAll('.remove-player-btn').forEach(btn => {
-    btn.addEventListener('click', () => {
-      const team = btn.dataset.team;
-      const index = parseInt(btn.dataset.index);
-      removePlayer(team, index);
     });
   });
 }
@@ -574,41 +514,6 @@ function setNestedValue(obj, path, value) {
   }
 
   current[keys[keys.length - 1]] = value;
-}
-
-function addPlayer(teamKey) {
-  const newPlayer = {
-    role: "DEF",
-    speed: 10,
-    skill: 10,
-    strength: 10
-  };
-
-  if (!currentFormData[teamKey]) {
-    currentFormData[teamKey] = { players: [] };
-  }
-
-  currentFormData[teamKey].players.push(newPlayer);
-
-  // Re-render the form
-  const form = rootElement.querySelector('#editor-form');
-  if (form) {
-    form.innerHTML = renderConfigForm(currentFormData);
-    setupFormEventHandlers();
-  }
-}
-
-function removePlayer(teamKey, index) {
-  if (currentFormData[teamKey] && currentFormData[teamKey].players) {
-    currentFormData[teamKey].players.splice(index, 1);
-
-    // Re-render the form
-    const form = rootElement.querySelector('#editor-form');
-    if (form) {
-      form.innerHTML = renderConfigForm(currentFormData);
-      setupFormEventHandlers();
-    }
-  }
 }
 
 // ── API Functions ───────────────────────────────────────────────
@@ -841,7 +746,12 @@ function showSaveAsModal(configData) {
   saveBtn.addEventListener('click', () => {
     const newName = nameInput.value.trim();
     if (newName && validateConfigName(newName)) {
-      saveNewConfig(newName, configData);
+      // Same payload shape as the global Save — slug strings, not nested teams.
+      if (!currentFormData.team_a || !currentFormData.team_b) {
+        alert('Both Team A and Team B must be selected.');
+        return;
+      }
+      saveNewConfig(newName, _buildSavePayload());
       modal.close();
       modal.remove();
     }
@@ -910,20 +820,44 @@ function reset() {
     if (formContainer) {
       formContainer.innerHTML = renderConfigForm(defaults);
       setupFormEventHandlers();
+      _populateTeamPickers();
     }
     _emitDirtyState();
   }
 }
 
+// Build the PUT body for /api/config/match/{name}. MatchConfigPayload expects
+// team_a / team_b as plain slug strings (post-E3); simulation / output are
+// optional and only included when present in the in-memory form state.
+function _buildSavePayload() {
+  const body = {
+    match: currentFormData.match || {},
+    team_a: currentFormData.team_a || '',
+    team_b: currentFormData.team_b || '',
+  };
+  if (currentFormData.simulation) body.simulation = currentFormData.simulation;
+  if (currentFormData.output) body.output = currentFormData.output;
+  return body;
+}
+
 // ── Save (called by global action row via window.configMatchTab.save()) ────
 async function save() {
+  // Refuse to save unless both teams are selected — MatchConfigPayload
+  // requires non-empty slugs and the API would 422 otherwise.
+  if (!currentFormData.team_a || !currentFormData.team_b) {
+    alert('Both Team A and Team B must be selected.');
+    return;
+  }
+
+  const payload = _buildSavePayload();
+
   if (currentSubView === 'editor' && currentEditingConfigName) {
-    await saveConfig(currentEditingConfigName, currentFormData);
+    await saveConfig(currentEditingConfigName, payload);
   } else if (currentSubView === 'new') {
     const nameInput = rootElement?.querySelector('#config-name-input');
     const configName = nameInput?.value?.trim();
     if (configName && validateConfigName(configName)) {
-      await saveNewConfig(configName, currentFormData);
+      await saveNewConfig(configName, payload);
     } else {
       console.warn('[config-match] Cannot save New form: invalid name');
     }

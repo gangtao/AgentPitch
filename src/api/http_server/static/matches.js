@@ -274,7 +274,9 @@ function renderMatchRow(match) {
   const durationStr = `${minutes}min`;
 
   // Format score with team colors
-  const scoreText = `<span class="team-a-score">TEAM A ${final_score.team_a}</span>:<span class="team-b-score">${final_score.team_b} TEAM B</span>`;
+  const teamA = (match.team_names && match.team_names.team_a) || 'TEAM A';
+  const teamB = (match.team_names && match.team_names.team_b) || 'TEAM B';
+  const scoreText = `<span class="team-a-score">${escapeHtml(teamA)} ${final_score.team_a}</span>:<span class="team-b-score">${final_score.team_b} ${escapeHtml(teamB)}</span>`;
 
   // Per-team label: when a team used the seeded baseline.py, models.team_x
   // is "baseline" (provider+model uninformative) — so swap in the strategy

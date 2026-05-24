@@ -1,0 +1,13 @@
+team_id: red5
+name: Red Lions (5)
+players:
+  - name: Leo
+    role: GK
+  - name: Roar
+    role: DEF
+  - name: Mane
+    role: DEF
+  - name: Tawny
+    role: MID
+  - name: Rex
+    role: FWD

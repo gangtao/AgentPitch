@@ -1,0 +1,13 @@
+team_id: blue5
+name: Blue Sharks (5)
+players:
+  - name: Finn
+    role: GK
+  - name: Tide
+    role: DEF
+  - name: Reef
+    role: DEF
+  - name: Coral
+    role: MID
+  - name: Splash
+    role: FWD

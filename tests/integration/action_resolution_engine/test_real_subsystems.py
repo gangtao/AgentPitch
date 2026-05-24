@@ -276,6 +276,7 @@ def test_player_separation_disabled_when_zero(tmp_path):
         ),
         output=OutputConfig(log_dir=str(tmp_path)),
         team_a=TeamConfig(
+            team_id="team_a", name="Team A",
             llm_provider="openai", llm_model="gpt-4o", api_key="t",
             players=[
                 PlayerConfig(player_id=f"team_a_{i}", role=role,
@@ -286,6 +287,7 @@ def test_player_separation_disabled_when_zero(tmp_path):
             ],
         ),
         team_b=TeamConfig(
+            team_id="team_b", name="Team B",
             llm_provider="anthropic", llm_model="claude", api_key="t",
             players=[
                 PlayerConfig(player_id=f"team_b_{i}", role=role,
@@ -329,6 +331,7 @@ def test_cooldown_zero_disables_blocking(tmp_path):
         simulation=SimulationConfig(action_cooldown_ticks=0),  # disabled
         output=OutputConfig(log_dir=str(tmp_path)),
         team_a=TeamConfig(
+            team_id="team_a", name="Team A",
             llm_provider="openai", llm_model="gpt-4o", api_key="test",
             players=[
                 PlayerConfig(player_id=f"team_a_{i}", role=role,
@@ -339,6 +342,7 @@ def test_cooldown_zero_disables_blocking(tmp_path):
             ],
         ),
         team_b=TeamConfig(
+            team_id="team_b", name="Team B",
             llm_provider="anthropic", llm_model="claude", api_key="test",
             players=[
                 PlayerConfig(player_id=f"team_b_{i}", role=role,

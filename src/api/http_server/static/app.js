@@ -30,12 +30,15 @@ let _totalTicks = 0;
 let _phaseTransitions = [];
 let _playerLabels = {};          // player_id → "A #4"
 let _playerNumbers = {};         // player_id → jersey number
+let _playerNames = {};           // player_id → display name (empty if absent)
 let _eventRows = [];             // cached extracted event rows
 let _activeFx = [];              // [{kind, startTick, lifetime, ...}]
 let _lastFxScannedTick = -1;     // newest tick we've already extracted fx for
 let _matchId = "";
 let _seed = "—";
 let _logDir = "—";
+let _teamADisplay = "TEAM A";
+let _teamBDisplay = "TEAM B";
 
 // ── DOM handles ─────────────────────────────────────────────────────
 const canvas = document.getElementById("field-canvas");
@@ -326,6 +329,20 @@ function paintTick(tickIdx) {
     ctx.textAlign = "center";
     ctx.textBaseline = "middle";
     ctx.fillText(String(num), cx, cy);
+
+    // Player name above the dot (only when name is known from roster).
+    const nm = _playerNames[playerId];
+    if (nm) {
+      const nameY = cy - PLAYER_RADIUS - 4;
+      ctx.font = "500 10px 'Space Grotesk', -apple-system, sans-serif";
+      ctx.textBaseline = "bottom";
+      // Dark stroke for legibility on light field stripes.
+      ctx.lineWidth = 3;
+      ctx.strokeStyle = "rgba(0, 0, 0, 0.65)";
+      ctx.strokeText(nm, cx, nameY);
+      ctx.fillStyle = "rgba(255, 255, 255, 0.95)";
+      ctx.fillText(nm, cx, nameY);
+    }
   }
 
   // Ball — when carried, offset to the side of the carrier in their
@@ -379,7 +396,7 @@ function paintTick(tickIdx) {
 
   // Statbug — possession (team) + carrier (player, if anyone is on the ball)
   const possText = possessingTeam
-    ? (possessingTeam === "team_a" ? "TEAM A" : "TEAM B")
+    ? (possessingTeam === "team_a" ? _teamADisplay : _teamBDisplay)
     : "LOOSE";
   bugPossession.textContent = possText;
   bugPossession.style.color = possessingTeam
@@ -668,11 +685,30 @@ function ingestRosters(teams) {
   if (!teams) return;
   for (const teamId of Object.keys(teams)) {
     const teamLetter = teamId === "team_a" ? "A" : "B";
-    for (const p of (teams[teamId] || [])) {
-      _playerLabels[p.player_id] = `${teamLetter} #${p.number}`;
+    const teamData = teams[teamId];
+    const players = Array.isArray(teamData) ? teamData : (teamData?.roster || []);
+    for (const p of players) {
+      const num = p.number;
+      const numTag = num ? `#${num}` : "";
+      _playerLabels[p.player_id] = p.name
+        ? `${p.name} ${numTag}`.trim()
+        : `${teamLetter} ${numTag}`.trim();
       _playerNumbers[p.player_id] = p.number;
+      _playerNames[p.player_id] = p.name || "";
     }
   }
+}
+
+function _setTeamDisplayNames(teams) {
+  function nameFor(slot, fallback) {
+    const td = teams && teams[slot];
+    if (td && !Array.isArray(td) && td.name) return td.name;
+    return fallback;
+  }
+  _teamADisplay = nameFor("team_a", "TEAM A");
+  _teamBDisplay = nameFor("team_b", "TEAM B");
+  if (teamAName) teamAName.textContent = _teamADisplay;
+  if (teamBName) teamBName.textContent = _teamBDisplay;
 }
 
 function _refreshPlayerLabels(allTicksData) {
@@ -1138,6 +1174,7 @@ async function bootstrap() {
         scoreTeamB.textContent = meta.final_score.team_b;
       }
       ingestRosters(meta.teams);
+      _setTeamDisplayNames(meta.teams);
       _phaseTransitions = meta.phase_transitions || [];
       if (typeof meta.tick_rate === "number") {
         _tickRate = meta.tick_rate;
@@ -1331,12 +1368,16 @@ window.reloadLiveViewer = function reloadLiveViewer() {
   _activeFx = [];
   _lastFxScannedTick = -1;
   _playerLabels = {};
+  _playerNumbers = {};
+  _playerNames = {};
 
   // Reset chyron + scoreboard text to the initial loading state.
   matchTitle.textContent = "loading…";
   bugSeed.textContent = "—";
   scoreTeamA.textContent = "—";
   scoreTeamB.textContent = "—";
+  _teamADisplay = "TEAM A";
+  _teamBDisplay = "TEAM B";
   if (teamAName)   teamAName.textContent   = "TEAM A";
   if (teamBName)   teamBName.textContent   = "TEAM B";
   if (teamAModel)  teamAModel.textContent  = "—";

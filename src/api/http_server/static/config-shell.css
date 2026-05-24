@@ -45,7 +45,8 @@
 .config-tab-body.game,
 .config-tab-body.llm,
 .config-tab-body.storage { max-width: 720px; margin: 0 auto; }
-.config-tab-body.match   { max-width: none; width: 100%; }
+.config-tab-body.match,
+.config-tab-body.teams { max-width: none; width: 100%; }
 
 /* ── Action Row (footer) ────────────────────────────────────────── */
 .config-action-row {
@@ -263,3 +264,75 @@
   justify-content: flex-end;
   gap: 12px;
 }
+
+/* ── Teams tab ────────────────────────────────────────────────── */
+/* List sub-view reuses .list-action-bar / .list-body / .list-row
+   from design-system.css (same pattern as Match list).
+   Editor sub-view splits its body into a narrow .match-form-column
+   for the simple fields and a wide .team-section for the roster grid.
+   These wrappers are reused from Match (.config-tab-body.match) so
+   the two editors line up visually. */
+.teams-list-view,
+.teams-editor-view,
+.teams-new-view {
+  width: 100%;
+}
+.teams-editor-view .match-form-column,
+.teams-new-view .match-form-column {
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+}
+.teams-editor-view .team-section,
+.teams-new-view .team-section {
+  max-width: none;
+  width: 100%;
+}
+
+/* Roster panel — bordered card wrapping the header row, body rows
+   and "+ Add player" footer, mirroring .ap-panel + .tbl + .tbl-footer
+   from design-system.css. */
+.roster-panel {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  margin-bottom: 14px;
+}
+.roster-footer {
+  padding: 12px 14px;
+  border-top: 1px solid var(--line);
+}
+
+/* Inline 13-column roster grid. 13 columns are unavoidable for the
+   attribute editor; cell-level chrome comes from design-system tokens
+   (.ipt-cell, .sel-cell, .btn-icon) so the visual language matches. */
+.players-header-row,
+.player-row {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr 0.7fr repeat(9, 0.5fr) 36px;
+  column-gap: 8px;
+  align-items: center;
+  padding: 8px 14px;
+}
+.players-header-row {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-dim);
+  background: var(--panel-2);
+  border-bottom: 1px solid var(--line);
+}
+.player-row {
+  border-bottom: 1px solid var(--line);
+}
+.player-row:last-child { border-bottom: none; }
+.player-row:hover { background: rgba(255, 255, 255, 0.02); }
+
+.hdr-attr { text-align: center; }
+.player-row .p-attr { text-align: center; }
+
+/* Inside the roster grid, .ipt-cell / .sel-cell drop their fixed widths
+   so they flex with the grid track instead of overflowing into neighbours. */
+.player-row .ipt-cell,
+.player-row .sel-cell { width: 100%; min-width: 0; }
+.player-row .p-name { width: 100%; min-width: 0; }
+.player-row .p-del { width: 100%; padding: 4px 0; }

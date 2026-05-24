@@ -1,6 +1,6 @@
 # Config
 
-The **Config** section is the central control panel for AgentPitch. It is divided into four tabs — **Game**, **Match**, **LLM**, and **Storage** — each governing a distinct aspect of the simulation.
+The **Config** section is the central control panel for AgentPitch. It is divided into five tabs — **Game**, **Match**, **Teams**, **LLM**, and **Storage** — each governing a distinct aspect of the simulation.
 
 Navigate to Config from the left sidebar at any time. Changes take effect on the next match start unless otherwise noted. Every tab has **Discard** and **Save** buttons; use **Reset to Defaults** to restore factory values.
 
@@ -77,14 +77,14 @@ Controls how the goalkeeper interacts with shots and how the ball behaves on def
 
 ![Match list](imgs/config/config_match.png)
 
-The Match tab manages named match configurations. Each configuration is a reusable preset that defines team composition and per-match physics overrides. Configurations are stored as YAML files under `data/configs/`.
+The Match tab manages named match configurations. Each configuration is a reusable preset that defines match parameters and references two teams by slug. Configurations are stored as YAML files under `data/configs/`.
 
 Two built-in configurations ship out of the box:
 
-| Name | Format | Duration | Field |
-|------|--------|----------|-------|
-| `5v5` | 2-1-1 vs 2-1-1 | 5 min | 60 × 40 |
-| `11v11` | 4-4-2 vs 4-4-2 | 5 min | 100 × 60 |
+| Name | Teams | Duration | Field |
+|------|-------|----------|-------|
+| `5v5` | Red Lions (5) vs Blue Sharks (5) | 5 min | 60 × 40 |
+| `11v11` | Red Lions vs Blue Sharks | 5 min | 100 × 60 |
 
 Click **+ New Config** to create a new one, or **Edit** to modify an existing one.
 
@@ -102,30 +102,66 @@ Give the configuration a unique **Configuration Name**. Then set the match param
 | Field Width | Pitch width in game units. |
 | Field Height | Pitch height in game units. |
 
-### Player attributes
+### Team selection
 
-![Player attributes](imgs/config/config_match_player_attributes.png)
+![Team selection](imgs/config/config_match_team_selection.png)
 
-Below the match parameters, each team is configured as a roster of players. Use **+ Add Player** to grow the squad (5–11 players per team) and the × button to remove a row.
+Below the match parameters, pick the two teams that will play. **Team A** and **Team B** are dropdowns populated from the team configs managed in the **Teams** tab — pick any pair from the list. Roster sizes and per-player attributes are owned by the team configs themselves; the match config only references them by slug.
+
+To create, edit, or delete teams, switch to the **Teams** tab (next section).
+
+Click **Save** to write the configuration to disk. Click **Back to list** (top-right) to return without saving.
+
+---
+
+## Teams tab
+
+![Teams list](imgs/config/config_teams.png)
+
+The Teams tab manages named team configurations. Each team is a reusable roster that can be referenced from any match config. Team configs are stored as YAML files under `data/configs/teams/<slug>.yaml`.
+
+Four built-in teams ship out of the box:
+
+| Slug | Display name | Size |
+|------|--------------|------|
+| `red` | Red Lions | 11 |
+| `blue` | Blue Sharks | 11 |
+| `red5` | Red Lions (5) | 5 |
+| `blue5` | Blue Sharks (5) | 5 |
+
+Each row in the list shows the slug, display name, and roster size. Use **Edit** to open the team in the editor, **Delete** to remove it (refused with an inline error if any match config still references the slug), or **+ New team** to create a new one.
+
+### Creating / editing a team
+
+![Teams editor](imgs/config/config_teams_edit.png)
+
+| Field | Description |
+|-------|-------------|
+| Team ID (slug) | Filename stem. Must match `^[a-z0-9_-]+$`. Read-only when editing an existing team. |
+| Display name | 1–64 character free-text name shown in the live and replay viewers, match list, and cup pages. |
+
+Below the team header, the roster grid lists 5–11 players. Use **+ Add Player** to grow the squad and the × button to remove a row (disabled when only five players remain).
 
 Each player row has:
 
 | Column | Range | Description |
 |--------|-------|-------------|
-| Role | GK / DEF / MID / FWD | Position on the pitch. Only one GK is expected per team. |
+| Name | up to 64 chars | Display name shown above the dot in the live viewer and in the event feed. Blank → defaults to `Player {N}`. |
+| # | 0–99 | Jersey number. Blank → auto-numbered from the row index at match start. |
+| Role | GK / DEF / MID / FWD | Position on the pitch. Exactly one GK per team. |
 | SPD (Speed) | 1–20 | Movement speed per tick. |
 | SKL (Skill) | 1–20 | Reduces error on passes and shots. |
 | STR (Strength) | 1–20 | Tackle success rate and physical duels. |
+| SAV (Save) | 0–20 | Goalkeeper-only. Save success probability. Disabled and shows `—` for outfield rows. |
+| DIS (Discipline) | 1–20 | Reduces chance of conceding fouls. |
 | DRB (Dribbling) | 1–20 | Ball retention while moving. |
-| PAS (Passing) | 1–20 | Pass accuracy. |
-| SHO (Shooting) | 1–20 | Shot power and accuracy. |
-| STA (Stamina) | 1–20 | Rate of health drain during the match. |
-| DSC (Discipline) | 1–20 | Reduces chance of conceding fouls. |
-| SAV (Save) | 1–20 | Goalkeeper-only. Save success probability. |
+| PAS (Passing) | 1–20 | Pass accuracy. Blank → falls back to SKL. |
+| SHO (Shooting) | 1–20 | Shot power and accuracy. Blank → falls back to SKL. |
+| STA (Stamina) | 1–20 | Rate of health drain. Blank → defaults to 10. |
 
-Attributes default to `10`. The SAV column is only active for the GK role; outfield players show `—`.
+Leaving any numeric field blank falls back to the role-based default from `ROLE_DEFAULTS` (GK=10 skill, DEF=8 skill, MID=16 skill, FWD=14 skill, etc.), so the bundled teams ship with only `name` and `role` per player and rely on those defaults.
 
-Click **Save** to write the configuration to disk. Click **Back to list** (top-right) to return without saving.
+Click **Save** to write the team to disk. Click **Back to list** (top-right) to return without saving.
 
 ---
 

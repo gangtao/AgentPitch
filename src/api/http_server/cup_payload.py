@@ -1,6 +1,8 @@
 """Pydantic model for POST /api/cups request body validation."""
 from __future__ import annotations
+import json
 import re
+from pathlib import Path
 from pydantic import BaseModel, ConfigDict, Field, field_validator, model_validator
 
 _STRATEGY_NAME_RE = re.compile(r"^[A-Za-z0-9_-]{1,64}$")
@@ -64,3 +66,32 @@ class StartCupPayload(BaseModel):
                 f"strategies list length {len(self.strategies)} must equal bracket_size {self.bracket_size}"
             )
         return self
+
+
+def team_names_for_match(match_dir: Path) -> dict:
+    """Read meta.json from a match dir and return team display names.
+
+    Returns {"team_a": str, "team_b": str}. Falls back to "Team A" / "Team B"
+    when meta.json is missing, unreadable, or lacks the new teams block.
+    """
+    fallback = {"team_a": "Team A", "team_b": "Team B"}
+    meta_path = match_dir / "meta.json"
+    if not meta_path.exists():
+        return fallback
+    try:
+        meta = json.loads(meta_path.read_text())
+    except Exception:
+        return fallback
+    teams = meta.get("teams") or {}
+
+    def _name(slot, default):
+        td = teams.get(slot)
+        if isinstance(td, dict):
+            return td.get("name") or default
+        # legacy bare-list shape -> no name available
+        return default
+
+    return {
+        "team_a": _name("team_a", "Team A"),
+        "team_b": _name("team_b", "Team B"),
+    }
