@@ -263,3 +263,36 @@
   justify-content: flex-end;
   gap: 12px;
 }
+
+/* ── Teams tab: inline player roster grid ─────────────────────── */
+.players-header-row,
+.player-row {
+  display: grid;
+  grid-template-columns: 1.5fr 0.5fr 0.7fr repeat(9, 0.5fr) 0.4fr;
+  gap: 6px;
+  align-items: center;
+  padding: 4px 0;
+}
+.players-header-row {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  color: var(--ink-dim);
+  border-bottom: 1px solid var(--line);
+  padding-bottom: 6px;
+  margin-top: 8px;
+}
+.player-row input,
+.player-row select {
+  width: 100%;
+  min-width: 0;
+}
+.player-row .p-attr {
+  text-align: center;
+}
+.player-row .p-attr:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.hdr-attr {
+  text-align: center;
+}

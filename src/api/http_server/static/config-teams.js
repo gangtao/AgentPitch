@@ -149,6 +149,21 @@ function renderEditorForm(slug, isNew) {
         <input id="team-name-input" value="${tname}" maxlength="64">
       </label>
       <h4>Roster</h4>
+      <div class="players-header-row">
+        <span class="hdr-name">Name</span>
+        <span class="hdr-num">#</span>
+        <span class="hdr-role">Role</span>
+        <span class="hdr-attr" title="Speed">SPD</span>
+        <span class="hdr-attr" title="Skill">SKL</span>
+        <span class="hdr-attr" title="Strength">STR</span>
+        <span class="hdr-attr" title="Save (GK only)">SAV</span>
+        <span class="hdr-attr" title="Discipline">DIS</span>
+        <span class="hdr-attr" title="Dribbling">DRB</span>
+        <span class="hdr-attr" title="Passing (blank = skill)">PAS</span>
+        <span class="hdr-attr" title="Shooting (blank = skill)">SHO</span>
+        <span class="hdr-attr" title="Stamina (blank = 10)">STA</span>
+        <span class="hdr-del"></span>
+      </div>
       <div id="players-table"></div>
       <button class="btn" id="add-player-btn">+ Add player</button>
     </div>
@@ -176,38 +191,88 @@ function renderEditorForm(slug, isNew) {
 function renderPlayersTable() {
   const tbl = document.getElementById('players-table');
   if (!tbl) return;
-  tbl.innerHTML = currentFormData.players.map((p, i) => `
-    <div class="player-row" data-i="${i}">
-      <input class="p-name" placeholder="Name" value="${(p.name ?? '').replace(/"/g, '&quot;')}" maxlength="64">
-      <select class="p-role">
-        ${['GK','DEF','MID','FWD'].map(r => `<option value="${r}" ${p.role===r?'selected':''}>${r}</option>`).join('')}
-      </select>
-      <input class="p-num" type="number" min="0" max="99" placeholder="#" value="${p.number ?? ''}">
-      <button class="btn btn-danger p-del" ${currentFormData.players.length <= 5 ? 'disabled' : ''}>×</button>
-    </div>
-  `).join('');
+
+  const attrHtml = (p, key, min, max, placeholder = '') => {
+    const v = p[key];
+    const value = (v === undefined || v === null) ? '' : v;
+    return `<input class="p-attr p-${key}" type="number" min="${min}" max="${max}" placeholder="${placeholder}" value="${value}">`;
+  };
+
+  tbl.innerHTML = currentFormData.players.map((p, i) => {
+    const isGK = p.role === 'GK';
+    const saveCell = isGK
+      ? `<input class="p-attr p-save" type="number" min="0" max="20" placeholder="0" value="${p.save ?? ''}">`
+      : `<input class="p-attr p-save" type="number" min="0" max="20" placeholder="—" value="" disabled>`;
+    return `
+      <div class="player-row" data-i="${i}">
+        <input class="p-name" placeholder="Name" value="${(p.name ?? '').replace(/"/g, '&quot;')}" maxlength="64">
+        <input class="p-num" type="number" min="0" max="99" placeholder="#" value="${p.number ?? ''}">
+        <select class="p-role">
+          ${['GK','DEF','MID','FWD'].map(r => `<option value="${r}" ${p.role===r?'selected':''}>${r}</option>`).join('')}
+        </select>
+        ${attrHtml(p, 'speed', 1, 20)}
+        ${attrHtml(p, 'skill', 1, 20)}
+        ${attrHtml(p, 'strength', 1, 20)}
+        ${saveCell}
+        ${attrHtml(p, 'discipline', 1, 20)}
+        ${attrHtml(p, 'dribbling', 1, 20)}
+        ${attrHtml(p, 'passing', 1, 20, '—')}
+        ${attrHtml(p, 'shooting', 1, 20, '—')}
+        ${attrHtml(p, 'stamina', 1, 20, '10')}
+        <button class="btn btn-danger p-del" ${currentFormData.players.length <= 5 ? 'disabled' : ''}>×</button>
+      </div>
+    `;
+  }).join('');
+
+  // Wire up per-row handlers
   tbl.querySelectorAll('.player-row').forEach(row => {
     const i = +row.dataset.i;
-    row.querySelector('.p-name').oninput = (e) => { currentFormData.players[i].name = e.target.value; markDirty(); };
-    row.querySelector('.p-role').onchange = (e) => {
-      currentFormData.players[i].role = e.target.value;
-      // GK gets save=16 default, others get save dropped
-      if (e.target.value === 'GK' && !currentFormData.players[i].save) {
-        currentFormData.players[i].save = 16;
-      } else if (e.target.value !== 'GK') {
-        delete currentFormData.players[i].save;
-      }
+    row.querySelector('.p-name').oninput = (e) => {
+      currentFormData.players[i].name = e.target.value;
       markDirty();
     };
     row.querySelector('.p-num').oninput = (e) => {
       const v = e.target.value === '' ? null : +e.target.value;
-      if (v === null) {
-        delete currentFormData.players[i].number;
-      } else {
-        currentFormData.players[i].number = v;
-      }
+      if (v === null) delete currentFormData.players[i].number;
+      else currentFormData.players[i].number = v;
       markDirty();
     };
+    row.querySelector('.p-role').onchange = (e) => {
+      currentFormData.players[i].role = e.target.value;
+      if (e.target.value === 'GK') {
+        if (currentFormData.players[i].save === undefined) {
+          currentFormData.players[i].save = 16;
+        }
+      } else {
+        delete currentFormData.players[i].save;
+      }
+      renderPlayersTable();  // re-render to flip the save cell enabled/disabled
+      markDirty();
+    };
+
+    const wireAttr = (key, isInt = true) => {
+      const el = row.querySelector(`.p-${key}`);
+      if (!el) return;
+      el.oninput = (e) => {
+        const raw = e.target.value;
+        if (raw === '') {
+          delete currentFormData.players[i][key];
+        } else {
+          currentFormData.players[i][key] = isInt ? parseInt(raw, 10) : parseFloat(raw);
+        }
+        markDirty();
+      };
+    };
+    wireAttr('speed');
+    wireAttr('skill');
+    wireAttr('strength');
+    wireAttr('save');
+    wireAttr('discipline');
+    wireAttr('dribbling');
+    wireAttr('passing');
+    wireAttr('shooting');
+    wireAttr('stamina');
+
     row.querySelector('.p-del').onclick = () => {
       if (currentFormData.players.length <= 5) {
         alert('Minimum 5 players per team');
