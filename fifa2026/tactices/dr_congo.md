@@ -1,7 +1,7 @@
 # DR Congo — Tactical Profile
 
 ## Identity & Philosophy
-Sébastien Desabre's DR Congo is athletic, transitional, and built around individual brilliance in the front four. Their 4-2-3-1 leverages the defensive solidity of Mbemba and Wan-Bissaka with the explosive carrying of Bongonda and the finishing of Fiston Mayele. The Leopards will not dominate possession against top sides — they will defend in mid-block and break with venom.
+Sébastien Desabre's DR Congo is athletic, transitional, and built around individual brilliance in the front four. Their 4-2-3-1 leverages the defensive solidity of Mbemba and Wan-Bissaka with the explosive carrying of Bongonda, the pace and finishing of Yoane Wissa, and the channel running of Fiston Mayele. The Leopards will not dominate possession against top sides — they will defend in mid-block and break with venom.
 
 ## Formation
 - Shape: 4-2-3-1, transitional with a strong defensive spine.
@@ -15,7 +15,7 @@ Sébastien Desabre's DR Congo is athletic, transitional, and built around indivi
   - 6 Mukau — Defensive midfielder, ball-winner.
   - 7 Bongonda — Left winger, direct carrier.
   - 8 Bakambu — Attacking midfielder / second striker, veteran finisher.
-  - 9 Elia — Right winger / second creator.
+  - 9 Wissa — Right winger / inside-forward, primary pace-and-finishing threat.
   - 10 Mayele — Center-forward, channel runner and finisher.
 
 ## Style of Play
@@ -29,7 +29,7 @@ Sébastien Desabre's DR Congo is athletic, transitional, and built around indivi
 ### Pressing
 - Mid-block press; selective high-press.
 - Trigger: opposition CB receives back-to-goal or with a weak first touch.
-- Mayele and Bakambu front the press; Bongonda and Elia jump the full-backs.
+- Mayele and Bakambu front the press; Bongonda and Wissa jump the full-backs.
 - Sadiki and Mukau cover the central screen aggressively.
 
 ### Defensive shape
@@ -40,7 +40,7 @@ Sébastien Desabre's DR Congo is athletic, transitional, and built around indivi
 
 ### Wide play
 - Left: Bongonda carries the ball into the half-space, shoots or combines.
-- Right: Elia dribbles and crosses; Wan-Bissaka rarely overlaps far.
+- Right: Wissa drives inside onto his left foot to shoot or stretches in behind; Wan-Bissaka rarely overlaps far.
 - Crosses target Mayele near-post and Bakambu arriving late.
 
 ### Final third
@@ -61,17 +61,18 @@ Sébastien Desabre's DR Congo is athletic, transitional, and built around indivi
 5. If player_id ends with "_8" (Bakambu, AM #11): receive between lines, lay off to the CF run (player_id ends with "_10", Mayele) or combine with the LW (player_id ends with "_7", Bongonda).
 6. If player_id ends with "_7" (Bongonda, LW #7; speed 14, dribbling 14): take on the full-back from the left, shoot from the half-space.
 7. If player_id ends with "_10" (Mayele, CF #9; speed 15, shoot 16): constantly check the offside line; sprint behind on through balls.
-8. If player_id ends with "_9" (Elia, RW #10): dribble inside from the right, shoot from the half-space.
+8. If player_id ends with "_9" (Wissa, RW #10; speed 16, shoot 16): dribble inside from the right onto the left foot, sprint in behind on through balls, shoot from the half-space.
 9. If turnover in own half: outlet long to Mayele (player_id ends with "_10") or Bongonda (player_id ends with "_7") within 2 passes.
 10. If defending: 4-2-3-1 mid-block, Wan-Bissaka (player_id ends with "_4") 1v1 anchors the right.
-11. If trailing late: push Masuaku (player_id ends with "_1", LB) to wingback, Mbemba (player_id ends with "_2") and Tuanzebe (player_id ends with "_3") absorb the central duties, throw Bakambu (player_id ends with "_8") and Elia (player_id ends with "_9") higher.
+11. If trailing late: push Masuaku (player_id ends with "_1", LB) to wingback, Mbemba (player_id ends with "_2") and Tuanzebe (player_id ends with "_3") absorb the central duties, throw Bakambu (player_id ends with "_8") and Wissa (player_id ends with "_9") higher.
 12. If leading 1-0: drop block 10m deeper, defend the box collectively, exploit Wan-Bissaka's (player_id ends with "_4") recovery defending.
 
 ## Key Player Notes
 - **Mbemba** is the captain and defensive leader — his composure on the ball is unusual for a CB of his physicality.
 - **Wan-Bissaka (speed 16)** is the elite 1v1 defender — match him against the opposition's primary winger.
 - **Bakambu** is the experienced playmaker-forward; his vision unlocks low blocks.
-- **Mayele (shoot 16)** is the team's top finisher — feed him runs in behind constantly.
+- **Wissa (speed 16, shoot 16)** is the Leopards' dangerman — a Premier League finisher with pace; cut him inside from the right or send him in behind.
+- **Mayele (shoot 16)** is a top channel-runner and finisher — feed him runs in behind constantly.
 - **Bongonda** is the principal dribbler; encourage 1v1s.
 
 ## Tournament Mindset

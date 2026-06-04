@@ -1,7 +1,7 @@
 # Türkiye — Tactical Profile
 
 ## Identity & Philosophy
-Türkiye under Vincenzo Montella are a technically rich, possession-leaning side built around a deep-lying regista (Hakan Çalhanoğlu), an emerging generational #10 (Arda Güler), and pacy, direct wingers. Montella has restored Italian tactical structure while embracing the natural flair of his squad. After a thrilling Euro 2024 quarterfinal run, Türkiye arrive as a dark horse — capable of carving open defenses with technical quality and equally capable of late-game self-destruction.
+Türkiye under Vincenzo Montella are a technically rich, possession-leaning side built around a deep-lying regista (Hakan Çalhanoğlu, captain, #10), an emerging generational creator (Arda Güler, #8), and pacy, direct wingers. Montella has restored Italian tactical structure while embracing the natural flair of his squad. Having reached their first World Cup since 2002 via the European playoffs, and off the back of a thrilling Euro 2024 quarterfinal run, Türkiye arrive as a dark horse — capable of carving open defenses with technical quality and equally capable of late-game self-destruction.
 
 ## Formation
 - Shape: 4-2-3-1
@@ -57,8 +57,8 @@ Through-balls from Güler and Çalhanoğlu, cutbacks from the wide players, long
 
 ## Key Player Notes
 - **Hakan Çalhanoğlu (index 5):** the team's brain. Operates as a deep-lying regista — pass 18, skill 17. All set-pieces (corners, free-kicks, penalties). License to roam vertically into AM space when Güler drifts wide.
-- **Arda Güler (index 8):** the team's future. Free role between the lines, both feet, dribble + pass + shoot all elite for an AM. Allow him to take long shots from edge of box.
-- **Kenan Yıldız (index 9):** primary 1v1 dribbler — dribbling 17. Direct him to take on his man every time he receives wide.
+- **Arda Güler (index 8, #8):** the team's future. Free role between the lines, both feet, dribble + pass + shoot all elite for an AM. Allow him to take long shots from edge of box.
+- **Kenan Yıldız (index 9, #11):** primary 1v1 dribbler — dribbling 17. Direct him to take on his man every time he receives wide.
 - **Merih Demiral (index 2):** primary aerial threat on set pieces. Always crashes the box from corners.
 - **Ferdi Kadıoğlu (index 1):** modern inverted fullback role — moves into midfield in possession, generates +1 in central buildup.
 

@@ -3,7 +3,7 @@ team_id: portugal
 name: Portugal
 players:
   - name: Diogo Costa
-    number: 22
+    number: 1
     role: GK
     speed: 13
     skill: 16
@@ -15,7 +15,7 @@ players:
     pass: 16
     shoot: 4
   - name: Nuno Mendes
-    number: 19
+    number: 25
     role: DEF
     speed: 18
     skill: 16
@@ -27,7 +27,7 @@ players:
     pass: 15
     shoot: 12
   - name: Rúben Dias
-    number: 4
+    number: 3
     role: DEF
     speed: 14
     skill: 17
@@ -39,7 +39,7 @@ players:
     pass: 17
     shoot: 8
   - name: Gonçalo Inácio
-    number: 3
+    number: 14
     role: DEF
     speed: 15
     skill: 16
@@ -51,7 +51,7 @@ players:
     pass: 16
     shoot: 8
   - name: Nélson Semedo
-    number: 20
+    number: 2
     role: DEF
     speed: 16
     skill: 15
@@ -75,7 +75,7 @@ players:
     pass: 18
     shoot: 14
   - name: João Neves
-    number: 18
+    number: 15
     role: MID
     speed: 15
     skill: 17

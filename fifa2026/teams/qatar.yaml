@@ -1,9 +1,9 @@
-# Formation: 5-3-2
+# Formation: 4-3-3
 team_id: qatar
 name: Qatar
 players:
   - name: Meshaal Barsham
-    number: 1
+    number: 22
     role: GK
     speed: 12
     skill: 13
@@ -26,20 +26,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 8
-  - name: Tarek Salman
-    number: 16
-    role: DEF
-    speed: 12
-    skill: 13
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 9
-    stamina: 14
-    pass: 12
-    shoot: 7
-  - name: Sultan Al-Brake
-    number: 5
+  - name: Lucas Mendes
+    number: 3
     role: DEF
     speed: 13
     skill: 13
@@ -47,23 +35,23 @@ players:
     save: 0
     discipline: 14
     dribbling: 11
-    stamina: 15
+    stamina: 14
     pass: 13
     shoot: 8
-  - name: Lucas Mendes
+  - name: Boualem Khoukhi
     number: 4
     role: DEF
-    speed: 13
-    skill: 13
+    speed: 12
+    skill: 14
     strength: 14
     save: 0
     discipline: 14
     dribbling: 11
-    stamina: 14
+    stamina: 13
     pass: 13
-    shoot: 8
-  - name: Jassem Gaber
-    number: 15
+    shoot: 10
+  - name: Pedro Miguel
+    number: 2
     role: DEF
     speed: 13
     skill: 13
@@ -71,33 +59,9 @@ players:
     save: 0
     discipline: 13
     dribbling: 11
-    stamina: 15
+    stamina: 14
     pass: 13
-    shoot: 8
-  - name: Assim Madibo
-    number: 8
-    role: MID
-    speed: 13
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 12
-    stamina: 16
-    pass: 14
-    shoot: 10
-  - name: Mohammed Waad
-    number: 10
-    role: MID
-    speed: 13
-    skill: 14
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
-    pass: 14
-    shoot: 12
+    shoot: 7
   - name: Abdulaziz Hatem
     number: 11
     role: MID
@@ -110,8 +74,32 @@ players:
     stamina: 15
     pass: 13
     shoot: 11
-  - name: Akram Afif
+  - name: Assim Madibo
+    number: 12
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 10
+  - name: Karim Boudiaf
     number: 17
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 10
+  - name: Akram Afif
+    number: 19
     role: FWD
     speed: 15
     skill: 16
@@ -122,15 +110,27 @@ players:
     stamina: 15
     pass: 14
     shoot: 15
-  - name: Mohammed Muntari
-    number: 19
+  - name: Almoez Ali
+    number: 18
     role: FWD
-    speed: 13
-    skill: 14
-    strength: 15
+    speed: 14
+    skill: 15
+    strength: 14
     save: 0
     discipline: 13
-    dribbling: 12
-    stamina: 15
+    dribbling: 13
+    stamina: 14
     pass: 12
-    shoot: 14
+    shoot: 16
+  - name: Hassan Al-Haydos
+    number: 10
+    role: FWD
+    speed: 13
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 13
+    pass: 15
+    shoot: 13

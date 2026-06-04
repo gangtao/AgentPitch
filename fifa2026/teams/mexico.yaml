@@ -2,17 +2,17 @@
 team_id: mexico
 name: Mexico
 players:
-  - name: Luis Malagón
+  - name: Raúl Rangel
     number: 1
     role: GK
     speed: 12
-    skill: 14
+    skill: 13
     strength: 13
-    save: 15
+    save: 14
     discipline: 14
     dribbling: 7
     stamina: 13
-    pass: 13
+    pass: 12
     shoot: 4
   - name: Jesús Gallardo
     number: 23
@@ -50,30 +50,30 @@ players:
     stamina: 15
     pass: 14
     shoot: 8
-  - name: Julián Araujo
-    number: 19
+  - name: Jorge Sánchez
+    number: 2
     role: DEF
     speed: 15
-    skill: 14
+    skill: 13
     strength: 13
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 13
     stamina: 16
     pass: 13
-    shoot: 9
-  - name: Marcel Ruiz
+    shoot: 8
+  - name: Érik Lira
     number: 6
     role: MID
     speed: 13
     skill: 14
     strength: 13
     save: 0
-    discipline: 14
-    dribbling: 13
+    discipline: 15
+    dribbling: 12
     stamina: 16
     pass: 14
-    shoot: 11
+    shoot: 10
   - name: Edson Álvarez
     number: 4
     role: MID
@@ -87,7 +87,7 @@ players:
     pass: 15
     shoot: 11
   - name: Gilberto Mora
-    number: 18
+    number: 19
     role: MID
     speed: 14
     skill: 15
@@ -98,17 +98,17 @@ players:
     stamina: 15
     pass: 15
     shoot: 13
-  - name: Hirving Lozano
-    number: 22
+  - name: Alexis Vega
+    number: 10
     role: FWD
-    speed: 17
+    speed: 15
     skill: 15
-    strength: 12
+    strength: 13
     save: 0
     discipline: 13
-    dribbling: 16
+    dribbling: 15
     stamina: 15
-    pass: 13
+    pass: 14
     shoot: 14
   - name: Raúl Jiménez
     number: 9
@@ -122,15 +122,15 @@ players:
     stamina: 14
     pass: 14
     shoot: 15
-  - name: Santiago Giménez
-    number: 7
+  - name: Julián Quiñones
+    number: 16
     role: FWD
     speed: 14
     skill: 15
-    strength: 14
+    strength: 15
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 14
-    stamina: 16
+    stamina: 15
     pass: 13
     shoot: 16

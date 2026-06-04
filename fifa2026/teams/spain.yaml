@@ -26,18 +26,6 @@ players:
     stamina: 18
     pass: 15
     shoot: 10
-  - name: Robin Le Normand
-    number: 3
-    role: DEF
-    speed: 14
-    skill: 15
-    strength: 17
-    save: 0
-    discipline: 16
-    dribbling: 10
-    stamina: 16
-    pass: 15
-    shoot: 7
   - name: Aymeric Laporte
     number: 14
     role: DEF
@@ -50,30 +38,42 @@ players:
     stamina: 15
     pass: 17
     shoot: 8
-  - name: Dani Carvajal
-    number: 2
+  - name: Pau Cubarsí
+    number: 22
     role: DEF
     speed: 15
     skill: 16
+    strength: 14
+    save: 0
+    discipline: 16
+    dribbling: 13
+    stamina: 16
+    pass: 16
+    shoot: 6
+  - name: Marcos Llorente
+    number: 5
+    role: DEF
+    speed: 16
+    skill: 15
     strength: 15
     save: 0
     discipline: 14
     dribbling: 13
-    stamina: 17
-    pass: 16
-    shoot: 10
-  - name: Fabián Ruiz
-    number: 8
+    stamina: 18
+    pass: 14
+    shoot: 12
+  - name: Dani Olmo
+    number: 10
     role: MID
-    speed: 14
+    speed: 15
     skill: 17
-    strength: 14
+    strength: 13
     save: 0
-    discipline: 15
+    discipline: 14
     dribbling: 16
-    stamina: 17
+    stamina: 16
     pass: 17
-    shoot: 14
+    shoot: 16
   - name: Rodri
     number: 16
     role: MID
@@ -110,17 +110,17 @@ players:
     stamina: 17
     pass: 15
     shoot: 16
-  - name: Álvaro Morata
-    number: 7
+  - name: Mikel Oyarzabal
+    number: 21
     role: FWD
     speed: 14
     skill: 16
-    strength: 16
+    strength: 15
     save: 0
-    discipline: 14
+    discipline: 15
     dribbling: 14
-    stamina: 15
-    pass: 14
+    stamina: 16
+    pass: 15
     shoot: 17
   - name: Lamine Yamal
     number: 19

@@ -50,18 +50,18 @@ players:
     stamina: 17
     pass: 15
     shoot: 9
-  - name: Nahitan Nández
-    number: 16
+  - name: Guillermo Varela
+    number: 22
     role: DEF
     speed: 15
     skill: 14
-    strength: 15
+    strength: 14
     save: 0
-    discipline: 12
-    dribbling: 12
-    stamina: 17
-    pass: 13
-    shoot: 10
+    discipline: 13
+    dribbling: 13
+    stamina: 16
+    pass: 14
+    shoot: 9
   - name: Federico Valverde
     number: 15
     role: MID

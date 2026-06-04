@@ -1,30 +1,30 @@
-# Formation: 3-5-2
+# Formation: 4-2-3-1
 team_id: scotland
 name: Scotland
 players:
-  - name: Angus Gunn
-    number: 1
+  - name: Craig Gordon
+    number: 21
     role: GK
-    speed: 11
+    speed: 9
     skill: 13
-    strength: 15
+    strength: 12
     save: 16
-    discipline: 14
-    dribbling: 5
-    stamina: 13
-    pass: 13
-    shoot: 4
-  - name: Kieran Tierney
-    number: 3
-    role: DEF
-    speed: 14
-    skill: 14
-    strength: 14
-    save: 0
     discipline: 15
-    dribbling: 12
+    dribbling: 4
+    stamina: 11
+    pass: 13
+    shoot: 3
+  - name: Aaron Hickey
+    number: 2
+    role: DEF
+    speed: 15
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 13
     stamina: 16
-    pass: 14
+    pass: 13
     shoot: 9
   - name: Grant Hanley
     number: 5
@@ -38,21 +38,21 @@ players:
     stamina: 14
     pass: 12
     shoot: 7
-  - name: Jack Hendry
-    number: 4
+  - name: Scott McKenna
+    number: 26
     role: DEF
     speed: 12
-    skill: 13
+    skill: 12
     strength: 15
     save: 0
     discipline: 14
-    dribbling: 10
-    stamina: 15
+    dribbling: 9
+    stamina: 14
     pass: 13
-    shoot: 8
+    shoot: 7
   - name: Andrew Robertson
-    number: 6
-    role: MID
+    number: 3
+    role: DEF
     speed: 16
     skill: 15
     strength: 13
@@ -62,32 +62,44 @@ players:
     stamina: 18
     pass: 16
     shoot: 11
-  - name: Billy Gilmour
-    number: 18
+  - name: Lewis Ferguson
+    number: 19
     role: MID
     speed: 13
     skill: 15
-    strength: 11
+    strength: 14
     save: 0
-    discipline: 15
-    dribbling: 14
-    stamina: 16
-    pass: 16
-    shoot: 11
-  - name: Callum McGregor
-    number: 14
-    role: MID
-    speed: 13
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 16
+    discipline: 14
     dribbling: 13
-    stamina: 17
+    stamina: 16
     pass: 15
+    shoot: 13
+  - name: Ryan Christie
+    number: 11
+    role: MID
+    speed: 14
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 17
+    pass: 14
+    shoot: 12
+  - name: Ben Gannon-Doak
+    number: 17
+    role: MID
+    speed: 17
+    skill: 15
+    strength: 10
+    save: 0
+    discipline: 12
+    dribbling: 16
+    stamina: 15
+    pass: 13
     shoot: 12
   - name: Scott McTominay
-    number: 8
+    number: 4
     role: MID
     speed: 13
     skill: 14
@@ -109,18 +121,6 @@ players:
     dribbling: 14
     stamina: 17
     pass: 15
-    shoot: 14
-  - name: Che Adams
-    number: 10
-    role: FWD
-    speed: 14
-    skill: 13
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
-    pass: 12
     shoot: 14
   - name: Lyndon Dykes
     number: 9

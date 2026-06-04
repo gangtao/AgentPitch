@@ -1,19 +1,31 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: belgium
 name: Belgium
 players:
-  - name: Koen Casteels
+  - name: Thibaut Courtois
     number: 1
     role: GK
     speed: 12
-    skill: 15
-    strength: 16
-    save: 16
+    skill: 17
+    strength: 17
+    save: 19
     discipline: 16
     dribbling: 6
     stamina: 13
     pass: 14
     shoot: 4
+  - name: Maxim De Cuyper
+    number: 5
+    role: DEF
+    speed: 15
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 17
+    pass: 14
+    shoot: 9
   - name: Arthur Theate
     number: 3
     role: DEF
@@ -26,40 +38,28 @@ players:
     stamina: 16
     pass: 14
     shoot: 9
-  - name: Wout Faes
-    number: 4
-    role: DEF
-    speed: 13
-    skill: 14
-    strength: 17
-    save: 0
-    discipline: 13
-    dribbling: 10
-    stamina: 15
-    pass: 14
-    shoot: 7
-  - name: Zeno Debast
-    number: 5
+  - name: Koni De Winter
+    number: 16
     role: DEF
     speed: 14
-    skill: 15
+    skill: 14
     strength: 16
     save: 0
     discipline: 14
-    dribbling: 12
-    stamina: 16
-    pass: 16
+    dribbling: 11
+    stamina: 15
+    pass: 14
     shoot: 7
-  - name: Timothy Castagne
+  - name: Thomas Meunier
     number: 15
     role: DEF
-    speed: 15
+    speed: 14
     skill: 14
-    strength: 14
+    strength: 15
     save: 0
-    discipline: 15
-    dribbling: 13
-    stamina: 16
+    discipline: 14
+    dribbling: 12
+    stamina: 15
     pass: 14
     shoot: 10
   - name: Youri Tielemans
@@ -75,7 +75,7 @@ players:
     pass: 17
     shoot: 15
   - name: Amadou Onana
-    number: 6
+    number: 24
     role: MID
     speed: 14
     skill: 15
@@ -123,7 +123,7 @@ players:
     pass: 13
     shoot: 17
   - name: Leandro Trossard
-    number: 22
+    number: 10
     role: FWD
     speed: 15
     skill: 17

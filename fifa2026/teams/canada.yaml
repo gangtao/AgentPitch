@@ -27,7 +27,7 @@ players:
     pass: 14
     shoot: 12
   - name: Moïse Bombito
-    number: 4
+    number: 15
     role: DEF
     speed: 14
     skill: 13
@@ -50,18 +50,18 @@ players:
     stamina: 14
     pass: 12
     shoot: 7
-  - name: Richie Laryea
-    number: 22
+  - name: Alistair Johnston
+    number: 2
     role: DEF
     speed: 15
-    skill: 13
-    strength: 13
+    skill: 14
+    strength: 14
     save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 16
-    pass: 13
-    shoot: 9
+    discipline: 15
+    dribbling: 12
+    stamina: 17
+    pass: 14
+    shoot: 8
   - name: Ismaël Koné
     number: 8
     role: MID
@@ -87,7 +87,7 @@ players:
     pass: 16
     shoot: 12
   - name: Ali Ahmed
-    number: 21
+    number: 20
     role: MID
     speed: 15
     skill: 14
@@ -99,7 +99,7 @@ players:
     pass: 13
     shoot: 11
   - name: Tajon Buchanan
-    number: 11
+    number: 17
     role: FWD
     speed: 16
     skill: 14
@@ -111,7 +111,7 @@ players:
     pass: 13
     shoot: 13
   - name: Jonathan David
-    number: 20
+    number: 10
     role: FWD
     speed: 16
     skill: 16
@@ -123,7 +123,7 @@ players:
     pass: 13
     shoot: 17
   - name: Cyle Larin
-    number: 17
+    number: 9
     role: FWD
     speed: 13
     skill: 13

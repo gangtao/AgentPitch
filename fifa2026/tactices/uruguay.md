@@ -10,7 +10,7 @@ Uruguay under Marcelo Bielsa is one of the most distinctive tactical projects in
   - index 1: LB — **Mathías Olivera** — pacy, attacking, asked to push extremely high (Bielsa fullbacks are essentially wingers).
   - index 2: LCB — **José María Giménez** — front-foot defender, aggressive man-marker, will step 25 yards out of position to chase his man.
   - index 3: RCB — **Ronald Araújo** — physical monster, the team's defensive captain, the recovery sprinter who covers Giménez's adventures.
-  - index 4: RB — **Nahitan Nández** — converted from midfield, more conservative than Olivera but still pushes high; gritty, tackler.
+  - index 4: RB — **Guillermo Varela** — experienced, two-footed fullback; more conservative than Olivera but still pushes high; reliable crosser and tackler (replaces Nández in the final 26).
   - index 5: RCM/8 — **Federico Valverde** — the all-action engine, box-to-box, the team's chief carrier, occupies any position the game demands (right half-space mostly).
   - index 6: DM/6 — **Manuel Ugarte** — the destroyer, the screen, all-action ball-winner; Bielsa's chief mid-press leader.
   - index 7: LCM/8 — **Rodrigo Bentancur** — deep-lying playmaker of the trio, the metronome, the calmest passer in the midfield three.
@@ -20,7 +20,7 @@ Uruguay under Marcelo Bielsa is one of the most distinctive tactical projects in
 
 ## Style of Play
 ### Build-up
-**Vertical-first, short when possible.** Rochet plays short to Giménez/Araújo. Bentancur drops between them when pressed; Ugarte stays slightly higher as the screen. Fullbacks push **extremely** high — Olivera and Nández are practically wingers. The build-up is short for 2-3 passes, then vertical: **Bentancur or Valverde plays a line-breaking forward pass into Núñez's run in behind**, or wide to Pellistri/Araújo with a winger-fullback overload.
+**Vertical-first, short when possible.** Rochet plays short to Giménez/Araújo. Bentancur drops between them when pressed; Ugarte stays slightly higher as the screen. Fullbacks push **extremely** high — Olivera and Varela are practically wingers. The build-up is short for 2-3 passes, then vertical: **Bentancur or Valverde plays a line-breaking forward pass into Núñez's run in behind**, or wide to Pellistri/Araújo with a winger-fullback overload.
 
 ### Pressing
 **Extreme high press — Bielsa-style man-to-man.** Press triggers: opposition GK touches the ball (Núñez goes immediately), any opposition back-pass, any opposition first touch heavier than 2 units. **Each Uruguayan player has an assigned opposition player to mark**: forwards mark CBs and DM, midfielders mark midfielders, fullbacks mark wingers. Núñez leads the press constantly. This is the most aggressive press in the tournament.
@@ -29,7 +29,7 @@ Uruguay under Marcelo Bielsa is one of the most distinctive tactical projects in
 Out-of-possession: **man-marking 4-3-3** that morphs to **3-3-1-3** with fullbacks pushing high to mark wingers. Giménez often steps 20 yards out of the back line to follow his man. Araújo is the **free safety** who sweeps behind. This produces a high-line, high-risk system that demands sprinting.
 
 ### Wide play
-**Symmetric high-and-wide:** Olivera and Nández both push to the byline; Araújo and Pellistri both attempt 1v1 dribbles inside-to-outside. The wingers are encouraged to take their man on. Crosses (especially low cutbacks) for Núñez and Valverde's late runs.
+**Symmetric high-and-wide:** Olivera and Varela both push to the byline; Araújo and Pellistri both attempt 1v1 dribbles inside-to-outside. The wingers are encouraged to take their man on. Crosses (especially low cutbacks) for Núñez and Valverde's late runs.
 
 ### Final third
 Patterns: **Núñez channel runs** — Bentancur plays vertical into the run, Núñez sprints behind. **Valverde late arrival** at the edge of the box — when the ball goes wide, Valverde sprints into the D for a shot. **Pellistri/Araújo isolation** — give them the ball wide and ask them to beat their man. **Set pieces** delivered hard and flat to attack the near post.
@@ -47,7 +47,7 @@ Concrete rules the LLM should encode:
 3. **If my `player_id` ends with `_9` (ST, Núñez) and team_phase == "attacking":** Stay on the shoulder of the deepest opposition CB; make constant diagonal runs in behind, never drop deep.
 4. **If my `player_id` ends with `_2` (LCB, Giménez) and my marked opposition forward drops deep:** Follow him up to 25 units forward of normal CB position.
 5. **If my `player_id` ends with `_3` (RCB, Ronald Araújo):** I am the cover; sit slightly deeper than `_2` (Giménez) and cover the space behind him.
-6. **If my `player_id` ends with `_1` (LB, Olivera) or `_4` (RB, Nández) and team_phase == "attacking":** Sprint to byline — fullbacks are wingers in Bielsaball.
+6. **If my `player_id` ends with `_1` (LB, Olivera) or `_4` (RB, Varela) and team_phase == "attacking":** Sprint to byline — fullbacks are wingers in Bielsaball.
 7. **If my `player_id` ends with `_5` (RCM, Valverde) and team_phase == "attacking" and ball is in the final third:** Sprint into the box arriving at the edge of the D for a late shot.
 8. **If my `player_id` ends with `_6` (DM, Ugarte) and an opponent receives the ball in central midfield:** Tackle immediately — no delay.
 9. **If team_phase == "transition_attack":** Prefer the most vertical Pass available (e.g., a 30-unit forward pass to `_9` Núñez) over any sideways option.

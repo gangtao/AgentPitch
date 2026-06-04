@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 3-4-2-1
 team_id: japan
 name: Japan
 players:
@@ -15,7 +15,7 @@ players:
     pass: 13
     shoot: 4
   - name: Hiroki Itō
-    number: 3
+    number: 21
     role: DEF
     speed: 14
     skill: 14
@@ -38,20 +38,8 @@ players:
     stamina: 15
     pass: 15
     shoot: 9
-  - name: Shogo Taniguchi
-    number: 22
-    role: DEF
-    speed: 13
-    skill: 14
-    strength: 16
-    save: 0
-    discipline: 16
-    dribbling: 10
-    stamina: 15
-    pass: 14
-    shoot: 8
   - name: Takehiro Tomiyasu
-    number: 16
+    number: 22
     role: DEF
     speed: 15
     skill: 16
@@ -62,6 +50,18 @@ players:
     stamina: 16
     pass: 15
     shoot: 9
+  - name: Keito Nakamura
+    number: 13
+    role: MID
+    speed: 16
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 15
+    stamina: 16
+    pass: 14
+    shoot: 14
   - name: Wataru Endō
     number: 6
     role: MID
@@ -74,20 +74,20 @@ players:
     stamina: 17
     pass: 15
     shoot: 11
-  - name: Hidemasa Morita
-    number: 17
+  - name: Ao Tanaka
+    number: 7
     role: MID
     speed: 14
     skill: 15
-    strength: 13
+    strength: 14
     save: 0
     discipline: 15
-    dribbling: 13
+    dribbling: 14
     stamina: 17
     pass: 16
-    shoot: 11
+    shoot: 12
   - name: Ritsu Doan
-    number: 8
+    number: 10
     role: MID
     speed: 15
     skill: 16
@@ -97,6 +97,18 @@ players:
     dribbling: 16
     stamina: 16
     pass: 15
+    shoot: 15
+  - name: Takefusa Kubo
+    number: 8
+    role: MID
+    speed: 15
+    skill: 17
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 17
+    stamina: 15
+    pass: 16
     shoot: 15
   - name: Daichi Kamada
     number: 15
@@ -110,18 +122,6 @@ players:
     stamina: 16
     pass: 16
     shoot: 15
-  - name: Takefusa Kubo
-    number: 20
-    role: MID
-    speed: 15
-    skill: 17
-    strength: 12
-    save: 0
-    discipline: 14
-    dribbling: 17
-    stamina: 15
-    pass: 16
-    shoot: 15
   - name: Ayase Ueda
     number: 19
     role: FWD
@@ -133,4 +133,4 @@ players:
     dribbling: 13
     stamina: 15
     pass: 13
-    shoot: 15
+    shoot: 16

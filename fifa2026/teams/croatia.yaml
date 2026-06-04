@@ -14,18 +14,6 @@ players:
     stamina: 14
     pass: 13
     shoot: 4
-  - name: Borna Sosa
-    number: 19
-    role: DEF
-    speed: 15
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 16
-    pass: 16
-    shoot: 10
   - name: Joško Gvardiol
     number: 20
     role: DEF
@@ -50,6 +38,18 @@ players:
     stamina: 15
     pass: 14
     shoot: 7
+  - name: Marin Pongračić
+    number: 5
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 17
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 14
+    pass: 14
+    shoot: 8
   - name: Josip Stanišić
     number: 2
     role: DEF
@@ -86,18 +86,18 @@ players:
     stamina: 15
     pass: 19
     shoot: 15
-  - name: Marcelo Brozović
-    number: 11
+  - name: Petar Sučić
+    number: 15
     role: MID
-    speed: 13
-    skill: 16
-    strength: 14
+    speed: 14
+    skill: 15
+    strength: 15
     save: 0
-    discipline: 14
+    discipline: 15
     dribbling: 14
-    stamina: 16
-    pass: 17
-    shoot: 13
+    stamina: 17
+    pass: 15
+    shoot: 12
   - name: Ivan Perišić
     number: 4
     role: FWD
@@ -122,15 +122,15 @@ players:
     stamina: 14
     pass: 15
     shoot: 16
-  - name: Ante Budimir
-    number: 17
+  - name: Petar Musa
+    number: 11
     role: FWD
-    speed: 13
+    speed: 14
     skill: 14
     strength: 17
     save: 0
     discipline: 14
-    dribbling: 12
+    dribbling: 13
     stamina: 15
     pass: 13
     shoot: 16

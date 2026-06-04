@@ -38,17 +38,17 @@ players:
     stamina: 16
     pass: 15
     shoot: 8
-  - name: Lisandro Martínez
-    number: 25
+  - name: Nicolás Otamendi
+    number: 19
     role: DEF
-    speed: 14
-    skill: 16
+    speed: 12
+    skill: 15
     strength: 17
     save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 16
-    pass: 16
+    discipline: 12
+    dribbling: 9
+    stamina: 15
+    pass: 14
     shoot: 8
   - name: Nahuel Molina
     number: 26

@@ -14,18 +14,18 @@ players:
     stamina: 13
     pass: 13
     shoot: 4
-  - name: Mohamed Hany
-    number: 12
+  - name: Ahmed Fatouh
+    number: 13
     role: DEF
     speed: 14
     skill: 13
     strength: 13
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 12
     stamina: 15
     pass: 13
-    shoot: 9
+    shoot: 8
   - name: Mohamed Abdelmonem
     number: 3
     role: DEF
@@ -38,42 +38,42 @@ players:
     stamina: 15
     pass: 13
     shoot: 8
-  - name: Omar Kamal
-    number: 2
-    role: DEF
-    speed: 13
-    skill: 13
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 14
-    pass: 13
-    shoot: 7
-  - name: Ahmed Hegazi
+  - name: Rami Rabia
     number: 6
     role: DEF
     speed: 12
     skill: 14
     strength: 16
     save: 0
-    discipline: 15
+    discipline: 14
     dribbling: 10
     stamina: 14
     pass: 13
-    shoot: 8
-  - name: Mohamed Elneny
-    number: 17
-    role: MID
-    speed: 13
-    skill: 15
+    shoot: 7
+  - name: Mohamed Hany
+    number: 12
+    role: DEF
+    speed: 14
+    skill: 13
     strength: 13
     save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 9
+  - name: Marwan Attia
+    number: 15
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
     discipline: 15
-    dribbling: 13
+    dribbling: 12
     stamina: 16
-    pass: 16
-    shoot: 11
+    pass: 15
+    shoot: 10
   - name: Hamdi Fathi
     number: 8
     role: MID
@@ -86,10 +86,22 @@ players:
     stamina: 17
     pass: 14
     shoot: 11
-  - name: Ibrahim Adel
-    number: 19
+  - name: Emam Ashour
+    number: 21
     role: MID
-    speed: 15
+    speed: 14
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 15
+    shoot: 14
+  - name: Mahmoud Trezeguet
+    number: 7
+    role: FWD
+    speed: 16
     skill: 15
     strength: 13
     save: 0
@@ -97,7 +109,7 @@ players:
     dribbling: 15
     stamina: 16
     pass: 14
-    shoot: 13
+    shoot: 14
   - name: Omar Marmoush
     number: 11
     role: FWD
@@ -110,18 +122,6 @@ players:
     stamina: 17
     pass: 14
     shoot: 16
-  - name: Mostafa Mohamed
-    number: 9
-    role: FWD
-    speed: 14
-    skill: 14
-    strength: 15
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
-    pass: 12
-    shoot: 15
   - name: Mohamed Salah
     number: 10
     role: FWD

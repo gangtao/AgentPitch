@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: iran
 name: Iran
 players:
@@ -86,6 +86,18 @@ players:
     stamina: 16
     pass: 15
     shoot: 13
+  - name: Mohammad Mohebi
+    number: 20
+    role: MID
+    speed: 15
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 15
+    pass: 13
+    shoot: 14
   - name: Mehdi Ghaedi
     number: 17
     role: MID
@@ -98,17 +110,17 @@ players:
     stamina: 15
     pass: 14
     shoot: 13
-  - name: Mohammad Mohebi
-    number: 20
-    role: FWD
+  - name: Alireza Jahanbakhsh
+    number: 7
+    role: MID
     speed: 15
-    skill: 14
+    skill: 15
     strength: 13
     save: 0
-    discipline: 13
+    discipline: 14
     dribbling: 15
-    stamina: 15
-    pass: 13
+    stamina: 16
+    pass: 14
     shoot: 14
   - name: Mehdi Taremi
     number: 9
@@ -122,15 +134,3 @@ players:
     stamina: 16
     pass: 15
     shoot: 16
-  - name: Alireza Jahanbakhsh
-    number: 7
-    role: FWD
-    speed: 15
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 15
-    stamina: 16
-    pass: 14
-    shoot: 14

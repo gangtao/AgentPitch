@@ -50,16 +50,16 @@ players:
     stamina: 16
     pass: 14
     shoot: 7
-  - name: Serge Aurier
-    number: 2
+  - name: Wilfried Singo
+    number: 17
     role: DEF
-    speed: 15
-    skill: 14
-    strength: 14
+    speed: 17
+    skill: 15
+    strength: 17
     save: 0
-    discipline: 12
+    discipline: 13
     dribbling: 14
-    stamina: 16
+    stamina: 17
     pass: 14
     shoot: 11
   - name: Seko Fofana
@@ -110,27 +110,27 @@ players:
     stamina: 16
     pass: 16
     shoot: 15
-  - name: Yan Diomande
-    number: 9
+  - name: Ange-Yoan Bonny
+    number: 24
     role: FWD
-    speed: 17
+    speed: 14
     skill: 15
-    strength: 14
+    strength: 16
     save: 0
     discipline: 13
-    dribbling: 16
-    stamina: 16
+    dribbling: 14
+    stamina: 15
     pass: 14
-    shoot: 16
-  - name: Nicolas Pépé
-    number: 11
+    shoot: 15
+  - name: Simon Adingra
+    number: 7
     role: FWD
-    speed: 15
+    speed: 17
     skill: 16
     strength: 13
     save: 0
     discipline: 13
-    dribbling: 17
-    stamina: 15
+    dribbling: 16
+    stamina: 16
     pass: 15
-    shoot: 16
+    shoot: 14

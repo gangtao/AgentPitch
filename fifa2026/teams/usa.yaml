@@ -1,9 +1,9 @@
-# Formation: 4-3-3
+# Formation: 3-4-2-1
 team_id: usa
 name: United States
 players:
   - name: Matt Freese
-    number: 1
+    number: 24
     role: GK
     speed: 11
     skill: 13
@@ -38,18 +38,18 @@ players:
     stamina: 15
     pass: 13
     shoot: 8
-  - name: Cameron Carter-Vickers
-    number: 15
+  - name: Tim Ream
+    number: 13
     role: DEF
-    speed: 13
-    skill: 14
-    strength: 16
+    speed: 10
+    skill: 15
+    strength: 14
     save: 0
-    discipline: 15
+    discipline: 16
     dribbling: 10
-    stamina: 14
-    pass: 13
-    shoot: 7
+    stamina: 13
+    pass: 15
+    shoot: 6
   - name: Sergiño Dest
     number: 2
     role: DEF
@@ -62,6 +62,18 @@ players:
     stamina: 16
     pass: 14
     shoot: 10
+  - name: Mark McKenzie
+    number: 22
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 14
+    pass: 13
+    shoot: 7
   - name: Tyler Adams
     number: 4
     role: MID
@@ -74,18 +86,6 @@ players:
     stamina: 18
     pass: 15
     shoot: 10
-  - name: Tanner Tessmann
-    number: 14
-    role: MID
-    speed: 13
-    skill: 14
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 12
-    stamina: 16
-    pass: 14
-    shoot: 11
   - name: Weston McKennie
     number: 8
     role: MID
@@ -111,7 +111,7 @@ players:
     pass: 15
     shoot: 15
   - name: Folarin Balogun
-    number: 9
+    number: 20
     role: FWD
     speed: 15
     skill: 14
@@ -123,7 +123,7 @@ players:
     pass: 12
     shoot: 16
   - name: Malik Tillman
-    number: 7
+    number: 17
     role: FWD
     speed: 14
     skill: 16

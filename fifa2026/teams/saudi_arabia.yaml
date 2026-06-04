@@ -14,31 +14,19 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
-  - name: Ali Lajami
+  - name: Nawaf Boushal
     number: 13
     role: DEF
     speed: 13
-    skill: 13
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 14
-    pass: 13
-    shoot: 8
-  - name: Ali Al-Bulayhi
-    number: 5
-    role: DEF
-    speed: 12
-    skill: 13
-    strength: 16
+    skill: 12
+    strength: 13
     save: 0
     discipline: 13
-    dribbling: 9
+    dribbling: 11
     stamina: 14
     pass: 12
-    shoot: 8
-  - name: Hassan Tambakti
+    shoot: 7
+  - name: Abdulelah Al-Amri
     number: 4
     role: DEF
     speed: 13
@@ -50,8 +38,20 @@ players:
     stamina: 14
     pass: 13
     shoot: 8
+  - name: Hassan Al-Tambakti
+    number: 5
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 8
   - name: Saud Abdulhamid
-    number: 2
+    number: 12
     role: DEF
     speed: 14
     skill: 13
@@ -74,29 +74,29 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
-  - name: Abdulelah Al-Malki
-    number: 14
+  - name: Abdullah Al-Khaibari
+    number: 15
     role: MID
     speed: 13
     skill: 13
-    strength: 14
+    strength: 13
     save: 0
     discipline: 14
-    dribbling: 12
+    dribbling: 11
     stamina: 16
-    pass: 14
-    shoot: 10
-  - name: Nasser Al-Dawsari
-    number: 17
+    pass: 13
+    shoot: 9
+  - name: Musab Al-Juwayr
+    number: 7
     role: MID
     speed: 14
-    skill: 14
+    skill: 15
     strength: 12
     save: 0
     discipline: 13
     dribbling: 14
-    stamina: 15
-    pass: 14
+    stamina: 16
+    pass: 15
     shoot: 13
   - name: Salem Al-Dawsari
     number: 10
@@ -110,17 +110,17 @@ players:
     stamina: 15
     pass: 14
     shoot: 16
-  - name: Musab Al-Juwayr
-    number: 7
+  - name: Nasser Al-Dawsari
+    number: 6
     role: MID
     speed: 14
-    skill: 15
+    skill: 14
     strength: 12
     save: 0
     discipline: 13
     dribbling: 14
-    stamina: 16
-    pass: 15
+    stamina: 15
+    pass: 14
     shoot: 13
   - name: Firas Al-Buraikan
     number: 9

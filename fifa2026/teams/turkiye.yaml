@@ -75,7 +75,7 @@ players:
     pass: 18
     shoot: 16
   - name: İsmail Yüksek
-    number: 8
+    number: 16
     role: MID
     speed: 13
     skill: 14
@@ -99,7 +99,7 @@ players:
     pass: 14
     shoot: 14
   - name: Arda Güler
-    number: 21
+    number: 8
     role: MID
     speed: 14
     skill: 17
@@ -111,7 +111,7 @@ players:
     pass: 17
     shoot: 15
   - name: Kenan Yıldız
-    number: 17
+    number: 11
     role: MID
     speed: 16
     skill: 16
@@ -123,7 +123,7 @@ players:
     pass: 14
     shoot: 15
   - name: Barış Alper Yılmaz
-    number: 19
+    number: 21
     role: FWD
     speed: 16
     skill: 14

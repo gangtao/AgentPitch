@@ -14,30 +14,18 @@ players:
     stamina: 14
     pass: 15
     shoot: 4
-  - name: Luke Shaw
-    number: 3
+  - name: Tino Livramento
+    number: 12
     role: DEF
-    speed: 15
-    skill: 16
+    speed: 16
+    skill: 15
     strength: 14
     save: 0
-    discipline: 15
-    dribbling: 14
+    discipline: 14
+    dribbling: 15
     stamina: 16
-    pass: 16
-    shoot: 11
-  - name: John Stones
-    number: 5
-    role: DEF
-    speed: 13
-    skill: 17
-    strength: 16
-    save: 0
-    discipline: 15
-    dribbling: 13
-    stamina: 15
-    pass: 17
-    shoot: 8
+    pass: 14
+    shoot: 9
   - name: Marc Guéhi
     number: 6
     role: DEF
@@ -50,8 +38,20 @@ players:
     stamina: 16
     pass: 14
     shoot: 7
+  - name: John Stones
+    number: 5
+    role: DEF
+    speed: 13
+    skill: 17
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 13
+    stamina: 15
+    pass: 17
+    shoot: 8
   - name: Reece James
-    number: 2
+    number: 24
     role: DEF
     speed: 16
     skill: 17
@@ -74,30 +74,30 @@ players:
     stamina: 18
     pass: 17
     shoot: 14
-  - name: Adam Wharton
-    number: 14
+  - name: Elliot Anderson
+    number: 8
     role: MID
-    speed: 13
-    skill: 17
+    speed: 14
+    skill: 16
     strength: 14
     save: 0
     discipline: 16
     dribbling: 15
     stamina: 17
-    pass: 18
+    pass: 16
     shoot: 12
-  - name: Anthony Gordon
-    number: 7
+  - name: Marcus Rashford
+    number: 11
     role: MID
-    speed: 18
+    speed: 17
     skill: 16
-    strength: 13
+    strength: 15
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 17
-    stamina: 17
+    stamina: 16
     pass: 14
-    shoot: 15
+    shoot: 16
   - name: Jude Bellingham
     number: 10
     role: MID
@@ -111,7 +111,7 @@ players:
     pass: 18
     shoot: 17
   - name: Bukayo Saka
-    number: 11
+    number: 7
     role: MID
     speed: 17
     skill: 18
