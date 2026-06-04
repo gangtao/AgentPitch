@@ -2,17 +2,17 @@
 team_id: austria
 name: Austria
 players:
-  - name: Patrick Pentz
-    number: 1
+  - name: Alexander Schlager
+    number: 23
     role: GK
-    speed: 11
+    speed: 12
     skill: 13
     strength: 14
-    save: 14
+    save: 15
     discipline: 14
     dribbling: 5
     stamina: 13
-    pass: 12
+    pass: 13
     shoot: 4
   - name: Phillipp Mwene
     number: 21

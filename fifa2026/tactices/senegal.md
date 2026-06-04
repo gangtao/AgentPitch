@@ -11,8 +11,8 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
   - 2 Koulibaly — Left center-back, captain, physical leader.
   - 3 Niakhaté — Right center-back, mobile, second-ball winner.
   - 4 Diatta — Right-back, converted winger, surges forward.
-  - 5 Gueye — #6, ball-winner, ruthless pressing trigger.
-  - 6 Pape Matar Sarr — Right #8, box-to-box engine, late runs.
+  - 5 Idrissa Gueye — #6, ball-winner, ruthless pressing trigger.
+  - 6 Pape Gueye — Right #8, physical screen, progressive carrier.
   - 7 Diarra — Left #8, energetic shuttler.
   - 8 Mané — Left winger / inside-forward, talisman.
   - 9 Jackson — Center-forward, runner-in-behind.
@@ -23,13 +23,13 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 ### Build-up
 - Short when uncontested, but Mendy is encouraged to go long to Jackson's channel run if pressed.
 - Koulibaly is the calmest passer — first option from goal kicks.
-- Gueye drops between center-backs only against high pressure.
+- Idrissa Gueye drops between center-backs only against high pressure.
 - Build-up is shorter and faster than Morocco's — fewer touches, more vertical.
 
 ### Pressing
 - High press is the default identity. Trigger: any opponent receiving in their own third with their back to play.
-- Jackson presses the center-back; Mané and Ndiaye press the full-backs; Sarr and Diarra step on the pivot.
-- Gueye sweeps and hunts second balls.
+- Jackson presses the center-back; Mané and Ndiaye press the full-backs; Pape Gueye and Diarra step on the pivot.
+- Idrissa Gueye sweeps and hunts second balls.
 - The press is aggressive enough to risk being broken — counter-press immediately if first wave fails.
 
 ### Defensive shape
@@ -47,24 +47,24 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 - Jackson runs the channels constantly — every transition looks for him in behind first.
 - Mané takes 1v1s and shoots from the left half-space.
 - Ndiaye is the dribble-and-cut-inside threat from the right.
-- Sarr makes the late box arrival on cutbacks.
+- Diarra makes the late box arrival on cutbacks.
 
 ## Set Pieces
 - Koulibaly and Niakhaté dominate attacking corners — far-post target plus near-post flick.
-- Mané takes left-side corners; Sarr or Diatta from the right.
+- Mané takes left-side corners; Diatta or Pape Gueye from the right.
 - Defensive set pieces: man-marking on the biggest threats, Koulibaly on the most dangerous aerial opponent.
 
 ## decide() Decision Priorities
 1. If role == "GK" (player_id ends with "_0", Mendy) and pressed: long ball to the CF (player_id ends with "_9", Jackson) channel run rather than risky short pass.
-2. If player_id ends with "_2" (Koulibaly, LCB #3) and unpressed in own half: step into midfield with the ball; release the #6 (player_id ends with "_5", Gueye) or RCM (player_id ends with "_6", Sarr) in space.
-3. If player_id ends with "_5" (Gueye, MID #5) and opponent receives with back to goal in the middle third: tackle immediately.
+2. If player_id ends with "_2" (Koulibaly, LCB #3) and unpressed in own half: step into midfield with the ball; release the #6 (player_id ends with "_5", Idrissa Gueye) or RCM (player_id ends with "_6", Pape Gueye) in space.
+3. If player_id ends with "_5" (Idrissa Gueye, MID #5) and opponent receives with back to goal in the middle third: tackle immediately.
 4. If player_id ends with "_8" (Mané, LW #10): when receiving on the left wing with space inside, dribble inside onto right foot and shoot if range is good (<22m).
 5. If player_id ends with "_9" (Jackson, CF #9) and ball is with a midfielder facing forward: sprint behind the last defender; demand the through ball.
 6. If player_id ends with "_4" (Diatta, RB #15) and ball is on the right half-space: overlap aggressively.
 7. If turnover anywhere on the field: counter-press for at least 6 seconds before retreating.
 8. If defending and the LCB (player_id ends with "_2", Koulibaly) is engaged in a duel: the RCB (player_id ends with "_3", Niakhaté) drops 5m to cover the space behind him.
-9. If the RCM (player_id ends with "_6", Sarr) is between lines unmarked: any midfielder should pass forward to him immediately.
-10. If trailing in the second half: Koulibaly (player_id ends with "_2") steps higher, Gueye (player_id ends with "_5") becomes a second #8, Niakhaté (player_id ends with "_3") plays as a lone CB with Diouf (player_id ends with "_1") and Diatta (player_id ends with "_4") as wingbacks.
+9. If the RCM (player_id ends with "_6", Pape Gueye) is between lines unmarked: any midfielder should pass forward to him to progress play immediately.
+10. If trailing in the second half: Koulibaly (player_id ends with "_2") steps higher, Idrissa Gueye (player_id ends with "_5") becomes a second #8, Niakhaté (player_id ends with "_3") plays as a lone CB with Diouf (player_id ends with "_1") and Diatta (player_id ends with "_4") as wingbacks.
 11. If player_id ends with "_10" (Ndiaye, RW #18) is 1v1 on the right: dribble at the defender, cut inside onto the left foot.
 12. If leading by 2+: maintain high press but allow opposition to play in own third; pick off the long ball.
 
@@ -72,8 +72,8 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 - **Mané (skill 17, dribbling 17)** is the senior leader — when in doubt, give him the ball on the left.
 - **Koulibaly** is still the defensive talisman; trust him in duels but cover his pace with Niakhaté.
 - **Jackson's pace (17)** is best weapon against high lines — repeatedly target the channel behind the opposition full-back.
-- **Pape Matar Sarr** is the underrated engine — encourage him to crash the box late.
-- **Gueye** is the destroyer; never expect him to drive the team forward, but he wins everything in the middle third.
+- **Pape Gueye** is the physical right #8 — a screen in front of the back four and a progressive carrier; he shields rather than crashing the box, leaving the late runs to Diarra.
+- **Idrissa Gueye** is the destroyer; never expect him to drive the team forward, but he wins everything in the middle third.
 
 ## Tournament Mindset
 Senegal believes they will out-run and out-physical anyone. They will accept open games and trade chances, confident in Mendy's saves and Mané's moments.

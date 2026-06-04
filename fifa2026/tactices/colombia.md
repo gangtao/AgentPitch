@@ -16,29 +16,29 @@ Colombia under Néstor Lorenzo is a balanced, possession-comfortable side built 
   - index 7: LW — **Luis Díaz** — direct 1v1 winger, the team's chief carrier, drives at the opposition RB.
   - index 8: AM/10 — **James Rodríguez** — the conductor, plays as a deep 10, drifts to the right half-space to combine with Muñoz/Arias; the team's chief creator and dead-ball specialist.
   - index 9: RW — **Jhon Arias** — work-rate, two-way winger, defensive cover for Muñoz, secondary creator.
-  - index 10: ST — **Jhon Córdoba** — physical target striker, holds the ball up, brings James and Díaz into play; less mobile, more pivot.
+  - index 10: ST — **Luis Suárez** — mobile, in-form penalty-box finisher (Primeira Liga top scorer); runs the channels, makes diagonal runs behind, and combines quickly rather than holding as a static pivot.
 
 ## Style of Play
 ### Build-up
-**Patient short build-up with vertical bursts.** Vargas plays short to Sánchez/Lucumí; Lerma drops between the CBs to form a 3-1 build-up. Mojica pushes high to give width; Muñoz holds slightly deeper. **James drops** from the 10 line into the right half-space to receive between the lines — this is the team's primary progression mechanism. When the press is tight, Colombia goes long to Córdoba and plays for the second ball.
+**Patient short build-up with vertical bursts.** Vargas plays short to Sánchez/Lucumí; Lerma drops between the CBs to form a 3-1 build-up. Mojica pushes high to give width; Muñoz holds slightly deeper. **James drops** from the 10 line into the right half-space to receive between the lines — this is the team's primary progression mechanism. When the press is tight, Colombia goes long for Suárez to chase in behind and plays for the second ball.
 
 ### Pressing
-**Mid-block to low-block** — Colombia is **not** a high-pressing team. Press triggers: opposition fullback receiving with their back to play, or a misplaced pass into the opposition #6. Córdoba leads the press by cover-shadowing the deepest opposition CM. Díaz and Arias jump on the fullbacks. James does NOT press hard — he hovers to receive the recovered ball.
+**Mid-block to low-block** — Colombia is **not** a high-pressing team. Press triggers: opposition fullback receiving with their back to play, or a misplaced pass into the opposition #6. Suárez leads the press by cover-shadowing the deepest opposition CM. Díaz and Arias jump on the fullbacks. James does NOT press hard — he hovers to receive the recovered ball.
 
 ### Defensive shape
-Out-of-possession: **4-4-1-1** — Arias drops to RM, Díaz drops to LM (less reliably than Arias), forming a flat midfield four. James floats behind Córdoba, neither fully a midfielder nor a forward — he's the outlet for any cleared ball.
+Out-of-possession: **4-4-1-1** — Arias drops to RM, Díaz drops to LM (less reliably than Arias), forming a flat midfield four. James floats behind Suárez, neither fully a midfielder nor a forward — he's the outlet for any cleared ball.
 
 ### Wide play
 **Asymmetric:** Mojica high and wide on the left providing the byline runs; Díaz drifts inside. On the right, Muñoz overlaps less aggressively; Arias works the touchline. Most chances come from the **left** (Mojica-Díaz combination).
 
 ### Final third
-Patterns: **James cross-field switches** from the right half-space to Díaz on the far touchline. **Mojica byline cutbacks** to James arriving at the penalty spot. **Set-piece deliveries** from James — Colombia's most reliable scoring source. **Córdoba flick-ons** for Díaz's runs behind.
+Patterns: **James cross-field switches** from the right half-space to Díaz on the far touchline. **Mojica byline cutbacks** to James arriving at the penalty spot. **Set-piece deliveries** from James — Colombia's most reliable scoring source. **Suárez channel runs** in behind onto James through-balls and Mojica cutbacks.
 
 ## Set Pieces
-- Attacking corners: **James** delivers from both sides (in-swingers). Primary aerial targets: Davinson Sánchez, Lucumí, Córdoba.
+- Attacking corners: **James** delivers from both sides (in-swingers). Primary aerial targets: Davinson Sánchez, Lucumí; Suárez gambles on the near-post flick and second ball.
 - Defending corners: **man-marking** with one zonal post-marker; Sánchez attacks the front ball.
 - Free kicks: **James** direct from any zone within 30 yards (left-footed curlers). Mojica delivers wide free kicks from the left.
-- Penalties: **James** primary, **Díaz** secondary, **Córdoba** tertiary.
+- Penalties: **James** primary, **Díaz** secondary, **Suárez** tertiary.
 
 ## decide() Decision Priorities
 Concrete rules the LLM should encode:
@@ -50,7 +50,7 @@ Concrete rules the LLM should encode:
 6. **If my `player_id` ends with `_6` (DM, Lerma):** Sit between the CBs in build-up; never venture past the halfway line.
 7. **If team_phase == "defending" and my `player_id` ends with `_7` (LW, Díaz):** Drop toward LM but only when LB `_1` (Mojica) is exposed; otherwise stay high as counter-attack outlet.
 8. **If team_phase == "defending" and my `player_id` ends with `_9` (RW, Arias):** Always drop to RM, double up on the opposition LW with RB `_4` (Muñoz).
-9. **If my `player_id` ends with `_10` (ST, Córdoba) and ball is being played long from defense:** Move to the central channel, prepare to flick on (Hold or Pass) toward `_7` (Díaz)'s diagonal run.
+9. **If my `player_id` ends with `_10` (ST, Suárez) and ball is being played long from defense:** Spin in behind the last defender into the channel; prefer a Move (run onto the ball) or quick lay-off Pass to `_8` (James) over a static hold.
 10. **If team_phase == "transition_attack":** Look for `_8` (James) first — he's the outlet; if `_8` is marked, `_7` (Díaz) on the left wing.
 11. **If team is drawing or leading and minute > 80:** Drop into low block, force opposition into wide areas; rely on `_2` / `_3` (CBs Sánchez/Lucumí) aerial dominance.
 12. **Set-piece in attacking third within 35 units of goal:** Defer to `_8` (James) for the delivery.
@@ -60,7 +60,7 @@ Concrete rules the LLM should encode:
 - **Luis Díaz (7):** Licensed to be the chief 1v1 dribbler. Will attempt to beat his man even when a simpler pass exists.
 - **Mojica (12):** Most attacking fullback in CONMEBOL alongside Estupiñán — bombs forward.
 - **Lerma (6):** The defensive sentinel — anchors so James can roam.
-- **Córdoba (9):** Target-man profile; flick-on specialist. Holds ball with back to goal.
+- **Luis Suárez (9):** In-form penalty-box finisher (Primeira Liga top scorer with Sporting); has displaced Córdoba as the starter. Runs the channels and gambles on the shoulder of the last defender rather than holding play up. Clinical inside the box.
 
 ## Tournament Mindset
 Colombia are a knockout-round side: they grow into tournaments. Group stage may be cautious, but in the round of 16 onwards expect James to seize a game and Díaz to break a tight match in transition. They are happy to play low-scoring, James-decides-it matches.

@@ -14,18 +14,18 @@ players:
     stamina: 13
     pass: 13
     shoot: 4
-  - name: Aziz Behich
-    number: 16
+  - name: Jordy Bos
+    number: 5
     role: DEF
-    speed: 14
-    skill: 13
+    speed: 15
+    skill: 14
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 13
+    dribbling: 14
     stamina: 16
-    pass: 13
-    shoot: 9
+    pass: 14
+    shoot: 10
   - name: Harry Souttar
     number: 19
     role: DEF
@@ -38,42 +38,42 @@ players:
     stamina: 14
     pass: 13
     shoot: 9
-  - name: Kye Rowles
-    number: 4
+  - name: Alessandro Circati
+    number: 3
     role: DEF
     speed: 13
-    skill: 13
+    skill: 14
     strength: 15
     save: 0
-    discipline: 15
-    dribbling: 10
+    discipline: 14
+    dribbling: 11
     stamina: 14
-    pass: 13
+    pass: 14
     shoot: 8
-  - name: Nathaniel Atkinson
-    number: 14
+  - name: Jacob Italiano
+    number: 4
     role: DEF
     speed: 15
     skill: 13
-    strength: 13
+    strength: 12
     save: 0
     discipline: 13
-    dribbling: 12
+    dribbling: 13
     stamina: 16
     pass: 13
     shoot: 9
-  - name: Ajdin Hrustic
+  - name: Aiden O'Neill
     number: 13
     role: MID
     speed: 13
-    skill: 15
+    skill: 14
     strength: 13
     save: 0
     discipline: 14
-    dribbling: 14
-    stamina: 15
-    pass: 16
-    shoot: 13
+    dribbling: 12
+    stamina: 16
+    pass: 15
+    shoot: 11
   - name: Jackson Irvine
     number: 22
     role: MID
@@ -86,17 +86,17 @@ players:
     stamina: 17
     pass: 14
     shoot: 13
-  - name: Riley McGree
-    number: 17
+  - name: Nishan Velupillay
+    number: 23
     role: MID
-    speed: 14
+    speed: 15
     skill: 14
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 14
+    dribbling: 15
     stamina: 15
-    pass: 14
+    pass: 13
     shoot: 13
   - name: Connor Metcalfe
     number: 8
@@ -110,21 +110,9 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
-  - name: Craig Goodwin
-    number: 11
+  - name: Mathew Leckie
+    number: 7
     role: MID
-    speed: 14
-    skill: 15
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 15
-    pass: 14
-    shoot: 14
-  - name: Martin Boyle
-    number: 9
-    role: FWD
     speed: 15
     skill: 14
     strength: 13
@@ -133,4 +121,16 @@ players:
     dribbling: 14
     stamina: 15
     pass: 13
+    shoot: 13
+  - name: Mohamed Toure
+    number: 9
+    role: FWD
+    speed: 15
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 14
+    pass: 12
     shoot: 14

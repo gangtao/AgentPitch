@@ -15,7 +15,7 @@ players:
     pass: 13
     shoot: 4
   - name: Aubrey Modiba
-    number: 3
+    number: 6
     role: DEF
     speed: 14
     skill: 13
@@ -26,32 +26,32 @@ players:
     stamina: 15
     pass: 13
     shoot: 10
-  - name: Mothobi Mvala
-    number: 5
+  - name: Mbekezeli Mbokazi
+    number: 14
     role: DEF
-    speed: 12
+    speed: 13
+    skill: 12
+    strength: 15
+    save: 0
+    discipline: 12
+    dribbling: 10
+    stamina: 14
+    pass: 12
+    shoot: 6
+  - name: Ime Okon
+    number: 21
+    role: DEF
+    speed: 13
     skill: 13
     strength: 15
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 10
     stamina: 14
     pass: 13
-    shoot: 7
-  - name: Nkosinathi Sibisi
-    number: 4
-    role: DEF
-    speed: 12
-    skill: 13
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 14
-    pass: 13
-    shoot: 7
+    shoot: 6
   - name: Khuliso Mudau
-    number: 2
+    number: 20
     role: DEF
     speed: 14
     skill: 13
@@ -63,7 +63,7 @@ players:
     pass: 13
     shoot: 9
   - name: Teboho Mokoena
-    number: 6
+    number: 4
     role: MID
     speed: 13
     skill: 15
@@ -75,7 +75,7 @@ players:
     pass: 16
     shoot: 13
   - name: Sphephelo Sithole
-    number: 8
+    number: 13
     role: MID
     speed: 13
     skill: 14
@@ -98,17 +98,17 @@ players:
     stamina: 15
     pass: 14
     shoot: 13
-  - name: Themba Zwane
+  - name: Oswin Appollis
     number: 7
     role: FWD
-    speed: 12
-    skill: 15
+    speed: 15
+    skill: 14
     strength: 12
     save: 0
     discipline: 13
     dribbling: 15
-    stamina: 13
-    pass: 15
+    stamina: 15
+    pass: 13
     shoot: 13
   - name: Lyle Foster
     number: 9
@@ -122,15 +122,15 @@ players:
     stamina: 15
     pass: 13
     shoot: 15
-  - name: Iqraam Rayners
+  - name: Themba Zwane
     number: 11
     role: FWD
-    speed: 15
-    skill: 14
-    strength: 14
+    speed: 12
+    skill: 15
+    strength: 12
     save: 0
     discipline: 13
-    dribbling: 14
-    stamina: 15
-    pass: 13
-    shoot: 15
+    dribbling: 15
+    stamina: 13
+    pass: 15
+    shoot: 13

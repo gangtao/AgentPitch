@@ -74,18 +74,18 @@ players:
     stamina: 17
     pass: 15
     shoot: 12
-  - name: Pape Matar Sarr
-    number: 6
+  - name: Pape Gueye
+    number: 21
     role: MID
-    speed: 15
-    skill: 16
-    strength: 13
+    speed: 14
+    skill: 15
+    strength: 15
     save: 0
     discipline: 14
-    dribbling: 16
-    stamina: 17
-    pass: 16
-    shoot: 13
+    dribbling: 13
+    stamina: 16
+    pass: 15
+    shoot: 11
   - name: Habib Diarra
     number: 8
     role: MID

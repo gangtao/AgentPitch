@@ -58,10 +58,10 @@ Concrete rules the LLM should encode:
 
 ## Key Player Notes
 - **Chris Wood (9):** The entire game plan. Every long ball goes to him. Every set-piece is delivered to his head. Captain of the attack.
-- **Cacace (3):** The team's only modern player — overlapping LB, long-throw specialist, the one defender comfortable on the ball.
-- **Bell (8):** The disciplined sitter — protects the back four.
+- **Cacace (13):** The team's only modern player — overlapping LB, long-throw specialist, the one defender comfortable on the ball.
+- **Bell (6):** The disciplined sitter — protects the back four.
 - **Just (11):** The pace outlet — the team's only player who can stretch a tired defense.
-- **Stamenic (6):** The set-piece specialist — every dead ball delivery within 35 yards is his.
+- **Stamenic (8):** The set-piece specialist — every dead ball delivery within 35 yards is his.
 
 ## Tournament Mindset
 New Zealand are the World Cup's underdog cliché in the best way: they will play three 90-minute defensive grinds, nick a goal from a set-piece or a Wood flick-on, and try to make it 1-0 ugly. They are realistic — group-stage points are the goal, knockout dreams are a bonus. Stamina-managed: the low block requires discipline more than fitness, but the front two (Wood especially) will tire — Wood at <10 stamina is significantly less threatening, so the long-ball game collapses.

@@ -1,21 +1,21 @@
-# Formation: 4-2-3-1
+# Formation: 4-3-3
 team_id: ghana
 name: Ghana
 players:
-  - name: Benjamin Asare
+  - name: Lawrence Ati-Zigi
     number: 1
     role: GK
-    speed: 11
-    skill: 13
+    speed: 12
+    skill: 14
     strength: 15
-    save: 14
+    save: 15
     discipline: 14
     dribbling: 5
     stamina: 13
     pass: 13
     shoot: 4
   - name: Gideon Mensah
-    number: 3
+    number: 14
     role: DEF
     speed: 15
     skill: 13
@@ -26,20 +26,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
-  - name: Alexander Djiku
-    number: 18
-    role: DEF
-    speed: 13
-    skill: 14
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 15
-    pass: 14
-    shoot: 8
   - name: Jerome Opoku
-    number: 5
+    number: 18
     role: DEF
     speed: 13
     skill: 14
@@ -50,20 +38,32 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
-  - name: Tariq Lamptey
-    number: 2
+  - name: Jonas Adjetey
+    number: 4
     role: DEF
-    speed: 17
+    speed: 14
     skill: 14
-    strength: 12
+    strength: 16
     save: 0
     discipline: 13
-    dribbling: 15
-    stamina: 17
+    dribbling: 11
+    stamina: 15
     pass: 13
-    shoot: 10
+    shoot: 6
+  - name: Marvin Senaya
+    number: 26
+    role: DEF
+    speed: 16
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 16
+    pass: 13
+    shoot: 8
   - name: Thomas Partey
-    number: 4
+    number: 5
     role: MID
     speed: 13
     skill: 16
@@ -75,7 +75,7 @@ players:
     pass: 16
     shoot: 13
   - name: Elisha Owusu
-    number: 19
+    number: 15
     role: MID
     speed: 13
     skill: 15
@@ -86,33 +86,21 @@ players:
     stamina: 17
     pass: 15
     shoot: 11
-  - name: Jordan Ayew
-    number: 10
+  - name: Kwasi Sibo
+    number: 8
     role: MID
-    speed: 14
-    skill: 15
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 16
-    pass: 15
-    shoot: 14
-  - name: Mohammed Kudus
-    number: 20
-    role: MID
-    speed: 16
-    skill: 17
-    strength: 14
+    speed: 13
+    skill: 14
+    strength: 15
     save: 0
     discipline: 14
-    dribbling: 17
-    stamina: 17
-    pass: 16
-    shoot: 16
+    dribbling: 13
+    stamina: 16
+    pass: 14
+    shoot: 11
   - name: Antoine Semenyo
-    number: 21
-    role: MID
+    number: 11
+    role: FWD
     speed: 16
     skill: 16
     strength: 15
@@ -123,7 +111,7 @@ players:
     pass: 14
     shoot: 15
   - name: Iñaki Williams
-    number: 11
+    number: 19
     role: FWD
     speed: 17
     skill: 15
@@ -134,3 +122,15 @@ players:
     stamina: 17
     pass: 14
     shoot: 16
+  - name: Jordan Ayew
+    number: 9
+    role: FWD
+    speed: 14
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 15
+    shoot: 14

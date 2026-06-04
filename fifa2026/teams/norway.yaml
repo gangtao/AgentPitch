@@ -3,7 +3,7 @@ team_id: norway
 name: Norway
 players:
   - name: Ørjan Nyland
-    number: 12
+    number: 1
     role: GK
     speed: 11
     skill: 13
@@ -15,7 +15,7 @@ players:
     pass: 12
     shoot: 4
   - name: David Møller Wolfe
-    number: 18
+    number: 5
     role: DEF
     speed: 15
     skill: 13
@@ -39,7 +39,7 @@ players:
     pass: 13
     shoot: 8
   - name: Kristoffer Ajer
-    number: 5
+    number: 3
     role: DEF
     speed: 14
     skill: 13
@@ -51,7 +51,7 @@ players:
     pass: 13
     shoot: 8
   - name: Julian Ryerson
-    number: 22
+    number: 26
     role: DEF
     speed: 15
     skill: 13
@@ -63,7 +63,7 @@ players:
     pass: 13
     shoot: 9
   - name: Sander Berge
-    number: 6
+    number: 8
     role: MID
     speed: 13
     skill: 15
@@ -86,20 +86,20 @@ players:
     stamina: 16
     pass: 18
     shoot: 15
-  - name: Patrick Berg
+  - name: Fredrik Aursnes
     number: 14
     role: MID
-    speed: 13
-    skill: 14
-    strength: 14
+    speed: 14
+    skill: 15
+    strength: 13
     save: 0
     discipline: 15
-    dribbling: 12
-    stamina: 16
+    dribbling: 14
+    stamina: 17
     pass: 15
     shoot: 12
   - name: Antonio Nusa
-    number: 7
+    number: 20
     role: FWD
     speed: 18
     skill: 16
@@ -122,15 +122,15 @@ players:
     stamina: 17
     pass: 13
     shoot: 20
-  - name: Oscar Bobb
-    number: 11
+  - name: Alexander Sørloth
+    number: 7
     role: FWD
-    speed: 16
-    skill: 16
-    strength: 12
+    speed: 14
+    skill: 15
+    strength: 17
     save: 0
     discipline: 13
-    dribbling: 16
-    stamina: 15
-    pass: 14
-    shoot: 13
+    dribbling: 13
+    stamina: 16
+    pass: 13
+    shoot: 16

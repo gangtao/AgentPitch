@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 4-4-2
 team_id: bosnia_and_herzegovina
 name: Bosnia and Herzegovina
 players:
@@ -15,7 +15,7 @@ players:
     pass: 11
     shoot: 4
   - name: Sead Kolašinac
-    number: 23
+    number: 5
     role: DEF
     speed: 13
     skill: 13
@@ -27,7 +27,7 @@ players:
     pass: 13
     shoot: 9
   - name: Tarik Muharemović
-    number: 5
+    number: 4
     role: DEF
     speed: 13
     skill: 13
@@ -38,44 +38,44 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
-  - name: Nihad Mujakić
-    number: 4
+  - name: Nikola Katić
+    number: 18
     role: DEF
-    speed: 12
+    speed: 11
     skill: 12
-    strength: 14
+    strength: 16
     save: 0
     discipline: 13
-    dribbling: 9
+    dribbling: 8
     stamina: 14
-    pass: 12
+    pass: 11
     shoot: 7
   - name: Amar Dedić
-    number: 21
+    number: 7
     role: DEF
     speed: 14
-    skill: 13
+    skill: 14
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 12
-    stamina: 15
-    pass: 13
+    dribbling: 13
+    stamina: 16
+    pass: 14
     shoot: 8
-  - name: Gojko Cimirot
-    number: 6
+  - name: Esmir Bajraktarević
+    number: 20
     role: MID
-    speed: 12
-    skill: 13
-    strength: 14
+    speed: 15
+    skill: 15
+    strength: 11
     save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 15
+    discipline: 12
+    dribbling: 16
+    stamina: 14
     pass: 13
-    shoot: 10
+    shoot: 13
   - name: Benjamin Tahirović
-    number: 8
+    number: 6
     role: MID
     speed: 13
     skill: 15
@@ -86,44 +86,44 @@ players:
     stamina: 16
     pass: 15
     shoot: 12
-  - name: Edin Višća
-    number: 11
-    role: MID
-    speed: 13
-    skill: 14
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 14
-    pass: 14
-    shoot: 13
-  - name: Rade Krunić
+  - name: Ivan Šunjić
     number: 14
     role: MID
     speed: 12
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 12
-    stamina: 15
-    pass: 14
-    shoot: 11
-  - name: Ermedin Demirović
-    number: 9
-    role: MID
-    speed: 13
     skill: 13
     strength: 14
     save: 0
     discipline: 13
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 10
+  - name: Amar Memić
+    number: 15
+    role: MID
+    speed: 14
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
     dribbling: 13
-    stamina: 14
-    pass: 12
-    shoot: 13
-  - name: Edin Džeko
+    stamina: 15
+    pass: 13
+    shoot: 11
+  - name: Ermedin Demirović
     number: 10
+    role: FWD
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 13
+    shoot: 14
+  - name: Edin Džeko
+    number: 11
     role: FWD
     speed: 10
     skill: 14
@@ -131,6 +131,6 @@ players:
     save: 0
     discipline: 13
     dribbling: 12
-    stamina: 12
+    stamina: 11
     pass: 13
     shoot: 15

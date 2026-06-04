@@ -2,17 +2,17 @@
 team_id: germany
 name: Germany
 players:
-  - name: Marc-André ter Stegen
+  - name: Manuel Neuer
     number: 1
     role: GK
     speed: 13
     skill: 17
-    strength: 15
+    strength: 16
     save: 18
     discipline: 16
-    dribbling: 7
-    stamina: 14
-    pass: 17
+    dribbling: 8
+    stamina: 13
+    pass: 16
     shoot: 4
   - name: David Raum
     number: 22
@@ -26,18 +26,6 @@ players:
     stamina: 18
     pass: 16
     shoot: 11
-  - name: Antonio Rüdiger
-    number: 2
-    role: DEF
-    speed: 15
-    skill: 15
-    strength: 18
-    save: 0
-    discipline: 12
-    dribbling: 11
-    stamina: 16
-    pass: 15
-    shoot: 7
   - name: Jonathan Tah
     number: 4
     role: DEF
@@ -50,6 +38,18 @@ players:
     stamina: 16
     pass: 15
     shoot: 7
+  - name: Nico Schlotterbeck
+    number: 15
+    role: DEF
+    speed: 15
+    skill: 16
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 16
+    pass: 16
+    shoot: 8
   - name: Joshua Kimmich
     number: 6
     role: DEF
@@ -63,7 +63,7 @@ players:
     pass: 18
     shoot: 13
   - name: Aleksandar Pavlović
-    number: 23
+    number: 5
     role: MID
     speed: 13
     skill: 17

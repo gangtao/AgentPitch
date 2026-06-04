@@ -2,20 +2,32 @@
 team_id: algeria
 name: Algeria
 players:
-  - name: Anthony Mandrea
-    number: 1
+  - name: Luca Zidane
+    number: 23
     role: GK
-    speed: 11
+    speed: 12
     skill: 14
-    strength: 15
+    strength: 14
     save: 15
     discipline: 14
-    dribbling: 5
+    dribbling: 6
     stamina: 13
-    pass: 13
+    pass: 14
     shoot: 4
-  - name: Ramy Bensebaini
-    number: 3
+  - name: Rayan Aït-Nouri
+    number: 15
+    role: DEF
+    speed: 17
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 17
+    pass: 15
+    shoot: 11
+  - name: Ramy Bensebaïni
+    number: 21
     role: DEF
     speed: 15
     skill: 14
@@ -27,7 +39,7 @@ players:
     pass: 14
     shoot: 11
   - name: Aïssa Mandi
-    number: 21
+    number: 2
     role: DEF
     speed: 13
     skill: 14
@@ -38,32 +50,20 @@ players:
     stamina: 15
     pass: 14
     shoot: 8
-  - name: Mohamed Tougaï
-    number: 5
-    role: DEF
-    speed: 13
-    skill: 14
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 15
-    pass: 13
-    shoot: 7
-  - name: Youcef Atal
-    number: 2
+  - name: Rafik Belghali
+    number: 17
     role: DEF
     speed: 16
-    skill: 15
+    skill: 14
     strength: 13
     save: 0
     discipline: 13
-    dribbling: 15
+    dribbling: 14
     stamina: 16
-    pass: 14
-    shoot: 11
+    pass: 13
+    shoot: 10
   - name: Nabil Bentaleb
-    number: 6
+    number: 19
     role: MID
     speed: 13
     skill: 15
@@ -74,8 +74,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 12
-  - name: Houssem Aouar
-    number: 8
+  - name: Farès Chaïbi
+    number: 10
     role: MID
     speed: 14
     skill: 16
@@ -84,8 +84,8 @@ players:
     discipline: 13
     dribbling: 16
     stamina: 16
-    pass: 16
-    shoot: 14
+    pass: 15
+    shoot: 13
   - name: Hicham Boudaoui
     number: 14
     role: MID
@@ -99,7 +99,7 @@ players:
     pass: 14
     shoot: 12
   - name: Mohamed Amoura
-    number: 11
+    number: 18
     role: FWD
     speed: 17
     skill: 16
@@ -111,7 +111,7 @@ players:
     pass: 14
     shoot: 17
   - name: Amine Gouiri
-    number: 13
+    number: 9
     role: FWD
     speed: 15
     skill: 16

@@ -2,27 +2,27 @@
 team_id: sweden
 name: Sweden
 players:
-  - name: Robin Olsen
-    number: 1
+  - name: Viktor Johansson
+    number: 12
     role: GK
     speed: 11
     skill: 13
-    strength: 16
-    save: 15
+    strength: 14
+    save: 14
     discipline: 14
     dribbling: 5
     stamina: 13
-    pass: 13
+    pass: 12
     shoot: 4
-  - name: Ludwig Augustinsson
-    number: 6
+  - name: Gabriel Gudmundsson
+    number: 13
     role: DEF
-    speed: 14
+    speed: 15
     skill: 13
     strength: 13
     save: 0
     discipline: 14
-    dribbling: 12
+    dribbling: 13
     stamina: 16
     pass: 14
     shoot: 9
@@ -50,17 +50,17 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
-  - name: Emil Krafth
+  - name: Daniel Svensson
     number: 2
     role: DEF
-    speed: 14
+    speed: 15
     skill: 13
     strength: 13
     save: 0
     discipline: 14
-    dribbling: 12
+    dribbling: 13
     stamina: 16
-    pass: 13
+    pass: 14
     shoot: 8
   - name: Mattias Svanberg
     number: 8
@@ -74,6 +74,18 @@ players:
     stamina: 17
     pass: 15
     shoot: 13
+  - name: Yasin Ayari
+    number: 14
+    role: MID
+    speed: 13
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 16
+    pass: 15
+    shoot: 12
   - name: Lucas Bergvall
     number: 15
     role: MID
@@ -86,18 +98,6 @@ players:
     stamina: 17
     pass: 16
     shoot: 12
-  - name: Emil Forsberg
-    number: 10
-    role: MID
-    speed: 13
-    skill: 16
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 15
-    stamina: 15
-    pass: 16
-    shoot: 15
   - name: Anthony Elanga
     number: 11
     role: FWD

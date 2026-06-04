@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: france
 name: France
 players:
@@ -15,7 +15,7 @@ players:
     pass: 14
     shoot: 4
   - name: Theo Hernández
-    number: 22
+    number: 19
     role: DEF
     speed: 18
     skill: 15
@@ -26,18 +26,6 @@ players:
     stamina: 18
     pass: 15
     shoot: 13
-  - name: William Saliba
-    number: 17
-    role: DEF
-    speed: 16
-    skill: 16
-    strength: 18
-    save: 0
-    discipline: 17
-    dribbling: 11
-    stamina: 16
-    pass: 16
-    shoot: 7
   - name: Dayot Upamecano
     number: 4
     role: DEF
@@ -49,6 +37,18 @@ players:
     dribbling: 11
     stamina: 16
     pass: 15
+    shoot: 7
+  - name: William Saliba
+    number: 17
+    role: DEF
+    speed: 16
+    skill: 16
+    strength: 18
+    save: 0
+    discipline: 17
+    dribbling: 11
+    stamina: 16
+    pass: 16
     shoot: 7
   - name: Jules Koundé
     number: 5
@@ -62,18 +62,6 @@ players:
     stamina: 17
     pass: 15
     shoot: 8
-  - name: Adrien Rabiot
-    number: 14
-    role: MID
-    speed: 14
-    skill: 16
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 15
-    stamina: 17
-    pass: 16
-    shoot: 13
   - name: Aurélien Tchouaméni
     number: 8
     role: MID
@@ -86,42 +74,42 @@ players:
     stamina: 18
     pass: 18
     shoot: 13
-  - name: Eduardo Camavinga
-    number: 6
+  - name: Adrien Rabiot
+    number: 14
     role: MID
-    speed: 16
-    skill: 17
-    strength: 14
-    save: 0
-    discipline: 14
-    dribbling: 17
-    stamina: 18
-    pass: 16
-    shoot: 12
-  - name: Bradley Barcola
-    number: 15
-    role: FWD
-    speed: 18
+    speed: 14
     skill: 16
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 17
-    stamina: 16
-    pass: 15
-    shoot: 15
-  - name: Randal Kolo Muani
-    number: 12
-    role: FWD
-    speed: 17
-    skill: 16
-    strength: 15
+    strength: 16
     save: 0
     discipline: 14
     dribbling: 15
     stamina: 17
-    pass: 14
+    pass: 16
+    shoot: 13
+  - name: Michael Olise
+    number: 11
+    role: MID
+    speed: 16
+    skill: 18
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 18
+    stamina: 16
+    pass: 17
     shoot: 16
+  - name: Rayan Cherki
+    number: 24
+    role: MID
+    speed: 15
+    skill: 18
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 18
+    stamina: 15
+    pass: 17
+    shoot: 15
   - name: Kylian Mbappé
     number: 10
     role: FWD
@@ -134,3 +122,15 @@ players:
     stamina: 16
     pass: 16
     shoot: 19
+  - name: Ousmane Dembélé
+    number: 7
+    role: FWD
+    speed: 18
+    skill: 18
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 19
+    stamina: 16
+    pass: 16
+    shoot: 16

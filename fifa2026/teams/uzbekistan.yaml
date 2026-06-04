@@ -14,6 +14,18 @@ players:
     stamina: 12
     pass: 11
     shoot: 4
+  - name: Sherzod Nasrullaev
+    number: 2
+    role: DEF
+    speed: 13
+    skill: 12
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 11
+    stamina: 14
+    pass: 12
+    shoot: 8
   - name: Abdukodir Khusanov
     number: 3
     role: DEF
@@ -26,7 +38,7 @@ players:
     stamina: 15
     pass: 14
     shoot: 8
-  - name: Rustam Khojimatov
+  - name: Rustam Ashurmatov
     number: 5
     role: DEF
     speed: 11
@@ -38,26 +50,14 @@ players:
     stamina: 13
     pass: 12
     shoot: 7
-  - name: Umar Eshmurodov
+  - name: Khojiakbar Alijonov
     number: 4
-    role: DEF
-    speed: 12
-    skill: 12
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 9
-    stamina: 13
-    pass: 12
-    shoot: 7
-  - name: Sherzod Nasrullaev
-    number: 2
     role: DEF
     speed: 13
     skill: 12
-    strength: 12
+    strength: 13
     save: 0
-    discipline: 12
+    discipline: 13
     dribbling: 11
     stamina: 14
     pass: 12
@@ -110,18 +110,18 @@ players:
     stamina: 14
     pass: 14
     shoot: 13
-  - name: Igor Sergeev
+  - name: Oston Urunov
     number: 11
     role: MID
-    speed: 13
-    skill: 14
-    strength: 14
+    speed: 14
+    skill: 13
+    strength: 12
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 13
-    stamina: 15
+    stamina: 14
     pass: 13
-    shoot: 14
+    shoot: 12
   - name: Eldor Shomurodov
     number: 9
     role: FWD

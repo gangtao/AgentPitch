@@ -2,7 +2,7 @@
 team_id: paraguay
 name: Paraguay
 players:
-  - name: Roberto Fernández
+  - name: Gatito Fernández
     number: 1
     role: GK
     speed: 10
@@ -27,7 +27,7 @@ players:
     pass: 13
     shoot: 7
   - name: Omar Alderete
-    number: 22
+    number: 3
     role: DEF
     speed: 13
     skill: 13
@@ -39,7 +39,7 @@ players:
     pass: 13
     shoot: 7
   - name: Gustavo Gómez
-    number: 2
+    number: 15
     role: DEF
     speed: 13
     skill: 14
@@ -63,7 +63,7 @@ players:
     pass: 12
     shoot: 8
   - name: Andrés Cubas
-    number: 5
+    number: 14
     role: MID
     speed: 13
     skill: 13
@@ -74,12 +74,12 @@ players:
     stamina: 16
     pass: 13
     shoot: 10
-  - name: Mathías Villasanti
-    number: 14
+  - name: Damián Bobadilla
+    number: 16
     role: MID
-    speed: 14
+    speed: 13
     skill: 13
-    strength: 14
+    strength: 15
     save: 0
     discipline: 13
     dribbling: 12
@@ -87,7 +87,7 @@ players:
     pass: 13
     shoot: 11
   - name: Miguel Almirón
-    number: 7
+    number: 10
     role: MID
     speed: 16
     skill: 15
@@ -99,7 +99,7 @@ players:
     pass: 14
     shoot: 14
   - name: Diego Gómez
-    number: 11
+    number: 8
     role: MID
     speed: 14
     skill: 14
@@ -123,7 +123,7 @@ players:
     pass: 12
     shoot: 15
   - name: Julio Enciso
-    number: 20
+    number: 19
     role: FWD
     speed: 15
     skill: 15

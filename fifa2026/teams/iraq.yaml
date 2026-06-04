@@ -14,7 +14,7 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
-  - name: Hussein Ali Al-Saedi
+  - name: Hussein Ali
     number: 3
     role: DEF
     speed: 13

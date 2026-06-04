@@ -6,7 +6,7 @@ Austria under Ralf Rangnick are the modern heirs to the Bielsa/Klopp pressing sc
 ## Formation
 - Shape: 4-2-3-1
 - Role mapping (roster order in `austria.yaml`):
-  - index 0 (`austria_0`, Pentz): GK — average shot-stopper, brave on crosses, expected to play short.
+  - index 0 (`austria_0`, A. Schlager): GK — Austria's established No.1, composed shot-stopper, comfortable with the ball at his feet, expected to play short.
   - index 1 (`austria_1`, Mwene): LB — pressing fullback, jumps into midfield.
   - index 2 (`austria_2`, Danso): LCB — physical, comfortable defending high.
   - index 3 (`austria_3`, Alaba): RCB — leader, ball-playing CB (highest-skill defender).

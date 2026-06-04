@@ -110,18 +110,18 @@ players:
     stamina: 14
     pass: 13
     shoot: 15
-  - name: Meschack Elia
+  - name: Yoane Wissa
     number: 10
     role: MID
-    speed: 14
-    skill: 14
-    strength: 12
+    speed: 16
+    skill: 15
+    strength: 13
     save: 0
     discipline: 12
-    dribbling: 14
-    stamina: 14
+    dribbling: 15
+    stamina: 15
     pass: 13
-    shoot: 13
+    shoot: 16
   - name: Fiston Mayele
     number: 9
     role: FWD

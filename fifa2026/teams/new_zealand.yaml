@@ -15,7 +15,7 @@ players:
     pass: 10
     shoot: 3
   - name: Liberato Cacace
-    number: 3
+    number: 13
     role: DEF
     speed: 13
     skill: 12
@@ -63,7 +63,7 @@ players:
     pass: 11
     shoot: 7
   - name: Marko Stamenic
-    number: 6
+    number: 8
     role: MID
     speed: 12
     skill: 13
@@ -75,7 +75,7 @@ players:
     pass: 13
     shoot: 10
   - name: Joe Bell
-    number: 8
+    number: 6
     role: MID
     speed: 12
     skill: 13
@@ -87,7 +87,7 @@ players:
     pass: 13
     shoot: 9
   - name: Matthew Garbett
-    number: 10
+    number: 7
     role: MID
     speed: 13
     skill: 13
@@ -123,7 +123,7 @@ players:
     pass: 12
     shoot: 15
   - name: Kosta Barbarouses
-    number: 7
+    number: 17
     role: FWD
     speed: 13
     skill: 13

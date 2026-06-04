@@ -122,15 +122,15 @@ players:
     stamina: 16
     pass: 15
     shoot: 14
-  - name: Jhon Córdoba
+  - name: Luis Suárez
     number: 9
     role: FWD
-    speed: 14
+    speed: 15
     skill: 15
-    strength: 17
+    strength: 14
     save: 0
     discipline: 14
-    dribbling: 13
+    dribbling: 14
     stamina: 15
     pass: 13
-    shoot: 16
+    shoot: 17

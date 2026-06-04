@@ -15,7 +15,7 @@ players:
     pass: 11
     shoot: 3
   - name: Ricardo Adé
-    number: 3
+    number: 4
     role: DEF
     speed: 13
     skill: 12
@@ -38,7 +38,7 @@ players:
     stamina: 13
     pass: 11
     shoot: 7
-  - name: Christopher Delcroix
+  - name: Hannes Delcroix
     number: 5
     role: DEF
     speed: 12
@@ -50,7 +50,7 @@ players:
     stamina: 13
     pass: 12
     shoot: 7
-  - name: Maxime Lacroix
+  - name: Duke Lacroix
     number: 13
     role: DEF
     speed: 13
@@ -62,7 +62,7 @@ players:
     stamina: 14
     pass: 12
     shoot: 8
-  - name: Carl Sainte
+  - name: Carl Sainté
     number: 6
     role: MID
     speed: 12
@@ -75,7 +75,7 @@ players:
     pass: 13
     shoot: 10
   - name: Jean-Ricner Bellegarde
-    number: 8
+    number: 10
     role: MID
     speed: 14
     skill: 15
@@ -87,7 +87,7 @@ players:
     pass: 14
     shoot: 12
   - name: Danley Jean Jacques
-    number: 4
+    number: 17
     role: MID
     speed: 12
     skill: 13
@@ -111,7 +111,7 @@ players:
     pass: 12
     shoot: 13
   - name: Wilson Isidor
-    number: 9
+    number: 18
     role: FWD
     speed: 15
     skill: 14
