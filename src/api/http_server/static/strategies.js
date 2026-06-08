@@ -1809,6 +1809,30 @@ async function handleBlankSave() {
   }
 }
 
+// Turn a server error payload into human-readable text. FastAPI 422s return
+// `detail` as an ARRAY of {loc, msg, type} objects; naive string interpolation
+// renders that as "[object Object]". Handle string / array / object shapes so
+// the user sees the actual reason (e.g. "prompt: String should have at most
+// 32768 characters").
+function formatErrorDetail(detail) {
+  if (detail == null) return '';
+  if (typeof detail === 'string') return detail;
+  if (Array.isArray(detail)) {
+    return detail.map(item => {
+      if (item && typeof item === 'object' && item.msg) {
+        // loc is like ["body", "prompt"] — drop the leading "body" frame.
+        const loc = Array.isArray(item.loc)
+          ? item.loc.filter(p => p !== 'body').join('.')
+          : '';
+        return loc ? `${loc}: ${item.msg}` : item.msg;
+      }
+      return typeof item === 'string' ? item : JSON.stringify(item);
+    }).join('; ');
+  }
+  if (typeof detail === 'object') return detail.msg || JSON.stringify(detail);
+  return String(detail);
+}
+
 async function handleLLMGenerate() {
   const promptTextarea = document.getElementById('llm-prompt-textarea');
   const generateBtn = document.getElementById('llm-generate-btn');
@@ -1883,7 +1907,8 @@ async function handleLLMGenerate() {
         generation_output_tokens: result.output_tokens != null ? result.output_tokens : null,
       };
     } else {
-      const detail = result.error || result.detail || `HTTP ${response.status}`;
+      const detail = formatErrorDetail(result.error || result.detail)
+        || `HTTP ${response.status}`;
       // Diagnostic (stderr tail from the subprocess) — useful for path-mismatch
       // and other env issues. Concatenate when present.
       const diag = result.diagnostic ? `\n\n[diagnostic]\n${result.diagnostic}` : '';

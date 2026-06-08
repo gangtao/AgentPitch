@@ -16,6 +16,22 @@ from src.foundation.simulation_utils import hash_01
 import src.core.ball_physics_system as bps
 
 
+def _is_finite_number(value: Any) -> bool:
+    """True only for a real, finite int/float.
+
+    Action fields originate in untrusted, LLM-generated sandbox code and may be
+    any type (e.g. a (dx, dy) tuple mistakenly passed as a scalar angle). Guard
+    numeric validation with this before math.isfinite(), which raises TypeError
+    on non-real inputs. bool is excluded — it is not a meaningful coordinate.
+    """
+    import math
+    return (
+        isinstance(value, (int, float))
+        and not isinstance(value, bool)
+        and math.isfinite(value)
+    )
+
+
 class ActionResolutionEngine:
     """GDD Rule 1 — stateless 7-phase tick orchestrator.
 
@@ -256,8 +272,8 @@ class ActionResolutionEngine:
                     continue
 
             if isinstance(action, Move):
-                # Reject non-finite values from sandbox output
-                if not (math.isfinite(action.dx) and math.isfinite(action.dy) and math.isfinite(action.speed)):
+                # Reject non-real / non-finite values from sandbox output
+                if not (_is_finite_number(action.dx) and _is_finite_number(action.dy) and _is_finite_number(action.speed)):
                     validated[pid] = Hold()
                     reasons[pid] = "non_finite_move"
                     continue
@@ -275,7 +291,12 @@ class ActionResolutionEngine:
                 if pid != carrier_id:
                     validated[pid] = Hold()
                     reasons[pid] = "not_carrier"
-                elif not (math.isfinite(action.target_pos[0]) and math.isfinite(action.target_pos[1])):
+                elif not (
+                    isinstance(action.target_pos, (tuple, list))
+                    and len(action.target_pos) == 2
+                    and _is_finite_number(action.target_pos[0])
+                    and _is_finite_number(action.target_pos[1])
+                ):
                     validated[pid] = Hold()
                     reasons[pid] = "invalid_target_pos"
                 else:
@@ -297,7 +318,7 @@ class ActionResolutionEngine:
                 if pid != carrier_id:
                     validated[pid] = Hold()
                     reasons[pid] = "not_carrier"
-                elif not math.isfinite(action.angle):
+                elif not _is_finite_number(action.angle):
                     validated[pid] = Hold()
                     reasons[pid] = "invalid_angle"
                 else:

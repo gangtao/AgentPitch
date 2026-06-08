@@ -348,6 +348,65 @@ def test_shoot_power_cap_and_effective_power(engine_and_deps):
     assert carrier_record["effective_power"] == 8
 
 
+def test_shoot_non_real_angle_substituted(engine_and_deps):
+    """Malformed Shoot.angle (a direction tuple, not a scalar) from untrusted
+    sandbox code must degrade to Hold(), never crash math.isfinite()."""
+    engine, deps = engine_and_deps
+
+    def execute_side_effect(pid, *args):
+        if pid == "team_a_2":  # carrier
+            return SandboxResult(
+                status=ExecutionStatus.SUCCESS,
+                action=Shoot(angle=(0.6, 0.8), power=10)  # tuple, not float
+            )
+        return SandboxResult(status=ExecutionStatus.SUCCESS, action=Hold())
+
+    deps["sandbox"].execute.side_effect = execute_side_effect
+
+    records = engine.resolve_tick(0, [])
+
+    carrier_record = records["team_a_2"]
+    assert carrier_record["action"] == "Hold"
+    assert carrier_record["result"] == "invalid_angle"
+
+
+def test_move_non_real_component_substituted(engine_and_deps):
+    """Malformed Move.dx (a tuple) must degrade to Hold(), not crash."""
+    engine, deps = engine_and_deps
+
+    deps["sandbox"].execute.side_effect = [
+        SandboxResult(status=ExecutionStatus.SUCCESS, action=Move(dx=(1.0, 0.0), dy=0.0, speed=1.0))
+    ] + [SandboxResult(status=ExecutionStatus.SUCCESS, action=Hold())] * 9
+
+    records = engine.resolve_tick(0, [])
+
+    first_pid = list(records.keys())[0]
+    assert records[first_pid]["action"] == "Hold"
+    assert records[first_pid]["result"] == "non_finite_move"
+
+
+def test_pass_non_real_target_pos_substituted(engine_and_deps):
+    """Malformed Pass.target_pos (not a 2-element numeric pair) must degrade
+    to Hold(), not crash on subscript or math.isfinite()."""
+    engine, deps = engine_and_deps
+
+    def execute_side_effect(pid, *args):
+        if pid == "team_a_2":  # carrier
+            return SandboxResult(
+                status=ExecutionStatus.SUCCESS,
+                action=Pass(target_pos=50.0, power=10)  # scalar, not (x, y)
+            )
+        return SandboxResult(status=ExecutionStatus.SUCCESS, action=Hold())
+
+    deps["sandbox"].execute.side_effect = execute_side_effect
+
+    records = engine.resolve_tick(0, [])
+
+    carrier_record = records["team_a_2"]
+    assert carrier_record["action"] == "Hold"
+    assert carrier_record["result"] == "invalid_target_pos"
+
+
 def test_hold_action_passes_through(engine_and_deps):
     """Test Hold action passes through validation unchanged."""
     engine, deps = engine_and_deps

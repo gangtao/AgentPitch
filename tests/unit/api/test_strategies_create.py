@@ -151,14 +151,64 @@ def test_post_strategies_generate_validates_payload(tmp_path):
     })
     assert response.status_code == 422
 
-    # Prompt too long (>4096 chars) → schema-level 422
+    # Prompt over the schema cap → schema-level 422
+    from src.api.http_server.strategy_create_payload import MAX_PROMPT_CHARS
     response = client.post("/api/strategies/generate", json={
         "name": "test",
-        "prompt": "x" * 5000,
+        "prompt": "x" * (MAX_PROMPT_CHARS + 1),
         "provider": "openai",
         "model": "gpt-4o",
     })
     assert response.status_code == 422
+
+
+def test_post_strategies_generate_accepts_long_tactical_prompt(tmp_path):
+    """A multi-KB tactical profile (e.g. fifa2026/tactices/*.md, ~8-11K chars)
+    must pass schema validation. Regression: the old 4096 cap rejected every
+    shipped tactical profile with a 422 before the endpoint ran.
+
+    Provider/model are omitted so the request stops at the runtime 400 check
+    (provider+model required) — proving the prompt length cleared the schema.
+    """
+    app = create_app(log_dir=str(tmp_path), seed_defaults=False)
+    client = TestClient(app)
+
+    response = client.post("/api/strategies/generate", json={
+        "name": "mexico",
+        "prompt": "x" * 9000,  # larger than the largest tactical profile
+    })
+    # 400 (not 422) means the 9000-char prompt was accepted by the schema.
+    assert response.status_code == 400
+    assert "provider and model are required" in response.json()["detail"]
+
+
+def test_validation_error_body_is_structured_and_logged(tmp_path, caplog):
+    """A 422 returns FastAPI's structured detail list AND logs the detail
+    server-side so operators can see *what* failed, not just the status line.
+    """
+    import logging
+    app = create_app(log_dir=str(tmp_path), seed_defaults=False)
+    client = TestClient(app)
+
+    with caplog.at_level(logging.WARNING):
+        response = client.post("/api/strategies/generate", json={
+            "name": "bad name with spaces",  # fails the name pattern
+            "prompt": "Create a strategy",
+            "provider": "openai",
+            "model": "gpt-4o",
+        })
+
+    assert response.status_code == 422
+    body = response.json()
+    # Detail must remain a structured list of {loc, msg, type} objects.
+    assert isinstance(body["detail"], list)
+    assert body["detail"], "validation detail list should not be empty"
+    assert "msg" in body["detail"][0] and "loc" in body["detail"][0]
+    # Backend logged the validation failure with path + detail.
+    assert any(
+        "/api/strategies/generate" in rec.getMessage()
+        for rec in caplog.records
+    )
 
 
 def test_post_strategies_generate_invalid_language(tmp_path):

@@ -3,6 +3,14 @@ from __future__ import annotations
 from typing import Optional, Literal
 from pydantic import BaseModel, ConfigDict, Field
 
+# Upper bound on the user-supplied generation prompt, in characters. Sized to
+# fit the shipped FIFA-2026 tactical profiles (fifa2026/tactices/*.md run
+# ~8-11K chars) with generous headroom; still bounds abusive payloads. The
+# old 4096 cap rejected every tactical profile with a 422 before the endpoint
+# ran. Both the generate payload and the saved-sidecar meta payload use this
+# so a prompt that generates can also be persisted.
+MAX_PROMPT_CHARS = 32768
+
 
 class StrategyMetaPayload(BaseModel):
     """Provenance fields the client may attach to POST /api/strategies.
@@ -17,7 +25,7 @@ class StrategyMetaPayload(BaseModel):
     model: str = Field(default="hand-written", min_length=1, max_length=128)
     created_by: Literal["llm", "manual"] = "manual"
     # Required when created_by == "llm". Validation happens at the strategy_library layer.
-    prompt: Optional[str] = Field(default=None, max_length=4096)
+    prompt: Optional[str] = Field(default=None, max_length=MAX_PROMPT_CHARS)
     template_version: Optional[str] = Field(default=None, max_length=32)
     language: Literal["python", "javascript", "rust"] = "python"
     # Generation performance metrics — sent by the UI after a successful generate call
@@ -50,7 +58,7 @@ class StrategyGeneratePayload(BaseModel):
     # Empty prompt is allowed — generation v2.5+ has a USER INTENT section
     # with a {% else %} fallback ("apply general best practices"). Empty
     # string lets the LLM use the system context only.
-    prompt: str = Field(default="", max_length=4096)
+    prompt: str = Field(default="", max_length=MAX_PROMPT_CHARS)
     provider: Optional[str] = None  # Built-in (openai/anthropic/gemini) or custom name
     model: Optional[str] = None
     language: Literal["python", "javascript", "rust"] = "python"

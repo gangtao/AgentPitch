@@ -2,6 +2,7 @@
 from __future__ import annotations
 import asyncio
 import json
+import logging
 import math
 import os
 import sys
@@ -11,9 +12,11 @@ from contextlib import asynccontextmanager
 from pathlib import Path
 
 import yaml
-from fastapi import FastAPI, Query, Path as PathParam, HTTPException
+from fastapi import FastAPI, Query, Path as PathParam, HTTPException, Request
+from fastapi.exceptions import RequestValidationError
 import re
 from fastapi.responses import FileResponse, JSONResponse, StreamingResponse, Response
+from fastapi.encoders import jsonable_encoder
 from fastapi.middleware.cors import CORSMiddleware
 from typing import Literal, Optional
 from pydantic import ValidationError
@@ -80,6 +83,8 @@ from src.strategy_library import (
 from src.api.http_server.match_stats import compute_match_stats
 
 _STATIC_DIR = Path(__file__).parent / "static"
+
+logger = logging.getLogger("agent_pitch.http")
 
 
 def _meta_to_dict(meta: StrategyLibraryMeta) -> dict:
@@ -797,6 +802,29 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                     pass
 
     app = FastAPI(title="agent_pitch HTTP Server", lifespan=_lifespan)
+
+    @app.exception_handler(RequestValidationError)
+    async def _log_validation_error(request: Request, exc: RequestValidationError):
+        """Log request-validation (422) failures with the offending path and
+        field-level detail.
+
+        FastAPI's default handler returns the structured detail to the client
+        but logs nothing beyond the bare `... 422` access line — so an operator
+        sees the status but never *what* failed. Common case: a generation
+        prompt over MAX_PROMPT_CHARS. We log the detail, then return the exact
+        same body/shape FastAPI would, so clients see no behavioral change.
+        """
+        detail = jsonable_encoder(exc.errors())
+        # Log loc/msg/type/ctx but drop each error's `input` echo — for an
+        # over-length prompt that field is the entire multi-KB body and would
+        # flood the log. The client still gets the full default body below.
+        log_detail = [{k: v for k, v in e.items() if k != "input"} for e in detail]
+        logger.warning(
+            "422 validation error on %s %s: %s",
+            request.method, request.url.path, json.dumps(log_detail),
+        )
+        return JSONResponse(status_code=422, content={"detail": detail})
+
     app.state.log_dir = Path(log_dir)
     # Live-viewer endpoints look in <data_dir>/matches/ for completed match
     # dirs (events.jsonl + meta.json). Pre-resolve so endpoint handlers don't
