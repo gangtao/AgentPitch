@@ -327,6 +327,81 @@ class TestPhase7BallPhysics:
 
         assert goal_records == {}  # No goal attempt
 
+    def test_save_probability_formula(self):
+        """Save prob now uses the keeper's `save` attr (blended) weighted by
+        GK_SAVE_WEIGHT. With only `skill` present, `save` falls back to skill.
+        Outcome split (gk_caught_share=0.60) is unchanged:
+          draw < save_prob * 0.60 → "caught"
+          draw < save_prob        → "blocked"
+          else                    → "missed"
+        """
+        from src.foundation.action_resolution_engine.engine import GK_SAVE_WEIGHT
+
+        self.mock_gsm.build_player_state.return_value = {"skill": 15}
+
+        outcome, reason = self.engine._attempt_goalkeeper_save(
+            "team_b_2", (90.0, 30.0), (3.0, 0.0), self.snap, 10
+        )
+
+        # gk_save falls back to skill=15 → eff_save = (2*15 + 15)/3 = 15
+        eff_save = (2.0 * 15 + 15) / 3.0
+        save_prob = (GK_SAVE_WEIGHT * eff_save) / (GK_SAVE_WEIGHT * eff_save + 3.0 + 5.0)
+        caught_threshold = save_prob * 0.60  # default gk_caught_share
+        draw = hash_01(42, 10, "team_b_2", "goalkeeper_save")
+        if draw < caught_threshold:
+            assert outcome == "caught"
+            assert reason == "skill_sufficient"
+        elif draw < save_prob:
+            assert outcome == "blocked"
+            assert reason == "parried"
+        else:
+            assert outcome == "missed"
+            assert reason == "skill_insufficient"
+
+    def test_save_uses_save_attribute_and_weight(self):
+        """A keeper's dedicated `save` rating drives the save prob (blended
+        with skill, weighted by GK_SAVE_WEIGHT), not generic `skill` alone."""
+        from src.foundation.action_resolution_engine.engine import GK_SAVE_WEIGHT
+
+        self.mock_gsm.build_player_state.return_value = {"skill": 10, "save": 18}
+
+        outcome, reason = self.engine._attempt_goalkeeper_save(
+            "team_b_2", (90.0, 30.0), (3.0, 0.0), self.snap, 10
+        )
+
+        eff_save = (2.0 * 18 + 10) / 3.0  # uses save=18, not skill=10
+        save_prob = (GK_SAVE_WEIGHT * eff_save) / (GK_SAVE_WEIGHT * eff_save + 3.0 + 5.0)
+        caught_threshold = save_prob * 0.60
+        draw = hash_01(42, 10, "team_b_2", "goalkeeper_save")
+        if draw < caught_threshold:
+            assert outcome == "caught"
+        elif draw < save_prob:
+            assert outcome == "blocked"
+        else:
+            assert outcome == "missed"
+
+    def test_save_falls_back_to_skill_when_no_save_attr(self):
+        """When player_state has no `save` key, the formula falls back to
+        generic skill so old fixtures keep working."""
+        from src.foundation.action_resolution_engine.engine import GK_SAVE_WEIGHT
+
+        self.mock_gsm.build_player_state.return_value = {"skill": 12}  # no `save`
+
+        outcome, reason = self.engine._attempt_goalkeeper_save(
+            "team_b_2", (90.0, 30.0), (3.0, 0.0), self.snap, 10
+        )
+
+        eff_save = (2.0 * 12 + 12) / 3.0  # = 12 (save falls back to skill)
+        save_prob = (GK_SAVE_WEIGHT * eff_save) / (GK_SAVE_WEIGHT * eff_save + 3.0 + 5.0)
+        caught_threshold = save_prob * 0.60
+        draw = hash_01(42, 10, "team_b_2", "goalkeeper_save")
+        if draw < caught_threshold:
+            assert outcome == "caught"
+        elif draw < save_prob:
+            assert outcome == "blocked"
+        else:
+            assert outcome == "missed"
+
 
 class TestGoalkeeperSaveFormula:
     """Test ARE GDD Rule 14a goalkeeper save formula."""
@@ -344,22 +419,26 @@ class TestGoalkeeperSaveFormula:
             }
         }
 
-    # AC-F3-01: Save probability formula (post-ADR-0018: 3-state)
+    # AC-F3-01: Save probability formula (post-ADR-0018: 3-state, post-2026-06-08: GK_SAVE_WEIGHT)
     def test_save_probability_formula(self):
-        """AC-F3-01 (ADR-0018, 2026-04-22): F3 base prob is unchanged.
+        """AC-F3-01 (ADR-0018, 2026-04-22 + spec gk-save-rate-tuning, 2026-06-08):
+        F3 now uses eff_save (blended save+skill) weighted by GK_SAVE_WEIGHT.
         Returns (outcome_str, reason). With default gk_caught_share=0.60:
           draw < save_prob * 0.60          → "caught"
           draw < save_prob                 → "blocked" (parry)
           else                             → "missed" (goal)
         """
+        from src.foundation.action_resolution_engine.engine import GK_SAVE_WEIGHT
+
         self.mock_gsm.build_player_state.return_value = {"skill": 15}
 
         outcome, reason = self.engine._attempt_goalkeeper_save(
             "team_b_2", (90.0, 30.0), (3.0, 0.0), self.snap, 10
         )
 
-        # 15 / (15 + 3.0 + 5.0) = 0.652 (was the binary success threshold)
-        save_prob = 15 / (15 + 3.0 + 5.0)
+        # gk_save falls back to skill=15 → eff_save = (2*15 + 15)/3 = 15
+        eff_save = (2.0 * 15 + 15) / 3.0
+        save_prob = (GK_SAVE_WEIGHT * eff_save) / (GK_SAVE_WEIGHT * eff_save + 3.0 + 5.0)
         caught_threshold = save_prob * 0.60  # default gk_caught_share
         draw = hash_01(42, 10, "team_b_2", "goalkeeper_save")
         if draw < caught_threshold:
