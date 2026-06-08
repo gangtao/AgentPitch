@@ -205,8 +205,11 @@ builtins:
   - sqrt(x)   →  x ** 0.5
   - pi        →  3.141592653589793  (a literal)
   - cos / sin →  Taylor-series approximation, or work with direction vectors
-  - atan2     →  not available; use direction vectors (dx, dy) for Move()
-                 and Shoot(angle=...) instead of computing angles
+  - atan2     →  not available. For Move(), pass a direction vector via dx, dy
+                 directly — no angle needed. For Shoot(), angle is a single
+                 number in DEGREES (a scalar, NOT a (dx, dy) tuple): 0.0 means
+                 straight at the goal, e.g. Shoot(angle=0.0, power=15). A small
+                 nonzero angle aims slightly off-centre.
 DO NOT define functions outside decide(). Helpers must be nested inside decide().
 DO NOT use print(), open(), exec(), eval(), or any I/O.
 DO NOT use async def.
