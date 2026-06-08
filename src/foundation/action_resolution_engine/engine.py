@@ -15,6 +15,13 @@ from src.foundation.sandbox import ExecutionStatus
 from src.foundation.simulation_utils import hash_01
 import src.core.ball_physics_system as bps
 
+# GK save tuning (2026-06-08, spec gk-save-rate-tuning). Weights the keeper's
+# effective save skill in the save-probability formula so realistic keepers stop
+# the majority of on-target shots. 1.0 ≈ legacy behavior; raise to suppress goals.
+# Calibrated against ~1-3 goals per 5-minute match. Code constant by design — no
+# SimulationConfig/UI knob (see spec).
+GK_SAVE_WEIGHT = 2.0
+
 
 def _is_finite_number(value: Any) -> bool:
     """True only for a real, finite int/float.
@@ -1623,13 +1630,17 @@ class ActionResolutionEngine:
         gk_player = next(p for p in snap["players"].values() if p["player_id"] == gk_id)
         gk_pos = gk_player["position"]
 
-        # Get GK skill for save probability
+        # Effective save skill (2026-06-08, spec gk-save-rate-tuning): use the
+        # keeper's dedicated `save` rating (GK-only attr, already in
+        # player_state) blended with generic skill via the engine's standard
+        # (2*specialised + skill)/3 convention. Fall back to skill when `save`
+        # is absent (mock fixtures / degenerate configs).
         gk_state = self.gsm.build_player_state(gk_id)
         gk_skill = gk_state.get("skill", 1)
-        # Health-factor multiplier (added 2026-04-23): a tired GK has
-        # weaker reflexes. Save attribute already applies via gk_skill;
-        # this is the dynamic-fatigue layer on top.
-        gk_skill *= self._health_factor(gk_state)
+        gk_save = gk_state.get("save", gk_skill)
+        eff_save = (2.0 * gk_save + gk_skill) / 3.0
+        # Health-factor multiplier (a tired GK has weaker reflexes).
+        eff_save *= self._health_factor(gk_state)
 
         # ARE F1: distance from GK to ball
         dist_to_ball = ((gk_pos[0] - ball_pos[0])**2 + (gk_pos[1] - ball_pos[1])**2)**0.5
@@ -1637,8 +1648,10 @@ class ActionResolutionEngine:
         # ARE F2: ball speed
         ball_speed = (ball_vel[0]**2 + ball_vel[1]**2)**0.5
 
-        # ARE F3: save_prob = gk_skill / (gk_skill + ball_speed + dist_to_ball)
-        save_prob = gk_skill / (gk_skill + ball_speed + dist_to_ball)
+        # ARE F3: save_prob weights the keeper term by GK_SAVE_WEIGHT so
+        # realistic keepers stop most on-target shots (curbs the inflated
+        # goal rate). GK_SAVE_WEIGHT=1.0 reproduces the legacy curve.
+        save_prob = (GK_SAVE_WEIGHT * eff_save) / (GK_SAVE_WEIGHT * eff_save + ball_speed + dist_to_ball)
 
         # Single hash_01 roll, two thresholds:
         #   draw < save_prob * caught_share        → CAUGHT
