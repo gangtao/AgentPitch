@@ -1,4 +1,4 @@
-.PHONY: install test test-cov serve docker-build docker-build-no-cache docker-up docker-down docker-image docker-image-no-cache docker-run copy-to help
+.PHONY: install test test-cov serve docker-build docker-build-no-cache docker-up docker-down docker-image docker-image-no-cache docker-run copy-to deploy-matches help
 
 help:
 	@echo "Available commands:"
@@ -13,6 +13,7 @@ help:
 	@echo "  make docker-image-no-cache - Build the standalone Docker image without cache"
 	@echo "  make docker-build-no-cache - Build the Agent Pitch Docker image without cache (via compose)"
 	@echo "  make docker-run            - Run the standalone Docker image with local ./data volume mapped"
+	@echo "  make deploy-matches        - Publish ./fifa2026/matches to Surge.sh"
 
 install:
 	pip install --upgrade pip
@@ -47,4 +48,7 @@ docker-image-no-cache:
 
 docker-run:
 	docker run -d -p 8765:8765 -v $(PWD)/data:/app/data --name agent-pitch agent-pitch:latest
+
+deploy-matches:
+	surge ./fifa2026/matches
 
