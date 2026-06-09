@@ -116,6 +116,8 @@
     font-weight: 700; color: var(--a); font-size: 16px;
     white-space: nowrap;
   }
+  .score.actual { color: var(--b); }       /* real result, once played */
+  .score.pending { color: var(--ink-faint); font-weight: 500; }
   .meta-line { color: var(--ink-dim); font-size: 12px; margin-top: 4px; }
   a.watch {
     display: inline-block; padding: 8px 16px;
@@ -152,6 +154,11 @@
     .top-links a.top-link { flex: 1; justify-content: center; }
     thead { display: none; }
     tbody td { display: block; border-bottom: none; padding: 6px 16px; }
+    tbody td[data-label]::before {
+      content: attr(data-label) " · ";
+      color: var(--ink-dim); font-size: 10px;
+      letter-spacing: 0.12em; text-transform: uppercase;
+    }
     tbody tr { display: block; margin-bottom: 16px; border: 1px solid var(--line); padding: 8px 0; }
     td.watch-cell { padding-top: 12px; padding-bottom: 12px; }
     .status-bar { flex-wrap: wrap; gap: 10px 18px; }
@@ -197,6 +204,7 @@
       <thead>
         <tr>
           <th>Fixture</th>
+          <th>Predicted</th>
           <th>Result</th>
           <th>Date &amp; Venue</th>
           <th></th>
@@ -205,10 +213,11 @@
       <tbody>
         <tr>
           <td>
-            <div class="fixture">Mexico vs South Africa</div>
+            <div class="fixture">🇲🇽 Mexico vs South Africa 🇿🇦</div>
             <div class="meta-line">2026 FIFA World Cup · Group A · Opening Match</div>
           </td>
-          <td><span class="score">1 – 0</span></td>
+          <td data-label="Predicted"><span class="score">1 – 0</span></td>
+          <td data-label="Result"><span class="score pending">— : —</span></td>
           <td>
             Thu, Jun 11, 2026 · 3:00 PM
             <div class="meta-line">Estadio Azteca, Mexico City</div>
@@ -217,10 +226,11 @@
         </tr>
         <tr>
           <td>
-            <div class="fixture">South Korea vs Czechia</div>
+            <div class="fixture">🇰🇷 South Korea vs Czechia 🇨🇿</div>
             <div class="meta-line">2026 FIFA World Cup · Group A</div>
           </td>
-          <td><span class="score">4 – 1</span></td>
+          <td data-label="Predicted"><span class="score">4 – 1</span></td>
+          <td data-label="Result"><span class="score pending">— : —</span></td>
           <td>
             Thu, Jun 11, 2026 · 10:00 PM
             <div class="meta-line">Estadio Akron, Guadalajara</div>
