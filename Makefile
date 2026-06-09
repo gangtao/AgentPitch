@@ -50,5 +50,5 @@ docker-run:
 	docker run -d -p 8765:8765 -v $(PWD)/data:/app/data --name agent-pitch agent-pitch:latest
 
 deploy-matches:
-	surge ./fifa2026/matches
+	surge ./fifa2026/matches agentpitch.surge.sh
 
