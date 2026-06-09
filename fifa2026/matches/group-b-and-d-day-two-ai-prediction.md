@@ -1,4 +1,4 @@
-# Day Two Belongs to the Underdogs' Nerve: AI Sees Canada Stunned at Home and the USA Grinding Out Paraguay
+# Day Two Belongs to the Underdogs: AI Sees Canada Routed at Home and Paraguay Snatching a Draw From the USA
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's second day through the machine. Here is what it saw.*
 
@@ -38,17 +38,17 @@ There is no history here at all. Canada and Bosnia and Herzegovina have **never 
 | **MID** | Ismaël Koné (8), Stephen Eustáquio (7), Ali Ahmed (20) | Esmir Bajraktarević (20), Benjamin Tahirović (6), Ivan Šunjić (14), Amar Memić (15) |
 | **FWD** | Tajon Buchanan (17), Jonathan David (10), Cyle Larin (9) | Ermedin Demirović (10), Edin Džeko (11) |
 
-### Simulation Report — **Canada 0–1 Bosnia and Herzegovina**
+### Simulation Report — **Canada 0–3 Bosnia and Herzegovina**
 
-It was a heist, and it happened at home. The AI agents staged a match Canada controlled from almost the first whistle to the last — and lost.
+It was a heist that turned into a rout, and it happened at home. The AI agents staged a match Canada controlled from almost the first whistle to the last — and lost by three.
 
-By the simulation's count, **Canada dominated possession 85%–15%**, recycling the ball through Eustáquio and pinning Bosnia deep for long stretches. They pressed like men possessed whenever they lost it, the AI logging a frantic **119 Canadian tackle attempts** to Bosnia's 18 as the hosts hunted turnover after turnover. There was just one problem, and it was the only one that mattered: in ninety minutes of monopolising the ball, *Canada did not register a single shot.* All that territory, all that pressure — and nothing on the Bosnian goal.
+By the simulation's count, **Canada dominated possession 74%–26%**, recycling the ball through Eustáquio and Koné and pinning Bosnia deep for long stretches. They pressed like men possessed whenever they lost it — the AI logging a frantic **90 Canadian tackle attempts to Bosnia's 15** — and it counted for nothing. The number that defined the night was the cruelest of all: in ninety minutes of monopolising the ball, *Canada did not register a single shot.* Not one. All that territory, all that pressure — and never a sight of the Bosnian goal.
 
-Bosnia, meanwhile, needed barely a sniff. Their moment arrived on **33 minutes**. A clipped pass from **Tarik Muharemović** released **Ermedin Demirović** in a rare break forward, and the striker took one touch and finished low past Dayne St. Clair for **1–0**. Two shots all game, one of them in the net — the very definition of ruthlessness against profligacy.
+Bosnia, by contrast, did almost nothing with the ball and almost everything in front of it, turning **21 shots into three goals**. **Ermedin Demirović** broke the deadlock on **58 minutes**; the ageless **Edin Džeko** doubled the lead on **70**; and Demirović returned to complete his brace — and the rout — on **85**. Three clean strikes against a host side that had the ball and little else.
 
-Canada threw everything forward after the break, Davies surging from deep and David drifting in search of the half-chance that never came. Bosnia dropped, packed the box, and let the green-and-white waves of red break against them. Final whistle: **Canada 0, Bosnia and Herzegovina 1** — a result the possession map says was a smash-and-grab, and the shot count says was entirely deserved.
+Canada threw everyone forward as the deficit grew, Davies surging from deep and David hunting the half-chance that never came. Bosnia dropped, absorbed, and broke again. Final whistle: **Canada 0, Bosnia and Herzegovina 3** — a scoreline the possession map calls a robbery, and the shot count (0 to 21) calls entirely deserved.
 
-**AI takeaway:** The model loves Canada's energy and hates their end product. Expect the hosts to dominate the ball and a disciplined Bosnia to make them pay for every wasted moment. In a first-ever meeting, the AI leaned hard on Bosnian experience and Canadian wastefulness — a brutal welcome to the party for the hosts.
+**AI takeaway:** The model adores Canada's energy and despairs at their end product — 74% of the ball and zero shots is a damning combination. Expect the hosts to dominate possession and a disciplined, clinical Bosnia to punish every wasted moment. In a first-ever meeting, the AI leaned hard on Bosnian experience and Canadian wastefulness — and this time it was merciless.
 
 ---
 
@@ -67,7 +67,7 @@ The **United States** open on home soil with their most talented generation in a
 **Paraguay** are everything a host wants to avoid in a opener: streetwise, physical and ferociously well-drilled, built on the granite of **Gustavo Gómez** and **Omar Alderete** at the back and carrying genuine quality on the break through **Miguel Almirón**, **Julio Enciso** and **Antonio Sanabria**. They will cede the ball happily and dare you to break them down.
 
 ### Historical Backdrop
-These two have recent, painful-for-Paraguay history. They last met at the **2016 Copa América Centenario**, a group-stage meeting the **USA won 1–0** through a **Clint Dempsey** strike at Lincoln Financial Field in Philadelphia — a result that sent the hosts through to the quarter-finals. A decade on, the fixture reprises with the roles familiar: USA favoured, Paraguay lying in wait. The market could barely separate them; the AI saw a night of pressure rewarded just in time.
+These two have recent, painful-for-Paraguay history. They last met at the **2016 Copa América Centenario**, a group-stage meeting the **USA won 1–0** through a **Clint Dempsey** strike at Lincoln Financial Field in Philadelphia — a result that sent the hosts through to the quarter-finals. A decade on, the fixture reprises with the roles familiar: USA favoured, Paraguay lying in wait. The market could barely separate them; the AI saw the two sides trade blows and finish dead level.
 *(Sources: [ESPN](https://www.espn.com/soccer/match/_/gameId/444711/paraguay-united-states), [Stars and Stripes FC](https://www.starsandstripesfc.com/2016/6/11/11910232/usa-vs-paraguay-copa-america-2016-final-score-result), [MLSsoccer.com](https://www.mlssoccer.com/news/usa-1-paraguay-0-copa-america-centenario-match-recap))*
 
 ### Lineups (as simulated)
@@ -78,32 +78,32 @@ These two have recent, painful-for-Paraguay history. They last met at the **2016
 | **MID** | Tyler Adams (4), Weston McKennie (8) | Andrés Cubas (14), Damián Bobadilla (16), Miguel Almirón (10), Diego Gómez (8) |
 | **FWD** | Christian Pulisic (10), Folarin Balogun (20), Malik Tillman (17) | Antonio Sanabria (9), Julio Enciso (19) |
 
-### Simulation Report — **United States 1–0 Paraguay**
+### Simulation Report — **United States 2–2 Paraguay**
 
-If Canada's afternoon was a horror story, the USA's evening was a thriller that very nearly became one too.
+If Canada's afternoon was a horror story, the USA's evening was a thriller that refused to settle.
 
-The simulation handed the Americans the ball — **possession finished USA 70% – Paraguay 30%** — but for long, anxious stretches it handed Paraguay the better chances. Sanabria and Enciso stung the SoFi night on the counter, the AI crediting **Paraguay with 4 shots to the USA's 1**, and more than once Matt Freese's goal lived a charmed life. This was not domination; it was a host side knocking on a locked door while the visitors sharpened their knives in the dark.
+The simulation split this one almost down the middle — **possession finished USA 51% – Paraguay 49%**, with **eight shots apiece** — an even, end-to-end contest under the SoFi lights. It was Paraguay who drew first blood: on **23 minutes**, **Julio Enciso** punished a rare American lapse to put the visitors ahead and quiet the home crowd.
 
-The breakthrough, when it finally came, arrived from the unlikeliest boot on the pitch. On **75 minutes**, with the game crying out for someone to gamble, holding midfielder **Tyler Adams** arrived late into the box and lashed home the only goal either side would manage — **1–0 USA**. The man whose night had been spent breaking up Paraguayan moves delivered the one that broke the game open.
+The USA's answer came from the unlikeliest boot on the pitch, and it came twice. On **75 minutes**, holding midfielder **Tyler Adams** arrived late into the box to lash home the equaliser; barely three minutes later, on **78**, he was there again to turn the game on its head — **2–1 USA**, a brace from the man whose night had otherwise been spent breaking up Paraguayan moves (a relentless **55 tackles to Paraguay's 7**).
 
-Paraguay pushed for a leveller they had, on chances, arguably earned, but the USA's back line — Ream, Richards and a marauding Robinson — held the line through a tense finish. Final whistle: **United States 1, Paraguay 0** — efficiency over volume, and the host nation breathing out.
+But Paraguay had the last word, and Enciso supplied it. On **89 minutes**, with the USA scenting the win, the forward completed his own brace to wrench it back to **2–2** and break American hearts at the death. Final whistle: **United States 2, Paraguay 2** — honours even, two braces, and a host side made to sweat to the final second.
 
-**AI takeaway:** The model sees a USA side that controls territory without yet controlling games, and a Paraguay capable of punishing exactly that. It took a moment of nerve from a defensive midfielder to settle it. Expect the Americans to start as favourites — and to be made to sweat for every point.
+**AI takeaway:** The model sees a USA side that can trade blows with anyone but not yet close games out, and a Paraguay carrying a genuine match-winner in Enciso. It took two moments of Adams nerve to lead — and one of Enciso's to deny them. Expect the Americans to start as favourites, and to be dragged into a fight for every point.
 
 ---
 
 ## The Picture, Per the Machine
 
-Two host nations opened their tournaments on the same Friday, and the AI sent them home feeling very differently:
+Two host nations opened their tournaments on the same Friday, and the AI sent neither of them home happy:
 
 | Match | Result | Group |
 |---|---|---|
-| 🇺🇸 **United States** bt Paraguay | **1 – 0** | D |
-| 🇧🇦 **Bosnia and Herzegovina** bt Canada | **1 – 0** | B |
-| 🇨🇦 Canada lost | 0 – 1 | B |
-| 🇵🇾 Paraguay lost | 0 – 1 | D |
+| 🇧🇦 **Bosnia and Herzegovina** bt Canada | **3 – 0** | B |
+| 🇨🇦 Canada lost | 0 – 3 | B |
+| 🇺🇸 United States drew Paraguay | 2 – 2 | D |
+| 🇵🇾 Paraguay drew United States | 2 – 2 | D |
 
-Two hosts, two single-goal margins, one happy ending. The USA grind out the result a home opener demands; Canada author the cautionary tale — all the ball, none of the cutting edge. The model's message to both hosts rhymes with the one it sent Group A: territory is not the same as threat, and in a World Cup the difference is measured in the one or two moments you take. The USA took theirs. Canada are still waiting.
+Two hosts, zero wins. Canada author the cautionary tale in its starkest form — **74% of the ball, not a single shot, beaten 3–0** — while the USA trade blows with Paraguay and are pegged back at the death. The model's message to both hosts rhymes with the one it sent Group A, only louder: territory is not the same as threat, and in a World Cup the difference is measured in the one or two moments you take. Bosnia took all of theirs. Paraguay took the last one. The hosts are still counting the cost.
 
 ---
 

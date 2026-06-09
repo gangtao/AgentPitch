@@ -9,11 +9,14 @@ Stories 002-008 will add the remaining phases.
 """
 
 from __future__ import annotations
+import logging
 from typing import Any
 
 from src.foundation.sandbox import ExecutionStatus
 from src.foundation.simulation_utils import hash_01
 import src.core.ball_physics_system as bps
+
+logger = logging.getLogger(__name__)
 
 # GK save tuning (2026-06-08, spec gk-save-rate-tuning). Weights the keeper's
 # effective save skill in the save-probability formula so realistic keepers stop
@@ -82,6 +85,19 @@ class ActionResolutionEngine:
         # Tick-local state variables
         self._ball_just_passed = False
         self._last_touching_team: str | None = None
+        # Bugfix #22 stalemate breaker — persists across ticks. Counts
+        # consecutive ticks the carried ball has stayed within
+        # _STUCK_RADIUS of an anchor point; at _STUCK_MAX_TICKS the ball is
+        # turned over to the nearest opponent so the match can't freeze.
+        self._stuck_anchor_pos: tuple[float, float] | None = None
+        self._stuck_ticks = 0
+
+    # Stalemate breaker tuning (bugfix #22). 50 ticks at the default 10
+    # ticks/sec rate = 5s of an effectively motionless carried ball. The
+    # radius tolerates a pinned ball that wobbles in place without ever
+    # making net progress, while a genuinely dribbled ball clears it.
+    _STUCK_MAX_TICKS = 50
+    _STUCK_RADIUS = 2.0
 
     def resolve_tick(self, tick: int, history: list[dict]) -> dict[str, dict]:
         """Resolve one simulation tick through 7-phase orchestration.
@@ -222,6 +238,10 @@ class ActionResolutionEngine:
         # AFTER all phases so the formulas this tick used the players'
         # pre-tick health.
         self._apply_health_drain(validated_actions, snap, tick)
+
+        # Bugfix #22: break a frozen match (ball pinned under a carrier with
+        # no pressure). Runs last, on the ball position settled this tick.
+        self._check_stalemate(tick)
 
         return action_records
 
@@ -1038,6 +1058,60 @@ class ActionResolutionEngine:
                 carrier_pos = snap_carrier.get("position") if isinstance(snap_carrier, dict) else None
             if isinstance(carrier_pos, tuple) and len(carrier_pos) == 2:
                 self.gsm.update_ball_position(carrier_pos)
+                # Bugfix #22: a ball *carried* over the goal line within the
+                # goal mouth is a goal. The shot/pass physics path below has
+                # its own _is_goal_line_crossed check, but a carried ball
+                # short-circuits before reaching it — so a forward could stand
+                # on the goal line dribbling forever without scoring (the
+                # original frozen-match symptom).
+                #
+                # CRUCIAL: only a carrier ATTACKING this goal can score by
+                # dribbling it in. A player in possession at their OWN goal
+                # line — a keeper holding the ball, a defender shielding on
+                # the line — is NOT an own goal; awarding one there made
+                # normal goal-line defending catastrophic (10 bogus own goals
+                # in one match during the first fix pass). Genuine own goals
+                # come from a PLAYED ball (kick/deflection carrying velocity)
+                # via the ball-physics goal check further below — not from
+                # carrying. A carrier pinned at their own line instead falls
+                # through to the stalemate breaker, which turns it over.
+                if self._is_goal_line_crossed(carrier_pos, snap):
+                    defending_team = self._get_defending_team(carrier_pos, snap)
+                    carrier_player = snap.get("players", {}).get(live_carrier_id)
+                    carrier_team = (carrier_player.get("team")
+                                    if isinstance(carrier_player, dict) else None)
+                    if carrier_team is not None and carrier_team != defending_team:
+                        gk_id = self._find_goalkeeper(defending_team, snap)
+                        # A keeper in position gets a save attempt — otherwise
+                        # a slow dribble walks past them into the net every
+                        # time. A carried ball is ~stationary, so a parry is
+                        # treated as a smother: either save outcome hands the
+                        # keeper possession, which also breaks any boundary pin
+                        # realistically.
+                        if gk_id is not None:
+                            outcome, reason = self._attempt_goalkeeper_save(
+                                gk_id, carrier_pos, (0.0, 0.0), snap, tick)
+                            if outcome in ("caught", "blocked"):
+                                self.gsm.update_ball_velocity((0.0, 0.0))
+                                self.gsm.transfer_possession(live_carrier_id, gk_id)
+                                self._snap_ball_to_carrier(gk_id)
+                                self._last_ball_action_pid = None
+                                self._last_touching_team = defending_team
+                                return {}, {gk_id: {
+                                    "goalkeeper_save": outcome,
+                                    "reason": reason,
+                                    "saved_from": live_carrier_id,
+                                }}
+                        # No keeper, or the save missed → goal.
+                        self.gsm.update_ball_velocity((0.0, 0.0))
+                        self.gsm.transfer_possession(live_carrier_id, None)
+                        self._record_goal(defending_team, snap)
+                        self._last_ball_action_pid = None
+                        return {}, {"system": {
+                            "goal_scored": self._get_attacking_team(defending_team),
+                            "scored_by": live_carrier_id,
+                            "reason": "dribbled_in",
+                        }}
             return {}, {}
         # NOTE: previously had `if velocity == (0,0): return {},{}` here.
         # Removed 2026-04-22 — that guard prevented the pickup contest from
@@ -1330,6 +1404,82 @@ class ActionResolutionEngine:
         carrier_pos = carrier_state.get("position")
         if isinstance(carrier_pos, tuple) and len(carrier_pos) == 2:
             self.gsm.update_ball_position(carrier_pos)
+
+    def _check_stalemate(self, tick: int) -> None:
+        """Bugfix #22 — break a frozen match.
+
+        Tracks how long the carried ball has stayed within _STUCK_RADIUS of
+        an anchor point. Once it has been effectively motionless for
+        _STUCK_MAX_TICKS consecutive ticks, force a turnover to the nearest
+        opponent so play resumes (e.g. a ball pinned at a boundary that the
+        defending side never pressures).
+
+        Resets whenever the ball is loose (no carrier) or makes net progress.
+        Defensive against mock GSMs whose state isn't a real dict.
+        """
+        ball = getattr(self.gsm.state, "ball", None)
+        if not isinstance(ball, dict):
+            return
+        pos = ball.get("position")
+        carrier_id = ball.get("carrier_id")
+        if (carrier_id is None
+                or not isinstance(pos, (tuple, list)) or len(pos) != 2):
+            # Loose ball (or unreadable) — no stalemate to track.
+            self._stuck_ticks = 0
+            self._stuck_anchor_pos = None
+            return
+
+        anchor = self._stuck_anchor_pos
+        if anchor is not None and (
+            (pos[0] - anchor[0]) ** 2 + (pos[1] - anchor[1]) ** 2
+            <= self._STUCK_RADIUS ** 2
+        ):
+            self._stuck_ticks += 1
+        else:
+            # Net progress (or first observation) — re-anchor and count this
+            # tick as the first in the new window.
+            self._stuck_anchor_pos = (float(pos[0]), float(pos[1]))
+            self._stuck_ticks = 1
+
+        if self._stuck_ticks >= self._STUCK_MAX_TICKS:
+            self._force_turnover(carrier_id, (float(pos[0]), float(pos[1])))
+            self._stuck_ticks = 0
+            self._stuck_anchor_pos = None
+
+    def _force_turnover(self, carrier_id: str, pos: tuple[float, float]) -> None:
+        """Hand the ball to the nearest opponent of the stuck carrier."""
+        players = getattr(self.gsm.state, "players", None)
+        if not isinstance(players, dict):
+            return
+        carrier = players.get(carrier_id, {})
+        carrier_team = carrier.get("team") if isinstance(carrier, dict) else None
+
+        best_pid = None
+        best_dist = None
+        for pid, p in players.items():
+            if not isinstance(p, dict) or p.get("team") == carrier_team:
+                continue
+            ppos = p.get("position")
+            if not isinstance(ppos, (tuple, list)) or len(ppos) != 2:
+                continue
+            d = (ppos[0] - pos[0]) ** 2 + (ppos[1] - pos[1]) ** 2
+            if best_dist is None or d < best_dist:
+                best_dist = d
+                best_pid = pid
+        if best_pid is None:
+            return
+
+        logger.info(
+            "stalemate breaker: ball static at %s under %s for %d ticks — "
+            "turning over to nearest opponent %s",
+            pos, carrier_id, self._STUCK_MAX_TICKS, best_pid,
+        )
+        self.gsm.transfer_possession(carrier_id, best_pid)
+        self._snap_ball_to_carrier(best_pid)
+        self.gsm.update_ball_velocity((0.0, 0.0))
+        opponent = players.get(best_pid, {})
+        if isinstance(opponent, dict):
+            self._last_touching_team = opponent.get("team")
 
     def _apply_oob_restart(self, oob_pos: tuple[float, float], snap: dict,
                            ball_physics_records: dict) -> None:
