@@ -71,7 +71,9 @@ fn decide_logic(gs: &GameState, ps: &PlayerState, _hist: &[TickRecord]) -> Actio
 
 === SECTION 6: FIELD GEOMETRY ===
 Read all field values from gs.field — never hardcode coordinates.
-team_a attacks toward x=field.width; team_b attacks toward x=0.
+Pick your defending goal by team: team_a → gs.field.team_a_goal_x,
+team_b → gs.field.team_b_goal_x; attack the OPPOSITE goal. These x-values SWAP at
+half-time — read them every tick. Never assume a fixed attacking direction.
 Goal mouth: goal_top > goal_bottom (max/min y); the mouth spans y in [goal_bottom, goal_top].
 Mouth height is (goal_top - goal_bottom) and is POSITIVE — never write (goal_bottom - goal_top);
 it is negative and silently breaks shot/aim gates. Center y = (goal_top + goal_bottom) / 2.0.

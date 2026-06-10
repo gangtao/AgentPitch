@@ -120,7 +120,9 @@ Field and goal geometry vary by config — read every value from inputs:
 # Goal-mouth height is (goal_top - goal_bottom) and is POSITIVE — never write
 # (goal_bottom - goal_top); it is negative and silently breaks shot/aim gates.
 # Use abs(goal_top - goal_bottom) for the size and (goal_top + goal_bottom)/2 for the center y.
-team_a always attacks toward x=field.width; team_b always attacks toward x=0.
+Pick your defending goal from the field by team: team_a → field["team_a_goal_x"],
+team_b → field["team_b_goal_x"]; you attack the OPPOSITE goal. These x-values SWAP at
+half-time — read them every tick. Never assume team_a attacks +x or any fixed direction.
 Never hardcode 100×60 or any specific coordinate.
 
 === SECTION 8: ACTION SPACE ===
