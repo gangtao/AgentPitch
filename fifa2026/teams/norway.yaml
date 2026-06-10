@@ -26,8 +26,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
-  - name: Leo Østigård
-    number: 4
+  - name: Torbjørn Heggem
+    number: 17
     role: DEF
     speed: 13
     skill: 13
@@ -37,7 +37,7 @@ players:
     dribbling: 10
     stamina: 15
     pass: 13
-    shoot: 8
+    shoot: 7
   - name: Kristoffer Ajer
     number: 3
     role: DEF
@@ -62,6 +62,18 @@ players:
     stamina: 17
     pass: 13
     shoot: 9
+  - name: Kristian Thorstvedt
+    number: 18
+    role: MID
+    speed: 14
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 16
+    pass: 14
+    shoot: 13
   - name: Sander Berge
     number: 8
     role: MID
@@ -86,18 +98,6 @@ players:
     stamina: 16
     pass: 18
     shoot: 15
-  - name: Fredrik Aursnes
-    number: 14
-    role: MID
-    speed: 14
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 15
-    dribbling: 14
-    stamina: 17
-    pass: 15
-    shoot: 12
   - name: Antonio Nusa
     number: 20
     role: FWD

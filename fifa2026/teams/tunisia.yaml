@@ -3,7 +3,7 @@ team_id: tunisia
 name: Tunisia
 players:
   - name: Aymen Dahmen
-    number: 1
+    number: 16
     role: GK
     speed: 10
     skill: 13
@@ -15,7 +15,7 @@ players:
     pass: 12
     shoot: 4
   - name: Ali Abdi
-    number: 3
+    number: 2
     role: DEF
     speed: 14
     skill: 14
@@ -27,7 +27,7 @@ players:
     pass: 14
     shoot: 10
   - name: Montassar Talbi
-    number: 4
+    number: 3
     role: DEF
     speed: 13
     skill: 13
@@ -39,7 +39,7 @@ players:
     pass: 13
     shoot: 7
   - name: Dylan Bronn
-    number: 12
+    number: 6
     role: DEF
     speed: 13
     skill: 14
@@ -51,7 +51,7 @@ players:
     pass: 13
     shoot: 8
   - name: Yan Valery
-    number: 2
+    number: 20
     role: DEF
     speed: 14
     skill: 13
@@ -63,7 +63,7 @@ players:
     pass: 13
     shoot: 9
   - name: Ellyes Skhiri
-    number: 13
+    number: 17
     role: MID
     speed: 13
     skill: 16
@@ -75,7 +75,7 @@ players:
     pass: 16
     shoot: 12
   - name: Rani Khedira
-    number: 6
+    number: 13
     role: MID
     speed: 12
     skill: 14
@@ -87,7 +87,7 @@ players:
     pass: 14
     shoot: 10
   - name: Hannibal Mejbri
-    number: 8
+    number: 10
     role: MID
     speed: 14
     skill: 15
@@ -99,7 +99,7 @@ players:
     pass: 15
     shoot: 13
   - name: Elias Achouri
-    number: 11
+    number: 7
     role: FWD
     speed: 15
     skill: 14
@@ -111,7 +111,7 @@ players:
     pass: 14
     shoot: 13
   - name: Elias Saad
-    number: 9
+    number: 8
     role: FWD
     speed: 15
     skill: 14
@@ -123,7 +123,7 @@ players:
     pass: 13
     shoot: 14
   - name: Anis Ben Slimane
-    number: 7
+    number: 25
     role: FWD
     speed: 14
     skill: 13

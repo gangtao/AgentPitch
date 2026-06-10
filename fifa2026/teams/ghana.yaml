@@ -1,31 +1,19 @@
-# Formation: 4-3-3
+# Formation: 3-4-2-1
 team_id: ghana
 name: Ghana
 players:
-  - name: Lawrence Ati-Zigi
-    number: 1
+  - name: Benjamin Asare
+    number: 16
     role: GK
-    speed: 12
-    skill: 14
-    strength: 15
+    speed: 11
+    skill: 13
+    strength: 14
     save: 15
     discipline: 14
     dribbling: 5
     stamina: 13
-    pass: 13
-    shoot: 4
-  - name: Gideon Mensah
-    number: 14
-    role: DEF
-    speed: 15
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 16
-    pass: 13
-    shoot: 9
+    pass: 12
+    shoot: 3
   - name: Jerome Opoku
     number: 18
     role: DEF
@@ -38,6 +26,18 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
+  - name: Abdul Mumin
+    number: 6
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 6
   - name: Jonas Adjetey
     number: 4
     role: DEF
@@ -50,10 +50,10 @@ players:
     stamina: 15
     pass: 13
     shoot: 6
-  - name: Marvin Senaya
-    number: 26
-    role: DEF
-    speed: 16
+  - name: Gideon Mensah
+    number: 14
+    role: MID
+    speed: 15
     skill: 13
     strength: 13
     save: 0
@@ -61,7 +61,7 @@ players:
     dribbling: 13
     stamina: 16
     pass: 13
-    shoot: 8
+    shoot: 9
   - name: Thomas Partey
     number: 5
     role: MID
@@ -74,18 +74,6 @@ players:
     stamina: 17
     pass: 16
     shoot: 13
-  - name: Elisha Owusu
-    number: 15
-    role: MID
-    speed: 13
-    skill: 15
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 17
-    pass: 15
-    shoot: 11
   - name: Kwasi Sibo
     number: 8
     role: MID
@@ -98,6 +86,18 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
+  - name: Caleb Yirenkyi
+    number: 3
+    role: MID
+    speed: 15
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 16
+    pass: 14
+    shoot: 10
   - name: Antoine Semenyo
     number: 11
     role: FWD
@@ -110,18 +110,6 @@ players:
     stamina: 16
     pass: 14
     shoot: 15
-  - name: Iñaki Williams
-    number: 19
-    role: FWD
-    speed: 17
-    skill: 15
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 16
-    stamina: 17
-    pass: 14
-    shoot: 16
   - name: Jordan Ayew
     number: 9
     role: FWD
@@ -134,3 +122,15 @@ players:
     stamina: 16
     pass: 15
     shoot: 14
+  - name: Iñaki Williams
+    number: 19
+    role: FWD
+    speed: 17
+    skill: 15
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 17
+    pass: 14
+    shoot: 16

@@ -8,8 +8,8 @@ Türkiye under Vincenzo Montella are a technically rich, possession-leaning side
 - Role mapping (roster order in `turkiye.yaml`):
   - index 0 (`turkiye_0`, Günok): GK — solid shot-stopper, decent distribution.
   - index 1 (`turkiye_1`, Kadıoğlu): LB — modern inverted fullback, can play midfield.
-  - index 2 (`turkiye_2`, Demiral): LCB — physical, aerial, aggressive.
-  - index 3 (`turkiye_3`, Akaydın): RCB — covers Demiral's aggression.
+  - index 2 (`turkiye_2`, Bardakcı): LCB — left-footed, physical, strong in the air.
+  - index 3 (`turkiye_3`, Demiral): RCB — physical, aerial, aggressive.
   - index 4 (`turkiye_4`, Çelik): RB — disciplined overlapper.
   - index 5 (`turkiye_5`, Çalhanoğlu): DM/regista — deepest playmaker, long-range passer.
   - index 6 (`turkiye_6`, Yüksek): DM — defensive midfielder, runs alongside Çalhanoğlu.
@@ -21,7 +21,7 @@ Türkiye under Vincenzo Montella are a technically rich, possession-leaning side
 ## Style of Play
 
 ### Build-up
-Patient, technical. Günok plays to Demiral or Akaydın; Çalhanoğlu drops deep between the CBs forming a 3-2 build. Kadıoğlu inverts into midfield, creating a numerical superiority. Türkiye are comfortable on the ball — they will spend long periods in the build phase if pressed lightly.
+Patient, technical. Günok plays to Bardakcı or Demiral; Çalhanoğlu drops deep between the CBs forming a 3-2 build. Kadıoğlu inverts into midfield, creating a numerical superiority. Türkiye are comfortable on the ball — they will spend long periods in the build phase if pressed lightly.
 
 ### Pressing (block height + trigger)
 Medium-high block — line of confrontation around 5-10m inside opposition half. Press is selective rather than constant: triggered when an opposition CB plays a square pass under pressure. Aktürkoğlu and Yıldız jump the wide CBs; Yılmaz blocks the central passing lane.
@@ -36,7 +36,7 @@ Wingers are the primary 1v1 threat. Yıldız (LW) is the dribbler-in-chief — s
 Through-balls from Güler and Çalhanoğlu, cutbacks from the wide players, long-range shots from Aktürkoğlu. Yılmaz makes diagonal runs across the back line. Demiral arrives for set pieces — a major aerial threat.
 
 ## Set Pieces
-- Corners: Çalhanoğlu delivers everything. Inswingers from the right toward Demiral (near post) and Akaydın (back post).
+- Corners: Çalhanoğlu delivers everything. Inswingers from the right toward Demiral (near post) and Bardakcı (back post).
 - Direct free kicks: Çalhanoğlu from anywhere within 30m. Güler as alternative from the left.
 - Penalties: Çalhanoğlu first (lethal, Inter Milan regular taker); Güler second.
 
@@ -48,18 +48,18 @@ Through-balls from Güler and Çalhanoğlu, cutbacks from the wide players, long
 5. If my player_id ends with "_7" (RW, Aktürkoğlu): when receiving wide right, cut inside immediately onto left foot; SHOOT if within 22m of goal.
 6. If my player_id ends with "_1" (LB, Kadıoğlu): invert into midfield in the build phase (move to LDM position alongside "_6" Yüksek); revert to LB when Türkiye loses the ball.
 7. If my player_id ends with "_4" (RB, Çelik): overlap aggressively when "_7" (Aktürkoğlu) cuts inside — the touchline width is his responsibility.
-8. If my player_id ends with "_2" (LCB, Demiral): on opposition cross, attack the ball physically; do NOT attempt a clean clearance, just clear it long.
+8. If my player_id ends with "_3" (RCB, Demiral): on opposition cross, attack the ball physically; do NOT attempt a clean clearance, just clear it long.
 9. If my player_id ends with "_10" (CF, Yılmaz): make 2 distinct movements per attacking phase — one drop to feet, one in behind. "_5" Çalhanoğlu reads both options.
 10. If my player_id ends with "_6" (DM, Yüksek): shadow opposition #10, recycle possession sideways/backward to "_5" (Çalhanoğlu) — never gamble a forward pass.
 11. On regain in opposition third: nearest player TACKLES; second-nearest demands forward outlet from "_8" (Güler) or "_5" (Çalhanoğlu).
-12. When trailing late: "_2" (Demiral) pushes forward as auxiliary striker for crosses; "_3" (Akaydın) stays as lone CB.
-13. Discipline note: players ending in "_2" (Demiral) and "_10" (Yılmaz) have a card-risk profile — avoid late challenges in defensive third when on a yellow.
+12. When trailing late: "_3" (Demiral) pushes forward as auxiliary striker for crosses; "_2" (Bardakcı) stays as lone CB.
+13. Discipline note: players ending in "_3" (Demiral) and "_10" (Yılmaz) have a card-risk profile — avoid late challenges in defensive third when on a yellow.
 
 ## Key Player Notes
 - **Hakan Çalhanoğlu (index 5):** the team's brain. Operates as a deep-lying regista — pass 18, skill 17. All set-pieces (corners, free-kicks, penalties). License to roam vertically into AM space when Güler drifts wide.
 - **Arda Güler (index 8, #8):** the team's future. Free role between the lines, both feet, dribble + pass + shoot all elite for an AM. Allow him to take long shots from edge of box.
 - **Kenan Yıldız (index 9, #11):** primary 1v1 dribbler — dribbling 17. Direct him to take on his man every time he receives wide.
-- **Merih Demiral (index 2):** primary aerial threat on set pieces. Always crashes the box from corners.
+- **Merih Demiral (index 3):** primary aerial threat on set pieces. Always crashes the box from corners.
 - **Ferdi Kadıoğlu (index 1):** modern inverted fullback role — moves into midfield in possession, generates +1 in central buildup.
 
 ## Tournament Mindset

@@ -14,30 +14,18 @@ players:
     stamina: 13
     pass: 13
     shoot: 4
-  - name: Štěpán Chaloupek
-    number: 6
+  - name: Tomáš Holeš
+    number: 3
     role: DEF
     speed: 13
-    skill: 12
-    strength: 15
+    skill: 14
+    strength: 14
     save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 15
-    pass: 12
-    shoot: 6
-  - name: Robin Hranáč
-    number: 4
-    role: DEF
-    speed: 13
-    skill: 13
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 10
+    discipline: 15
+    dribbling: 11
     stamina: 15
     pass: 13
-    shoot: 7
+    shoot: 8
   - name: Ladislav Krejčí
     number: 7
     role: DEF
@@ -50,9 +38,21 @@ players:
     stamina: 15
     pass: 14
     shoot: 10
+  - name: Robin Hranáč
+    number: 4
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 7
   - name: David Jurásek
     number: 14
-    role: DEF
+    role: MID
     speed: 15
     skill: 13
     strength: 12
@@ -62,18 +62,6 @@ players:
     stamina: 16
     pass: 13
     shoot: 8
-  - name: Tomáš Souček
-    number: 22
-    role: MID
-    speed: 12
-    skill: 14
-    strength: 16
-    save: 0
-    discipline: 15
-    dribbling: 12
-    stamina: 17
-    pass: 14
-    shoot: 14
   - name: Vladimír Darida
     number: 8
     role: MID
@@ -86,6 +74,18 @@ players:
     stamina: 16
     pass: 15
     shoot: 12
+  - name: Tomáš Souček
+    number: 22
+    role: MID
+    speed: 12
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 17
+    pass: 14
+    shoot: 14
   - name: Vladimír Coufal
     number: 5
     role: MID
@@ -98,21 +98,9 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
-  - name: Lukáš Provod
-    number: 17
-    role: MID
-    speed: 14
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 16
-    pass: 14
-    shoot: 13
   - name: Pavel Šulc
     number: 15
-    role: MID
+    role: FWD
     speed: 14
     skill: 15
     strength: 12
@@ -122,6 +110,18 @@ players:
     stamina: 16
     pass: 15
     shoot: 13
+  - name: Adam Hložek
+    number: 9
+    role: FWD
+    speed: 15
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 15
+    pass: 14
+    shoot: 15
   - name: Patrik Schick
     number: 10
     role: FWD

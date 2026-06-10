@@ -14,30 +14,6 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
-  - name: Antonee Robinson
-    number: 5
-    role: DEF
-    speed: 17
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 17
-    pass: 13
-    shoot: 9
-  - name: Chris Richards
-    number: 3
-    role: DEF
-    speed: 14
-    skill: 15
-    strength: 16
-    save: 0
-    discipline: 15
-    dribbling: 11
-    stamina: 15
-    pass: 13
-    shoot: 8
   - name: Tim Ream
     number: 13
     role: DEF
@@ -50,30 +26,42 @@ players:
     stamina: 13
     pass: 15
     shoot: 6
-  - name: Sergiño Dest
-    number: 2
+  - name: Miles Robinson
+    number: 12
     role: DEF
-    speed: 16
-    skill: 15
-    strength: 12
+    speed: 15
+    skill: 14
+    strength: 16
     save: 0
     discipline: 13
-    dribbling: 15
-    stamina: 16
-    pass: 14
-    shoot: 10
-  - name: Mark McKenzie
-    number: 22
+    dribbling: 10
+    stamina: 15
+    pass: 12
+    shoot: 7
+  - name: Alex Freeman
+    number: 16
     role: DEF
-    speed: 14
+    speed: 16
     skill: 13
-    strength: 15
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 16
+    pass: 12
+    shoot: 8
+  - name: Antonee Robinson
+    number: 5
+    role: MID
+    speed: 17
+    skill: 14
+    strength: 13
     save: 0
     discipline: 14
-    dribbling: 11
-    stamina: 14
+    dribbling: 13
+    stamina: 17
     pass: 13
-    shoot: 7
+    shoot: 9
   - name: Tyler Adams
     number: 4
     role: MID
@@ -98,6 +86,18 @@ players:
     stamina: 16
     pass: 15
     shoot: 13
+  - name: Sergiño Dest
+    number: 2
+    role: MID
+    speed: 16
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 14
+    shoot: 10
   - name: Christian Pulisic
     number: 10
     role: FWD

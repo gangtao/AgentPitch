@@ -26,14 +26,14 @@ players:
     stamina: 14
     pass: 12
     shoot: 7
-  - name: Abdulelah Al-Amri
-    number: 4
+  - name: Ali Lajami
+    number: 3
     role: DEF
     speed: 13
     skill: 13
     strength: 15
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 10
     stamina: 14
     pass: 13
@@ -86,18 +86,6 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
-  - name: Musab Al-Juwayr
-    number: 7
-    role: MID
-    speed: 14
-    skill: 15
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 16
-    pass: 15
-    shoot: 13
   - name: Salem Al-Dawsari
     number: 10
     role: MID
@@ -110,6 +98,18 @@ players:
     stamina: 15
     pass: 14
     shoot: 16
+  - name: Musab Al-Juwayr
+    number: 7
+    role: MID
+    speed: 14
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 16
+    pass: 15
+    shoot: 13
   - name: Nasser Al-Dawsari
     number: 6
     role: MID

@@ -26,18 +26,6 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
-  - name: César Montes
-    number: 3
-    role: DEF
-    speed: 13
-    skill: 14
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 15
-    pass: 13
-    shoot: 9
   - name: Johan Vásquez
     number: 5
     role: DEF
@@ -50,42 +38,30 @@ players:
     stamina: 15
     pass: 14
     shoot: 8
-  - name: Jorge Sánchez
-    number: 2
+  - name: César Montes
+    number: 3
     role: DEF
-    speed: 15
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 16
-    pass: 13
-    shoot: 8
-  - name: Érik Lira
-    number: 6
-    role: MID
     speed: 13
     skill: 14
-    strength: 13
-    save: 0
-    discipline: 15
-    dribbling: 12
-    stamina: 16
-    pass: 14
-    shoot: 10
-  - name: Edson Álvarez
-    number: 4
-    role: MID
-    speed: 14
-    skill: 16
     strength: 16
     save: 0
-    discipline: 17
-    dribbling: 13
-    stamina: 17
-    pass: 15
-    shoot: 11
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 9
+  - name: Israel Reyes
+    number: 15
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 8
   - name: Gilberto Mora
     number: 19
     role: MID
@@ -98,30 +74,30 @@ players:
     stamina: 15
     pass: 15
     shoot: 13
-  - name: Alexis Vega
-    number: 10
-    role: FWD
-    speed: 15
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 15
-    pass: 14
-    shoot: 14
-  - name: Raúl Jiménez
-    number: 9
-    role: FWD
-    speed: 12
-    skill: 15
+  - name: Edson Álvarez
+    number: 4
+    role: MID
+    speed: 14
+    skill: 16
     strength: 16
     save: 0
-    discipline: 14
+    discipline: 17
     dribbling: 13
-    stamina: 14
-    pass: 14
-    shoot: 15
+    stamina: 17
+    pass: 15
+    shoot: 11
+  - name: Álvaro Fidalgo
+    number: 8
+    role: MID
+    speed: 13
+    skill: 16
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 15
+    stamina: 15
+    pass: 17
+    shoot: 12
   - name: Julián Quiñones
     number: 16
     role: FWD
@@ -134,3 +110,27 @@ players:
     stamina: 15
     pass: 13
     shoot: 16
+  - name: Raúl Jiménez
+    number: 9
+    role: FWD
+    speed: 12
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 14
+    pass: 14
+    shoot: 15
+  - name: Roberto Alvarado
+    number: 25
+    role: FWD
+    speed: 15
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 15
+    pass: 14
+    shoot: 14

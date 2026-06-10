@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 3-4-3
 team_id: uzbekistan
 name: Uzbekistan
 players:
@@ -14,30 +14,18 @@ players:
     stamina: 12
     pass: 11
     shoot: 4
-  - name: Sherzod Nasrullaev
-    number: 2
+  - name: Abdulla Abdullaev
+    number: 18
     role: DEF
     speed: 13
     skill: 12
-    strength: 12
+    strength: 13
     save: 0
-    discipline: 12
-    dribbling: 11
+    discipline: 13
+    dribbling: 10
     stamina: 14
     pass: 12
-    shoot: 8
-  - name: Abdukodir Khusanov
-    number: 3
-    role: DEF
-    speed: 16
-    skill: 15
-    strength: 16
-    save: 0
-    discipline: 15
-    dribbling: 12
-    stamina: 15
-    pass: 14
-    shoot: 8
+    shoot: 7
   - name: Rustam Ashurmatov
     number: 5
     role: DEF
@@ -50,20 +38,32 @@ players:
     stamina: 13
     pass: 12
     shoot: 7
-  - name: Khojiakbar Alijonov
-    number: 4
+  - name: Abdukodir Khusanov
+    number: 2
     role: DEF
+    speed: 16
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 15
+    pass: 14
+    shoot: 8
+  - name: Sherzod Nasrullaev
+    number: 13
+    role: MID
     speed: 13
     skill: 12
-    strength: 13
+    strength: 12
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 11
     stamina: 14
     pass: 12
     shoot: 8
   - name: Otabek Shukurov
-    number: 6
+    number: 7
     role: MID
     speed: 12
     skill: 13
@@ -75,7 +75,7 @@ players:
     pass: 13
     shoot: 10
   - name: Odiljon Hamrobekov
-    number: 8
+    number: 9
     role: MID
     speed: 13
     skill: 14
@@ -86,21 +86,21 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
-  - name: Jaloliddin Masharipov
-    number: 10
+  - name: Khojiakbar Alijonov
+    number: 3
     role: MID
     speed: 13
-    skill: 14
-    strength: 11
+    skill: 12
+    strength: 13
     save: 0
-    discipline: 12
-    dribbling: 14
+    discipline: 13
+    dribbling: 11
     stamina: 14
-    pass: 14
-    shoot: 12
+    pass: 12
+    shoot: 8
   - name: Abbosbek Fayzullaev
-    number: 7
-    role: MID
+    number: 22
+    role: FWD
     speed: 14
     skill: 15
     strength: 11
@@ -110,20 +110,8 @@ players:
     stamina: 14
     pass: 14
     shoot: 13
-  - name: Oston Urunov
-    number: 11
-    role: MID
-    speed: 14
-    skill: 13
-    strength: 12
-    save: 0
-    discipline: 12
-    dribbling: 13
-    stamina: 14
-    pass: 13
-    shoot: 12
   - name: Eldor Shomurodov
-    number: 9
+    number: 14
     role: FWD
     speed: 13
     skill: 14
@@ -134,3 +122,15 @@ players:
     stamina: 14
     pass: 12
     shoot: 14
+  - name: Oston Urunov
+    number: 11
+    role: FWD
+    speed: 14
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 13
+    shoot: 12

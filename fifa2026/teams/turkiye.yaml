@@ -15,7 +15,7 @@ players:
     pass: 12
     shoot: 4
   - name: Ferdi Kadıoğlu
-    number: 14
+    number: 20
     role: DEF
     speed: 15
     skill: 14
@@ -26,6 +26,18 @@ players:
     stamina: 16
     pass: 14
     shoot: 10
+  - name: Abdülkerim Bardakcı
+    number: 14
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 14
+    shoot: 8
   - name: Merih Demiral
     number: 3
     role: DEF
@@ -38,18 +50,6 @@ players:
     stamina: 15
     pass: 13
     shoot: 9
-  - name: Samet Akaydın
-    number: 4
-    role: DEF
-    speed: 13
-    skill: 13
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 15
-    pass: 13
-    shoot: 8
   - name: Zeki Çelik
     number: 2
     role: DEF

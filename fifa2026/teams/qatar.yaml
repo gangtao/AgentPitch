@@ -14,18 +14,18 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
-  - name: Homam Ahmed
-    number: 14
+  - name: Sultan Al-Brake
+    number: 18
     role: DEF
     speed: 13
-    skill: 13
+    skill: 12
     strength: 13
     save: 0
     discipline: 13
     dribbling: 11
-    stamina: 15
-    pass: 13
-    shoot: 8
+    stamina: 14
+    pass: 12
+    shoot: 7
   - name: Lucas Mendes
     number: 3
     role: DEF
@@ -39,7 +39,7 @@ players:
     pass: 13
     shoot: 8
   - name: Boualem Khoukhi
-    number: 4
+    number: 16
     role: DEF
     speed: 12
     skill: 14
@@ -62,20 +62,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 7
-  - name: Abdulaziz Hatem
-    number: 11
-    role: MID
-    speed: 13
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 12
-    stamina: 15
-    pass: 13
-    shoot: 11
   - name: Assim Madibo
-    number: 12
+    number: 23
     role: MID
     speed: 13
     skill: 14
@@ -87,7 +75,7 @@ players:
     pass: 14
     shoot: 10
   - name: Karim Boudiaf
-    number: 17
+    number: 12
     role: MID
     speed: 12
     skill: 13
@@ -98,8 +86,20 @@ players:
     stamina: 15
     pass: 13
     shoot: 10
+  - name: Mohamed Manai
+    number: 26
+    role: MID
+    speed: 13
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 14
+    pass: 13
+    shoot: 11
   - name: Akram Afif
-    number: 19
+    number: 11
     role: FWD
     speed: 15
     skill: 16
@@ -111,7 +111,7 @@ players:
     pass: 14
     shoot: 15
   - name: Almoez Ali
-    number: 18
+    number: 19
     role: FWD
     speed: 14
     skill: 15
@@ -122,15 +122,15 @@ players:
     stamina: 14
     pass: 12
     shoot: 16
-  - name: Hassan Al-Haydos
-    number: 10
+  - name: Edmilson Junior
+    number: 8
     role: FWD
-    speed: 13
+    speed: 15
     skill: 15
     strength: 12
     save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 13
-    pass: 15
-    shoot: 13
+    discipline: 13
+    dribbling: 15
+    stamina: 14
+    pass: 14
+    shoot: 14

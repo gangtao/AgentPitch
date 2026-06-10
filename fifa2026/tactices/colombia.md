@@ -58,9 +58,9 @@ Concrete rules the LLM should encode:
 ## Key Player Notes
 - **James Rodríguez (10):** The team's heart. Free role between the lines. No defensive duty beyond a token jog. Every set-piece is his.
 - **Luis Díaz (7):** Licensed to be the chief 1v1 dribbler. Will attempt to beat his man even when a simpler pass exists.
-- **Mojica (12):** Most attacking fullback in CONMEBOL alongside Estupiñán — bombs forward.
-- **Lerma (6):** The defensive sentinel — anchors so James can roam.
-- **Luis Suárez (9):** In-form penalty-box finisher (Primeira Liga top scorer with Sporting); has displaced Córdoba as the starter. Runs the channels and gambles on the shoulder of the last defender rather than holding play up. Clinical inside the box.
+- **Mojica (17):** Most attacking fullback in CONMEBOL alongside Estupiñán — bombs forward.
+- **Lerma (16):** The defensive sentinel — anchors so James can roam.
+- **Luis Suárez (25):** In-form penalty-box finisher (Primeira Liga top scorer with Sporting); has displaced Córdoba as the starter. Runs the channels and gambles on the shoulder of the last defender rather than holding play up. Clinical inside the box.
 
 ## Tournament Mindset
 Colombia are a knockout-round side: they grow into tournaments. Group stage may be cautious, but in the round of 16 onwards expect James to seize a game and Díaz to break a tight match in transition. They are happy to play low-scoring, James-decides-it matches.

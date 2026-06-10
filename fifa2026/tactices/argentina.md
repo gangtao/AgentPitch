@@ -56,11 +56,11 @@ Concrete rules the LLM should encode:
 12. **Penalties / set-pieces in attacking third within 28 units of goal:** Defer to `_10` (Messi) unless he is off the pitch.
 
 ## Key Player Notes
-- **Messi (10):** Free role on the right. No defensive responsibility. Walking is a tactical instruction, not laziness. Every dead ball within 30 yards is his.
-- **Mac Allister (7):** License to gamble on the second ball in the box; late runner from deep. Tertiary penalty taker.
-- **De Paul (5):** Messi's bodyguard — instructed to occupy the space Messi vacates and counter-press the moment Messi loses possession.
-- **Otamendi (19):** Veteran aerial anchor and line organizer at RCB. Distributes safely and holds the high line; not a ball-carrier — recycle to Enzo or the fullbacks.
-- **Álvarez (9):** Free to drop into the 10 when Messi pushes up the channel; effectively a fluid front three with Almada.
+- **Messi (#10):** Free role on the right. No defensive responsibility. Walking is a tactical instruction, not laziness. Every dead ball within 30 yards is his.
+- **Mac Allister (#20):** License to gamble on the second ball in the box; late runner from deep. Tertiary penalty taker.
+- **De Paul (#7):** Messi's bodyguard — instructed to occupy the space Messi vacates and counter-press the moment Messi loses possession.
+- **Otamendi (#19):** Veteran aerial anchor and line organizer at RCB. Distributes safely and holds the high line; not a ball-carrier — recycle to Enzo or the fullbacks.
+- **Álvarez (#9):** Free to drop into the 10 when Messi pushes up the channel; effectively a fluid front three with Almada.
 
 ## Tournament Mindset
 Defending champions know how to win ugly. Argentina will happily play a tight, low-scoring tournament: keep clean sheets, let Messi-Álvarez-Mac Allister produce one moment per game. Stamina-managed: Messi at <14 stamina is still better than most teams' best player, but the side is built to protect him.

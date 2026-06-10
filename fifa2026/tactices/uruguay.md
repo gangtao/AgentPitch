@@ -56,8 +56,8 @@ Concrete rules the LLM should encode:
 12. **If team is trailing and minute > 60:** Push EVEN HIGHER — fullbacks to halfway line, `_2` (Giménez) follows the striker everywhere. Accept the risk of conceding.
 
 ## Key Player Notes
-- **Valverde (15):** Free role within the right half-space. The team's heart-lungs. Late box-arrival is his signature.
-- **Núñez (19):** Never holds the ball. Always sprinting. Stretches the field. Will press the GK alone.
+- **Valverde (8):** Free role within the right half-space. The team's heart-lungs. Late box-arrival is his signature.
+- **Núñez (9):** Never holds the ball. Always sprinting. Stretches the field. Will press the GK alone.
 - **Giménez (2):** Man-marker extreme — Bielsa license to follow his man anywhere.
 - **Araújo (4):** The cover. Captain. Sweeps behind Giménez's adventures.
 - **Bielsa note:** No player ever walks. If stamina < 8, the player should still sprint when the press trigger fires. Substitutions are managed by Bielsa's relentless system.

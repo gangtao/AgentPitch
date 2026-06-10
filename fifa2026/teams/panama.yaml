@@ -1,9 +1,9 @@
-# Formation: 4-3-3
+# Formation: 3-4-2-1
 team_id: panama
 name: Panama
 players:
   - name: Orlando Mosquera
-    number: 1
+    number: 22
     role: GK
     speed: 10
     skill: 12
@@ -14,18 +14,6 @@ players:
     stamina: 12
     pass: 11
     shoot: 3
-  - name: Eric Davis
-    number: 15
-    role: DEF
-    speed: 13
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 12
-    stamina: 14
-    pass: 13
-    shoot: 8
   - name: José Córdoba
     number: 3
     role: DEF
@@ -39,7 +27,7 @@ players:
     pass: 12
     shoot: 8
   - name: Andrés Andrade
-    number: 4
+    number: 16
     role: DEF
     speed: 13
     skill: 13
@@ -50,18 +38,42 @@ players:
     stamina: 14
     pass: 12
     shoot: 8
-  - name: Michael Amir Murillo
-    number: 13
+  - name: Carlos Harvey
+    number: 14
     role: DEF
-    speed: 15
-    skill: 14
+    speed: 13
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 10
+  - name: Eric Davis
+    number: 15
+    role: MID
+    speed: 13
+    skill: 13
     strength: 13
     save: 0
     discipline: 13
-    dribbling: 13
-    stamina: 15
+    dribbling: 12
+    stamina: 14
     pass: 13
-    shoot: 9
+    shoot: 8
+  - name: Cristian Martínez
+    number: 6
+    role: MID
+    speed: 13
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 14
+    pass: 13
+    shoot: 10
   - name: Aníbal Godoy
     number: 20
     role: MID
@@ -74,44 +86,20 @@ players:
     stamina: 15
     pass: 14
     shoot: 11
-  - name: Adalberto Carrasquilla
-    number: 6
+  - name: Michael Amir Murillo
+    number: 23
     role: MID
-    speed: 12
-    skill: 15
+    speed: 15
+    skill: 14
     strength: 13
     save: 0
     discipline: 13
     dribbling: 13
     stamina: 15
-    pass: 15
-    shoot: 12
-  - name: Carlos Harvey
-    number: 5
-    role: MID
-    speed: 13
-    skill: 13
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 12
-    stamina: 15
     pass: 13
-    shoot: 10
-  - name: Yoel Bárcenas
-    number: 17
-    role: FWD
-    speed: 14
-    skill: 13
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 14
-    pass: 13
-    shoot: 12
+    shoot: 9
   - name: Cecilio Waterman
-    number: 9
+    number: 18
     role: FWD
     speed: 14
     skill: 13
@@ -123,7 +111,7 @@ players:
     pass: 11
     shoot: 14
   - name: Ismael Díaz
-    number: 7
+    number: 10
     role: FWD
     speed: 13
     skill: 14
@@ -134,3 +122,15 @@ players:
     stamina: 14
     pass: 13
     shoot: 15
+  - name: José Luis Rodríguez
+    number: 7
+    role: FWD
+    speed: 15
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 14
+    pass: 12
+    shoot: 12

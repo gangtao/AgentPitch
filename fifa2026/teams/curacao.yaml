@@ -14,16 +14,16 @@ players:
     stamina: 12
     pass: 11
     shoot: 3
-  - name: Sherel Floranus
-    number: 5
+  - name: Ar'jany Martha
+    number: 15
     role: DEF
-    speed: 12
-    skill: 11
-    strength: 12
+    speed: 15
+    skill: 12
+    strength: 11
     save: 0
-    discipline: 12
-    dribbling: 11
-    stamina: 13
+    discipline: 11
+    dribbling: 13
+    stamina: 14
     pass: 11
     shoot: 7
   - name: Armando Obispo
@@ -50,18 +50,30 @@ players:
     stamina: 13
     pass: 11
     shoot: 7
-  - name: Shurandy Sambo
-    number: 2
+  - name: Sherel Floranus
+    number: 5
     role: DEF
-    speed: 14
-    skill: 12
-    strength: 11
+    speed: 12
+    skill: 11
+    strength: 12
     save: 0
-    discipline: 11
-    dribbling: 13
-    stamina: 14
+    discipline: 12
+    dribbling: 11
+    stamina: 13
     pass: 11
     shoot: 7
+  - name: Gervane Kastaneer
+    number: 19
+    role: MID
+    speed: 13
+    skill: 12
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 13
+    pass: 11
+    shoot: 12
   - name: Leandro Bacuna
     number: 10
     role: MID
@@ -86,20 +98,8 @@ players:
     stamina: 13
     pass: 12
     shoot: 8
-  - name: Godfried Roemeratoe
-    number: 6
-    role: MID
-    speed: 12
-    skill: 12
-    strength: 11
-    save: 0
-    discipline: 12
-    dribbling: 12
-    stamina: 13
-    pass: 12
-    shoot: 10
   - name: Tahith Chong
-    number: 22
+    number: 21
     role: MID
     speed: 13
     skill: 14
@@ -122,15 +122,15 @@ players:
     stamina: 13
     pass: 11
     shoot: 13
-  - name: Gervane Kastaneer
-    number: 19
+  - name: Sontje Hansen
+    number: 12
     role: FWD
-    speed: 13
-    skill: 12
-    strength: 12
+    speed: 15
+    skill: 13
+    strength: 11
     save: 0
     discipline: 12
-    dribbling: 12
+    dribbling: 14
     stamina: 13
-    pass: 11
-    shoot: 12
+    pass: 12
+    shoot: 13
