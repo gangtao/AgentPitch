@@ -22,7 +22,8 @@ fn decide_logic(gs: &GameState, ps: &PlayerState, hist: &[TickRecord]) -> Action
 // struct GameState {
 //     tick: u32,
 //     ball: Ball { position: (f64, f64), carrier_id: Option<String> },
-//     field: Field { width: f64, height: f64, team_a_goal_x: f64, team_b_goal_x: f64 },
+//     field: Field { width: f64, height: f64, team_a_goal_x: f64, team_b_goal_x: f64,
+//                    goal_top: f64, goal_bottom: f64 },  // goal_top > goal_bottom (max/min y)
 //     my_team: String,
 //     my_player_id: String,
 // }
@@ -71,6 +72,9 @@ fn decide_logic(gs: &GameState, ps: &PlayerState, _hist: &[TickRecord]) -> Actio
 === SECTION 6: FIELD GEOMETRY ===
 Read all field values from gs.field — never hardcode coordinates.
 team_a attacks toward x=field.width; team_b attacks toward x=0.
+Goal mouth: goal_top > goal_bottom (max/min y); the mouth spans y in [goal_bottom, goal_top].
+Mouth height is (goal_top - goal_bottom) and is POSITIVE — never write (goal_bottom - goal_top);
+it is negative and silently breaks shot/aim gates. Center y = (goal_top + goal_bottom) / 2.0.
 
 === SECTION 7: SANDBOX CONSTRAINTS ===
 You compile to wasm32-wasip1 inside a Wasmtime sandbox. Constraints:

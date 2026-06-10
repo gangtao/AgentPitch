@@ -35,7 +35,7 @@ game_state = {
     field: {
         width: Number, height: Number,
         team_a_goal_x: Number, team_b_goal_x: Number,
-        goal_top: Number, goal_bottom: Number,
+        goal_top: Number, goal_bottom: Number,  // goal-mouth y-edges; goal_top > goal_bottom (max/min y)
     },
     my_team: String,
     my_player_id: String,
@@ -101,6 +101,9 @@ function decide(game_state, player_state, history) {
 === SECTION 7: FIELD GEOMETRY ===
 Read all field values from game_state.field — never hardcode coordinates.
 team_a attacks toward x=field.width; team_b attacks toward x=0.
+Goal mouth: goal_top > goal_bottom (max/min y); the mouth spans y in [goal_bottom, goal_top].
+Mouth height is (goal_top - goal_bottom) and is POSITIVE — never write (goal_bottom - goal_top);
+it is negative and silently breaks shot/aim gates. Center y = (goal_top + goal_bottom) / 2.
 
 === SECTION 8: ACTION SPACE ===
 5 action types returned as plain objects with a `type` field:

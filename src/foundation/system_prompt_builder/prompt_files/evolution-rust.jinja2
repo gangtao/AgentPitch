@@ -8,6 +8,9 @@ Read your team and goal coordinates from inputs:
   gs.field.team_a_goal_x      // team_a defends here
   gs.field.team_b_goal_x      // team_b defends here
 Never hardcode "team_a" / "team_b" — branch on gs.my_team.
+Goal mouth convention: goal_top > goal_bottom (max/min y). Mouth height is (goal_top - goal_bottom),
+POSITIVE — never write (goal_bottom - goal_top); it is negative and silently breaks shot/aim gates.
+If the prior strategy contains (goal_bottom - goal_top), treat it as a bug and fix it.
 
 === SECTION 2: PRIOR STRATEGY ===
 Current strategy:

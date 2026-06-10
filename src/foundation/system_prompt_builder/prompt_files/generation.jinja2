@@ -38,7 +38,7 @@ game_state = {
     "field": {
         "width": float, "height": float,
         "team_a_goal_x": float, "team_b_goal_x": float,  # x-coord of each team's defending goal
-        "goal_top": float, "goal_bottom": float,  # y-extents of the goal mouth (same for both ends)
+        "goal_top": float, "goal_bottom": float,  # goal-mouth y-edges; goal_top > goal_bottom (max/min y). Same for both ends.
     },
     "my_team": str,        # "team_a" | "team_b"
     "my_player_id": str,   # this player's id, e.g. "team_a_3"
@@ -114,8 +114,12 @@ Field and goal geometry vary by config — read every value from inputs:
   game_state["field"]["height"]           # field height
   game_state["field"]["team_a_goal_x"]    # x-coord of team_a's defending goal
   game_state["field"]["team_b_goal_x"]    # x-coord of team_b's defending goal
-  game_state["field"]["goal_top"]         # upper y-bound of the goal mouth
-  game_state["field"]["goal_bottom"]      # lower y-bound (same for both ends)
+  game_state["field"]["goal_top"]         # larger-y edge of the goal mouth (numerically GREATER, e.g. 33.66)
+  game_state["field"]["goal_bottom"]      # smaller-y edge of the goal mouth (numerically LESS, e.g. 26.34)
+# Convention: goal_top > goal_bottom. The mouth spans y in [goal_bottom, goal_top].
+# Goal-mouth height is (goal_top - goal_bottom) and is POSITIVE — never write
+# (goal_bottom - goal_top); it is negative and silently breaks shot/aim gates.
+# Use abs(goal_top - goal_bottom) for the size and (goal_top + goal_bottom)/2 for the center y.
 team_a always attacks toward x=field.width; team_b always attacks toward x=0.
 Never hardcode 100×60 or any specific coordinate.
 
