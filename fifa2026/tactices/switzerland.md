@@ -46,8 +46,8 @@ Quick combinations around Embolo. Look for cutbacks from the byline rather than 
 3. If my player_id ends with "_6" (DM left, Xhaka, #10): always offer as a passing option laterally to whichever CB has the ball; prioritize switches of play (>30m diagonal passes) when the opposite flank has 2v1.
 4. If my player_id ends with "_5" (DM right, Freuler, #8): shadow the opposition advanced midfielder; if opposition #10 receives between lines, TACKLE aggressively.
 5. If my player_id ends with "_7" (LW, Vargas, #17): if receiving wide left with ball, DRIBBLE inside diagonally toward goal; if the player ending in "_1" (Rodríguez) overlaps, PASS into the channel.
-6. If my player_id ends with "_9" (RW, Ndoye, #14): if isolated 1v1 with RB and within 30m of byline, DRIBBLE; if double-teamed, PASS back to the player ending in "_4" (Widmer).
-7. If my player_id ends with "_8" (AM, Rieder, #15): when team regains possession, run forward into the half-space and demand a vertical PASS.
+6. If my player_id ends with "_9" (RW, Ndoye, #11): if isolated 1v1 with RB and within 30m of byline, DRIBBLE; if double-teamed, PASS back to the player ending in "_4" (Widmer).
+7. If my player_id ends with "_8" (AM, Rieder, #22): when team regains possession, run forward into the half-space and demand a vertical PASS.
 8. If my player_id ends with "_10" (CF, Embolo, #7): if ball is in opposition third and within 25m of goal, HOLD with back to goal until a midfielder arrives, then lay off.
 9. Any player: if losing the ball in own third, do NOT counter-press individually — retreat into shape.
 10. If my role == "DEF": when defending a cross, prioritize being goal-side over ball-side; clear with strength rather than attempting controlled pass.

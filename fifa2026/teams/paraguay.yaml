@@ -1,18 +1,18 @@
-# Formation: 4-4-2
+# Formation: 4-2-3-1
 team_id: paraguay
 name: Paraguay
 players:
-  - name: Gatito Fernández
-    number: 1
+  - name: Orlando Gill
+    number: 12
     role: GK
-    speed: 10
+    speed: 11
     skill: 12
-    strength: 14
-    save: 15
-    discipline: 14
-    dribbling: 4
+    strength: 13
+    save: 14
+    discipline: 13
+    dribbling: 5
     stamina: 12
-    pass: 11
+    pass: 12
     shoot: 3
   - name: Junior Alonso
     number: 6
@@ -88,7 +88,7 @@ players:
     shoot: 11
   - name: Miguel Almirón
     number: 10
-    role: MID
+    role: FWD
     speed: 16
     skill: 15
     strength: 12
@@ -98,30 +98,6 @@ players:
     stamina: 17
     pass: 14
     shoot: 14
-  - name: Diego Gómez
-    number: 8
-    role: MID
-    speed: 14
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 16
-    pass: 14
-    shoot: 13
-  - name: Antonio Sanabria
-    number: 9
-    role: FWD
-    speed: 13
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 12
-    dribbling: 13
-    stamina: 14
-    pass: 12
-    shoot: 15
   - name: Julio Enciso
     number: 19
     role: FWD
@@ -134,3 +110,27 @@ players:
     stamina: 14
     pass: 13
     shoot: 15
+  - name: Antonio Sanabria
+    number: 9
+    role: FWD
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 12
+    shoot: 15
+  - name: Diego Gómez
+    number: 8
+    role: FWD
+    speed: 14
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 16
+    pass: 14
+    shoot: 13

@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 3-4-3
 team_id: jordan
 name: Jordan
 players:
@@ -14,18 +14,6 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
-  - name: Mohammad Abu Al-Nadi
-    number: 16
-    role: DEF
-    speed: 13
-    skill: 12
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 11
-    stamina: 14
-    pass: 12
-    shoot: 8
   - name: Yazan Al-Arab
     number: 5
     role: DEF
@@ -50,9 +38,21 @@ players:
     stamina: 14
     pass: 12
     shoot: 7
+  - name: Husam Abu Dahab
+    number: 4
+    role: DEF
+    speed: 12
+    skill: 12
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 9
+    stamina: 14
+    pass: 12
+    shoot: 7
   - name: Mahmoud Al-Mardi
     number: 13
-    role: DEF
+    role: MID
     speed: 14
     skill: 12
     strength: 13
@@ -74,18 +74,6 @@ players:
     stamina: 15
     pass: 13
     shoot: 10
-  - name: Amer Jamous
-    number: 6
-    role: MID
-    speed: 13
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 15
-    pass: 13
-    shoot: 9
   - name: Nizar Al-Rashdan
     number: 21
     role: MID
@@ -98,30 +86,18 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
-  - name: Musa Al-Tamari
-    number: 10
-    role: FWD
-    speed: 17
-    skill: 15
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 16
-    stamina: 16
-    pass: 14
-    shoot: 15
-  - name: Ali Olwan
-    number: 9
-    role: FWD
-    speed: 14
+  - name: Ehsan Haddad
+    number: 23
+    role: MID
+    speed: 13
     skill: 13
-    strength: 14
+    strength: 13
     save: 0
-    discipline: 13
-    dribbling: 13
+    discipline: 14
+    dribbling: 11
     stamina: 15
-    pass: 12
-    shoot: 15
+    pass: 13
+    shoot: 8
   - name: Mohammad Abu Zrayq
     number: 7
     role: FWD
@@ -134,3 +110,27 @@ players:
     stamina: 15
     pass: 12
     shoot: 13
+  - name: Ali Olwan
+    number: 9
+    role: FWD
+    speed: 14
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 12
+    shoot: 15
+  - name: Musa Al-Tamari
+    number: 10
+    role: FWD
+    speed: 17
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 16
+    pass: 14
+    shoot: 15

@@ -62,18 +62,18 @@ players:
     stamina: 18
     pass: 14
     shoot: 12
-  - name: Dani Olmo
-    number: 10
+  - name: Fabián Ruiz
+    number: 8
     role: MID
-    speed: 15
+    speed: 13
     skill: 17
-    strength: 13
+    strength: 14
     save: 0
-    discipline: 14
+    discipline: 15
     dribbling: 16
     stamina: 16
     pass: 17
-    shoot: 16
+    shoot: 14
   - name: Rodri
     number: 16
     role: MID

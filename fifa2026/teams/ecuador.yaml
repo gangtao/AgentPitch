@@ -1,4 +1,4 @@
-# Formation: 4-4-2
+# Formation: 4-3-3
 team_id: ecuador
 name: Ecuador
 players:
@@ -26,18 +26,6 @@ players:
     stamina: 16
     pass: 14
     shoot: 9
-  - name: Willian Pacho
-    number: 5
-    role: DEF
-    speed: 14
-    skill: 14
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 15
-    pass: 13
-    shoot: 6
   - name: Piero Hincapié
     number: 3
     role: DEF
@@ -50,6 +38,18 @@ players:
     stamina: 15
     pass: 14
     shoot: 7
+  - name: Willian Pacho
+    number: 6
+    role: DEF
+    speed: 14
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 13
+    shoot: 6
   - name: Ángelo Preciado
     number: 17
     role: DEF
@@ -62,18 +62,6 @@ players:
     stamina: 15
     pass: 12
     shoot: 8
-  - name: Kendry Páez
-    number: 20
-    role: MID
-    speed: 14
-    skill: 15
-    strength: 11
-    save: 0
-    discipline: 13
-    dribbling: 16
-    stamina: 14
-    pass: 15
-    shoot: 13
   - name: Moisés Caicedo
     number: 23
     role: MID
@@ -87,7 +75,7 @@ players:
     pass: 15
     shoot: 12
   - name: Alan Franco
-    number: 13
+    number: 21
     role: MID
     speed: 13
     skill: 13
@@ -98,9 +86,21 @@ players:
     stamina: 16
     pass: 13
     shoot: 10
-  - name: Gonzalo Plata
-    number: 19
+  - name: Kendry Páez
+    number: 10
     role: MID
+    speed: 14
+    skill: 15
+    strength: 11
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 14
+    pass: 15
+    shoot: 13
+  - name: Nilson Angulo
+    number: 20
+    role: FWD
     speed: 16
     skill: 14
     strength: 12
@@ -110,18 +110,6 @@ players:
     stamina: 15
     pass: 13
     shoot: 13
-  - name: Kevin Rodríguez
-    number: 9
-    role: FWD
-    speed: 14
-    skill: 13
-    strength: 15
-    save: 0
-    discipline: 13
-    dribbling: 12
-    stamina: 15
-    pass: 12
-    shoot: 14
   - name: Enner Valencia
     number: 13
     role: FWD
@@ -134,3 +122,15 @@ players:
     stamina: 14
     pass: 12
     shoot: 15
+  - name: Gonzalo Plata
+    number: 19
+    role: FWD
+    speed: 16
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 15
+    stamina: 15
+    pass: 13
+    shoot: 13

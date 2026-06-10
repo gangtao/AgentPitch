@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 5-4-1
 team_id: australia
 name: Australia
 players:
@@ -14,7 +14,7 @@ players:
     stamina: 13
     pass: 13
     shoot: 4
-  - name: Jordy Bos
+  - name: Jordan Bos
     number: 5
     role: DEF
     speed: 15
@@ -26,6 +26,18 @@ players:
     stamina: 16
     pass: 14
     shoot: 10
+  - name: Cameron Burgess
+    number: 21
+    role: DEF
+    speed: 11
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 9
+    stamina: 14
+    pass: 13
+    shoot: 8
   - name: Harry Souttar
     number: 19
     role: DEF
@@ -62,17 +74,17 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
-  - name: Aiden O'Neill
-    number: 13
+  - name: Connor Metcalfe
+    number: 8
     role: MID
-    speed: 13
-    skill: 14
+    speed: 14
+    skill: 13
     strength: 13
     save: 0
     discipline: 14
     dribbling: 12
     stamina: 16
-    pass: 15
+    pass: 14
     shoot: 11
   - name: Jackson Irvine
     number: 22
@@ -86,42 +98,30 @@ players:
     stamina: 17
     pass: 14
     shoot: 13
-  - name: Nishan Velupillay
-    number: 23
+  - name: Aiden O'Neill
+    number: 13
     role: MID
-    speed: 15
+    speed: 13
     skill: 14
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 15
-    pass: 13
-    shoot: 13
-  - name: Connor Metcalfe
-    number: 8
-    role: MID
-    speed: 14
-    skill: 13
     strength: 13
     save: 0
     discipline: 14
     dribbling: 12
     stamina: 16
-    pass: 14
+    pass: 15
     shoot: 11
-  - name: Mathew Leckie
-    number: 7
+  - name: Nestory Irankunda
+    number: 17
     role: MID
-    speed: 15
+    speed: 17
     skill: 14
-    strength: 13
+    strength: 11
     save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 15
+    discipline: 12
+    dribbling: 16
+    stamina: 14
     pass: 13
-    shoot: 13
+    shoot: 14
   - name: Mohamed Toure
     number: 9
     role: FWD

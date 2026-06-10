@@ -3,7 +3,7 @@ team_id: colombia
 name: Colombia
 players:
   - name: Camilo Vargas
-    number: 1
+    number: 12
     role: GK
     speed: 11
     skill: 14
@@ -15,7 +15,7 @@ players:
     pass: 12
     shoot: 4
   - name: Johan Mojica
-    number: 12
+    number: 17
     role: DEF
     speed: 16
     skill: 14
@@ -51,7 +51,7 @@ players:
     pass: 13
     shoot: 7
   - name: Daniel Muñoz
-    number: 4
+    number: 2
     role: DEF
     speed: 15
     skill: 14
@@ -63,7 +63,7 @@ players:
     pass: 13
     shoot: 9
   - name: Richard Ríos
-    number: 16
+    number: 6
     role: MID
     speed: 14
     skill: 15
@@ -75,7 +75,7 @@ players:
     pass: 15
     shoot: 12
   - name: Jefferson Lerma
-    number: 6
+    number: 16
     role: MID
     speed: 13
     skill: 14
@@ -123,7 +123,7 @@ players:
     pass: 15
     shoot: 14
   - name: Luis Suárez
-    number: 9
+    number: 25
     role: FWD
     speed: 15
     skill: 15

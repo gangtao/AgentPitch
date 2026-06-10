@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 4-4-1-1
 team_id: dr_congo
 name: DR Congo
 players:
@@ -15,7 +15,7 @@ players:
     pass: 12
     shoot: 3
   - name: Arthur Masuaku
-    number: 3
+    number: 26
     role: DEF
     speed: 13
     skill: 13
@@ -26,20 +26,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 9
-  - name: Chancel Mbemba
-    number: 4
-    role: DEF
-    speed: 12
-    skill: 15
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 14
-    pass: 14
-    shoot: 8
   - name: Axel Tuanzebe
-    number: 5
+    number: 4
     role: DEF
     speed: 13
     skill: 14
@@ -50,6 +38,18 @@ players:
     stamina: 14
     pass: 13
     shoot: 7
+  - name: Chancel Mbemba
+    number: 22
+    role: DEF
+    speed: 12
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 14
+    pass: 14
+    shoot: 8
   - name: Aaron Wan-Bissaka
     number: 2
     role: DEF
@@ -62,44 +62,32 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
-  - name: Noah Sadiki
-    number: 6
+  - name: Meschak Elia
+    number: 13
     role: MID
-    speed: 13
-    skill: 14
-    strength: 13
+    speed: 16
+    skill: 13
+    strength: 12
     save: 0
-    discipline: 13
-    dribbling: 13
+    discipline: 11
+    dribbling: 15
     stamina: 15
-    pass: 14
-    shoot: 11
-  - name: Ngal'ayel Mukau
+    pass: 12
+    shoot: 12
+  - name: Samuel Moutoussamy
     number: 8
     role: MID
-    speed: 13
-    skill: 14
+    speed: 12
+    skill: 13
     strength: 14
     save: 0
     discipline: 13
-    dribbling: 13
+    dribbling: 12
     stamina: 15
-    pass: 14
-    shoot: 11
-  - name: Théo Bongonda
-    number: 7
-    role: MID
-    speed: 14
-    skill: 14
-    strength: 12
-    save: 0
-    discipline: 12
-    dribbling: 14
-    stamina: 14
     pass: 13
-    shoot: 13
-  - name: Cédric Bakambu
-    number: 11
+    shoot: 9
+  - name: Noah Sadiki
+    number: 14
     role: MID
     speed: 13
     skill: 14
@@ -107,12 +95,24 @@ players:
     save: 0
     discipline: 13
     dribbling: 13
-    stamina: 14
-    pass: 13
-    shoot: 15
-  - name: Yoane Wissa
-    number: 10
+    stamina: 15
+    pass: 14
+    shoot: 11
+  - name: Nathanaël Mbuku
+    number: 7
     role: MID
+    speed: 16
+    skill: 13
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 15
+    stamina: 14
+    pass: 12
+    shoot: 12
+  - name: Yoane Wissa
+    number: 20
+    role: FWD
     speed: 16
     skill: 15
     strength: 13
@@ -122,15 +122,15 @@ players:
     stamina: 15
     pass: 13
     shoot: 16
-  - name: Fiston Mayele
-    number: 9
+  - name: Cédric Bakambu
+    number: 17
     role: FWD
-    speed: 15
+    speed: 13
     skill: 14
-    strength: 14
+    strength: 13
     save: 0
     discipline: 13
     dribbling: 13
-    stamina: 15
+    stamina: 14
     pass: 13
-    shoot: 16
+    shoot: 15

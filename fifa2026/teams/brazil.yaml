@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 4-3-3
 team_id: brazil
 name: Brazil
 players:
@@ -26,18 +26,6 @@ players:
     stamina: 14
     pass: 15
     shoot: 9
-  - name: Marquinhos
-    number: 4
-    role: DEF
-    speed: 14
-    skill: 17
-    strength: 17
-    save: 0
-    discipline: 15
-    dribbling: 11
-    stamina: 16
-    pass: 16
-    shoot: 8
   - name: Gabriel Magalhães
     number: 3
     role: DEF
@@ -50,30 +38,42 @@ players:
     stamina: 16
     pass: 15
     shoot: 8
-  - name: Wesley França
-    number: 2
+  - name: Marquinhos
+    number: 4
     role: DEF
-    speed: 17
-    skill: 15
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 17
-    pass: 14
-    shoot: 9
-  - name: Bruno Guimarães
-    number: 8
-    role: MID
     speed: 14
     skill: 17
+    strength: 17
+    save: 0
+    discipline: 15
+    dribbling: 11
+    stamina: 16
+    pass: 16
+    shoot: 8
+  - name: Danilo
+    number: 13
+    role: DEF
+    speed: 13
+    skill: 15
     strength: 15
     save: 0
-    discipline: 14
-    dribbling: 15
-    stamina: 18
-    pass: 18
-    shoot: 13
+    discipline: 16
+    dribbling: 12
+    stamina: 14
+    pass: 15
+    shoot: 8
+  - name: Lucas Paquetá
+    number: 20
+    role: MID
+    speed: 14
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 12
+    dribbling: 16
+    stamina: 15
+    pass: 16
+    shoot: 14
   - name: Casemiro
     number: 5
     role: MID
@@ -86,33 +86,21 @@ players:
     stamina: 16
     pass: 16
     shoot: 12
-  - name: Raphinha
-    number: 11
+  - name: Bruno Guimarães
+    number: 8
     role: MID
-    speed: 17
+    speed: 14
     skill: 17
-    strength: 12
+    strength: 15
     save: 0
     discipline: 14
-    dribbling: 17
-    stamina: 16
-    pass: 16
-    shoot: 16
-  - name: Endrick
-    number: 19
-    role: MID
-    speed: 16
-    skill: 16
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 16
-    stamina: 15
-    pass: 14
-    shoot: 16
+    dribbling: 15
+    stamina: 18
+    pass: 18
+    shoot: 13
   - name: Vinícius Júnior
     number: 7
-    role: MID
+    role: FWD
     speed: 19
     skill: 18
     strength: 12
@@ -133,4 +121,16 @@ players:
     dribbling: 16
     stamina: 16
     pass: 15
+    shoot: 16
+  - name: Raphinha
+    number: 11
+    role: FWD
+    speed: 17
+    skill: 17
+    strength: 12
+    save: 0
+    discipline: 14
+    dribbling: 17
+    stamina: 16
+    pass: 16
     shoot: 16

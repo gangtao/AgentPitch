@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: croatia
 name: Croatia
 players:
@@ -15,7 +15,7 @@ players:
     pass: 13
     shoot: 4
   - name: Joško Gvardiol
-    number: 20
+    number: 4
     role: DEF
     speed: 16
     skill: 16
@@ -26,30 +26,30 @@ players:
     stamina: 16
     pass: 16
     shoot: 9
-  - name: Josip Šutalo
-    number: 6
-    role: DEF
-    speed: 14
-    skill: 14
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 15
-    pass: 14
-    shoot: 7
-  - name: Marin Pongračić
+  - name: Duje Ćaleta-Car
     number: 5
     role: DEF
-    speed: 13
+    speed: 12
     skill: 14
     strength: 17
     save: 0
     discipline: 13
-    dribbling: 11
+    dribbling: 10
     stamina: 14
     pass: 14
-    shoot: 8
+    shoot: 7
+  - name: Luka Vušković
+    number: 22
+    role: DEF
+    speed: 14
+    skill: 15
+    strength: 17
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 15
+    pass: 14
+    shoot: 9
   - name: Josip Stanišić
     number: 2
     role: DEF
@@ -86,21 +86,9 @@ players:
     stamina: 15
     pass: 19
     shoot: 15
-  - name: Petar Sučić
-    number: 15
-    role: MID
-    speed: 14
-    skill: 15
-    strength: 15
-    save: 0
-    discipline: 15
-    dribbling: 14
-    stamina: 17
-    pass: 15
-    shoot: 12
   - name: Ivan Perišić
-    number: 4
-    role: FWD
+    number: 14
+    role: MID
     speed: 14
     skill: 16
     strength: 15
@@ -112,7 +100,7 @@ players:
     shoot: 16
   - name: Andrej Kramarić
     number: 9
-    role: FWD
+    role: MID
     speed: 13
     skill: 16
     strength: 14
@@ -122,15 +110,27 @@ players:
     stamina: 14
     pass: 15
     shoot: 16
-  - name: Petar Musa
-    number: 11
-    role: FWD
-    speed: 14
+  - name: Marco Pašalić
+    number: 24
+    role: MID
+    speed: 15
     skill: 14
-    strength: 17
+    strength: 12
     save: 0
-    discipline: 14
-    dribbling: 13
+    discipline: 13
+    dribbling: 15
     stamina: 15
     pass: 13
+    shoot: 13
+  - name: Ante Budimir
+    number: 11
+    role: FWD
+    speed: 13
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 14
+    pass: 12
     shoot: 16

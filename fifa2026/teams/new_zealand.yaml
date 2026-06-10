@@ -1,4 +1,4 @@
-# Formation: 4-4-2
+# Formation: 4-2-3-1
 team_id: new_zealand
 name: New Zealand
 players:
@@ -74,6 +74,18 @@ players:
     stamina: 14
     pass: 13
     shoot: 10
+  - name: Sarpreet Singh
+    number: 10
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 13
+    pass: 15
+    shoot: 12
   - name: Joe Bell
     number: 6
     role: MID
@@ -86,30 +98,18 @@ players:
     stamina: 14
     pass: 13
     shoot: 9
-  - name: Matthew Garbett
-    number: 7
-    role: MID
-    speed: 13
+  - name: Ben Old
+    number: 19
+    role: FWD
+    speed: 15
     skill: 13
     strength: 11
     save: 0
     discipline: 12
-    dribbling: 13
-    stamina: 14
-    pass: 13
-    shoot: 11
-  - name: Elijah Just
-    number: 11
-    role: MID
-    speed: 14
-    skill: 12
-    strength: 11
-    save: 0
-    discipline: 12
-    dribbling: 13
+    dribbling: 14
     stamina: 14
     pass: 12
-    shoot: 11
+    shoot: 12
   - name: Chris Wood
     number: 9
     role: FWD
@@ -122,15 +122,15 @@ players:
     stamina: 14
     pass: 12
     shoot: 15
-  - name: Kosta Barbarouses
-    number: 17
+  - name: Elijah Just
+    number: 11
     role: FWD
-    speed: 13
-    skill: 13
-    strength: 12
+    speed: 14
+    skill: 12
+    strength: 11
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 13
-    stamina: 13
+    stamina: 14
     pass: 12
-    shoot: 13
+    shoot: 11

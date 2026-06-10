@@ -26,18 +26,6 @@ players:
     stamina: 18
     pass: 15
     shoot: 12
-  - name: Rúben Dias
-    number: 3
-    role: DEF
-    speed: 14
-    skill: 17
-    strength: 18
-    save: 0
-    discipline: 17
-    dribbling: 11
-    stamina: 16
-    pass: 17
-    shoot: 8
   - name: Gonçalo Inácio
     number: 14
     role: DEF
@@ -50,18 +38,30 @@ players:
     stamina: 16
     pass: 16
     shoot: 8
-  - name: Nélson Semedo
-    number: 2
+  - name: Rúben Dias
+    number: 3
+    role: DEF
+    speed: 14
+    skill: 17
+    strength: 18
+    save: 0
+    discipline: 17
+    dribbling: 11
+    stamina: 16
+    pass: 17
+    shoot: 8
+  - name: João Cancelo
+    number: 20
     role: DEF
     speed: 16
-    skill: 15
-    strength: 14
+    skill: 17
+    strength: 13
     save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 17
-    pass: 14
-    shoot: 10
+    discipline: 12
+    dribbling: 17
+    stamina: 16
+    pass: 17
+    shoot: 13
   - name: Vitinha
     number: 23
     role: MID
@@ -98,30 +98,6 @@ players:
     stamina: 18
     pass: 18
     shoot: 16
-  - name: Bernardo Silva
-    number: 10
-    role: FWD
-    speed: 15
-    skill: 18
-    strength: 12
-    save: 0
-    discipline: 16
-    dribbling: 18
-    stamina: 17
-    pass: 18
-    shoot: 15
-  - name: Cristiano Ronaldo
-    number: 7
-    role: FWD
-    speed: 13
-    skill: 17
-    strength: 16
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 14
-    pass: 14
-    shoot: 18
   - name: Rafael Leão
     number: 17
     role: FWD
@@ -134,3 +110,27 @@ players:
     stamina: 16
     pass: 15
     shoot: 16
+  - name: Cristiano Ronaldo
+    number: 7
+    role: FWD
+    speed: 13
+    skill: 17
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 14
+    pass: 14
+    shoot: 18
+  - name: Bernardo Silva
+    number: 10
+    role: FWD
+    speed: 15
+    skill: 18
+    strength: 12
+    save: 0
+    discipline: 16
+    dribbling: 18
+    stamina: 17
+    pass: 18
+    shoot: 15

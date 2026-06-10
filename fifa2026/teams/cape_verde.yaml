@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: cape_verde
 name: Cape Verde
 players:
@@ -14,32 +14,20 @@ players:
     stamina: 12
     pass: 11
     shoot: 3
-  - name: Stopira
-    number: 11
-    role: DEF
-    speed: 11
-    skill: 12
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 9
-    stamina: 13
-    pass: 12
-    shoot: 6
-  - name: Logan Costa
+  - name: João Paulo
     number: 8
     role: DEF
     speed: 13
-    skill: 14
-    strength: 15
+    skill: 12
+    strength: 12
     save: 0
-    discipline: 14
-    dribbling: 10
+    discipline: 13
+    dribbling: 11
     stamina: 14
-    pass: 13
-    shoot: 7
+    pass: 12
+    shoot: 6
   - name: Roberto Lopes
-    number: 9
+    number: 4
     role: DEF
     speed: 11
     skill: 13
@@ -50,8 +38,20 @@ players:
     stamina: 13
     pass: 12
     shoot: 6
+  - name: Logan Costa
+    number: 5
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 7
   - name: Steven Moreira
-    number: 4
+    number: 22
     role: DEF
     speed: 13
     skill: 13
@@ -62,32 +62,44 @@ players:
     stamina: 14
     pass: 12
     shoot: 8
-  - name: Laros Duarte
-    number: 15
+  - name: Kevin Pina
+    number: 6
     role: MID
     speed: 12
     skill: 13
-    strength: 12
+    strength: 13
     save: 0
-    discipline: 13
-    dribbling: 12
-    stamina: 14
+    discipline: 14
+    dribbling: 11
+    stamina: 15
     pass: 13
-    shoot: 10
-  - name: Deroy Duarte
+    shoot: 8
+  - name: Yannick Semedo
     number: 16
     role: MID
     speed: 12
-    skill: 14
-    strength: 13
+    skill: 12
+    strength: 12
     save: 0
     discipline: 13
+    dribbling: 11
+    stamina: 14
+    pass: 12
+    shoot: 8
+  - name: Willy Semedo
+    number: 17
+    role: MID
+    speed: 13
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 12
     dribbling: 13
-    stamina: 15
-    pass: 14
-    shoot: 11
+    stamina: 14
+    pass: 12
+    shoot: 12
   - name: Jamiro Monteiro
-    number: 12
+    number: 10
     role: MID
     speed: 13
     skill: 14
@@ -99,8 +111,8 @@ players:
     pass: 14
     shoot: 12
   - name: Ryan Mendes
-    number: 18
-    role: FWD
+    number: 20
+    role: MID
     speed: 13
     skill: 14
     strength: 11
@@ -111,7 +123,7 @@ players:
     pass: 13
     shoot: 12
   - name: Dailon Livramento
-    number: 23
+    number: 19
     role: FWD
     speed: 14
     skill: 13
@@ -122,15 +134,3 @@ players:
     stamina: 14
     pass: 12
     shoot: 14
-  - name: Garry Rodrigues
-    number: 20
-    role: FWD
-    speed: 13
-    skill: 14
-    strength: 11
-    save: 0
-    discipline: 12
-    dribbling: 14
-    stamina: 13
-    pass: 13
-    shoot: 13

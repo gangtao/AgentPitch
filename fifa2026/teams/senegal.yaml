@@ -15,7 +15,7 @@ players:
     pass: 14
     shoot: 4
   - name: El Hadji Malick Diouf
-    number: 12
+    number: 25
     role: DEF
     speed: 16
     skill: 14
@@ -26,6 +26,18 @@ players:
     stamina: 17
     pass: 14
     shoot: 10
+  - name: Moussa Niakhaté
+    number: 19
+    role: DEF
+    speed: 13
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 11
+    stamina: 16
+    pass: 14
+    shoot: 8
   - name: Kalidou Koulibaly
     number: 3
     role: DEF
@@ -37,18 +49,6 @@ players:
     dribbling: 11
     stamina: 15
     pass: 15
-    shoot: 8
-  - name: Moussa Niakhaté
-    number: 22
-    role: DEF
-    speed: 13
-    skill: 15
-    strength: 16
-    save: 0
-    discipline: 15
-    dribbling: 11
-    stamina: 16
-    pass: 14
     shoot: 8
   - name: Krépin Diatta
     number: 15
@@ -62,6 +62,18 @@ players:
     stamina: 17
     pass: 14
     shoot: 12
+  - name: Pape Gueye
+    number: 26
+    role: MID
+    speed: 14
+    skill: 15
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 16
+    pass: 15
+    shoot: 11
   - name: Idrissa Gueye
     number: 5
     role: MID
@@ -74,20 +86,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 12
-  - name: Pape Gueye
-    number: 21
-    role: MID
-    speed: 14
-    skill: 15
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 16
-    pass: 15
-    shoot: 11
   - name: Habib Diarra
-    number: 8
+    number: 21
     role: MID
     speed: 14
     skill: 15
@@ -111,7 +111,7 @@ players:
     pass: 16
     shoot: 16
   - name: Nicolas Jackson
-    number: 9
+    number: 11
     role: FWD
     speed: 17
     skill: 15
@@ -123,7 +123,7 @@ players:
     pass: 13
     shoot: 16
   - name: Iliman Ndiaye
-    number: 18
+    number: 13
     role: FWD
     speed: 17
     skill: 16

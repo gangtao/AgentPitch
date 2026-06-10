@@ -86,21 +86,21 @@ players:
     stamina: 17
     pass: 16
     shoot: 12
-  - name: Ritsu Doan
-    number: 10
+  - name: Junya Itō
+    number: 14
     role: MID
-    speed: 15
-    skill: 16
-    strength: 13
+    speed: 17
+    skill: 15
+    strength: 12
     save: 0
     discipline: 14
     dribbling: 16
     stamina: 16
     pass: 15
-    shoot: 15
+    shoot: 14
   - name: Takefusa Kubo
     number: 8
-    role: MID
+    role: FWD
     speed: 15
     skill: 17
     strength: 12
@@ -110,20 +110,8 @@ players:
     stamina: 15
     pass: 16
     shoot: 15
-  - name: Daichi Kamada
-    number: 15
-    role: MID
-    speed: 14
-    skill: 16
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 15
-    stamina: 16
-    pass: 16
-    shoot: 15
   - name: Ayase Ueda
-    number: 19
+    number: 18
     role: FWD
     speed: 14
     skill: 14
@@ -134,3 +122,15 @@ players:
     stamina: 15
     pass: 13
     shoot: 16
+  - name: Ritsu Doan
+    number: 10
+    role: FWD
+    speed: 15
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 16
+    pass: 15
+    shoot: 15

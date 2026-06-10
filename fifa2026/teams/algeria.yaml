@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: algeria
 name: Algeria
 players:
@@ -62,30 +62,6 @@ players:
     stamina: 16
     pass: 13
     shoot: 10
-  - name: Nabil Bentaleb
-    number: 19
-    role: MID
-    speed: 13
-    skill: 15
-    strength: 14
-    save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 16
-    pass: 15
-    shoot: 12
-  - name: Farès Chaïbi
-    number: 10
-    role: MID
-    speed: 14
-    skill: 16
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 16
-    stamina: 16
-    pass: 15
-    shoot: 13
   - name: Hicham Boudaoui
     number: 14
     role: MID
@@ -98,18 +74,18 @@ players:
     stamina: 17
     pass: 14
     shoot: 12
-  - name: Mohamed Amoura
-    number: 18
-    role: FWD
-    speed: 17
+  - name: Houssem Aouar
+    number: 8
+    role: MID
+    speed: 13
     skill: 16
     strength: 13
     save: 0
     discipline: 13
     dribbling: 16
-    stamina: 16
-    pass: 14
-    shoot: 17
+    stamina: 15
+    pass: 16
+    shoot: 13
   - name: Amine Gouiri
     number: 9
     role: FWD
@@ -122,6 +98,30 @@ players:
     stamina: 15
     pass: 14
     shoot: 16
+  - name: Ibrahim Maza
+    number: 22
+    role: FWD
+    speed: 15
+    skill: 16
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 15
+    pass: 15
+    shoot: 13
+  - name: Mohamed Amoura
+    number: 18
+    role: FWD
+    speed: 17
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 16
+    pass: 14
+    shoot: 17
   - name: Riyad Mahrez
     number: 7
     role: FWD

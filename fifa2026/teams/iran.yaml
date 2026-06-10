@@ -14,18 +14,6 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
-  - name: Ehsan Hajsafi
-    number: 3
-    role: DEF
-    speed: 13
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 12
-    stamina: 15
-    pass: 14
-    shoot: 10
   - name: Milad Mohammadi
     number: 5
     role: DEF
@@ -50,8 +38,20 @@ players:
     stamina: 14
     pass: 13
     shoot: 7
+  - name: Ali Nemati
+    number: 19
+    role: DEF
+    speed: 12
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 7
   - name: Ramin Rezaeian
-    number: 2
+    number: 23
     role: DEF
     speed: 14
     skill: 13
@@ -74,32 +74,20 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
-  - name: Saman Ghoddos
-    number: 8
+  - name: Rouzbeh Cheshmi
+    number: 15
     role: MID
-    speed: 13
-    skill: 15
-    strength: 13
+    speed: 12
+    skill: 14
+    strength: 16
     save: 0
     discipline: 14
-    dribbling: 14
-    stamina: 16
-    pass: 15
-    shoot: 13
-  - name: Mohammad Mohebi
-    number: 20
-    role: MID
-    speed: 15
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 15
+    dribbling: 11
     stamina: 15
-    pass: 13
-    shoot: 14
+    pass: 14
+    shoot: 13
   - name: Mehdi Ghaedi
-    number: 17
+    number: 10
     role: MID
     speed: 15
     skill: 14
@@ -109,6 +97,18 @@ players:
     dribbling: 15
     stamina: 15
     pass: 14
+    shoot: 13
+  - name: Saman Ghoddos
+    number: 14
+    role: MID
+    speed: 13
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 15
     shoot: 13
   - name: Alireza Jahanbakhsh
     number: 7

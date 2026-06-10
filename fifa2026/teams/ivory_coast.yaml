@@ -26,20 +26,20 @@ players:
     stamina: 16
     pass: 14
     shoot: 10
-  - name: Evan Ndicka
-    number: 4
+  - name: Emmanuel Agbadou
+    number: 20
     role: DEF
-    speed: 14
-    skill: 15
+    speed: 13
+    skill: 14
     strength: 17
     save: 0
-    discipline: 15
-    dribbling: 11
-    stamina: 16
-    pass: 15
-    shoot: 8
+    discipline: 14
+    dribbling: 10
+    stamina: 15
+    pass: 14
+    shoot: 6
   - name: Odilon Kossounou
-    number: 5
+    number: 7
     role: DEF
     speed: 14
     skill: 15
@@ -50,20 +50,20 @@ players:
     stamina: 16
     pass: 14
     shoot: 7
-  - name: Wilfried Singo
+  - name: Guéla Doué
     number: 17
     role: DEF
-    speed: 17
-    skill: 15
-    strength: 17
+    speed: 16
+    skill: 14
+    strength: 14
     save: 0
     discipline: 13
     dribbling: 14
-    stamina: 17
+    stamina: 16
     pass: 14
-    shoot: 11
+    shoot: 8
   - name: Seko Fofana
-    number: 8
+    number: 6
     role: MID
     speed: 14
     skill: 15
@@ -74,20 +74,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 14
-  - name: Franck Kessié
-    number: 19
-    role: MID
-    speed: 13
-    skill: 16
-    strength: 17
-    save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 17
-    pass: 16
-    shoot: 14
   - name: Ibrahim Sangaré
-    number: 6
+    number: 18
     role: MID
     speed: 13
     skill: 15
@@ -98,8 +86,44 @@ players:
     stamina: 17
     pass: 15
     shoot: 12
+  - name: Franck Kessié
+    number: 8
+    role: MID
+    speed: 13
+    skill: 16
+    strength: 17
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 17
+    pass: 16
+    shoot: 14
+  - name: Yan Diomande
+    number: 11
+    role: FWD
+    speed: 17
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 17
+    stamina: 15
+    pass: 13
+    shoot: 14
+  - name: Evann Guessand
+    number: 22
+    role: FWD
+    speed: 15
+    skill: 15
+    strength: 15
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 15
+    pass: 14
+    shoot: 15
   - name: Amad Diallo
-    number: 20
+    number: 15
     role: FWD
     speed: 16
     skill: 17
@@ -110,27 +134,3 @@ players:
     stamina: 16
     pass: 16
     shoot: 15
-  - name: Ange-Yoan Bonny
-    number: 24
-    role: FWD
-    speed: 14
-    skill: 15
-    strength: 16
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 15
-    pass: 14
-    shoot: 15
-  - name: Simon Adingra
-    number: 7
-    role: FWD
-    speed: 17
-    skill: 16
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 16
-    stamina: 16
-    pass: 15
-    shoot: 14

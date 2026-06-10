@@ -1,9 +1,9 @@
-# Formation: 4-2-3-1
+# Formation: 4-4-2
 team_id: iraq
 name: Iraq
 players:
   - name: Jalal Hassan
-    number: 1
+    number: 12
     role: GK
     speed: 11
     skill: 12
@@ -14,20 +14,20 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
-  - name: Hussein Ali
-    number: 3
+  - name: Merchas Doski
+    number: 23
     role: DEF
-    speed: 13
+    speed: 14
     skill: 12
     strength: 13
     save: 0
     discipline: 13
-    dribbling: 11
-    stamina: 14
+    dribbling: 12
+    stamina: 15
     pass: 12
     shoot: 8
   - name: Rebin Sulaka
-    number: 5
+    number: 2
     role: DEF
     speed: 12
     skill: 13
@@ -50,20 +50,32 @@ players:
     stamina: 14
     pass: 13
     shoot: 8
-  - name: Merchas Doski
-    number: 2
+  - name: Hussein Ali
+    number: 3
     role: DEF
-    speed: 14
+    speed: 13
     skill: 12
     strength: 13
     save: 0
     discipline: 13
-    dribbling: 12
-    stamina: 15
+    dribbling: 11
+    stamina: 14
     pass: 12
     shoot: 8
+  - name: Ibrahim Bayesh
+    number: 8
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 14
+    pass: 14
+    shoot: 13
   - name: Amir Al-Ammari
-    number: 6
+    number: 16
     role: MID
     speed: 13
     skill: 13
@@ -75,7 +87,7 @@ players:
     pass: 14
     shoot: 11
   - name: Zidane Iqbal
-    number: 8
+    number: 14
     role: MID
     speed: 13
     skill: 15
@@ -86,44 +98,20 @@ players:
     stamina: 15
     pass: 15
     shoot: 12
-  - name: Ali Al-Hamadi
+  - name: Youssef Amyn
     number: 7
     role: MID
     speed: 14
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
-    pass: 13
-    shoot: 13
-  - name: Ibrahim Bayesh
-    number: 10
-    role: MID
-    speed: 13
     skill: 14
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 14
+    dribbling: 15
     stamina: 14
-    pass: 14
-    shoot: 13
-  - name: Mohanad Ali
-    number: 9
-    role: MID
-    speed: 14
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
     pass: 13
-    shoot: 14
+    shoot: 12
   - name: Aymen Hussein
-    number: 11
+    number: 18
     role: FWD
     speed: 13
     skill: 14
@@ -134,3 +122,15 @@ players:
     stamina: 15
     pass: 12
     shoot: 15
+  - name: Ali Al-Hamadi
+    number: 9
+    role: FWD
+    speed: 14
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 13
+    shoot: 13

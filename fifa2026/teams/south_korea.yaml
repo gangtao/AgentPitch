@@ -14,16 +14,16 @@ players:
     stamina: 12
     pass: 13
     shoot: 4
-  - name: Lee Tae-seok
-    number: 13
+  - name: Seol Young-woo
+    number: 22
     role: DEF
-    speed: 15
-    skill: 13
+    speed: 16
+    skill: 14
     strength: 13
     save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 16
+    discipline: 13
+    dribbling: 14
+    stamina: 17
     pass: 13
     shoot: 9
   - name: Kim Min-jae
@@ -50,16 +50,16 @@ players:
     stamina: 14
     pass: 13
     shoot: 8
-  - name: Seol Young-woo
-    number: 22
+  - name: Lee Tae-seok
+    number: 13
     role: DEF
-    speed: 16
-    skill: 14
+    speed: 15
+    skill: 13
     strength: 13
     save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 17
+    discipline: 14
+    dribbling: 13
+    stamina: 16
     pass: 13
     shoot: 9
   - name: Paik Seung-ho
@@ -98,18 +98,6 @@ players:
     stamina: 17
     pass: 16
     shoot: 18
-  - name: Lee Kang-in
-    number: 19
-    role: MID
-    speed: 14
-    skill: 17
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 17
-    stamina: 15
-    pass: 16
-    shoot: 15
   - name: Lee Jae-sung
     number: 10
     role: MID
@@ -122,6 +110,18 @@ players:
     stamina: 17
     pass: 16
     shoot: 13
+  - name: Lee Kang-in
+    number: 19
+    role: MID
+    speed: 14
+    skill: 17
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 17
+    stamina: 15
+    pass: 16
+    shoot: 15
   - name: Oh Hyeon-gyu
     number: 18
     role: FWD

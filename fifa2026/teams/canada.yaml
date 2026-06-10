@@ -1,41 +1,29 @@
-# Formation: 4-3-3
+# Formation: 4-4-2
 team_id: canada
 name: Canada
 players:
-  - name: Dayne St. Clair
-    number: 1
+  - name: Maxime Crépeau
+    number: 16
     role: GK
-    speed: 12
+    speed: 11
     skill: 14
-    strength: 14
+    strength: 13
     save: 15
     discipline: 14
-    dribbling: 7
+    dribbling: 6
     stamina: 13
-    pass: 13
-    shoot: 4
-  - name: Alphonso Davies
-    number: 19
+    pass: 12
+    shoot: 3
+  - name: Richie Laryea
+    number: 22
     role: DEF
-    speed: 19
-    skill: 16
+    speed: 16
+    skill: 13
     strength: 13
     save: 0
-    discipline: 13
-    dribbling: 17
+    discipline: 12
+    dribbling: 14
     stamina: 16
-    pass: 14
-    shoot: 12
-  - name: Moïse Bombito
-    number: 15
-    role: DEF
-    speed: 14
-    skill: 13
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 15
     pass: 12
     shoot: 8
   - name: Derek Cornelius
@@ -50,6 +38,18 @@ players:
     stamina: 14
     pass: 12
     shoot: 7
+  - name: Luc de Fougerolles
+    number: 4
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 6
   - name: Alistair Johnston
     number: 2
     role: DEF
@@ -62,6 +62,18 @@ players:
     stamina: 17
     pass: 14
     shoot: 8
+  - name: Liam Millar
+    number: 11
+    role: MID
+    speed: 15
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 15
+    pass: 13
+    shoot: 11
   - name: Ismaël Koné
     number: 8
     role: MID
@@ -86,21 +98,9 @@ players:
     stamina: 17
     pass: 16
     shoot: 12
-  - name: Ali Ahmed
-    number: 20
-    role: MID
-    speed: 15
-    skill: 14
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 16
-    pass: 13
-    shoot: 11
   - name: Tajon Buchanan
     number: 17
-    role: FWD
+    role: MID
     speed: 16
     skill: 14
     strength: 13
