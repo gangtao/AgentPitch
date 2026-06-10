@@ -50,7 +50,15 @@ class PlayerRecordDict(TypedDict):
 
 
 class FieldDict(TypedDict):
-    """Field dimensions and goal positioning."""
+    """Field dimensions and goal positioning.
+
+    Convention: ``goal_top`` is the larger-y edge of the goal mouth and
+    ``goal_bottom`` the smaller-y edge, so ``goal_top > goal_bottom`` always
+    (e.g. 33.66 and 26.34 on a 60-tall field). The mouth spans
+    ``y in [goal_bottom, goal_top]``; its height is ``goal_top - goal_bottom``
+    (positive) and its center is ``(goal_top + goal_bottom) / 2``. Computing
+    ``goal_bottom - goal_top`` yields a negative value and is always a bug.
+    """
     width: float
     height: float
     team_a_goal_x: float
