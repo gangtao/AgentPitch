@@ -1,4 +1,4 @@
-# Day Two Belongs to the Underdogs: AI Sees Canada Routed at Home and Paraguay Snatching a Draw From the USA
+# David's Hat-Trick Lights Up Toronto: AI Sees Canada Roar Past Bosnia as Paraguay Snatch a Draw From the USA
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's second day through the machine. Here is what it saw.*
 
@@ -6,7 +6,7 @@
 
 ---
 
-The tournament's opening day belongs to Mexico. Its second belongs to the other two hosts — and, if our simulation is to be believed, to a long Friday night of nerves. On **Friday, June 12**, **Canada** open their home World Cup against **Bosnia and Herzegovina** at BMO Field in Toronto, before the **United States** christen SoFi Stadium against **Paraguay** under the Los Angeles lights.
+The tournament's opening day belongs to Mexico. Its second belongs to the other two hosts — and, if our simulation is to be believed, to two very different Friday nights. On **Friday, June 12**, **Canada** open their home World Cup against **Bosnia and Herzegovina** at BMO Field in Toronto, before the **United States** christen SoFi Stadium against **Paraguay** under the Los Angeles lights.
 
 To preview the day, we again handed both fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each one running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. Two host nations, two very different Friday nights. Here is the AI's verdict.
 
@@ -27,7 +27,7 @@ To preview the day, we again handed both fixtures to **Agent Pitch**, our AI soc
 **Bosnia and Herzegovina** arrive as the kind of opponent nobody relishes drawing: organised, durable, and still led from the front by the ageless **Edin Džeko**, with **Ermedin Demirović** offering a sharper, quicker focal point alongside him. Marshalled by **Sead Kolašinac** and the rising **Amar Dedić** at the back, the *Zmajevi* are built to absorb pressure and strike on the break.
 
 ### Historical Backdrop
-There is no history here at all. Canada and Bosnia and Herzegovina have **never met** at senior international level — June 12 is a genuine first meeting between the two nations, a blank page written under a World Cup spotlight. That novelty cut both ways for the model: no grudges, no patterns, no familiarity — just two strategies meeting cold. The market made Canada home favourites; the AI saw something altogether crueller for the hosts.
+There is no history here at all. Canada and Bosnia and Herzegovina have **never met** at senior international level — June 12 is a genuine first meeting between the two nations, a blank page written under a World Cup spotlight. That novelty cut both ways for the model: no grudges, no patterns, no familiarity — just two strategies meeting cold. The market made Canada home favourites; the AI agreed — and then some, handing the hosts a statement win on opening night.
 *(Sources: [ESPN](https://www.espn.com/soccer/match/_/gameId/760416/bosnia-herzegovina-canada), [FBref](https://fbref.com/en/stathead/matchup/teams/9c6d90a0/6c5ef1c3/Canada-vs-Bosnia-and-Herzegovina-History), [Sofascore](https://www.sofascore.com/football/match/canada-bosnia-and-herzegovina/EObscVb))*
 
 ### Lineups (as simulated)
@@ -38,17 +38,15 @@ There is no history here at all. Canada and Bosnia and Herzegovina have **never 
 | **MID** | Ismaël Koné (8), Stephen Eustáquio (7), Ali Ahmed (20) | Esmir Bajraktarević (20), Benjamin Tahirović (6), Ivan Šunjić (14), Amar Memić (15) |
 | **FWD** | Tajon Buchanan (17), Jonathan David (10), Cyle Larin (9) | Ermedin Demirović (10), Edin Džeko (11) |
 
-### Simulation Report — **Canada 0–3 Bosnia and Herzegovina**
+### Simulation Report — **Canada 3–1 Bosnia and Herzegovina**
 
-It was a heist that turned into a rout, and it happened at home. The AI agents staged a match Canada controlled from almost the first whistle to the last — and lost by three.
+This time the territory came with end product — and a hat-trick hero. The AI agents handed Canada the opening night the hosts have dreamed of, **Jonathan David** scoring all three in a commanding 3–1 win at BMO Field.
 
-By the simulation's count, **Canada dominated possession 74%–26%**, recycling the ball through Eustáquio and Koné and pinning Bosnia deep for long stretches. They pressed like men possessed whenever they lost it — the AI logging a frantic **90 Canadian tackle attempts to Bosnia's 15** — and it counted for nothing. The number that defined the night was the cruelest of all: in ninety minutes of monopolising the ball, *Canada did not register a single shot.* Not one. All that territory, all that pressure — and never a sight of the Bosnian goal.
+By the simulation's count, **Canada controlled possession 57%–43%** and, crucially, turned it into chances: **34 shots to Bosnia's 7**, fuelled by the relentless high press that defines this side — the AI logging **118 Canadian tackle attempts to Bosnia's 31**. David struck early, finishing a sweeping Canadian move on **11 minutes**; he doubled the lead on **53 minutes**; and he completed his hat-trick on **74 minutes** to put the game beyond the visitors. Three times the ball ran to the man with the tournament's most clinical boot, and three times he buried it.
 
-Bosnia, by contrast, did almost nothing with the ball and almost everything in front of it, turning **21 shots into three goals**. **Ermedin Demirović** broke the deadlock on **58 minutes**; the ageless **Edin Džeko** doubled the lead on **70**; and Demirović returned to complete his brace — and the rout — on **85**. Three clean strikes against a host side that had the ball and little else.
+Bosnia, organised and durable as billed, kept probing on the break and earned a deserved consolation when **Ermedin Demirović** struck on **86 minutes** — but by then the result was long settled. Final whistle: **Canada 3, Bosnia and Herzegovina 1** — a scoreline the possession map and the 34-to-7 shot count call thoroughly earned.
 
-Canada threw everyone forward as the deficit grew, Davies surging from deep and David hunting the half-chance that never came. Bosnia dropped, absorbed, and broke again. Final whistle: **Canada 0, Bosnia and Herzegovina 3** — a scoreline the possession map calls a robbery, and the shot count (0 to 21) calls entirely deserved.
-
-**AI takeaway:** The model adores Canada's energy and despairs at their end product — 74% of the ball and zero shots is a damning combination. Expect the hosts to dominate possession and a disciplined, clinical Bosnia to punish every wasted moment. In a first-ever meeting, the AI leaned hard on Bosnian experience and Canadian wastefulness — and this time it was merciless.
+**AI takeaway:** The model sees Canada's energy finally married to a clinical edge, with Jonathan David the difference-maker his shooting rating promises. Expect the hosts to dominate the ball and, this time, to make it count — though a streetwise Bosnia will back themselves to nick one on the counter, as Demirović's late strike shows.
 
 ---
 
@@ -80,7 +78,7 @@ These two have recent, painful-for-Paraguay history. They last met at the **2016
 
 ### Simulation Report — **United States 2–2 Paraguay**
 
-If Canada's afternoon was a horror story, the USA's evening was a thriller that refused to settle.
+If Canada's afternoon was a coronation, the USA's evening was a thriller that refused to settle.
 
 The simulation split this one almost down the middle — **possession finished USA 51% – Paraguay 49%**, with **eight shots apiece** — an even, end-to-end contest under the SoFi lights. It was Paraguay who drew first blood: on **23 minutes**, **Julio Enciso** punished a rare American lapse to put the visitors ahead and quiet the home crowd.
 
@@ -94,16 +92,16 @@ But Paraguay had the last word, and Enciso supplied it. On **89 minutes**, with 
 
 ## The Picture, Per the Machine
 
-Two host nations opened their tournaments on the same Friday, and the AI sent neither of them home happy:
+Two host nations opened their tournaments on the same Friday, and the AI sent them home with very different feelings:
 
 | Match | Result | Group |
 |---|---|---|
-| 🇧🇦 **Bosnia and Herzegovina** bt Canada | **3 – 0** | B |
-| 🇨🇦 Canada lost | 0 – 3 | B |
+| 🇨🇦 **Canada** bt Bosnia and Herzegovina | **3 – 1** | B |
+| 🇧🇦 Bosnia and Herzegovina lost | 1 – 3 | B |
 | 🇺🇸 United States drew Paraguay | 2 – 2 | D |
 | 🇵🇾 Paraguay drew United States | 2 – 2 | D |
 
-Two hosts, zero wins. Canada author the cautionary tale in its starkest form — **74% of the ball, not a single shot, beaten 3–0** — while the USA trade blows with Paraguay and are pegged back at the death. The model's message to both hosts rhymes with the one it sent Group A, only louder: territory is not the same as threat, and in a World Cup the difference is measured in the one or two moments you take. Bosnia took all of theirs. Paraguay took the last one. The hosts are still counting the cost.
+One host roars, one host sweats. Canada author the statement of the day — **57% of the ball, 34 shots, a Jonathan David hat-trick** — turning territory into threat in a way Group A's possession-hoggers never managed. The USA, by contrast, find the old lesson again: they trade blows with Paraguay and are pegged back at the death, undone by the one or two moments they fail to take. Bosnia and Paraguay both struck late — but only one of them salvaged anything from it.
 
 ---
 
