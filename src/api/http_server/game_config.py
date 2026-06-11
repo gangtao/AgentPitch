@@ -124,3 +124,10 @@ class GameConfig(BaseModel):
         default=False,
         description="Enable soft snap toward dynamic formation anchor (ADR-0022)"
     )
+
+    # ── G. Match rules ──
+    # Source: SimulationConfig.offside_enabled (issue #31, IFAB Law 11)
+    offside_enabled: bool = Field(
+        default=False,
+        description="Enforce IFAB Law 11 offside (free-kick restart on offence)"
+    )

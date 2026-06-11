@@ -246,6 +246,15 @@ class SimulationConfig(BaseModel):
     # as informational data; only system-side enforcement is removed.
     formation_snap_enabled: bool = Field(default=False)
 
+    # Offside rule toggle (issue #31, IFAB Law 11). When True, ARE judges
+    # offside POSITIONS at the moment of each Pass (x-axis only: strictly
+    # inside the opponents' half, strictly nearer their goal line than both
+    # the ball and the second-last opponent — level = onside) and awards a
+    # free kick to the opposing team where a flagged player first controls
+    # the passed ball. No offside from goal kicks, throw-ins, or corners.
+    # Default False until baseline calibration confirms sane behavior.
+    offside_enabled: bool = Field(default=False)
+
 
 class OutputConfig(BaseModel):
     """
