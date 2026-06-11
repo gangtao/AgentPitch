@@ -127,7 +127,8 @@ class GameConfig(BaseModel):
 
     # ── G. Match rules ──
     # Source: SimulationConfig.offside_enabled (issue #31, IFAB Law 11)
+    # Default flipped to True on 2026-06-11 in lockstep with SimulationConfig.
     offside_enabled: bool = Field(
-        default=False,
+        default=True,
         description="Enforce IFAB Law 11 offside (free-kick restart on offence)"
     )

@@ -32,7 +32,8 @@ class SimulationSection(BaseModel):
     # positioning out of the box; turn on to enable the soft snap helper.
     formation_snap_enabled: bool = Field(default=False)
     # Issue #31: IFAB Law 11 offside toggle (mirrors SimulationConfig).
-    offside_enabled: bool = Field(default=False)
+    # Default flipped to True on 2026-06-11 in lockstep with SimulationConfig.
+    offside_enabled: bool = Field(default=True)
 
 
 class OutputSection(BaseModel):

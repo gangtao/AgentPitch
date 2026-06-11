@@ -347,7 +347,7 @@ function _getDefaultValue(key) {
     half_time_pause_ticks: 60,
     min_player_separation: 1.0,
     formation_snap_enabled: false,
-    offside_enabled: false
+    offside_enabled: true
   };
 
   return defaults[key] || '';

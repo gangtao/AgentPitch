@@ -252,8 +252,10 @@ class SimulationConfig(BaseModel):
     # the ball and the second-last opponent — level = onside) and awards a
     # free kick to the opposing team where a flagged player first controls
     # the passed ball. No offside from goal kicks, throw-ins, or corners.
-    # Default False until baseline calibration confirms sane behavior.
-    offside_enabled: bool = Field(default=False)
+    # Default flipped to True on 2026-06-11 (user decision) after the
+    # detection geometry was validated against baseline runs and a real
+    # match log; set False to reproduce pre-#31 behavior bit-for-bit.
+    offside_enabled: bool = Field(default=True)
 
 
 class OutputConfig(BaseModel):
