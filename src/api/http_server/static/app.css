@@ -653,6 +653,8 @@ html, body {
 .evt.ev-blocked        .txt { color: var(--ink-dimer); font-style: italic; }
 .evt.ev-oob            .ico { color: var(--ink-dim); }
 .evt.ev-oob            .txt { color: var(--ink-dim); font-style: italic; }
+.evt.ev-offside        .ico { color: var(--bad); }
+.evt.ev-offside        .txt { color: #d8a8a8; font-weight: 600; }
 .evt.ev-phase          .ico { color: var(--b); }
 .evt.ev-phase          .txt { color: #c8b8e0; font-weight: 500; }
 .evt.ev-phase-major    .ico { color: var(--amber); }
