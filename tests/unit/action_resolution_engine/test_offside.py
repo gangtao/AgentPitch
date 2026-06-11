@@ -145,3 +145,47 @@ class TestOffsidePositionSnapshot:
         snap["ball"]["position"] = (80.0, 30.0)
         eng._capture_offside_at_pass(snap["players"]["team_a_0"], snap)
         assert "team_a_0" not in eng._offside_pids_at_pass
+
+
+class TestPhase5OffsideWiring:
+    def _pass_actions(self):
+        return {"team_a_0": Pass(target_pos=(85.0, 30.0), power=10)}
+
+    def test_pass_resolution_populates_flag_set(self):
+        eng = make_engine()
+        snap = base_snap()
+        eng._resolve_phase5(self._pass_actions(), snap, 10, "team_a_0")
+        assert eng._offside_pids_at_pass == {"team_a_1"}
+
+    def test_restart_kick_pass_is_exempt_and_consumes_marker(self):
+        eng = make_engine()
+        snap = base_snap()
+        eng._restart_kick_pid = "team_a_0"   # e.g. corner kicker
+        eng._resolve_phase5(self._pass_actions(), snap, 10, "team_a_0")
+        assert eng._offside_pids_at_pass == set()
+        assert eng._restart_kick_pid is None
+
+    def test_non_restart_pass_clears_stale_marker(self):
+        """A different player passing means the restart possession was lost;
+        the exemption must not leak to later passes."""
+        eng = make_engine()
+        snap = base_snap()
+        eng._restart_kick_pid = "team_b_2"
+        eng._resolve_phase5(self._pass_actions(), snap, 10, "team_a_0")
+        assert eng._offside_pids_at_pass == {"team_a_1"}  # judged normally
+        assert eng._restart_kick_pid is None
+
+    def test_shoot_clears_flag_set_and_marker(self):
+        eng = make_engine()
+        snap = base_snap()
+        eng._offside_pids_at_pass = {"team_a_1"}
+        eng._restart_kick_pid = "team_a_0"
+        eng._resolve_phase5({"team_a_0": Shoot(angle=0.0, power=10)}, snap, 10, "team_a_0")
+        assert eng._offside_pids_at_pass == set()
+        assert eng._restart_kick_pid is None
+
+    def test_disabled_pass_leaves_set_empty(self):
+        eng = make_engine(offside_enabled=False)
+        snap = base_snap()
+        eng._resolve_phase5(self._pass_actions(), snap, 10, "team_a_0")
+        assert eng._offside_pids_at_pass == set()

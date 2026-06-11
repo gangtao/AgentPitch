@@ -870,6 +870,17 @@ class ActionResolutionEngine:
             self._last_touching_team = passer["team"]
             self._last_ball_action_pid = current_carrier
 
+            # Issue #31 (Law 11): no offside directly from a goal kick,
+            # throw-in, or corner — the restart kicker's pass is exempt.
+            # Any other pass snapshots offside positions at this moment;
+            # the offence (if any) fires in Phase 7 when a flagged player
+            # controls the ball.
+            if current_carrier == self._restart_kick_pid:
+                self._offside_pids_at_pass.clear()
+            else:
+                self._capture_offside_at_pass(passer, snap)
+            self._restart_kick_pid = None
+
             # Per ADR-0018: drop the binary "inaccurate" label. Always "ok".
             # The landing_pos vs target_pos delta in the event log shows
             # how off the pass was.
@@ -904,6 +915,12 @@ class ActionResolutionEngine:
             self._ball_just_passed = True
             self._last_touching_team = passer["team"]
             self._last_ball_action_pid = current_carrier
+
+            # Issue #31: a shot is a fresh touch — void any pending offside
+            # flags (v1 judges offside only at Pass moments) and consume any
+            # restart-kick exemption.
+            self._offside_pids_at_pass.clear()
+            self._restart_kick_pid = None
 
             return {current_carrier: {"action": "Shoot", "result": "ok"}}
 
