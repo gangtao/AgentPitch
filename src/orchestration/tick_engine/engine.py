@@ -560,6 +560,7 @@ class TickEngine:
         Priority order (first match wins):
         1. Score delta → "goal"
         2. Fallback present → "fallback"
+        2.5. Offside restart (issue #31) → "offside"
         3. Any Tackle:
            - cooldown_blocked → "tackle_cooldown_blocked"
            - controlled       → "tackle_controlled"   (was: "tackle_success")
@@ -582,6 +583,12 @@ class TickEngine:
             return "fallback"
 
         recs = list(action_records.values())
+
+        # Offside (issue #31) — a free-kick restart ends the play, so it
+        # outranks per-action priorities, like OOB below.
+        for rec in recs:
+            if rec.get("offside"):
+                return "offside"
 
         # OOB — added 2026-04-22 alongside ADR-0018. Surfaces when ARE Phase 7
         # detected an out-of-bounds (side line / end line outside goal mouth).
