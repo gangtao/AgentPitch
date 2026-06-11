@@ -91,6 +91,16 @@ class ActionResolutionEngine:
         # turned over to the nearest opponent so the match can't freeze.
         self._stuck_anchor_pos: tuple[float, float] | None = None
         self._stuck_ticks = 0
+        # Issue #31 (IFAB Law 11): player ids flagged in an OFFSIDE POSITION
+        # at the moment of the most recent Pass. Persists across ticks while
+        # the pass travels; the offence fires in Phase 7 only if a flagged
+        # player is the one who controls the ball. Cleared on any touch,
+        # restart, or possession change.
+        self._offside_pids_at_pass: set[str] = set()
+        # Law 11 exemption: no offside directly from a goal kick, throw-in,
+        # or corner. _apply_oob_restart records the kicker here; their next
+        # Pass skips the offside snapshot, then the marker clears.
+        self._restart_kick_pid: str | None = None
 
     # Stalemate breaker tuning (bugfix #22). 50 ticks at the default 10
     # ticks/sec rate = 5s of an effectively motionless carried ball. The
@@ -521,6 +531,56 @@ class ActionResolutionEngine:
             return 3
         v = getattr(sim, "tackle_settle_grace_ticks", 3)
         return v if isinstance(v, int) and not isinstance(v, bool) else 3
+
+    def _offside_enabled(self) -> bool:
+        """Issue #31: IFAB Law 11 toggle. Defensive vs mock GSM — only an
+        explicit True enables the rule (MagicMock attrs are truthy but not
+        `is True`), so legacy mock-based tests stay on the old behavior."""
+        sim = getattr(getattr(self.gsm, "config", None), "simulation", None)
+        if sim is None:
+            return False
+        return getattr(sim, "offside_enabled", False) is True
+
+    def _capture_offside_at_pass(self, passer: dict, snap: dict) -> None:
+        """Issue #31 — snapshot team-mates in an OFFSIDE POSITION at the
+        moment the ball is played (IFAB Law 11, x-axis judgement).
+
+        A team-mate is flagged iff, measured as distance to the opponents'
+        goal line (abs(x - opp_goal_x), half-time-swap safe):
+          - strictly inside the opponents' half (on the halfway line = own
+            half = onside), and
+          - strictly nearer the goal line than the ball (= the passer), and
+          - strictly nearer than the SECOND-LAST opponent, any role
+            (level = onside).
+        Being in an offside position is NOT an offence — Phase 7 penalises
+        only the flagged player who actually controls this pass.
+        """
+        self._offside_pids_at_pass.clear()
+        if not self._offside_enabled():
+            return
+        field = snap.get("field", {})
+        width = field.get("width")
+        goal_key = "team_b_goal_x" if passer["team"] == "team_a" else "team_a_goal_x"
+        opp_goal_x = field.get(goal_key)
+        if not isinstance(width, (int, float)) or not isinstance(opp_goal_x, (int, float)):
+            return  # sparse test fixture — cannot judge geometry
+        team = passer["team"]
+        ball_dist = abs(passer["position"][0] - opp_goal_x)
+        opp_dists = sorted(
+            abs(p["position"][0] - opp_goal_x)
+            for p in snap["players"].values() if p["team"] != team
+        )
+        # Degenerate rosters (<2 opponents) can't define a second-last
+        # opponent; treat the line as infinitely deep (only ball + half
+        # clauses apply). Real rosters are always 5-11 a side.
+        second_last = opp_dists[1] if len(opp_dists) >= 2 else float("inf")
+        half_width = width / 2.0
+        for p in snap["players"].values():
+            if p["team"] != team or p["player_id"] == passer["player_id"]:
+                continue
+            d = abs(p["position"][0] - opp_goal_x)
+            if d < half_width and d < ball_dist and d < second_last:
+                self._offside_pids_at_pass.add(p["player_id"])
 
     # ── Stamina / health (added 2026-04-23) ────────────────────────
     def _health_max(self) -> float:
