@@ -1,7 +1,7 @@
-"""ARE Story 007 — Phase 7 Ball Physics + Rule 16 + Goal Attempts.
+"""ARE Story 007 — Phase 7 Ball Physics + Goal Attempts.
 
 Test suite for the ball physics phase including BPS integration,
-offside-equivalent Rule 16, passer exclusion, and goalkeeper save attempts.
+pickup exclusion, and goalkeeper save attempts.
 """
 
 import pytest
@@ -124,20 +124,12 @@ class TestPhase7BallPhysics:
         assert bp_records["system"]["position"] == (0.0, 10.0)
         assert goal_records == {}  # No goal records
 
-    # NOTE: tests for Rule 16 with _ball_just_passed=True were removed
-    # 2026-04-22. Phase 7 has an early-return on _ball_just_passed (per
-    # ADR-0009 phase ordering — when a Pass happened this tick, ball state
-    # is in flux and pickup contests defer to next tick). That return
-    # makes the offside check unreachable in production: by the time
-    # Phase 7 is allowed to run again (next tick), _ball_just_passed has
-    # been reset and `_is_offside_violation` returns False unconditionally.
-    # The previously-failing tests exercised this unreachable code path.
-    # ADR-0015 amendment supersedes Rule 16 anyway: the passer is on
-    # cooldown, so they can't pickup their own pass regardless of role.
+    # NOTE: the dead "Rule 16" offside-equivalent was removed in issue #31,
+    # replaced by real IFAB Law 11 offside (see test_offside.py). Pickup
+    # with no recent pass remains the plain path tested below.
 
-    # AC-R16-02: No violation when ball not just passed (still meaningful)
-    def test_rule16_no_violation_when_ball_not_just_passed(self):
-        """AC-R16-02: No Rule 16 violation when _ball_just_passed=False."""
+    def test_pickup_allowed_when_no_recent_pass(self):
+        """Plain pickup path: no recent pass, no flags — pickup succeeds."""
         self.engine._ball_just_passed = False  # No recent pass
 
         # Configure mock BPS to return proper dict structure

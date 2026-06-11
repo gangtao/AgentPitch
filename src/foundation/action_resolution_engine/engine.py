@@ -194,7 +194,7 @@ class ActionResolutionEngine:
         # Phase 6: Tackle resolution (Story 006)
         tackle_records = self._resolve_phase6(validated_actions, snap, tick)
 
-        # Phase 7: Ball physics + Rule 16 + Goal attempt (Story 007)
+        # Phase 7: Ball physics + offside + Goal attempt (Story 007)
         ball_physics_records, goal_records = self._resolve_phase7(snap, tick)
 
         # Convert validated actions to action records.
@@ -1075,10 +1075,10 @@ class ActionResolutionEngine:
         return tackle_records
 
     def _resolve_phase7(self, snap: dict, tick: int) -> tuple[dict[str, dict], dict[str, dict]]:
-        """ARE Story 007 — Ball physics + Rule 16 + Goal attempts.
+        """ARE Story 007 — Ball physics + offside + Goal attempts.
 
         Phase 7: Execute BPS advance_ball with ARE-supplied pre-exclusion set
-        (cooldown-active players + offside-eligible FWDs after a pass), then
+        (cooldown-active players), apply offside offences (issue #31), then
         handle goal scoring attempts per ARE GDD Rule 14a.
 
         Per ADR-0015 amendment (2026-04-22) and ADR-0016: pre-exclusion in
@@ -1205,18 +1205,16 @@ class ActionResolutionEngine:
         # Get current game state for BPS (includes private _pass_landing_zone)
         game_state_dict = self._build_bps_game_state(snap)
 
-        # Build pickup exclusion set (ADR-0015 amendment + Rule 16):
-        # - cooldown-active players (replaces _passer_exclusion blocking role)
-        # - offside-eligible FWDs while _ball_just_passed is set
+        # Build pickup exclusion set (ADR-0015 amendment):
+        # cooldown-active players only. The old "Rule 16" offside-FWD
+        # exclusion was dead code (unreachable behind _ball_just_passed)
+        # and is superseded by real IFAB Law 11 offside (issue #31), which
+        # penalises on control instead of pre-excluding from pickup.
         excluded_pids: set[str] = set()
         if self._action_cooldown() > 0:
             for pid in snap.get("players", {}):
                 if self._is_on_cooldown(pid, tick):
                     excluded_pids.add(pid)
-        for player in snap.get("players", {}).values():
-            pid = player["player_id"]
-            if self._is_offside_violation(pid, snap):
-                excluded_pids.add(pid)
 
         # Call BPS advance_ball (handles motion + ball control contest +
         # shot deflection). Use injected self.bps (MagicMock-friendly in
@@ -1811,50 +1809,6 @@ class ActionResolutionEngine:
             game_state["_pass_landing_zone"] = pass_landing_zone
 
         return game_state
-
-    def _is_offside_violation(self, player_id: str, snap: dict) -> bool:
-        """Check ARE GDD Rule 16 - offside-equivalent rule.
-
-        A FWD player violates Rule 16 if:
-        1. Player is a FWD (position == "FWD")
-        2. Ball just passed this tick (_ball_just_passed == True)
-        3. Player is closer to opponent goal line than any opponent DEF/GK
-        """
-        if not self._ball_just_passed:
-            return False
-
-        player = next((p for p in snap["players"].values() if p["player_id"] == player_id), None)
-        # Real GSM snapshots use 'role' (per ADR-0004 / GSM init), not
-        # 'position_type'. The latter only ever appeared in test fixtures.
-        # Accept either for backward compat with the 5 advisory fixtures.
-        if player is None:
-            return False
-        role = player.get("role") or player.get("position_type")
-        if role != "FWD":
-            return False
-
-        player_team = player["team"]
-        opponent_team = "team_b" if player_team == "team_a" else "team_a"
-
-        # Find opponent goal x-coordinate
-        opp_goal_x = snap["field"]["team_b_goal_x"] if player_team == "team_a" else snap["field"]["team_a_goal_x"]
-
-        # Distance from player to opponent goal line
-        player_pos = player["position"]
-        player_dist_to_goal = abs(player_pos[0] - opp_goal_x)
-
-        # Find closest opponent DEF/GK distance to their own goal
-        min_defender_dist = float('inf')
-        for p in snap["players"].values():
-            p_role = p.get("role") or p.get("position_type")
-            if (p["team"] == opponent_team and
-                p_role in ["DEF", "GK"]):
-                defender_pos = p["position"]
-                defender_dist = abs(defender_pos[0] - opp_goal_x)
-                min_defender_dist = min(min_defender_dist, defender_dist)
-
-        # Violation if FWD is closer than any opponent DEF/GK
-        return player_dist_to_goal < min_defender_dist
 
     def _is_goal_line_crossed(self, ball_pos: tuple[float, float], snap: dict) -> bool:
         """Check if ball has crossed a goal line.
