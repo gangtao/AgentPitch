@@ -1,14 +1,16 @@
-# Brahim Sinks Brazil, Yılmaz Hits a Hat-Trick, and Scotland Break Haitian Hearts: AI Calls Day Three
+# Flags Up: Afif Sinks Switzerland Again, Vinícius Outlasts Morocco, and Haiti Pull a One-Shot Heist — AI Re-Calls Day Three
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's third day through the machine. Here is what it saw.*
 
-**Filed: June 10, 2026 — three days before kickoff**
+**Filed: June 11, 2026 — two days before kickoff**
+
+> **Engine update:** since our first pass at day three, Agent Pitch now enforces the **offside rule (IFAB Law 11)** — positions are judged at the moment of every pass, and a violation hands the defending side an indirect free kick. All four matches below were re-simulated under the new law, and the verdicts changed. The flag, it turns out, is a tactician.
 
 ---
 
 The hosts have had their say. Day three belongs to everyone else — four matches across three time zones. **Group C**, the group of the draw, opens with a double-header: **Brazil vs Morocco** under the MetLife lights and **Haiti vs Scotland** at Gillette Stadium. **Group B** continues in the California sun as **Qatar** meet **Switzerland** at Levi's Stadium. And long after the East Coast has gone to bed, **Group D** closes the night in Vancouver, where **Australia** meet **Türkiye** at BC Place — a 9 PM Pacific kickoff that lands at midnight Eastern.
 
-As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. The machine's verdict on day three: a rough day for the favourites — Morocco toppled Brazil, Qatar frustrated Switzerland, one comeback spoiled a fairy tale, and a midnight hat-trick sank Australia.
+As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. The machine's verdict on day three, offside flag in hand: Qatar mug Switzerland without conceding a single shot, Brazil survive an offside-strewn slugfest with Morocco, Haiti win a World Cup match with **one shot**, and Australia and Türkiye trade midnight blows for a point apiece.
 
 ---
 
@@ -38,15 +40,15 @@ Improbably, this is a fixture **Qatar lead**. The two have met twice, and Qatar 
 | **MID** | Assim Madibo (23), Karim Boudiaf (12), Mohamed Manai (26) | Remo Freuler (8), Granit Xhaka (10), Ruben Vargas (17), Fabian Rieder (22), Dan Ndoye (11) |
 | **FWD** | Akram Afif (11), Almoez Ali (19), Edmilson Junior (8) | Breel Embolo (7) |
 
-### Simulation Report — **Qatar 0–0 Switzerland**
+### Simulation Report — **Qatar 1–0 Switzerland**
 
-The market made Switzerland heavy favourites. The machine made it a stalemate — and an upside-down one at that.
+Lugano, 2018: Switzerland have nearly all of the ball, Akram Afif breaks away and wins it 1–0. The machine just simulated the sequel, beat for beat.
 
-Switzerland did what Switzerland do: they took the ball and kept it, **62% possession to Qatar's 38%**. But possession was where the Swiss evening ended. The Yakin block passed and probed, and Qatar's compact 4-5-1 — the shape that conceded once in six matches at an Asian Cup — bent without ever breaking. When the chances came, they came the *other* way: the simulation counted **9 Qatari shots to Switzerland's 4**, with **Almoez Ali** alone getting off **seven attempts** as Qatar broke from their block again and again. **Gregor Kobel** answered every one of them. At the other end, **Ruben Vargas** (three shots) and **Breel Embolo** (one) could not solve **Meshaal Barsham**. Qatar's defensive industry told the story of the day — **52 tackle attempts to Switzerland's 28**.
+Switzerland's control was total in every column but the one that counts. The Yakin block held **70% possession to Qatar's 30%**, worked the ball deep into Qatari territory again and again — and finished the match with **zero shots**. Not few. Zero. Every probing Swiss move died at the edge of the Qatari box, smothered by the 4-5-1 that conceded once in six matches at an Asian Cup; Qatar's **31 tackle attempts** were fewer than usual for them but landed exactly where they hurt. And on **51 minutes** the only plan Qatar needed came off: **Akram Afif** — three of Qatar's four shots on the night were his — broke from the block and beat **Gregor Kobel** for **1–0**.
 
-Final whistle: **Qatar 0, Switzerland 0** — a point the −425 favourites will quietly resent, and the AFC champions will frame.
+The new offside law shaped the endgame. As Switzerland chased and Qatar stretched them on the counter, the flag went up three times in the final ten minutes — **Breel Embolo** caught on 80', then **Almoez Ali** twice (81', 85') as Qatar's outlet runs got greedy. The free kicks let Switzerland reset, but a reset is not a shot. Final whistle: **Qatar 1, Switzerland 0**.
 
-**AI takeaway:** The model sees exactly the trap Lopetegui has set for Group B: give Qatar 38% of the ball and they will hurt you with it. Only Kobel's gloves kept the Swiss level. After Lugano 2018, Qatar still haven't lost to Switzerland — and the machine doesn't think June 13 changes that.
+**AI takeaway:** The model sees a side that has perfected losing the ball on purpose: give Qatar 30% of it and Afif will hurt you with one of his three swings. Seventy percent possession with zero shots is the most damning stat the simulator has produced for any favourite at this tournament — and after Lugano 2018, Qatar *still* haven't lost to Switzerland.
 
 ---
 
@@ -76,15 +78,15 @@ Two meetings, one win apiece. At **France '98**, Brazil swept Morocco aside 3–
 | **MID** | Lucas Paquetá (20), Casemiro (5), Bruno Guimarães (8) | Ismael Saibari (11), Neil El Aynaoui (24), Azzedine Ounahi (8) |
 | **FWD** | Vinícius Júnior (7), Matheus Cunha (9), Raphinha (11) | Soufiane Rahimi (9), Ayoub El Kaabi (20), Brahim Díaz (10) |
 
-### Simulation Report — **Brazil 0–1 Morocco**
+### Simulation Report — **Brazil 1–0 Morocco**
 
-Tangier, it turns out, was not a one-off. The machine watched the marquee fixture of the day and called the upset.
+The marquee fixture of the day was everything the draw promised — dead even on the ball (**49% Brazil, 51% Morocco**), dead even in the shot count (**11 to 10**), and decided by the one forward who refused to stop shooting.
 
-Morocco struck before MetLife had settled. On **11 minutes**, **Brahim Díaz** — the free-roaming creator the whole Moroccan attack flows through — drove inside off the right and finished, **0–1**, and from that moment the Atlas Lions controlled the contest to a degree nobody predicted. Not parked-bus control: real control. The simulation gave Morocco **57% possession** against the Seleção and — more remarkable still — **21 shots to Brazil's 9**. **Soufiane Rahimi** alone attempted **ten shots**, Brahim added **eight**, and only **Alisson** kept the scoreline respectable as Hakimi's overlaps and Brahim's half-space drives carved the Brazilian left open repeatedly.
+It was also the night the new offside law announced itself. Between the **11th and 14th minutes** the flag went up **seven times** — a frantic, whistle-shredded spell in which both attacks kept springing a heartbeat too early. **Ayoub El Kaabi** and **Brahim Díaz** were each caught twice for Morocco, **Matheus Cunha** twice and **Raphinha** once for Brazil, and for four surreal minutes the most talented forwards on the planet could not stay onside. Seven offsides in one match is the most the simulator has flagged at this World Cup.
 
-Brazil's response never came. **Vinícius Júnior** fought a lonely duel with **Yassine Bounou** — seven shots, every one repelled by the keeper who stonewalled Spain and Portugal in 2022 — and **Casemiro's** midfield threw itself into **64 tackle attempts**, but Ancelotti's side could not turn territory-chasing into a clear chance. Final whistle: **Brazil 0, Morocco 1** — a second consecutive Moroccan win over the Seleção, and this one with points attached.
+When the game finally settled, it became a war of attrition — **73 Brazilian tackle attempts against 51** from Morocco, Casemiro and El Aynaoui scrapping for every loose ball — and a private siege at one end. **Vinícius Júnior** attempted **eleven shots**, every Brazilian effort of the match, and **Yassine Bounou** repelled ten of them. The eleventh, on **54 minutes**, finally beat the wall of 2022: **1–0**. Morocco's response ran through **Brahim Díaz** (six shots) and **Soufiane Rahimi** (three), but **Alisson** held firm. Final whistle: **Brazil 1, Morocco 0**.
 
-**AI takeaway:** The model doesn't see this as a smash-and-grab — it sees Morocco as the better side, full stop: more of the ball, more than twice the shots, and the game's one moment of decisive quality from Brahim Díaz. Bounou's wall did the rest. The 2022 semi-finalists open as Group C's team to beat, and Brazil open with the old post-2022 questions louder than ever.
+**AI takeaway:** The model calls this the day's true coin-flip — even possession, even shots, seven offsides' worth of mutual aggression — settled by pure stubbornness. Vinícius taking all eleven Brazilian shots is either a superstar performance or a warning about Brazil's Plan B, and the machine suspects both. Morocco leave with nothing but lose no admirers; the rubber match goes to the Seleção.
 
 ---
 
@@ -114,15 +116,15 @@ A genuine first: Haiti and Scotland have **never met** at senior international l
 | **MID** | Louicius Deedson (11), Jean-Ricner Bellegarde (10), Danley Jean Jacques (17), Ruben Providence (15) | Lewis Ferguson (19), Ryan Christie (11), John McGinn (7), Scott McTominay (4), Ben Gannon-Doak (17) |
 | **FWD** | Duckens Nazon (9), Wilson Isidor (18) | Ché Adams (10) |
 
-### Simulation Report — **Haiti 1–3 Scotland**
+### Simulation Report — **Haiti 1–0 Scotland**
 
-For half an hour, the machine wrote the fairy tale. Then Scotland's structure wrote the ending.
+Write this one down, because the machine just authored the purest smash-and-grab a World Cup can produce: **Haiti took one shot all night, and won.**
 
-The night began exactly as Migné drew it up. On **14 minutes**, Haiti's first lightning break of the evening ended with **Wilson Isidor** finishing off the counter — **1–0 Haiti**, delirium in Foxborough, and the simulation's first genuine upset in the making. Haiti kept swinging, too: the agents logged **13 Haitian shots to Scotland's 8** on the night, with Isidor (eight attempts) and **Nazon** (five) repeatedly stretching the Scottish back line, and **52 tackle attempts** marking the visitors' trademark defiance.
+It came on **12 minutes**, exactly as Migné drew it up — a lightning transition, **Wilson Isidor** running the channel, one finish past **Angus Gunn**: **1–0**, delirium in Foxborough. And that was the entirety of Haiti's attacking output. One shot. From that moment Haiti's match became a 78-minute act of collective defiance: **68 tackle attempts** (to Scotland's 51), every white shirt behind the ball, Bellegarde and Jean Jacques throwing themselves into the grinder.
 
-But Scotland never panicked, because Scotland never panic. With **62% possession**, Clarke's side ground the game back under control, and ten minutes into the second half the pressure told: **Ché Adams** equalised on **55 minutes**, then struck again on **67** to complete the turnaround. With Haiti committed forward late, the inevitable arrived — **Scott McTominay**, the late-arriving run, putting the result beyond doubt on **85 minutes**. Final whistle: **Haiti 1, Scotland 3**.
+Scotland did what Scotland do — **59% possession**, patient probing, **Ché Adams** working four of their five shots — but Gunn's opposite number **Johny Placide** and the massed Haitian block answered everything. The offside flag even joined the resistance: Haiti's only other escapes ended with **Isidor** (28') and **Nazon** (59') flagged a stride early, while Adams was caught on 29' at the other end. None of it mattered to the scoreline. Final whistle: **Haiti 1, Scotland 0** — at their first World Cup in 52 years, against −180 favourites, with a 1.000 shooting percentage.
 
-**AI takeaway:** The model loves Haiti's punch — out-shooting Scotland is no fluke, and Isidor's pace will trouble everyone in Group C — but it trusts Scotland's control. Two-thirds of the ball, an Adams brace, and McTominay's signature run: that is the Clarke formula, executed to the letter. Haiti's moment is real; Scotland's points are realer.
+**AI takeaway:** The model's coldest verdict of the day: efficiency beats volume, and commitment beats class. One shot, one goal, sixty-eight tackles — Haiti played the percentages like a casino. Scotland's structure produced control and nothing else, and Clarke's side now need points from Brazil and Morocco. The fairy tale is no longer hypothetical.
 
 ---
 
@@ -152,35 +154,35 @@ Slim pickings, and all of it Turkish. The two nations have met only twice — a 
 | **MID** | Connor Metcalfe (8), Jackson Irvine (22), Aiden O'Neill (13), Nestory Irankunda (17) | Hakan Çalhanoğlu (10), İsmail Yüksek (16), Kerem Aktürkoğlu (21), Arda Güler (8), Kenan Yıldız (11) |
 | **FWD** | Mohamed Toure (9) | Barış Alper Yılmaz (17) |
 
-### Simulation Report — **Australia 1–3 Türkiye**
+### Simulation Report — **Australia 1–1 Türkiye**
 
-History repeated itself at midnight — down to the scoreline of that 2004 friendly.
+The midnight match was the night's most honest contest — and, fittingly for the only fixture without a single offside all game, it ended all square.
 
-For half an hour the Vancouver nightcap followed the Popovic script to the letter. Australia worked the channels, hit early balls in behind, and on **30 minutes** got their reward: **Mohamed Touré**, the lone striker, finishing off a direct Australian move for **1–0**. The Socceroos kept coming, too — the simulation logged a remarkable **18 Australian shots to Türkiye's 9**, with **Irankunda** and **Touré** firing nine attempts apiece.
+Türkiye controlled the tempo the way Montella sides do, **55% possession** flowing through Çalhanoğlu, with **Kenan Yıldız** and **Kerem Aktürkoğlu** sharing ten of Türkiye's twelve shots between the wings. On **35 minutes** the pressure became a lead — and with brutal economy: **Barış Alper Yılmaz's** first and only shot of the match beat **Mat Ryan** for **0–1**.
 
-But the night belonged to one man. **Barış Alper Yılmaz** equalised on **39 minutes**, put Türkiye ahead on **56**, and completed his hat-trick on **67** — **five shots, three goals**, a striker's masterclass in efficiency built on Türkiye's patient control (**52% possession**) and the through-balls of Çalhanoğlu and Güler behind Australia's wing-backs. Australia's volume never translated; Türkiye's precision always did. Final whistle: **Australia 1, Türkiye 3**.
+Australia's answer was the tournament's most persistent teenager. **Nestory Irankunda** attempted **eleven shots** on the night — nearly Australia's entire output of thirteen — and kept attacking **Mert Günok** until something gave. On **65 minutes** it did: **1–1**. The Socceroos backed his persistence with their trademark industry, **59 tackle attempts to Türkiye's 34**, and neither side could find a winner. Final whistle: **Australia 1, Türkiye 1**.
 
-**AI takeaway:** The model sees exactly what makes Türkiye a dark horse — they needed half as many shots as Australia and scored three times as often. Yılmaz's movement off the last shoulder is the machine's pick for the tournament's sneakiest weapon, and Popovic will note that all the honest running in the world doesn't survive three moments of Turkish quality.
+**AI takeaway:** The model sees two truths coexisting: Türkiye's quality is real (Yılmaz scoring with his only touch on goal is the dark horse's calling card) and so is Australia's resilience (Irankunda's eleven-shot siege is the kind of stubbornness that wins groups points). A draw at midnight leaves Group D wide open — which is exactly what the USA didn't want to hear.
 
 ---
 
 ## The Picture, Per the Machine
 
-Day three, per the simulation: an upset, a stalemate, a comeback, and a midnight hat-trick.
+Day three, per the simulation — re-run under the offside law: two heists, a siege, and a midnight standoff.
 
 | Match | Result | Group |
 |---|---|---|
-| 🇶🇦 Qatar drew Switzerland | **0 – 0** | B |
-| 🇨🇭 Switzerland drew Qatar | 0 – 0 | B |
-| 🇧🇷 Brazil lost to Morocco | 0 – 1 | C |
-| 🇲🇦 **Morocco** bt Brazil | **1 – 0** | C |
-| 🇭🇹 Haiti lost to Scotland | 1 – 3 | C |
-| 🏴󠁧󠁢󠁳󠁣󠁴󠁿 **Scotland** bt Haiti | **3 – 1** | C |
-| 🇦🇺 Australia lost to Türkiye | 1 – 3 | D |
-| 🇹🇷 **Türkiye** bt Australia | **3 – 1** | D |
+| 🇶🇦 **Qatar** bt Switzerland | **1 – 0** | B |
+| 🇨🇭 Switzerland lost to Qatar | 0 – 1 | B |
+| 🇧🇷 **Brazil** bt Morocco | **1 – 0** | C |
+| 🇲🇦 Morocco lost to Brazil | 0 – 1 | C |
+| 🇭🇹 **Haiti** bt Scotland | **1 – 0** | C |
+| 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland lost to Haiti | 0 – 1 | C |
+| 🇦🇺 Australia drew Türkiye | **1 – 1** | D |
+| 🇹🇷 Türkiye drew Australia | 1 – 1 | D |
 
-The day's pattern is unmistakable: the favourites' names bought nothing. Switzerland, −425 with the bookmakers, had 62% of the ball and were out-shot more than two-to-one by Qatar; Brazil, favoured at MetLife, were out-possessed *and* out-shot by a Morocco side that beat them on merit; Scotland and Türkiye won while conceding the shot count, on control and cold finishing. After three days of machine-simulated football, Group C already looks like the group of the tournament — Morocco and Scotland take the early points, Brazil chase from day one, and Haiti leave with the loudest warning shot — while in Group D, Türkiye serve notice to the USA that the group's dark horse kicks.
+The day's pattern is unmistakable: possession bought nothing, and the flag taxed impatience. Switzerland held 70% of the ball and produced **zero shots**; Scotland held 59% and lost to a side that shot **once**; Morocco edged the possession battle and went home empty. The simulator counted **13 offsides across the four matches** — seven in the Brazil–Morocco slugfest alone — and the sides that timed their runs (Qatar's Afif, Haiti's Isidor) cashed in while the eager were flagged. After three days of machine-simulated football, Group C is the group of the tournament for a new reason: **Brazil and Haiti lead it**, Morocco and Scotland chase from day one. In Group B, Qatar have ambushed the seeds again; in Group D, a midnight draw keeps everyone honest.
 
 ---
 
-*About this report: every result above was produced by **Agent Pitch**, an LLM-powered simulation in which each of the 22 players is an independent AI agent running its own decision code. Scorelines, scorers, timings and match statistics are taken directly from the simulation logs — they are an AI's prediction, not a real result. Real-world fixtures, venues and historical records are sourced from the [ESPN World Cup schedule](https://www.espn.com/soccer/schedule/_/league/fifa.world) and [FIFA](https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026). Kick off June 13 — then we find out how the machine did.*
+*About this report: every result above was produced by **Agent Pitch**, an LLM-powered simulation in which each of the 22 players is an independent AI agent running its own decision code. The engine now enforces the offside rule (IFAB Law 11): positions are judged at the moment of each pass, and violations restart play with an indirect free kick — all day-three matches were re-simulated under this law. Scorelines, scorers, timings and match statistics are taken directly from the simulation logs — they are an AI's prediction, not a real result. Real-world fixtures, venues and historical records are sourced from the [ESPN World Cup schedule](https://www.espn.com/soccer/schedule/_/league/fifa.world) and [FIFA](https://www.fifa.com/en/tournaments/mens/worldcup/canadamexicousa2026). Kick off June 13 — then we find out how the machine did.*
