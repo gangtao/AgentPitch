@@ -208,7 +208,7 @@ def advance_ball(
         field_width / field_height / ball_control_range: tuning knobs.
         excluded_pids: optional set of player_ids to skip in the candidate
             scan. Per ADR-0015 amendment (2026-04-22), ARE pre-excludes
-            cooldown-active players (and offside-eligible FWDs after a pass)
+            cooldown-active players
             so they cannot win the contest — preventing the position-snap
             loop where a rejected winner pinned the ball at their feet.
 

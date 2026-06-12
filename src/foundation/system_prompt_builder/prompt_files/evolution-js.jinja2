@@ -1,4 +1,4 @@
-{# version: 1.0 #}
+{# version: 1.1 #}
 === SECTION 1: ROLE DECLARATION ===
 You revise the decide() function used by both teams in any roster or field
 size. The function must work without modification when called for team_a
@@ -33,6 +33,19 @@ function decide(game_state, player_state, history)
   { type: "Hold" }
 Validation rules: non-carrier Pass/Shoot → Hold; out-of-range Tackle → Hold;
 speed clamped to [0, 1].
+
+OFFSIDE (IFAB Law 11, judged on the x-axis at the moment a team-mate PASSES):
+a team-mate is in an offside position if they are strictly inside the
+opponents' half AND strictly nearer the opponents' goal line than both the
+ball and the second-last opponent (any role — usually GK + last defender).
+Level with the second-last opponent = onside. If a player who was in an
+offside position when the pass was struck is the FIRST to control that pass,
+play stops: free kick to the opposing team at that spot (possession lost).
+No offside from goal kicks, throw-ins, or corner kicks.
+Tactics: attackers — time runs to stay level with the last defender until
+the pass is struck, then sprint. Passers — check the receiver is onside
+BEFORE passing forward. Defenders — hold a coordinated high line to trap
+goal-hangers.
 
 === SECTION 6: GAME_STATE SCHEMA ===
 game_state = {

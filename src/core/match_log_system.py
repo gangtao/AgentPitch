@@ -336,6 +336,13 @@ class MatchLog:
         on_target = sum(1 for tr in self._ticks for ar in tr.actions if ar.team == team and ar.action == "shoot" and ar.result in ("goal", "save"))
         tackles = sum(1 for tr in self._ticks for ar in tr.actions if ar.team == team and ar.action == "tackle")
         tackle_success_count = sum(1 for tr in self._ticks for ar in tr.actions if ar.team == team and ar.action == "tackle" and ar.result == "success")
+        # Issue #31: offsides conceded by this team. Keyed off the offender's
+        # side-channel record (details.offside_offence) so attribution holds
+        # regardless of action-name casing conventions.
+        offsides = sum(
+            1 for tr in self._ticks for ar in tr.actions
+            if ar.team == team and ar.details.get("offside_offence")
+        )
 
         return {
             "failure_rate": failure_rate,
@@ -350,6 +357,7 @@ class MatchLog:
             "on_target": on_target,
             "tackles": tackles,
             "tackle_success": tackle_success_count,
+            "offsides": offsides,
         }
 
     def _render_team_section(self, stats: dict) -> list[str]:
@@ -365,6 +373,9 @@ class MatchLog:
 
         lines.append(f"  Shots: {stats['shots']} attempted, {stats['goals']} goals, {stats['on_target']} on target")
         lines.append(f"  Tackles: {stats['tackles']} attempted, {stats['tackle_success']} success")
+        # Issue #31: free kicks conceded to the opponent — a high count means
+        # attackers are caught beyond the second-last defender at pass moments.
+        lines.append(f"  Offsides: {stats.get('offsides', 0)} (free kicks conceded)")
 
         if stats["possession"] == "no_possession_data":
             lines.append(f"  Possession: no_possession_data")
@@ -393,6 +404,17 @@ class MatchLog:
             return f"[{tr.tick}] shot_on_target: saved by GK."
         elif et == "pass_interception":
             return f"[{tr.tick}] pass_interception: ball stolen mid-pass."
+        elif et == "offside":
+            # Issue #31: attribute the offence so PMEP can see WHO was
+            # caught offside and which team got the free kick.
+            for ar in tr.actions:
+                d = ar.details if isinstance(ar.details, dict) else {}
+                if d.get("offside"):
+                    offender = d.get("offender_id", "?")
+                    to_team = d.get("restart_team", "?")
+                    return (f"[{tr.tick}] offside: {offender} flagged — "
+                            f"free kick to {to_team}.")
+            return f"[{tr.tick}] offside: free kick conceded."
         else:
             return f"[{tr.tick}] {et}"
 

@@ -130,6 +130,7 @@ def _empty_team_stats() -> dict[str, dict]:
             "oob_corners": 0,
             "oob_throw_ins": 0,
             "oob_goal_kicks": 0,
+            "offsides": 0,
             "gk_saves_caught": 0,
             "gk_saves_parried": 0,
         }
@@ -150,6 +151,7 @@ def _empty_player_stats(info: dict) -> dict:
         "dribbles_attempted": 0,
         "dribbles_successful": 0,
         "distance_run": 0.0,
+        "offsides": 0,
         "gk_saves_caught": 0,
         "gk_saves_parried": 0,
         "callback_failures": 0,
@@ -171,6 +173,19 @@ def _process_action(
 
     ts = team_stats.get(team)
     ps = player_stats.get(pid)
+
+    # Offside (issue #31) — keyed to the OFFENDING team/player (the
+    # restart_team is the opposing side that takes the free kick).
+    if details.get("offside"):
+        offender_id = details.get("offender_id", "")
+        offender_team = roster.get(offender_id, {}).get("team", "")
+        ots = team_stats.get(offender_team)
+        if ots is not None:
+            ots["offsides"] += 1
+        ops = player_stats.get(offender_id)
+        if ops is not None:
+            ops["offsides"] += 1
+        return  # system record — skip other counters
 
     # OOB restart — keyed to the team that takes the restart
     if details.get("out_of_bounds"):

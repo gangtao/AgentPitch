@@ -91,6 +91,16 @@ class ActionResolutionEngine:
         # turned over to the nearest opponent so the match can't freeze.
         self._stuck_anchor_pos: tuple[float, float] | None = None
         self._stuck_ticks = 0
+        # Issue #31 (IFAB Law 11): player ids flagged in an OFFSIDE POSITION
+        # at the moment of the most recent Pass. Persists across ticks while
+        # the pass travels; the offence fires in Phase 7 only if a flagged
+        # player is the one who controls the ball. Cleared on any touch,
+        # restart, or possession change.
+        self._offside_pids_at_pass: set[str] = set()
+        # Law 11 exemption: no offside directly from a goal kick, throw-in,
+        # or corner. _apply_oob_restart records the kicker here; their next
+        # Pass skips the offside snapshot, then the marker clears.
+        self._restart_kick_pid: str | None = None
 
     # Stalemate breaker tuning (bugfix #22). 50 ticks at the default 10
     # ticks/sec rate = 5s of an effectively motionless carried ball. The
@@ -184,7 +194,7 @@ class ActionResolutionEngine:
         # Phase 6: Tackle resolution (Story 006)
         tackle_records = self._resolve_phase6(validated_actions, snap, tick)
 
-        # Phase 7: Ball physics + Rule 16 + Goal attempt (Story 007)
+        # Phase 7: Ball physics + offside + Goal attempt (Story 007)
         ball_physics_records, goal_records = self._resolve_phase7(snap, tick)
 
         # Convert validated actions to action records.
@@ -522,6 +532,56 @@ class ActionResolutionEngine:
         v = getattr(sim, "tackle_settle_grace_ticks", 3)
         return v if isinstance(v, int) and not isinstance(v, bool) else 3
 
+    def _offside_enabled(self) -> bool:
+        """Issue #31: IFAB Law 11 toggle. Defensive vs mock GSM — only an
+        explicit True enables the rule (MagicMock attrs are truthy but not
+        `is True`), so legacy mock-based tests stay on the old behavior."""
+        sim = getattr(getattr(self.gsm, "config", None), "simulation", None)
+        if sim is None:
+            return False
+        return getattr(sim, "offside_enabled", False) is True
+
+    def _capture_offside_at_pass(self, passer: dict, snap: dict) -> None:
+        """Issue #31 — snapshot team-mates in an OFFSIDE POSITION at the
+        moment the ball is played (IFAB Law 11, x-axis judgement).
+
+        A team-mate is flagged iff, measured as distance to the opponents'
+        goal line (abs(x - opp_goal_x), half-time-swap safe):
+          - strictly inside the opponents' half (on the halfway line = own
+            half = onside), and
+          - strictly nearer the goal line than the ball (= the passer), and
+          - strictly nearer than the SECOND-LAST opponent, any role
+            (level = onside).
+        Being in an offside position is NOT an offence — Phase 7 penalises
+        only the flagged player who actually controls this pass.
+        """
+        self._offside_pids_at_pass.clear()
+        if not self._offside_enabled():
+            return
+        field = snap.get("field", {})
+        width = field.get("width")
+        goal_key = "team_b_goal_x" if passer["team"] == "team_a" else "team_a_goal_x"
+        opp_goal_x = field.get(goal_key)
+        if not isinstance(width, (int, float)) or not isinstance(opp_goal_x, (int, float)):
+            return  # sparse test fixture — cannot judge geometry
+        team = passer["team"]
+        ball_dist = abs(passer["position"][0] - opp_goal_x)
+        opp_dists = sorted(
+            abs(p["position"][0] - opp_goal_x)
+            for p in snap["players"].values() if p["team"] != team
+        )
+        # Degenerate rosters (<2 opponents) can't define a second-last
+        # opponent; treat the line as infinitely deep (only ball + half
+        # clauses apply). Real rosters are always 5-11 a side.
+        second_last = opp_dists[1] if len(opp_dists) >= 2 else float("inf")
+        half_width = width / 2.0
+        for p in snap["players"].values():
+            if p["team"] != team or p["player_id"] == passer["player_id"]:
+                continue
+            d = abs(p["position"][0] - opp_goal_x)
+            if d < half_width and d < ball_dist and d < second_last:
+                self._offside_pids_at_pass.add(p["player_id"])
+
     # ── Stamina / health (added 2026-04-23) ────────────────────────
     def _health_max(self) -> float:
         return self._sim_float("health_max", 100.0)
@@ -810,6 +870,17 @@ class ActionResolutionEngine:
             self._last_touching_team = passer["team"]
             self._last_ball_action_pid = current_carrier
 
+            # Issue #31 (Law 11): no offside directly from a goal kick,
+            # throw-in, or corner — the restart kicker's pass is exempt.
+            # Any other pass snapshots offside positions at this moment;
+            # the offence (if any) fires in Phase 7 when a flagged player
+            # controls the ball.
+            if current_carrier == self._restart_kick_pid:
+                self._offside_pids_at_pass.clear()
+            else:
+                self._capture_offside_at_pass(passer, snap)
+            self._restart_kick_pid = None
+
             # Per ADR-0018: drop the binary "inaccurate" label. Always "ok".
             # The landing_pos vs target_pos delta in the event log shows
             # how off the pass was.
@@ -844,6 +915,12 @@ class ActionResolutionEngine:
             self._ball_just_passed = True
             self._last_touching_team = passer["team"]
             self._last_ball_action_pid = current_carrier
+
+            # Issue #31: a shot is a fresh touch — void any pending offside
+            # flags (v1 judges offside only at Pass moments) and consume any
+            # restart-kick exemption.
+            self._offside_pids_at_pass.clear()
+            self._restart_kick_pid = None
 
             return {current_carrier: {"action": "Shoot", "result": "ok"}}
 
@@ -998,10 +1075,10 @@ class ActionResolutionEngine:
         return tackle_records
 
     def _resolve_phase7(self, snap: dict, tick: int) -> tuple[dict[str, dict], dict[str, dict]]:
-        """ARE Story 007 — Ball physics + Rule 16 + Goal attempts.
+        """ARE Story 007 — Ball physics + offside + Goal attempts.
 
         Phase 7: Execute BPS advance_ball with ARE-supplied pre-exclusion set
-        (cooldown-active players + offside-eligible FWDs after a pass), then
+        (cooldown-active players), apply offside offences (issue #31), then
         handle goal scoring attempts per ARE GDD Rule 14a.
 
         Per ADR-0015 amendment (2026-04-22) and ADR-0016: pre-exclusion in
@@ -1038,6 +1115,9 @@ class ActionResolutionEngine:
             cid = ball.get("carrier_id")
             live_carrier_id = cid if isinstance(cid, str) else None
         if live_carrier_id is not None:
+            # Issue #31: possession established by a non-pickup path
+            # (kickoff, tackle, GK save) voids pending offside flags.
+            self._offside_pids_at_pass.clear()
             # Carried ball — snap ball position to carrier so it follows them
             # as they move. (BPS's own carrier-handling does this, but we
             # short-circuit BPS here to avoid running the pickup contest on
@@ -1125,18 +1205,16 @@ class ActionResolutionEngine:
         # Get current game state for BPS (includes private _pass_landing_zone)
         game_state_dict = self._build_bps_game_state(snap)
 
-        # Build pickup exclusion set (ADR-0015 amendment + Rule 16):
-        # - cooldown-active players (replaces _passer_exclusion blocking role)
-        # - offside-eligible FWDs while _ball_just_passed is set
+        # Build pickup exclusion set (ADR-0015 amendment):
+        # cooldown-active players only. The old "Rule 16" offside-FWD
+        # exclusion was dead code (unreachable behind _ball_just_passed)
+        # and is superseded by real IFAB Law 11 offside (issue #31), which
+        # penalises on control instead of pre-excluding from pickup.
         excluded_pids: set[str] = set()
         if self._action_cooldown() > 0:
             for pid in snap.get("players", {}):
                 if self._is_on_cooldown(pid, tick):
                     excluded_pids.add(pid)
-        for player in snap.get("players", {}).values():
-            pid = player["player_id"]
-            if self._is_offside_violation(pid, snap):
-                excluded_pids.add(pid)
 
         # Call BPS advance_ball (handles motion + ball control contest +
         # shot deflection). Use injected self.bps (MagicMock-friendly in
@@ -1187,6 +1265,9 @@ class ActionResolutionEngine:
             if deflector_team:
                 self._last_touching_team = deflector_team
             self.gsm.record_action_cooldown(deflector, tick)
+            # Issue #31: a deflection is a touch — pending offside flags
+            # clear (v1 skips Law 11's "gaining an advantage" branch).
+            self._offside_pids_at_pass.clear()
             ball_physics_records[deflector] = {
                 "shot_deflection": True,
                 "deflected_from": self._last_ball_action_pid,
@@ -1198,6 +1279,7 @@ class ActionResolutionEngine:
         # generic OOB early-return. Capture the shooter from
         # self._last_ball_action_pid BEFORE the goal logic clears it.
         if self._is_goal_line_crossed(ball_result["new_position"], snap):
+            self._offside_pids_at_pass.clear()  # issue #31: play ends here
             shooter_id = self._last_ball_action_pid  # may be None for non-shot scenarios
             defending_team = self._get_defending_team(ball_result["new_position"], snap)
             goalkeeper_id = self._find_goalkeeper(defending_team, snap)
@@ -1356,10 +1438,19 @@ class ActionResolutionEngine:
             self._apply_oob_restart(ball_result["new_position"], snap, ball_physics_records)
             return ball_physics_records, goal_records
 
-        # Handle ball pickup. Cooldown + offside filtering is done upstream
-        # via excluded_pids — anything BPS returns here is a valid pickup.
+        # Handle ball pickup. Cooldown filtering is done upstream via
+        # excluded_pids — anything BPS returns here is a valid pickup.
         pickup_player_id = ball_result.get("controlled_by")
+        if pickup_player_id is not None and pickup_player_id in self._offside_pids_at_pass:
+            # Issue #31 — IFAB Law 11 offence: a player who was in an
+            # offside position when the ball was played has become involved
+            # in active play (first to control the pass). Free kick to the
+            # opposing team where the involvement happened.
+            self._offside_pids_at_pass.clear()
+            self._apply_offside_free_kick(pickup_player_id, snap, ball_physics_records)
+            return ball_physics_records, goal_records
         if pickup_player_id is not None:
+            self._offside_pids_at_pass.clear()  # issue #31: touched → flags void
             self.gsm.transfer_possession(None, pickup_player_id)
             # Per ADR-0015 amendment (2026-04-22): a successful pickup
             # triggers the unified action cooldown — the player must
@@ -1507,6 +1598,9 @@ class ActionResolutionEngine:
         """
         bx, by = oob_pos
 
+        # Issue #31: a restart ends the play — pending offside flags void.
+        self._offside_pids_at_pass.clear()
+
         # Mock-tolerance: bail to the legacy behaviour if state isn't real.
         if (not isinstance(getattr(self.gsm.state, "players", None), dict)
                 or not isinstance(getattr(self.gsm.state, "field", None), dict)):
@@ -1592,6 +1686,9 @@ class ActionResolutionEngine:
             # Don't trigger cooldown for the restart — the kicker hasn't
             # ACTED yet, just been positioned. Their next-tick Pass/Shoot
             # will trigger cooldown normally.
+            # Issue #31 (Law 11): no offside directly from a goal kick,
+            # throw-in, or corner — exempt this kicker's restart pass.
+            self._restart_kick_pid = kicker_id
 
         ball_physics_records["system"] = {
             "out_of_bounds": True,
@@ -1641,6 +1738,64 @@ class ActionResolutionEngine:
         candidates.sort()
         return candidates[0][2]
 
+    def _apply_offside_free_kick(self, offender_id: str, snap: dict,
+                                 ball_physics_records: dict) -> None:
+        """Issue #31 — IFAB Law 11 sanction: (indirect) free kick to the
+        opposing team where the offence occurred, i.e. where the flagged
+        player became involved in active play.
+
+        Mirrors _apply_oob_restart mechanics: ball + nearest opposing
+        outfield player placed at the spot, possession handed to them, a
+        `system` record emitted for the Event Log. The free-kick pass is
+        NOT offside-exempt (Law 11 exempts only goal kicks, throw-ins and
+        corners), so _restart_kick_pid is deliberately not set here.
+        """
+        players = getattr(self.gsm.state, "players", None)
+        offender = players.get(offender_id, {}) if isinstance(players, dict) else {}
+        offender_team = offender.get("team") if isinstance(offender, dict) else None
+        offender_pos = offender.get("position") if isinstance(offender, dict) else None
+        if (offender_team not in ("team_a", "team_b")
+                or not isinstance(offender_pos, (tuple, list)) or len(offender_pos) != 2):
+            # Mock/sparse GSM — fall back to the snapshot so unit fixtures work.
+            snap_p = snap.get("players", {}).get(offender_id, {})
+            offender_team = snap_p.get("team")
+            offender_pos = snap_p.get("position", (0.0, 0.0))
+        if offender_team not in ("team_a", "team_b"):
+            return  # cannot attribute the offence — leave play untouched
+        receiving_team = "team_b" if offender_team == "team_a" else "team_a"
+
+        field = getattr(self.gsm.state, "field", None)
+        fw = field.get("width", 100.0) if isinstance(field, dict) else 100.0
+        fh = field.get("height", 60.0) if isinstance(field, dict) else 60.0
+        # Pull the spot just inside the field so the placed ball isn't
+        # immediately re-classified OOB (same margins as throw-ins).
+        restart_spot = (
+            max(2.0, min(fw - 2.0, float(offender_pos[0]))),
+            max(0.5, min(fh - 0.5, float(offender_pos[1]))),
+        )
+
+        self.gsm.update_ball_position(restart_spot)
+        self.gsm.update_ball_velocity((0.0, 0.0))
+        self.gsm.set_pass_landing_zone(None)
+        self._last_ball_action_pid = None
+
+        kicker_id = self._select_restarter(receiving_team, restart_spot, exclude_role="GK")
+        if kicker_id is not None:
+            self.gsm.apply_move(kicker_id, restart_spot)
+            self.gsm.transfer_possession(None, kicker_id)
+            self._last_touching_team = receiving_team
+
+        ball_physics_records["system"] = {
+            "offside": True,
+            "offender_id": offender_id,
+            "position": (float(offender_pos[0]), float(offender_pos[1])),
+            "restart_spot": restart_spot,
+            "restart_type": "free_kick_offside",
+            "restart_team": receiving_team,
+            "kicker_id": kicker_id,
+        }
+        ball_physics_records[offender_id] = {"offside_offence": True}
+
     def _build_bps_game_state(self, snap: dict) -> dict:
         """Build BPS-compatible game_state dict from ARE snapshot.
 
@@ -1654,50 +1809,6 @@ class ActionResolutionEngine:
             game_state["_pass_landing_zone"] = pass_landing_zone
 
         return game_state
-
-    def _is_offside_violation(self, player_id: str, snap: dict) -> bool:
-        """Check ARE GDD Rule 16 - offside-equivalent rule.
-
-        A FWD player violates Rule 16 if:
-        1. Player is a FWD (position == "FWD")
-        2. Ball just passed this tick (_ball_just_passed == True)
-        3. Player is closer to opponent goal line than any opponent DEF/GK
-        """
-        if not self._ball_just_passed:
-            return False
-
-        player = next((p for p in snap["players"].values() if p["player_id"] == player_id), None)
-        # Real GSM snapshots use 'role' (per ADR-0004 / GSM init), not
-        # 'position_type'. The latter only ever appeared in test fixtures.
-        # Accept either for backward compat with the 5 advisory fixtures.
-        if player is None:
-            return False
-        role = player.get("role") or player.get("position_type")
-        if role != "FWD":
-            return False
-
-        player_team = player["team"]
-        opponent_team = "team_b" if player_team == "team_a" else "team_a"
-
-        # Find opponent goal x-coordinate
-        opp_goal_x = snap["field"]["team_b_goal_x"] if player_team == "team_a" else snap["field"]["team_a_goal_x"]
-
-        # Distance from player to opponent goal line
-        player_pos = player["position"]
-        player_dist_to_goal = abs(player_pos[0] - opp_goal_x)
-
-        # Find closest opponent DEF/GK distance to their own goal
-        min_defender_dist = float('inf')
-        for p in snap["players"].values():
-            p_role = p.get("role") or p.get("position_type")
-            if (p["team"] == opponent_team and
-                p_role in ["DEF", "GK"]):
-                defender_pos = p["position"]
-                defender_dist = abs(defender_pos[0] - opp_goal_x)
-                min_defender_dist = min(min_defender_dist, defender_dist)
-
-        # Violation if FWD is closer than any opponent DEF/GK
-        return player_dist_to_goal < min_defender_dist
 
     def _is_goal_line_crossed(self, ball_pos: tuple[float, float], snap: dict) -> bool:
         """Check if ball has crossed a goal line.

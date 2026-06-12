@@ -318,6 +318,33 @@ def test_compute_match_stats_oob_restarts_counted_by_type():
     assert stats["teams"]["team_b"]["oob_corners"] == 0
 
 
+# ── Offsides (issue #31) ─────────────────────────────────────────────────────
+
+def test_compute_match_stats_offsides_counted_for_offending_team_and_player():
+    events = [
+        _tick(0, actions=[
+            _action("system", "system", "system", details={
+                "offside": True,
+                "offender_id": "team_a_1",
+                "restart_type": "free_kick_offside",
+                "restart_team": "team_b",
+                "kicker_id": "team_b_1",
+            }),
+            _action("team_a_1", "team_a", "Hold", details={"offside_offence": True}),
+        ]),
+    ]
+    stats = compute_match_stats(events, _meta())
+    assert stats["teams"]["team_a"]["offsides"] == 1
+    assert stats["teams"]["team_b"]["offsides"] == 0
+    assert stats["players"]["team_a_1"]["offsides"] == 1
+
+
+def test_compute_match_stats_offsides_zero_by_default():
+    stats = compute_match_stats([], _meta())
+    assert stats["teams"]["team_a"]["offsides"] == 0
+    assert stats["players"]["team_b_1"]["offsides"] == 0
+
+
 # ── Distance run ─────────────────────────────────────────────────────────────
 
 def test_compute_match_stats_distance_run_accumulated_across_ticks():

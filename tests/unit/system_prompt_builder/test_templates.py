@@ -275,5 +275,5 @@ class TestRealProductionTemplatesLoad:
         #            and gpt-5 had been ignoring the terse one-liner and
         #            generating import math, which compiles but blows up at
         #            runtime (every tick → silent Hold()).
-        assert templates_module._template_cache[PromptMode.GENERATION].version == "2.7"
-        assert templates_module._template_cache[PromptMode.EVOLUTION].version == "2.0"
+        assert templates_module._template_cache[PromptMode.GENERATION].version == "2.8"
+        assert templates_module._template_cache[PromptMode.EVOLUTION].version == "2.1"

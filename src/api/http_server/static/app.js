@@ -743,6 +743,18 @@ function extractEventRows(allTicksData) {
           label: `GOAL by ${_label(scoredBy)} (Team ${teamLetter})`, cls: "ev-goal" });
         continue;
       }
+      if (details.offside) {
+        // Issue #31 (IFAB Law 11): offside offence → free kick to the
+        // opposing team at the offence spot.
+        const offender = details.offender_id;
+        const restartTeam = details.restart_team;
+        const kicker = details.kicker_id;
+        const teamLetter = restartTeam === "team_a" ? "A" : restartTeam === "team_b" ? "B" : "?";
+        const kTxt = kicker ? ` — free kick by ${_label(kicker)}` : ` — free kick to Team ${teamLetter}`;
+        rows.push({ tick: t.tick, team: restartTeam, icon: "🚫",
+          label: `OFFSIDE on ${_label(offender)}${kTxt}`, cls: "ev-offside" });
+        continue;
+      }
       if (details.out_of_bounds) {
         const restart = details.restart_type;
         const restartTeam = details.restart_team;

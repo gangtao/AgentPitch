@@ -163,6 +163,7 @@
       ['Corners',       ta.oob_corners ?? 0,             tb.oob_corners ?? 0],
       ['Throw-ins',     ta.oob_throw_ins ?? 0,           tb.oob_throw_ins ?? 0],
       ['Goal kicks',    ta.oob_goal_kicks ?? 0,          tb.oob_goal_kicks ?? 0],
+      ['Offsides',      ta.offsides ?? 0,                tb.offsides ?? 0],
       // Engine-specific metrics
       ['Callback failures', _engineVal(ta.callback_failures ?? 0), _engineVal(tb.callback_failures ?? 0), true],
     ];

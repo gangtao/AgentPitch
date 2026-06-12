@@ -229,7 +229,9 @@ class TestAC8TemplateVersion:
         #            flow. Empty when called from CGP (default), filled with
         #            the user's typed prompt when called from the API. Section
         #            count 14 → 15.
-        assert result.template_version == "2.7"
+        # 2.7 → 2.8: issue #31 — documented the offside rule (IFAB Law 11)
+        #            in SECTION 8 so strategies time runs / hold a line.
+        assert result.template_version == "2.8"
 
 
 # ---------------------------------------------------------------------------

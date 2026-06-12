@@ -85,6 +85,19 @@ const GAME_FIELDS = {
         unit: 'when off, strategy fully owns positioning'
       }
     ]
+  },
+
+  // ── G. Match rules (issue #31) ──
+  match_rules: {
+    title: '── G. MATCH RULES ──',
+    fields: [
+      {
+        key: 'offside_enabled',
+        label: 'OFFSIDE ENABLED',
+        type: 'checkbox',
+        unit: 'IFAB Law 11 — free kick when an offside player controls a pass'
+      }
+    ]
   }
 };
 
@@ -333,7 +346,8 @@ function _getDefaultValue(key) {
     goal_reset_ticks: 30,
     half_time_pause_ticks: 60,
     min_player_separation: 1.0,
-    formation_snap_enabled: false
+    formation_snap_enabled: false,
+    offside_enabled: true
   };
 
   return defaults[key] || '';

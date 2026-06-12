@@ -254,7 +254,9 @@ class TestAC11TemplateVersion:
         # 1.1 → 2.0: dropped per-team bake-in (team_id, attack_direction,
         #            roster) so revised strategies stay portable. Bumped
         #            in lockstep with generation v2.0.
-        assert result.template_version == "2.0"
+        # 2.0 → 2.1: issue #31 — documented the offside rule (IFAB Law 11)
+        #            in SECTION 5.
+        assert result.template_version == "2.1"
 
 
 # ---------------------------------------------------------------------------
