@@ -112,7 +112,7 @@ class ActionResolutionEngine:
         # Issue #38 (Law 13): pending free-kick taker as (pid, awarded_tick),
         # or None. While set, that player must put the ball in play with
         # Pass/Shoot (Move blocked, opponents cannot tackle them); past
-        # free_kick_auto_kick_ticks the engine auto-passes for them.
+        # restart_auto_kick_ticks the engine auto-passes for them.
         # Set by foul and offside free kicks; cleared on the kick or any
         # possession change. Persists across ticks while the kick is pending.
         self._pending_kick: tuple[str, int] | None = None
@@ -183,10 +183,10 @@ class ActionResolutionEngine:
             team = player["team"]
 
             # Build per-player game_state with my_player_id and my_team
-            # injected. free_kick_kicker (issue #38, Law 13) tells strategies
+            # injected. restart_kicker (issue #38, Laws 13/15/16/17) tells strategies
             # who must put the ball in play — that player's Move is blocked.
             game_state = {**snap, "my_player_id": pid, "my_team": team,
-                          "free_kick_kicker": pending_kicker}
+                          "restart_kicker": pending_kicker}
             player_state = self.gsm.build_player_state(pid)
             result = self.sandbox.execute(pid, game_state, player_state, history)
 
@@ -239,8 +239,8 @@ class ActionResolutionEngine:
             # Issue #38 (Law 13): keep the auto-kick marker as a dedicated
             # key — the Phase 5 merge below overwrites `result` with "ok",
             # which would hide engine-forced kicks from the event log.
-            if validation_reasons.get(pid) == "free_kick_auto_kick":
-                record["free_kick_auto_kick"] = True
+            if validation_reasons.get(pid) == "restart_auto_kick":
+                record["restart_auto_kick"] = True
             # Per ADR-0015: cooldown-blocked actions were substituted with
             # Hold(). Keep action="Hold" (effective action) and surface the
             # LLM's intent as intended_action so the event log can distinguish
@@ -336,7 +336,7 @@ class ActionResolutionEngine:
             # Issue #38 (Law 13): the pending free-kick taker must put the
             # ball in play with Pass or Shoot — running with the ball is not
             # part of a free kick. Move/Tackle/zero-intent are substituted
-            # with Hold; past free_kick_auto_kick_ticks of stalling the
+            # with Hold; past restart_auto_kick_ticks of stalling the
             # engine kicks for them (pass to the nearest teammate) so a
             # strategy unaware of the rule never deadlocks into the
             # stalemate turnover (which would hand the ball to the team
@@ -344,7 +344,7 @@ class ActionResolutionEngine:
             pending = self._pending_kick
             is_pending_kicker = pending is not None and pid == pending[0]
             if is_pending_kicker and not isinstance(action, (Pass, Shoot)):
-                auto_after = self._free_kick_auto_kick_ticks()
+                auto_after = self._restart_auto_kick_ticks()
                 target_pos = (self._nearest_teammate_pos(pid, snap)
                               if tick - pending[1] >= auto_after else None)
                 if target_pos is not None:
@@ -354,11 +354,11 @@ class ActionResolutionEngine:
                         strength = 10
                     action = Pass(target_pos=target_pos,
                                   power=max(1, min(12, strength)))
-                    reasons[pid] = "free_kick_auto_kick"
+                    reasons[pid] = "restart_auto_kick"
                 else:
                     if not isinstance(action, Hold):
                         validated[pid] = Hold()
-                        reasons[pid] = "free_kick_must_kick"
+                        reasons[pid] = "restart_must_kick"
                         continue
                     validated[pid] = action  # Hold while deciding is fine
                     continue
@@ -639,11 +639,11 @@ class ActionResolutionEngine:
     def _free_kick_exclusion_radius(self) -> float:
         return self._sim_float("free_kick_exclusion_radius", 9.15)
 
-    def _free_kick_auto_kick_ticks(self) -> int:
+    def _restart_auto_kick_ticks(self) -> int:
         sim = getattr(getattr(self.gsm, "config", None), "simulation", None)
         if sim is None:
             return 20
-        v = getattr(sim, "free_kick_auto_kick_ticks", 20)
+        v = getattr(sim, "restart_auto_kick_ticks", 20)
         return v if isinstance(v, int) and not isinstance(v, bool) else 20
 
     def _nearest_teammate_pos(self, pid: str, snap: dict) -> tuple[float, float] | None:
@@ -1130,7 +1130,7 @@ class ActionResolutionEngine:
             # Issue #38 (Law 13): the ball is not in play while a free kick
             # is pending — the taker cannot be tackled.
             if self._pending_kick is not None and target_id == self._pending_kick[0]:
-                tackle_records[tackler_id] = {"action": "Tackle", "result": "no_op_free_kick"}
+                tackle_records[tackler_id] = {"action": "Tackle", "result": "no_op_restart_pending"}
                 continue
 
             # Settled-possession grace (added 2026-04-23). If the carrier
@@ -1803,7 +1803,7 @@ class ActionResolutionEngine:
                         # Clear shooter attribution — parry-to-corner is a
                         # finished play; no rebound goal possible.
                         self._last_ball_action_pid = None
-                        self._apply_oob_restart(oob_pos, snap, ball_physics_records)
+                        self._apply_oob_restart(oob_pos, snap, ball_physics_records, tick=tick)
                         goal_records[goalkeeper_id] = {
                             "goalkeeper_save": "blocked",
                             "reason": reason,
@@ -1883,7 +1883,7 @@ class ActionResolutionEngine:
         # restart advantage and looked nothing like real soccer).
         if ball_result["out_of_bounds"]:
             self.gsm.set_pass_landing_zone(None)
-            self._apply_oob_restart(ball_result["new_position"], snap, ball_physics_records)
+            self._apply_oob_restart(ball_result["new_position"], snap, ball_physics_records, tick=tick)
             return ball_physics_records, goal_records
 
         # Handle ball pickup. Cooldown filtering is done upstream via
@@ -2021,7 +2021,7 @@ class ActionResolutionEngine:
             self._last_touching_team = opponent.get("team")
 
     def _apply_oob_restart(self, oob_pos: tuple[float, float], snap: dict,
-                           ball_physics_records: dict) -> None:
+                           ball_physics_records: dict, tick: int = 0) -> None:
         """Per FIFA Laws 15-17: classify OOB and award the appropriate
         restart (throw-in / goal kick / corner kick) to the correct team.
 
@@ -2137,6 +2137,11 @@ class ActionResolutionEngine:
             # Issue #31 (Law 11): no offside directly from a goal kick,
             # throw-in, or corner — exempt this kicker's restart pass.
             self._restart_kick_pid = kicker_id
+            # Issue #38 (Laws 15/16/17): same must-put-in-play rule as free
+            # kicks — the taker can only Pass/Shoot (throw/kick), cannot
+            # run with the ball, and cannot be tackled until the ball is
+            # in play.
+            self._pending_kick = (kicker_id, tick)
 
         ball_physics_records["system"] = {
             "out_of_bounds": True,

@@ -42,9 +42,10 @@ game_state = {
     },
     "my_team": str,        # "team_a" | "team_b"
     "my_player_id": str,   # this player's id, e.g. "team_a_3"
-    # Pending free-kick taker (IFAB Law 13), or None. If this equals
-    # my_player_id you MUST Pass or Shoot — Move is blocked until the kick.
-    "free_kick_kicker": str | None,
+    # Pending restart taker (free kick, throw-in, corner, or goal kick),
+    # or None. If this equals my_player_id you MUST Pass or Shoot — Move
+    # is blocked until the ball is put in play.
+    "restart_kicker": str | None,
 }
 
 === SECTION 3: PLAYER_STATE SCHEMA ===
@@ -160,12 +161,13 @@ Tactics: never tackle inside your own penalty area unless the alternative
 is a near-certain goal. Check player_state["yellow_cards"] — on 1 yellow,
 prefer containment (shadowing the carrier with Move) over tackling.
 
-FREE-KICK TAKING (Law 13): when game_state["free_kick_kicker"] equals your
-my_player_id, you are taking a free kick — the ball is not in play until
-you kick it. You MUST Pass or Shoot (Hold to wait is allowed); Move is
-blocked. Opponents cannot tackle you until the kick. If you stall ~2s the
-engine auto-passes to your nearest teammate — better to pick a target
-yourself.
+RESTART TAKING (Laws 13/15/16/17): when game_state["restart_kicker"]
+equals your my_player_id, you are taking a restart — a free kick,
+throw-in, corner, or goal kick. The ball is not in play until you kick
+(or throw) it: you MUST Pass or Shoot (Hold to wait is allowed); Move is
+blocked — you cannot run with the ball. Opponents cannot tackle you until
+the ball is in play. If you stall ~2s the engine auto-passes to your
+nearest teammate — better to pick a target yourself.
 
 === SECTION 9: ATTRIBUTE REFERENCE ===
 11 attributes (range 1-20):

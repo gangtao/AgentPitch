@@ -118,9 +118,9 @@ def test_free_kick_taker_protected_and_auto_kick_fires(tmp_path):
     opponents' tackles on the waiting taker must be voided."""
     events, _ = _run(tmp_path)
     auto_kicks = sum(1 for t in events for a in (t.get("actions") or [])
-                     if (a.get("details") or {}).get("free_kick_auto_kick"))
+                     if (a.get("details") or {}).get("restart_auto_kick"))
     voided = sum(1 for t in events for a in (t.get("actions") or [])
-                 if (a.get("details") or {}).get("result") == "no_op_free_kick")
+                 if (a.get("details") or {}).get("result") == "no_op_restart_pending")
     free_kicks = sum(1 for d in _foul_details(events)
                      if d["restart_type"] == "free_kick_foul")
     assert free_kicks > 0

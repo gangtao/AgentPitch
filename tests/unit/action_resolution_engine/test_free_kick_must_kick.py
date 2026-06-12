@@ -1,7 +1,7 @@
 """Issue #38 follow-up — IFAB Law 13: a free-kick taker must put the ball
 in play with Pass or Shoot. Move/Tackle are blocked while the kick is
 pending, opponents cannot tackle the taker (ball not in play), and after
-free_kick_auto_kick_ticks of stalling the engine kicks for them."""
+restart_auto_kick_ticks of stalling the engine kicks for them."""
 
 from unittest.mock import Mock
 
@@ -18,7 +18,7 @@ def make_engine(auto_kick_ticks=20):
     sim = gsm.config.simulation
     sim.fouls_enabled = True
     sim.action_cooldown_ticks = 0
-    sim.free_kick_auto_kick_ticks = auto_kick_ticks
+    sim.restart_auto_kick_ticks = auto_kick_ticks
     return ActionResolutionEngine(gsm, pms, bps, sandbox, fallback)
 
 
@@ -61,7 +61,7 @@ class TestMustKickGate:
         validated, reasons = eng._validate_actions(
             {"team_a_3": Move(dx=1.0, dy=0.0, speed=1.0)}, snap, tick=7)
         assert isinstance(validated["team_a_3"], Hold)
-        assert reasons["team_a_3"] == "free_kick_must_kick"
+        assert reasons["team_a_3"] == "restart_must_kick"
 
     def test_pass_allowed(self):
         eng = make_engine()
@@ -114,7 +114,7 @@ class TestAutoKick:
         v = validated["team_a_3"]
         assert isinstance(v, Pass)
         assert v.target_pos == (62.0, 30.0)  # team_a_4, the only teammate
-        assert reasons["team_a_3"] == "free_kick_auto_kick"
+        assert reasons["team_a_3"] == "restart_auto_kick"
 
     def test_below_threshold_hold_passes_through(self):
         eng = make_engine(auto_kick_ticks=20)
@@ -142,7 +142,7 @@ class TestBallNotInPlay:
         eng.move_results = {}
         records = eng._resolve_phase6(
             {"team_b_1": Tackle(target_player_id="team_a_3")}, snap, tick=7)
-        assert records["team_b_1"]["result"] == "no_op_free_kick"
+        assert records["team_b_1"]["result"] == "no_op_restart_pending"
 
 
 class TestPendingLifecycle:
@@ -169,6 +169,22 @@ class TestPendingLifecycle:
         assert eng._pending_kick is not None
         assert eng._pending_kick[1] == 11
 
+    def test_oob_restart_sets_pending(self):
+        """Throw-ins / corners / goal kicks get the same must-kick rule
+        (Laws 15/16/17 — the ball is in play only once thrown/kicked)."""
+        eng = make_engine()
+        snap = base_snap()
+        players = {pid: {**p, "sent_off": False}
+                   for pid, p in snap["players"].items()}
+        eng.gsm.state.players = players
+        eng.gsm.state.field = dict(snap["field"])
+        eng._last_touching_team = "team_b"
+        # Ball over the top side line at x=40 → throw-in to team_a.
+        eng._apply_oob_restart((40.0, 0.0), snap, {}, tick=13)
+        assert eng._pending_kick is not None
+        assert eng._pending_kick[0].startswith("team_a")
+        assert eng._pending_kick[1] == 13
+
     def test_pass_by_kicker_clears_pending(self):
         eng = make_engine()
         snap = base_snap()
@@ -180,6 +196,6 @@ class TestPendingLifecycle:
         assert eng._pending_kick is None
 
     def test_game_state_injection_field(self):
-        """Phase 2 injects free_kick_kicker into each player's game_state."""
+        """Phase 2 injects restart_kicker into each player's game_state."""
         from src.foundation.game_state_schema import _EXTRA_ALLOWED_TOP_KEYS
-        assert "free_kick_kicker" in _EXTRA_ALLOWED_TOP_KEYS
+        assert "restart_kicker" in _EXTRA_ALLOWED_TOP_KEYS
