@@ -112,6 +112,22 @@ def test_foul_severities_recorded_on_tackler(tmp_path):
     assert set(severities) <= {"careless", "reckless", "excessive_force"}
 
 
+def test_free_kick_taker_protected_and_auto_kick_fires(tmp_path):
+    """Law 13 follow-up: the press strategy Holds when carrying, so every
+    free-kick taker stalls — the engine must auto-kick for them, and
+    opponents' tackles on the waiting taker must be voided."""
+    events, _ = _run(tmp_path)
+    auto_kicks = sum(1 for t in events for a in (t.get("actions") or [])
+                     if (a.get("details") or {}).get("free_kick_auto_kick"))
+    voided = sum(1 for t in events for a in (t.get("actions") or [])
+                 if (a.get("details") or {}).get("result") == "no_op_free_kick")
+    free_kicks = sum(1 for d in _foul_details(events)
+                     if d["restart_type"] == "free_kick_foul")
+    assert free_kicks > 0
+    assert auto_kicks > 0, "stalling takers must be auto-kicked, not frozen"
+    assert voided > 0, "takers must be untacklable while the kick is pending"
+
+
 def test_match_deterministic_under_seed(tmp_path):
     events1, meta1 = _run(tmp_path / "run1", seed=7)
     events2, meta2 = _run(tmp_path / "run2", seed=7)

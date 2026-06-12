@@ -289,6 +289,12 @@ class SimulationConfig(BaseModel):
     # Law 13: defending players must be at least this far (u) from a free
     # kick. 9.15 u = the FIFA 10-yard rule on the 100 u field.
     free_kick_exclusion_radius: float = Field(default=9.15, ge=0.0, le=30.0)
+    # Law 13: the free-kick taker must put the ball in play with Pass or
+    # Shoot (Move is blocked while the kick is pending). If the taker's
+    # strategy stalls this many ticks (default 20 = 2 s at tick_rate 10),
+    # the engine kicks for them — a pass to the nearest teammate — so an
+    # unaware strategy never deadlocks into the stalemate turnover.
+    free_kick_auto_kick_ticks: int = Field(default=20, ge=1, le=300)
 
 
 class OutputConfig(BaseModel):

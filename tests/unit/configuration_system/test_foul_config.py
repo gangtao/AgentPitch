@@ -57,6 +57,7 @@ class TestFoulSimulationKnobs:
         assert sim.penalty_goal_per_point == 0.015
         assert sim.penalty_save_per_point == 0.01
         assert sim.free_kick_exclusion_radius == 9.15
+        assert sim.free_kick_auto_kick_ticks == 20
 
     def test_shares_bounded(self):
         with pytest.raises(ValidationError):
