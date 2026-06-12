@@ -142,7 +142,7 @@
       </div>
       <div class="stats-panel-body">
         ${_teamSummaryHtml(ta, tb)}
-        ${_playerSectionHtml(players)}
+        ${_playerSectionHtml(players, { team_a: ta.name, team_b: tb.name })}
       </div>
     `;
   }
@@ -193,7 +193,7 @@
     `;
   }
 
-  function _playerSectionHtml(players) {
+  function _playerSectionHtml(players, teamLabels) {
     const teamAPlayers = Object.entries(players)
       .filter(([, p]) => p.team === 'team_a')
       .sort(([, a], [, b]) => a.number - b.number);
@@ -204,19 +204,20 @@
     return `
       <div class="stats-players-section">
         <div class="stats-section-label">Per Player</div>
-        ${_teamPlayerTableHtml('team_a', teamAPlayers)}
-        ${_teamPlayerTableHtml('team_b', teamBPlayers)}
+        ${_teamPlayerTableHtml('team_a', teamLabels.team_a || 'TEAM A', teamAPlayers)}
+        ${_teamPlayerTableHtml('team_b', teamLabels.team_b || 'TEAM B', teamBPlayers)}
       </div>
     `;
   }
 
-  function _teamPlayerTableHtml(teamId, entries) {
+  function _teamPlayerTableHtml(teamId, label, entries) {
     const isA = teamId === 'team_a';
     const labelClass = isA ? 'team-label-a' : 'team-label-b';
-    const label = isA ? 'TEAM A' : 'TEAM B';
+    label = label.toUpperCase();
 
     const rowsHtml = entries.map(([pid, p]) => {
-      const shortPid = pid.replace('team_a_', '#').replace('team_b_', '#');
+      const numTag = p.number ? `#${p.number}` : pid.replace('team_a_', '#').replace('team_b_', '#');
+      const shortPid = p.name ? `${p.name} ${numTag}` : numTag;
       const gkCols = p.role === 'GK'
         ? `<td>${p.gk_saves_caught ?? 0}/${(p.gk_saves_caught ?? 0) + (p.gk_saves_parried ?? 0)}</td>`
         : `<td class="val-dim">—</td>`;
