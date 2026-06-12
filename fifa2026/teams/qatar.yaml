@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
+    offensive: 5
+    penalty: 7
   - name: Sultan Al-Brake
     number: 18
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 7
+    offensive: 12
+    penalty: 9
   - name: Lucas Mendes
     number: 3
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 8
+    offensive: 12
+    penalty: 10
   - name: Boualem Khoukhi
     number: 16
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 13
     pass: 13
     shoot: 10
+    offensive: 12
+    penalty: 11
   - name: Pedro Miguel
     number: 2
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 7
+    offensive: 12
+    penalty: 9
   - name: Assim Madibo
     number: 23
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 10
+    offensive: 10
+    penalty: 11
   - name: Karim Boudiaf
     number: 12
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 10
+    offensive: 11
+    penalty: 11
   - name: Mohamed Manai
     number: 26
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 11
+    offensive: 10
+    penalty: 12
   - name: Akram Afif
     number: 11
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 15
+    offensive: 8
+    penalty: 15
   - name: Almoez Ali
     number: 19
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 16
+    offensive: 9
+    penalty: 16
   - name: Edmilson Junior
     number: 8
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 14
     pass: 14
     shoot: 14
+    offensive: 8
+    penalty: 14

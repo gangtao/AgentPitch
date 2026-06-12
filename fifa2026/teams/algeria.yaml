@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 14
     shoot: 4
+    offensive: 5
+    penalty: 8
   - name: Rayan Aït-Nouri
     number: 15
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 11
+    offensive: 13
+    penalty: 12
   - name: Ramy Bensebaïni
     number: 21
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
+    offensive: 13
+    penalty: 12
   - name: Aïssa Mandi
     number: 2
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 8
+    offensive: 13
+    penalty: 10
   - name: Rafik Belghali
     number: 17
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 10
+    offensive: 12
+    penalty: 11
   - name: Hicham Boudaoui
     number: 14
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 17
     pass: 14
     shoot: 12
+    offensive: 11
+    penalty: 13
   - name: Houssem Aouar
     number: 8
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 15
     pass: 16
     shoot: 13
+    offensive: 11
+    penalty: 14
   - name: Amine Gouiri
     number: 9
     role: FWD
@@ -98,6 +112,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 16
+    offensive: 9
+    penalty: 16
   - name: Ibrahim Maza
     number: 22
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 15
     pass: 15
     shoot: 13
+    offensive: 8
+    penalty: 14
   - name: Mohamed Amoura
     number: 18
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 17
+    offensive: 8
+    penalty: 17
   - name: Riyad Mahrez
     number: 7
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 15
     pass: 17
     shoot: 16
+    offensive: 8
+    penalty: 16

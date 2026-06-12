@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
+    offensive: 5
+    penalty: 7
   - name: Nawaf Boushal
     number: 13
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 7
+    offensive: 12
+    penalty: 9
   - name: Ali Lajami
     number: 3
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 8
+    offensive: 13
+    penalty: 10
   - name: Hassan Al-Tambakti
     number: 5
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 8
+    offensive: 13
+    penalty: 10
   - name: Saud Abdulhamid
     number: 12
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 9
+    offensive: 12
+    penalty: 10
   - name: Mohamed Kanno
     number: 23
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
+    offensive: 11
+    penalty: 12
   - name: Abdullah Al-Khaibari
     number: 15
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
+    offensive: 10
+    penalty: 10
   - name: Salem Al-Dawsari
     number: 10
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 16
+    offensive: 10
+    penalty: 16
   - name: Musab Al-Juwayr
     number: 7
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 13
+    offensive: 10
+    penalty: 14
   - name: Nasser Al-Dawsari
     number: 6
     role: MID
@@ -122,6 +140,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 13
+    offensive: 10
+    penalty: 13
   - name: Firas Al-Buraikan
     number: 9
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 15
     pass: 13
     shoot: 14
+    offensive: 9
+    penalty: 14

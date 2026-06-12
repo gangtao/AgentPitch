@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
+    offensive: 5
+    penalty: 7
   - name: Ferdi Kadıoğlu
     number: 20
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 10
+    offensive: 12
+    penalty: 11
   - name: Abdülkerim Bardakcı
     number: 14
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 8
+    offensive: 14
+    penalty: 10
   - name: Merih Demiral
     number: 3
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 9
+    offensive: 14
+    penalty: 10
   - name: Zeki Çelik
     number: 2
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
+    offensive: 12
+    penalty: 10
   - name: Hakan Çalhanoğlu
     number: 10
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 18
     shoot: 16
+    offensive: 11
+    penalty: 16
   - name: İsmail Yüksek
     number: 16
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 17
     pass: 14
     shoot: 11
+    offensive: 11
+    penalty: 12
   - name: Kerem Aktürkoğlu
     number: 7
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 14
+    offensive: 10
+    penalty: 14
   - name: Arda Güler
     number: 8
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 15
     pass: 17
     shoot: 15
+    offensive: 10
+    penalty: 16
   - name: Kenan Yıldız
     number: 11
     role: MID
@@ -122,6 +140,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 15
+    offensive: 10
+    penalty: 15
   - name: Barış Alper Yılmaz
     number: 21
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 16
     pass: 13
     shoot: 14
+    offensive: 9
+    penalty: 14

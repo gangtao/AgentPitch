@@ -14,6 +14,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 4
+    offensive: 5
+    penalty: 8
   - name: Joško Gvardiol
     number: 4
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 9
+    offensive: 14
+    penalty: 11
   - name: Duje Ćaleta-Car
     number: 5
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 14
     pass: 14
     shoot: 7
+    offensive: 15
+    penalty: 9
   - name: Luka Vušković
     number: 22
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 9
+    offensive: 15
+    penalty: 11
   - name: Josip Stanišić
     number: 2
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 9
+    offensive: 12
+    penalty: 11
   - name: Mateo Kovačić
     number: 8
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 17
     shoot: 13
+    offensive: 11
+    penalty: 14
   - name: Luka Modrić
     number: 10
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 15
     pass: 19
     shoot: 15
+    offensive: 9
+    penalty: 16
   - name: Ivan Perišić
     number: 14
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 15
     pass: 15
     shoot: 16
+    offensive: 12
+    penalty: 16
   - name: Andrej Kramarić
     number: 9
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 14
     pass: 15
     shoot: 16
+    offensive: 11
+    penalty: 16
   - name: Marco Pašalić
     number: 24
     role: MID
@@ -122,6 +140,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 13
+    offensive: 10
+    penalty: 13
   - name: Ante Budimir
     number: 11
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 14
     pass: 12
     shoot: 16
+    offensive: 10
+    penalty: 15

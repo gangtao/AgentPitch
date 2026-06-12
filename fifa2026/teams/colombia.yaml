@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
+    offensive: 5
+    penalty: 8
   - name: Johan Mojica
     number: 17
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 8
+    offensive: 12
+    penalty: 10
   - name: Davinson Sánchez
     number: 23
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
+    offensive: 15
+    penalty: 9
   - name: Jhon Lucumí
     number: 3
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
+    offensive: 14
+    penalty: 9
   - name: Daniel Muñoz
     number: 2
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
+    offensive: 13
+    penalty: 11
   - name: Richard Ríos
     number: 6
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 12
+    offensive: 11
+    penalty: 13
   - name: Jefferson Lerma
     number: 16
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
+    offensive: 13
+    penalty: 12
   - name: Luis Díaz
     number: 7
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 16
+    offensive: 10
+    penalty: 16
   - name: James Rodríguez
     number: 10
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 13
     pass: 18
     shoot: 16
+    offensive: 10
+    penalty: 17
   - name: Jhon Arias
     number: 11
     role: MID
@@ -122,6 +140,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 14
+    offensive: 10
+    penalty: 15
   - name: Luis Suárez
     number: 25
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 15
     pass: 13
     shoot: 17
+    offensive: 9
+    penalty: 16
