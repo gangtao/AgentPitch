@@ -54,6 +54,14 @@ class PlayerConfig(BaseModel):
     # Jersey number for display (per-team unique). 0 = auto-assign from
     # roster index (1-5) at GSM init. Range [0, 99] matches real soccer.
     number: int = Field(default=0, ge=0, le=99)
+    # Issue #38 (IFAB Law 12): aggression rating. Higher = better tackle
+    # success AND higher foul chance (aggressive-play trade-off). Default 10
+    # (neutral multiplier) so existing fixtures need no migration.
+    offensive: int = Field(default=10, ge=1, le=20)
+    # Issue #38 (IFAB Law 14): penalty-kick conversion rating. Default None
+    # means "fall back to shooting" (which itself falls back to skill) —
+    # same migration pattern as passing/shooting.
+    penalty: Optional[int] = Field(default=None, ge=1, le=20)
 
     @model_validator(mode="after")
     def validate_save_gk_only(self) -> "PlayerConfig":
@@ -256,6 +264,28 @@ class SimulationConfig(BaseModel):
     # detection geometry was validated against baseline runs and a real
     # match log; set False to reproduce pre-#31 behavior bit-for-bit.
     offside_enabled: bool = Field(default=True)
+
+    # Foul system (issue #38, IFAB Law 12/13/14). Master toggle — False
+    # reproduces pre-#38 behavior bit-for-bit.
+    fouls_enabled: bool = Field(default=True)
+    # Base probability that a tackle attempt (in range, target is carrier,
+    # past settle grace) commits a foul, at offensive=10. Scaled linearly:
+    # foul_prob = tackle_foul_base * offensive / 10.
+    tackle_foul_base: float = Field(default=0.10, ge=0.0, le=1.0)
+    # Severity split for a committed foul (one hash_01 draw):
+    #   draw < red_share                       → excessive force → red card
+    #   draw < red_share + yellow_share        → reckless        → yellow card
+    #   else                                   → careless        → no card
+    foul_yellow_share: float = Field(default=0.25, ge=0.0, le=1.0)
+    foul_red_share: float = Field(default=0.05, ge=0.0, le=1.0)
+    # Penalty-kick conversion (Law 14): p_goal = min(1, base + per_point *
+    # taker_penalty). Defaults give 0.75 at penalty=10 (real-world average),
+    # 0.90 at penalty=20.
+    penalty_goal_base: float = Field(default=0.60, ge=0.0, le=1.0)
+    penalty_goal_per_point: float = Field(default=0.015, ge=0.0, le=0.05)
+    # Law 13: defending players must be at least this far (u) from a free
+    # kick. 9.15 u = the FIFA 10-yard rule on the 100 u field.
+    free_kick_exclusion_radius: float = Field(default=9.15, ge=0.0, le=30.0)
 
 
 class OutputConfig(BaseModel):
