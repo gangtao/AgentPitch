@@ -384,8 +384,11 @@ class TickEngine:
             )
 
         def _is_sent_off(pid):
+            # `is True` (not truthiness): mock GSMs in unit tests return
+            # MagicMock attrs, which are truthy but not True — those players
+            # must count as on-field (same pattern as ARE._offside_enabled).
             try:
-                return bool(gsm.state.players[pid].get("sent_off", False))
+                return gsm.state.players[pid].get("sent_off", False) is True
             except (KeyError, TypeError, AttributeError):
                 return False  # mock GSM — treat as on-field
 
