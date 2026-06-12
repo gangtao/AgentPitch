@@ -89,7 +89,7 @@ def _slot_default(slot: str) -> str:
 # ── Helpers ───────────────────────────────────────────────────────────────────
 
 def _build_roster(meta: dict) -> dict[str, dict]:
-    """Extract {player_id: {team, role, number}} from meta['teams'].
+    """Extract {player_id: {team, role, number, name}} from meta['teams'].
 
     Tolerates both meta shapes:
       - Legacy bare list: meta.teams.team_a = [{player_id, ...}, ...]
@@ -110,6 +110,7 @@ def _build_roster(meta: dict) -> dict[str, dict]:
                     "team": team_id,
                     "role": p.get("role", ""),
                     "number": p.get("number", 0),
+                    "name": p.get("name", ""),
                 }
     return roster
 
@@ -142,6 +143,7 @@ def _empty_player_stats(info: dict) -> dict:
         "team": info["team"],
         "role": info["role"],
         "number": info["number"],
+        "name": info["name"],
         "goals": 0,
         "shots": 0,
         "shots_on_target": 0,
