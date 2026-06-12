@@ -122,6 +122,9 @@ class TestAC4PlayerStateShape:
             "passing", "shooting",
             # Stamina + dynamic health (added 2026-04-23).
             "stamina", "current_health",
+            # Issue #38 (IFAB Law 12/14): aggression / penalty ratings and
+            # the player's caution count.
+            "offensive", "penalty", "yellow_cards",
             # Cooldown feedback per ADR-0015 amendment (2026-04-22) —
             # unified single-timer model.
             "cooldown_remaining",
