@@ -55,6 +55,7 @@ class TestFoulSimulationKnobs:
         assert sim.foul_red_share == 0.05
         assert sim.penalty_goal_base == 0.60
         assert sim.penalty_goal_per_point == 0.015
+        assert sim.penalty_save_per_point == 0.01
         assert sim.free_kick_exclusion_radius == 9.15
 
     def test_shares_bounded(self):

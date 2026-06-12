@@ -278,11 +278,14 @@ class SimulationConfig(BaseModel):
     #   else                                   → careless        → no card
     foul_yellow_share: float = Field(default=0.25, ge=0.0, le=1.0)
     foul_red_share: float = Field(default=0.05, ge=0.0, le=1.0)
-    # Penalty-kick conversion (Law 14): p_goal = min(1, base + per_point *
-    # taker_penalty). Defaults give 0.75 at penalty=10 (real-world average),
-    # 0.90 at penalty=20.
+    # Penalty-kick conversion (Law 14): p_goal = clamp(base + per_point *
+    # taker_penalty - save_per_point * (gk_save - 10), 0, 1). The keeper
+    # term is CENTERED on save=10 so an average keeper leaves the curve
+    # untouched: defaults give 0.75 at penalty=10 vs save=10 (real-world
+    # average), 0.90 at penalty=20, -0.10 against a save=20 keeper.
     penalty_goal_base: float = Field(default=0.60, ge=0.0, le=1.0)
     penalty_goal_per_point: float = Field(default=0.015, ge=0.0, le=0.05)
+    penalty_save_per_point: float = Field(default=0.01, ge=0.0, le=0.05)
     # Law 13: defending players must be at least this far (u) from a free
     # kick. 9.15 u = the FIFA 10-yard rule on the 100 u field.
     free_kick_exclusion_radius: float = Field(default=9.15, ge=0.0, le=30.0)

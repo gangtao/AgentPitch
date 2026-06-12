@@ -16,6 +16,7 @@ def make_engine():
     sim.fouls_enabled = True
     sim.penalty_goal_base = 0.60
     sim.penalty_goal_per_point = 0.015
+    sim.penalty_save_per_point = 0.01
     sim.free_kick_exclusion_radius = 9.15
     return ActionResolutionEngine(gsm, pms, bps, sandbox, fallback)
 
@@ -127,9 +128,15 @@ class TestFoulFreeKick:
 
 
 class TestPenaltyKick:
-    def _run(self, tick):
+    # team_a_4 penalty=18, team_b_0 GK save=12 →
+    # p = 0.60 + 0.015*18 − 0.01*(12−10) = 0.87 − 0.02 = 0.85
+    P_GOAL = 0.85
+
+    def _run(self, tick, mutate=None):
         eng = make_engine()
         players = live_players()
+        if mutate:
+            mutate(players)
         wire(eng, players)
         snap = snap_from(players)
         records = {}
@@ -143,9 +150,8 @@ class TestPenaltyKick:
         assert records["system"]["kicker_id"] == "team_a_4"  # penalty=18
 
     def test_goal_when_draw_under_conversion(self):
-        # team_a_4 penalty=18 → p = 0.60 + 0.015*18 = 0.87
         tick = next(t for t in range(200)
-                    if hash_01(42, t, "team_a_4", "penalty_kick") < 0.87)
+                    if hash_01(42, t, "team_a_4", "penalty_kick") < self.P_GOAL)
         eng, players, records = self._run(tick)
         assert records["system"]["penalty_outcome"] == "goal"
         assert records["system"]["goal_scored"] == "team_a"
@@ -154,12 +160,38 @@ class TestPenaltyKick:
 
     def test_save_when_draw_over_conversion(self):
         tick = next(t for t in range(2000)
-                    if hash_01(42, t, "team_a_4", "penalty_kick") >= 0.87)
+                    if hash_01(42, t, "team_a_4", "penalty_kick") >= self.P_GOAL)
         eng, players, records = self._run(tick)
         assert records["system"]["penalty_outcome"] == "saved"
         eng.gsm.record_goal.assert_not_called()
         # GK ends with the ball
         eng.gsm.transfer_possession.assert_called_with(None, "team_b_0")
+
+    def test_gk_save_rating_shifts_conversion(self):
+        # Pick a draw in [0.85, 0.87): saved against the save=12 keeper,
+        # but a goal against an average (save=10) keeper on the SAME draw.
+        tick = next(t for t in range(5000)
+                    if 0.85 <= hash_01(42, t, "team_a_4", "penalty_kick") < 0.87)
+        _, _, records_strong = self._run(tick)
+        assert records_strong["system"]["penalty_outcome"] == "saved"
+
+        def _average_gk(players):
+            players["team_b_0"]["save"] = 10
+        _, _, records_avg = self._run(tick, mutate=_average_gk)
+        assert records_avg["system"]["penalty_outcome"] == "goal"
+
+    def test_no_goalkeeper_means_automatic_goal(self):
+        # GK sent off — Law 14 with no keeper: the kick always converts.
+        # Pick a draw that would normally be SAVED to prove the bypass.
+        tick = next(t for t in range(2000)
+                    if hash_01(42, t, "team_a_4", "penalty_kick") >= self.P_GOAL)
+
+        def _send_off_gk(players):
+            players["team_b_0"]["sent_off"] = True
+        eng, _, records = self._run(tick, mutate=_send_off_gk)
+        assert records["system"]["penalty_outcome"] == "goal"
+        assert records["system"]["reason"] == "no_goalkeeper"
+        eng.gsm.record_goal.assert_called_once_with("team_a")
 
     def test_penalty_mark_position(self):
         eng, players, records = self._run(tick=3)

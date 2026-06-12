@@ -576,6 +576,9 @@ class ActionResolutionEngine:
     def _penalty_goal_per_point(self) -> float:
         return self._sim_float("penalty_goal_per_point", 0.015)
 
+    def _penalty_save_per_point(self) -> float:
+        return self._sim_float("penalty_save_per_point", 0.01)
+
     def _free_kick_exclusion_radius(self) -> float:
         return self._sim_float("free_kick_exclusion_radius", 9.15)
 
@@ -1302,11 +1305,14 @@ class ActionResolutionEngine:
         """Issue #38 — IFAB Law 14: penalty kick, resolved instantly.
 
         Taker = the fouled team's on-field player with the highest `penalty`
-        rating (lowest pid tie-break). Conversion probability is attribute-
-        driven: p = min(1, penalty_goal_base + penalty_goal_per_point ×
-        penalty). Goal → gsm.record_goal (the Tick Engine's score-delta
-        check then runs the normal GOAL_SCORED → kickoff reset). Saved →
-        the defending GK collects the ball.
+        rating (lowest pid tie-break). Conversion is a duel of attributes:
+        p = clamp(penalty_goal_base + penalty_goal_per_point × taker_penalty
+        − penalty_save_per_point × (gk_save − 10), 0, 1) — the keeper term
+        is centered on save=10 so an average keeper leaves the base curve
+        untouched. No keeper on the field (sent off) → automatic goal.
+        Goal → gsm.record_goal (the Tick Engine's score-delta check then
+        runs the normal GOAL_SCORED → kickoff reset). Saved → the defending
+        GK collects the ball.
 
         v1 keeps resolution instant (no live penalty phase) — the ball and
         taker are placed at the penalty mark for the viewer, then the
@@ -1354,8 +1360,27 @@ class ActionResolutionEngine:
         self.gsm.set_pass_landing_zone(None)
         self._last_ball_action_pid = None
 
-        p_goal = min(1.0, self._penalty_goal_base()
-                     + self._penalty_goal_per_point() * taker_penalty)
+        # The defending keeper contests the kick: their `save` rating shifts
+        # conversion, centered on save=10 (average keeper = no shift). A
+        # sent-off keeper leaves the goal open — automatic conversion.
+        gk_id = None
+        gk_save = 10
+        for pid in sorted(players):
+            p = players[pid]
+            if (isinstance(p, dict) and p.get("team") == fouling_team
+                    and p.get("role") == "GK"
+                    and not p.get("sent_off", False)):
+                gk_id = pid
+                rating = p.get("save", 10)
+                if isinstance(rating, (int, float)):
+                    gk_save = rating
+                break
+
+        p_goal = max(0.0, min(1.0, self._penalty_goal_base()
+                     + self._penalty_goal_per_point() * taker_penalty
+                     - self._penalty_save_per_point() * (gk_save - 10)))
+        if gk_id is None:
+            p_goal = 1.0  # Law 14 with no keeper: nothing to beat
         draw = hash_01(self.gsm.seed, tick, taker_id, "penalty_kick")
 
         sysrec = {
@@ -1374,6 +1399,8 @@ class ActionResolutionEngine:
             sysrec["penalty_outcome"] = "goal"
             sysrec["goal_scored"] = fouled_team
             sysrec["scored_by"] = taker_id
+            if gk_id is None:
+                sysrec["reason"] = "no_goalkeeper"
             # Clear possession from the live carrier (the fouled player
             # still holds the ball at this point). transfer(None, None)
             # would be the EC-GSM-03 no-op and leave them carrying.
@@ -1386,11 +1413,9 @@ class ActionResolutionEngine:
             # GOAL_SCORED pause + kickoff reset.
         else:
             sysrec["penalty_outcome"] = "saved"
-            gk_id = self._find_goalkeeper(fouling_team, snap)
-            if gk_id is not None:
-                self.gsm.transfer_possession(None, gk_id)
-                self._snap_ball_to_carrier(gk_id)
-                self._last_touching_team = fouling_team
+            self.gsm.transfer_possession(None, gk_id)
+            self._snap_ball_to_carrier(gk_id)
+            self._last_touching_team = fouling_team
         records["system"] = sysrec
 
     def _resolve_phase7(self, snap: dict, tick: int) -> tuple[dict[str, dict], dict[str, dict]]:
