@@ -735,6 +735,31 @@ function extractEventRows(allTicksData) {
       const team = a.team;
       const details = a.details || {};
 
+      if (details.foul) {
+        // Issue #38 (IFAB Law 12): foul → free kick or penalty; cards.
+        // Must precede the goal_scored branch so a converted penalty
+        // renders with its penalty context instead of as a plain goal.
+        const offender = details.offender_id;
+        const card = details.card;
+        const cardTxt = card === "red" ? " 🟥 RED CARD"
+          : card === "yellow" ? " 🟨 YELLOW CARD" : "";
+        const sentTxt = details.sent_off ? " — SENT OFF" : "";
+        if (details.restart_type === "penalty_kick") {
+          const out = details.penalty_outcome === "goal"
+            ? `⚽ GOAL by ${_label(details.kicker_id)}`
+            : `saved (${_label(details.kicker_id)})`;
+          rows.push({ tick: t.tick, team: details.restart_team, icon: "⚠️",
+            label: `FOUL by ${_label(offender)}${cardTxt}${sentTxt} → PENALTY: ${out}`,
+            cls: details.penalty_outcome === "goal" ? "ev-goal" : "ev-foul" });
+        } else {
+          const kicker = details.kicker_id;
+          const kTxt = kicker ? ` — free kick by ${_label(kicker)}` : "";
+          rows.push({ tick: t.tick, team: details.restart_team, icon: "⚠️",
+            label: `FOUL by ${_label(offender)}${cardTxt}${sentTxt}${kTxt}`,
+            cls: "ev-foul" });
+        }
+        continue;
+      }
       if (details.goal_scored) {
         const scoredBy = details.scored_by || "?";
         const scoringTeam = details.goal_scored;
