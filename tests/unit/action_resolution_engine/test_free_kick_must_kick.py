@@ -169,6 +169,30 @@ class TestPendingLifecycle:
         assert eng._pending_kick is not None
         assert eng._pending_kick[1] == 11
 
+    def test_kickoff_arms_pending(self):
+        """Law 8: the kickoff kicker must kick — armed from the KICK_OFF
+        phase tick (covers match start, post-goal, and second half)."""
+        eng = make_engine()
+        snap = base_snap()
+        snap["match_phase"] = "kick_off"
+        eng._arm_kickoff_restart(snap, tick=0)
+        assert eng._pending_kick == ("team_a_3", 0)
+
+    def test_kickoff_arming_is_idempotent_for_same_kicker(self):
+        eng = make_engine()
+        snap = base_snap()
+        snap["match_phase"] = "kick_off"
+        eng._pending_kick = ("team_a_3", 0)
+        eng._arm_kickoff_restart(snap, tick=4)
+        assert eng._pending_kick == ("team_a_3", 0)  # original tick kept
+
+    def test_no_arming_outside_kickoff_phase(self):
+        eng = make_engine()
+        snap = base_snap()
+        snap["match_phase"] = "in_play"
+        eng._arm_kickoff_restart(snap, tick=0)
+        assert eng._pending_kick is None
+
     def test_oob_restart_sets_pending(self):
         """Throw-ins / corners / goal kicks get the same must-kick rule
         (Laws 15/16/17 — the ball is in play only once thrown/kicked)."""

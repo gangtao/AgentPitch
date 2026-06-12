@@ -174,6 +174,14 @@ class ActionResolutionEngine:
         # Phase 1: build snapshot once
         snap = self.gsm.build_tick_snapshot()
 
+        # Issue #38 (Law 8): a kickoff is a restart too — the kicker at the
+        # center spot must put the ball in play with a kick, not dribble off
+        # with it. Detected from the phase (every kickoff — match start,
+        # post-goal, second half — passes through one KICK_OFF tick with the
+        # kicker already carrying) instead of plumbing ARE state through the
+        # Tick Engine's kickoff setup.
+        self._arm_kickoff_restart(snap, tick)
+
         # Phase 2: callback invocation + fallback routing
         actions: dict[str, Any] = {}
 
@@ -645,6 +653,22 @@ class ActionResolutionEngine:
             return 20
         v = getattr(sim, "restart_auto_kick_ticks", 20)
         return v if isinstance(v, int) and not isinstance(v, bool) else 20
+
+    def _arm_kickoff_restart(self, snap: dict, tick: int) -> None:
+        """Issue #38 (Law 8): arm the must-kick rule for the kickoff kicker.
+
+        Called once per tick right after the snapshot is built. On a
+        KICK_OFF tick the ball carrier IS the kickoff kicker — the same
+        pending-restart rule as free kicks / throw-ins applies until they
+        kick. No-op outside KICK_OFF or when already armed for this kicker.
+        """
+        if snap.get("match_phase") != "kick_off":
+            return
+        ball = snap.get("ball", {})
+        carrier = ball.get("carrier_id") if isinstance(ball, dict) else None
+        if isinstance(carrier, str) and (
+                self._pending_kick is None or self._pending_kick[0] != carrier):
+            self._pending_kick = (carrier, tick)
 
     def _nearest_teammate_pos(self, pid: str, snap: dict) -> tuple[float, float] | None:
         """Position of pid's nearest teammate in the snapshot, or None.
