@@ -383,8 +383,16 @@ class TickEngine:
                 + [f"team_b_{i}" for i in range(5)]
             )
 
-        # Reset all players to anchors
+        def _is_sent_off(pid):
+            try:
+                return bool(gsm.state.players[pid].get("sent_off", False))
+            except (KeyError, TypeError, AttributeError):
+                return False  # mock GSM — treat as on-field
+
+        # Reset all players to anchors (issue #38: sent-off players stay out)
         for pid in all_pids:
+            if _is_sent_off(pid):
+                continue
             anchor = gsm.state._anchors[pid]
             gsm.apply_move(pid, anchor)
 
@@ -402,7 +410,8 @@ class TickEngine:
         # (degenerate config / mock fixtures with no role info).
         if kickoff_team is None:
             kickoff_team = "team_a"  # Default fallback
-        team_pids = [pid for pid in all_pids if pid.startswith(kickoff_team)]
+        team_pids = [pid for pid in all_pids
+                     if pid.startswith(kickoff_team) and not _is_sent_off(pid)]
 
         def role_for(pid):
             try:
@@ -589,6 +598,19 @@ class TickEngine:
         for rec in recs:
             if rec.get("offside"):
                 return "offside"
+
+        # Foul (issue #38, Law 12) — a restart ends the play, like OOB and
+        # offside. Cards outrank the generic foul; a converted penalty
+        # already returned "goal" via the score delta above.
+        for rec in recs:
+            if rec.get("foul"):
+                if rec.get("card") == "red":
+                    return "red_card"
+                if rec.get("card") == "yellow":
+                    return "yellow_card"
+                if rec.get("restart_type") == "penalty_kick":
+                    return "penalty_kick"
+                return "foul"
 
         # OOB — added 2026-04-22 alongside ADR-0018. Surfaces when ARE Phase 7
         # detected an out-of-bounds (side line / end line outside goal mouth).
