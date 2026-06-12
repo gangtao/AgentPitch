@@ -34,6 +34,8 @@ class SimulationSection(BaseModel):
     # Issue #31: IFAB Law 11 offside toggle (mirrors SimulationConfig).
     # Default flipped to True on 2026-06-11 in lockstep with SimulationConfig.
     offside_enabled: bool = Field(default=True)
+    # Issue #38: IFAB Law 12 foul-system toggle (mirrors SimulationConfig).
+    fouls_enabled: bool = Field(default=True)
 
 
 class OutputSection(BaseModel):
