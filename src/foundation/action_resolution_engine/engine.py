@@ -1218,22 +1218,180 @@ class ActionResolutionEngine:
     def _apply_foul_free_kick(self, fouling_team, fouled_team, foul_spot,
                               offender_id, snap, tick, records, *,
                               card=None, sent_off=False) -> None:
-        # Stub — replaced with the full Law 13 restart in the next commit.
+        """Issue #38 — IFAB Law 13: direct free kick at the foul spot.
+
+        Mirrors _apply_offside_free_kick mechanics (ball + nearest fouled-
+        team outfielder at the spot, possession handed over) and adds the
+        Law 13 wall rule: every fouling-team player within
+        free_kick_exclusion_radius (9.15 u) of the spot is pushed radially
+        out to that radius. The free-kick pass is NOT offside-exempt (Law 11
+        exempts only goal kicks, throw-ins and corners).
+        """
+        self._offside_pids_at_pass.clear()  # restart ends the play
+
+        field = getattr(self.gsm.state, "field", None)
+        fw = field.get("width", 100.0) if isinstance(field, dict) else 100.0
+        fh = field.get("height", 60.0) if isinstance(field, dict) else 60.0
+        restart_spot = (
+            max(2.0, min(fw - 2.0, float(foul_spot[0]))),
+            max(0.5, min(fh - 0.5, float(foul_spot[1]))),
+        )
+
+        self.gsm.update_ball_position(restart_spot)
+        self.gsm.update_ball_velocity((0.0, 0.0))
+        self.gsm.set_pass_landing_zone(None)
+        self._last_ball_action_pid = None
+
+        kicker_id = self._select_restarter(fouled_team, restart_spot,
+                                           exclude_role="GK")
+        if kicker_id is not None:
+            self.gsm.apply_move(kicker_id, restart_spot)
+            self.gsm.transfer_possession(None, kicker_id)
+            self._last_touching_team = fouled_team
+
+        # Law 13: push the fouling team's players out to the exclusion
+        # radius (the "wall" distance). Fouled team is free to stand
+        # anywhere — only opponents must retreat.
+        self._enforce_restart_exclusion(restart_spot, fouling_team,
+                                        self._free_kick_exclusion_radius(),
+                                        skip={kicker_id})
+
         records["system"] = {
-            "foul": True, "restart_type": "free_kick_foul",
-            "offender_id": offender_id, "restart_team": fouled_team,
-            "card": card, "sent_off": sent_off,
+            "foul": True,
+            "offender_id": offender_id,
+            "fouling_team": fouling_team,
+            "position": (float(foul_spot[0]), float(foul_spot[1])),
+            "restart_spot": restart_spot,
+            "restart_type": "free_kick_foul",
+            "restart_team": fouled_team,
+            "kicker_id": kicker_id,
+            "card": card,
+            "sent_off": sent_off,
         }
+
+    def _enforce_restart_exclusion(self, spot, team, radius, skip=()):
+        """Push every `team` player within `radius` of `spot` radially out
+        to the radius (Law 13/14 retreat). Deterministic: sorted pid order.
+        Field clamping happens in gsm.apply_move."""
+        players = getattr(self.gsm.state, "players", None)
+        if not isinstance(players, dict) or radius <= 0:
+            return
+        for pid in sorted(players):
+            p = players[pid]
+            if (not isinstance(p, dict) or p.get("team") != team
+                    or p.get("sent_off", False) or pid in skip):
+                continue
+            ppos = p.get("position")
+            if not isinstance(ppos, (tuple, list)) or len(ppos) != 2:
+                continue
+            dx = ppos[0] - spot[0]
+            dy = ppos[1] - spot[1]
+            d = (dx * dx + dy * dy) ** 0.5
+            if d >= radius:
+                continue
+            if d < 1e-6:
+                ux, uy = 1.0, 0.0  # exact overlap — push along +x
+            else:
+                ux, uy = dx / d, dy / d
+            self.gsm.apply_move(pid, (spot[0] + ux * radius,
+                                      spot[1] + uy * radius))
 
     def _resolve_penalty_kick(self, fouling_team, fouled_team, foul_spot,
                               offender_id, snap, tick, records, *,
                               card=None, sent_off=False) -> None:
-        # Stub — replaced with the full Law 14 resolution in the next commit.
-        records["system"] = {
-            "foul": True, "restart_type": "penalty_kick",
-            "offender_id": offender_id, "restart_team": fouled_team,
-            "card": card, "sent_off": sent_off,
+        """Issue #38 — IFAB Law 14: penalty kick, resolved instantly.
+
+        Taker = the fouled team's on-field player with the highest `penalty`
+        rating (lowest pid tie-break). Conversion probability is attribute-
+        driven: p = min(1, penalty_goal_base + penalty_goal_per_point ×
+        penalty). Goal → gsm.record_goal (the Tick Engine's score-delta
+        check then runs the normal GOAL_SCORED → kickoff reset). Saved →
+        the defending GK collects the ball.
+
+        v1 keeps resolution instant (no live penalty phase) — the ball and
+        taker are placed at the penalty mark for the viewer, then the
+        outcome applies in the same tick.
+        """
+        self._offside_pids_at_pass.clear()
+
+        field = getattr(self.gsm.state, "field", None)
+        if not isinstance(field, dict):
+            field = snap.get("field", {})
+        fw = field.get("width", 100.0)
+        goal_x = field.get(f"{fouling_team}_goal_x", 0.0)
+        goal_top = field.get("goal_top", 33.66)
+        goal_bottom = field.get("goal_bottom", 26.34)
+        goal_center_y = (goal_top + goal_bottom) / 2.0
+        # Penalty mark: 11 u in front of the defending goal line.
+        mark_x = goal_x + PENALTY_MARK_DIST if goal_x < fw / 2.0 \
+            else goal_x - PENALTY_MARK_DIST
+        mark = (mark_x, goal_center_y)
+
+        # Taker: highest penalty rating among on-field fouled-team players.
+        players = getattr(self.gsm.state, "players", None)
+        if not isinstance(players, dict):
+            players = {pid: dict(p) for pid, p in snap["players"].items()}
+        candidates = []
+        for pid in sorted(players):
+            p = players[pid]
+            if not isinstance(p, dict) or p.get("team") != fouled_team \
+                    or p.get("sent_off", False):
+                continue
+            rating = p.get("penalty", p.get("shooting", p.get("skill", 10)))
+            if not isinstance(rating, (int, float)):
+                rating = 10
+            candidates.append((-rating, pid))
+        if not candidates:
+            return  # degenerate fixture — no one to take the kick
+        candidates.sort()
+        taker_id = candidates[0][1]
+        taker_penalty = -candidates[0][0]
+
+        # Stage the kick for the viewer: ball + taker at the mark.
+        self.gsm.apply_move(taker_id, mark)
+        self.gsm.update_ball_position(mark)
+        self.gsm.update_ball_velocity((0.0, 0.0))
+        self.gsm.set_pass_landing_zone(None)
+        self._last_ball_action_pid = None
+
+        p_goal = min(1.0, self._penalty_goal_base()
+                     + self._penalty_goal_per_point() * taker_penalty)
+        draw = hash_01(self.gsm.seed, tick, taker_id, "penalty_kick")
+
+        sysrec = {
+            "foul": True,
+            "offender_id": offender_id,
+            "fouling_team": fouling_team,
+            "position": (float(foul_spot[0]), float(foul_spot[1])),
+            "restart_spot": mark,
+            "restart_type": "penalty_kick",
+            "restart_team": fouled_team,
+            "kicker_id": taker_id,
+            "card": card,
+            "sent_off": sent_off,
         }
+        if draw < p_goal:
+            sysrec["penalty_outcome"] = "goal"
+            sysrec["goal_scored"] = fouled_team
+            sysrec["scored_by"] = taker_id
+            # Clear possession from the live carrier (the fouled player
+            # still holds the ball at this point). transfer(None, None)
+            # would be the EC-GSM-03 no-op and leave them carrying.
+            ball = getattr(self.gsm.state, "ball", None)
+            live_carrier = ball.get("carrier_id") if isinstance(ball, dict) else None
+            if live_carrier is not None:
+                self.gsm.transfer_possession(live_carrier, None)
+            self.gsm.record_goal(fouled_team)
+            # Tick Engine sees the score delta and runs the normal
+            # GOAL_SCORED pause + kickoff reset.
+        else:
+            sysrec["penalty_outcome"] = "saved"
+            gk_id = self._find_goalkeeper(fouling_team, snap)
+            if gk_id is not None:
+                self.gsm.transfer_possession(None, gk_id)
+                self._snap_ball_to_carrier(gk_id)
+                self._last_touching_team = fouling_team
+        records["system"] = sysrec
 
     def _resolve_phase7(self, snap: dict, tick: int) -> tuple[dict[str, dict], dict[str, dict]]:
         """ARE Story 007 — Ball physics + offside + Goal attempts.
