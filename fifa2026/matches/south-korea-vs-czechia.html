@@ -1593,6 +1593,8 @@
     .evt.ev-blocked        .txt { color: var(--ink-dimer); font-style: italic; }
     .evt.ev-oob            .ico { color: var(--ink-dim); }
     .evt.ev-oob            .txt { color: var(--ink-dim); font-style: italic; }
+    .evt.ev-offside        .ico { color: var(--bad); }
+    .evt.ev-offside        .txt { color: #d8a8a8; font-weight: 600; }
     .evt.ev-phase          .ico { color: var(--b); }
     .evt.ev-phase          .txt { color: #c8b8e0; font-weight: 500; }
     .evt.ev-phase-major    .ico { color: var(--amber); }
@@ -2061,6 +2063,7 @@ function computeMatchStats(events, meta) {
       passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
       dribbles_attempted: 0, dribbles_successful: 0, callback_failures: 0,
       oob_corners: 0, oob_throw_ins: 0, oob_goal_kicks: 0,
+      offsides: 0,
       gk_saves_caught: 0, gk_saves_parried: 0,
     };
   }
@@ -2071,7 +2074,8 @@ function computeMatchStats(events, meta) {
       goals: 0, shots: 0, shots_on_target: 0,
       passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
       dribbles_attempted: 0, dribbles_successful: 0,
-      distance_run: 0.0, gk_saves_caught: 0, gk_saves_parried: 0,
+      distance_run: 0.0, offsides: 0,
+      gk_saves_caught: 0, gk_saves_parried: 0,
       callback_failures: 0,
     };
   }
@@ -2140,6 +2144,18 @@ function _processAction(rec, teamStats, playerStats, roster) {
   const details = rec.details || {};
   const ts = teamStats[team];
   const ps = playerStats[pid];
+
+  // Offside (issue #31) — keyed to the OFFENDING team/player (the
+  // restart_team is the opposing side that takes the free kick).
+  if (details.offside) {
+    const offenderId = details.offender_id || '';
+    const offenderTeam = (roster[offenderId] || {}).team || '';
+    const ots = teamStats[offenderTeam];
+    if (ots) ots.offsides++;
+    const ops = playerStats[offenderId];
+    if (ops) ops.offsides++;
+    return; // system record — skip other counters
+  }
 
   // OOB restart — keyed to restart_team
   if (details.out_of_bounds) {
@@ -2408,6 +2424,7 @@ function _processAction(rec, teamStats, playerStats, roster) {
       ['Corners',       ta.oob_corners ?? 0,             tb.oob_corners ?? 0],
       ['Throw-ins',     ta.oob_throw_ins ?? 0,           tb.oob_throw_ins ?? 0],
       ['Goal kicks',    ta.oob_goal_kicks ?? 0,          tb.oob_goal_kicks ?? 0],
+      ['Offsides',      ta.offsides ?? 0,                tb.offsides ?? 0],
       // Engine-specific metrics
       ['Callback failures', _engineVal(ta.callback_failures ?? 0), _engineVal(tb.callback_failures ?? 0), true],
     ];
@@ -3262,6 +3279,18 @@ function extractEventRows(allTicksData) {
         const teamLetter = scoringTeam === "team_a" ? "A" : "B";
         rows.push({ tick: t.tick, team: scoringTeam, icon: "⚽",
           label: `GOAL by ${_label(scoredBy)} (Team ${teamLetter})`, cls: "ev-goal" });
+        continue;
+      }
+      if (details.offside) {
+        // Issue #31 (IFAB Law 11): offside offence → free kick to the
+        // opposing team at the offence spot.
+        const offender = details.offender_id;
+        const restartTeam = details.restart_team;
+        const kicker = details.kicker_id;
+        const teamLetter = restartTeam === "team_a" ? "A" : restartTeam === "team_b" ? "B" : "?";
+        const kTxt = kicker ? ` — free kick by ${_label(kicker)}` : ` — free kick to Team ${teamLetter}`;
+        rows.push({ tick: t.tick, team: restartTeam, icon: "🚫",
+          label: `OFFSIDE on ${_label(offender)}${kTxt}`, cls: "ev-offside" });
         continue;
       }
       if (details.out_of_bounds) {
