@@ -25,6 +25,14 @@ logger = logging.getLogger(__name__)
 # SimulationConfig/UI knob (see spec).
 GK_SAVE_WEIGHT = 2.0
 
+# Issue #38 (IFAB Law 12/13/14) — foul-system constants. Geometry matches
+# the real FIFA pitch (and the UI markings in static/app.js): penalty area
+# 16.5 u deep, penalty mark 11.0 u from the goal line. The offensive rating
+# weights tackle effectiveness: ±15% at the rating extremes.
+PENALTY_AREA_DEPTH = 16.5
+PENALTY_MARK_DIST = 11.0
+OFFENSIVE_TACKLE_WEIGHT = 0.15
+
 
 def _is_finite_number(value: Any) -> bool:
     """True only for a real, finite int/float.
@@ -228,8 +236,12 @@ class ActionResolutionEngine:
         for pid, ball_record in ball_action_records.items():
             action_records[pid].update(ball_record)
 
-        # Merge tackle records from Phase 6
+        # Merge tackle records from Phase 6. A foul (issue #38) adds a
+        # synthetic "system" restart record that has no base action record —
+        # create it like the Phase 7 merges below do.
         for pid, tackle_record in tackle_records.items():
+            if pid not in action_records:
+                action_records[pid] = {"action": "Hold", "result": "ok", "tick": tick}
             action_records[pid].update(tackle_record)
 
         # Merge ball physics records from Phase 7
@@ -540,6 +552,32 @@ class ActionResolutionEngine:
         if sim is None:
             return False
         return getattr(sim, "offside_enabled", False) is True
+
+    def _fouls_enabled(self) -> bool:
+        """Issue #38: IFAB Law 12 toggle. Same mock-defensive pattern as
+        _offside_enabled — only explicit True enables."""
+        sim = getattr(getattr(self.gsm, "config", None), "simulation", None)
+        if sim is None:
+            return False
+        return getattr(sim, "fouls_enabled", False) is True
+
+    def _tackle_foul_base(self) -> float:
+        return self._sim_float("tackle_foul_base", 0.10)
+
+    def _foul_yellow_share(self) -> float:
+        return self._sim_float("foul_yellow_share", 0.25)
+
+    def _foul_red_share(self) -> float:
+        return self._sim_float("foul_red_share", 0.05)
+
+    def _penalty_goal_base(self) -> float:
+        return self._sim_float("penalty_goal_base", 0.60)
+
+    def _penalty_goal_per_point(self) -> float:
+        return self._sim_float("penalty_goal_per_point", 0.015)
+
+    def _free_kick_exclusion_radius(self) -> float:
+        return self._sim_float("free_kick_exclusion_radius", 9.15)
 
     def _capture_offside_at_pass(self, passer: dict, snap: dict) -> None:
         """Issue #31 — snapshot team-mates in an OFFSIDE POSITION at the
@@ -1004,6 +1042,22 @@ class ActionResolutionEngine:
                     tackle_records[tackler_id] = {"action": "Tackle", "result": "no_op_settled"}
                     continue
 
+            # Issue #38 (IFAB Law 12): foul check. An aggressive challenge
+            # may be a foul instead of a clean contest — the foul preempts
+            # the tackle outcome entirely. Probability scales linearly with
+            # the tackler's `offensive` rating (neutral at 10).
+            if self._fouls_enabled():
+                tackler_state_pre = self.gsm.build_player_state(tackler_id)
+                offensive = tackler_state_pre.get("offensive", 10)
+                if not isinstance(offensive, int):
+                    offensive = 10  # mock GSM in legacy tests
+                foul_prob = self._tackle_foul_base() * (offensive / 10.0)
+                foul_draw = hash_01(self.gsm.seed, tick, tackler_id, "foul")
+                if foul_draw < foul_prob:
+                    self._resolve_foul(tackler_id, target_id, snap, tick,
+                                       tackle_records)
+                    continue
+
             # PAM F4: tackle contest
             tackler = players_by_id[tackler_id]
             target = players_by_id[target_id]
@@ -1014,6 +1068,12 @@ class ActionResolutionEngine:
 
             tackler_strength = tackler_state["strength"]
             target_strength = target_state["strength"]
+            # Issue #38: offensive rating weights tackle effectiveness —
+            # the other half of the aggression trade-off (more fouls, but
+            # stronger challenges).
+            t_off = tackler_state.get("offensive", 10)
+            if isinstance(t_off, int):
+                tackler_strength *= 1.0 + OFFENSIVE_TACKLE_WEIGHT * (t_off - 10) / 10.0
             # Health-factor multiplier (added 2026-04-23): a tired
             # tackler hits weaker; a tired carrier resists less. Both
             # sides of the contest get scaled.
@@ -1073,6 +1133,107 @@ class ActionResolutionEngine:
                 tackle_records[tackler_id] = {"action": "Tackle", "result": "failed"}
 
         return tackle_records
+
+    def _resolve_foul(self, tackler_id: str, target_id: str, snap: dict,
+                      tick: int, tackle_records: dict) -> None:
+        """Issue #38 — IFAB Law 12: a tackle has committed a foul.
+
+        Severity (one hash_01 draw): excessive force → red card; reckless →
+        yellow card; careless → no card (Law 12 disciplinary scale). A red
+        card or a second yellow sends the player off via gsm.record_card.
+        Restart (Laws 13/14): penalty kick if the foul is inside the fouling
+        team's own penalty area, else a direct free kick at the foul spot.
+        """
+        players_by_id = {p["player_id"]: p for p in snap["players"].values()}
+        tackler = players_by_id[tackler_id]
+        target = players_by_id[target_id]
+        fouling_team = tackler["team"]
+        fouled_team = target["team"]
+
+        # Foul spot = where the offence occurred = the carrier's position
+        # (post-Phase-4 commit when available).
+        if hasattr(self, "move_results") and target_id in self.move_results:
+            foul_spot = self.move_results[target_id][0]
+        else:
+            foul_spot = target.get("position", (0.0, 0.0))
+
+        # Severity roll (Law 12: careless / reckless / excessive force).
+        red_share = self._foul_red_share()
+        yellow_share = self._foul_yellow_share()
+        sev_draw = hash_01(self.gsm.seed, tick, tackler_id, "foul_severity")
+        if sev_draw < red_share:
+            severity, card = "excessive_force", "red"
+        elif sev_draw < red_share + yellow_share:
+            severity, card = "reckless", "yellow"
+        else:
+            severity, card = "careless", None
+
+        sent_off = False
+        if card is not None and hasattr(self.gsm, "record_card"):
+            try:
+                sent_off = self.gsm.record_card(tackler_id, card) is True
+            except Exception:
+                sent_off = False  # mock GSM in legacy tests
+
+        record = {
+            "action": "Tackle",
+            "result": "foul",
+            "foul_severity": severity,
+            "fouled_player": target_id,
+        }
+        if card is not None:
+            record["card"] = card
+        if sent_off:
+            record["sent_off"] = True
+        tackle_records[tackler_id] = record
+
+        # Restart: penalty (Law 14) vs direct free kick (Law 13).
+        if self._is_in_penalty_area(foul_spot, fouling_team, snap):
+            self._resolve_penalty_kick(fouling_team, fouled_team, foul_spot,
+                                       tackler_id, snap, tick, tackle_records,
+                                       card=card, sent_off=sent_off)
+        else:
+            self._apply_foul_free_kick(fouling_team, fouled_team, foul_spot,
+                                       tackler_id, snap, tick, tackle_records,
+                                       card=card, sent_off=sent_off)
+
+    def _is_in_penalty_area(self, pos: tuple[float, float],
+                            defending_team: str, snap: dict) -> bool:
+        """True if `pos` is inside `defending_team`'s OWN penalty area:
+        within PENALTY_AREA_DEPTH of their goal line, y within the goal
+        mouth widened by PENALTY_AREA_DEPTH each side (real FIFA geometry,
+        same as the UI pitch markings). Half-time-swap safe — reads the
+        team's current goal_x."""
+        field = snap.get("field", {})
+        goal_x = field.get(f"{defending_team}_goal_x")
+        goal_top = field.get("goal_top")
+        goal_bottom = field.get("goal_bottom")
+        if not all(isinstance(v, (int, float))
+                   for v in (goal_x, goal_top, goal_bottom)):
+            return False  # sparse fixture — treat as outside
+        x, y = pos
+        return (abs(x - goal_x) <= PENALTY_AREA_DEPTH
+                and goal_bottom - PENALTY_AREA_DEPTH <= y <= goal_top + PENALTY_AREA_DEPTH)
+
+    def _apply_foul_free_kick(self, fouling_team, fouled_team, foul_spot,
+                              offender_id, snap, tick, records, *,
+                              card=None, sent_off=False) -> None:
+        # Stub — replaced with the full Law 13 restart in the next commit.
+        records["system"] = {
+            "foul": True, "restart_type": "free_kick_foul",
+            "offender_id": offender_id, "restart_team": fouled_team,
+            "card": card, "sent_off": sent_off,
+        }
+
+    def _resolve_penalty_kick(self, fouling_team, fouled_team, foul_spot,
+                              offender_id, snap, tick, records, *,
+                              card=None, sent_off=False) -> None:
+        # Stub — replaced with the full Law 14 resolution in the next commit.
+        records["system"] = {
+            "foul": True, "restart_type": "penalty_kick",
+            "offender_id": offender_id, "restart_team": fouled_team,
+            "card": card, "sent_off": sent_off,
+        }
 
     def _resolve_phase7(self, snap: dict, tick: int) -> tuple[dict[str, dict], dict[str, dict]]:
         """ARE Story 007 — Ball physics + offside + Goal attempts.
