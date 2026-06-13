@@ -1,19 +1,19 @@
 # Belgium — Tactical Profile
 
 ## Identity & Philosophy
-Rudi García's Belgium is the post-Golden-Generation team: still talented, still anchored by De Bruyne, Lukaku, and Doku, but no longer young or pressing-fit. The style has shifted from Roberto Martinez's possession-heavy 3-4-3 to a more pragmatic 4-2-3-1 built around De Bruyne's distribution, Doku's dribbling, and Lukaku's hold-up play. Less press, more transition. The back line is a younger rebuild (De Winter, De Cuyper) screened by a double pivot. Recent results: failed Euro 2024 round of 16 exit to France; qualifying for 2026 has been functional rather than dominant. Courtois back in goal is the single biggest upgrade on the spine.
+Rudi García's Belgium is the post-Golden-Generation team: still talented, still anchored by De Bruyne, Lukaku, and Doku, but rebuilt around a younger spine. García (appointed January 2025) guided Belgium through 2026 qualifying topping UEFA Group J unbeaten, settling on a pragmatic 4-2-3-1 built around De Bruyne's distribution, Doku's dribbling, and Lukaku's hold-up play. The style is wide pace + De Bruyne creativity + high-tempo transitions rather than sustained possession — García wants the ball won and converted quickly, but the ageing core means Belgium cannot press for 90 minutes and accepts spells of opponent possession. The back line is a younger rebuild (De Winter, De Cuyper, Castagne) screened by a double pivot. Courtois restored to goal is the single biggest upgrade on the spine. This is De Bruyne's and Lukaku's last World Cup; De Bruyne, now at Napoli, wears the captain's armband under García.
 
 ## Formation
 - Shape: 4-2-3-1 (double pivot + De Bruyne as a clear #10; shifts to 4-3-3 vs weaker sides)
 - Role mapping (roster order in `belgium.yaml`):
   - index 0: GK — Thibaut Courtois (world-class shot-stopper; save 19 — elite, the spine's biggest upgrade)
   - index 1: LB — Maxim De Cuyper (modern, energetic FB; stamina 17 — gets forward more than the old LB)
-  - index 2: LCB — Arthur Theate (steady, defensively responsible; now central rather than at LB)
+  - index 2: LCB — Arthur Theate (steady, defensively responsible; the more comfortable ball-player of the pair)
   - index 3: RCB — Koni De Winter (younger CB; strength 16 — physical anchor of the rebuilt line)
-  - index 4: RB — Thomas Meunier (experienced, defensively reliable, occasional overlapping run)
-  - index 5: DM/#6 — Youri Tielemans (captain; deep playmaker; pass 17 — left of the pivot, build-up starter)
+  - index 4: RB — Timothy Castagne (experienced, two-footed, defensively reliable; tournament veteran, occasional overlap)
+  - index 5: DM/#6 — Youri Tielemans (deep playmaker; pass 17 — left of the pivot, build-up starter)
   - index 6: DM/#8 — Amadou Onana (the destroyer; strength 17; ball-winner; tucks in front of CBs)
-  - index 7: AM/#10 — Kevin De Bruyne (the engine; pass 20, skill 19 — Belgium's one true superstar)
+  - index 7: AM/#10 — Kevin De Bruyne (captain & engine; pass 20, skill 19 — Belgium's one true superstar)
   - index 8: LW — Jérémy Doku (dribble 19, speed 19 — direct, isolated 1v1 specialist)
   - index 9: CF — Romelu Lukaku (target #9; strength 18, shoot 17 — physical battle CF)
   - index 10: RW — Leandro Trossard (inverted, intelligent, two-footed finisher)
@@ -23,14 +23,14 @@ Rudi García's Belgium is the post-Golden-Generation team: still talented, still
 ### Build-up
 - Courtois long to Lukaku when pressed; short to De Winter or Theate otherwise (Courtois is comfortable starting build-up).
 - Tielemans drops to receive from CBs and progress; Onana stays as the deeper shield.
-- De Cuyper (LB) pushes higher than Meunier (RB); both still stay more conservative than the elite teams — wide, but rarely above the halfway line until late phases.
+- De Cuyper (LB) pushes higher than Castagne (RB); both still stay more conservative than the elite teams — wide, but rarely above the halfway line until late phases.
 - De Bruyne drops into the right half-space pocket to receive — Belgium's primary progression is through him.
 
 ### Pressing
-- **Belgium DOES NOT press intensely.** Ageing core (De Bruyne, Lukaku, Meunier) cannot sustain a high press 90 minutes.
-- Mid-block primarily — 4-5-1 / 4-3-3.
-- Press triggers: only on opp throw-ins or back-passes to the GK; otherwise contain.
-- This is a defining tactical difference from Spain/Germany/Netherlands — Belgium accepts opponent possession.
+- **Belgium does not press intensely for the full match.** García wants to win the ball high and convert in transition, but the ageing core (De Bruyne, Lukaku) cannot sustain a 90-minute high press.
+- Mid-block primarily — 4-5-1 / 4-3-3 — with bursts of high pressing on triggers.
+- Press triggers: opponent throw-ins, back-passes to the GK, or a loose touch by a CB; otherwise contain and look to spring forward fast.
+- This is a defining tactical difference from Spain/Germany/Netherlands — Belgium accepts opponent possession and bets on transition speed.
 
 ### Defensive shape
 - 4-5-1 mid-block. Lukaku alone up top; De Bruyne drops to right-mid in defense.
@@ -39,7 +39,7 @@ Rudi García's Belgium is the post-Golden-Generation team: still talented, still
 
 ### Wide play
 - **LEFT** is the explosive side: Doku in isolation 1v1; De Cuyper underlaps when Doku holds width; opposite-side overload from Trossard.
-- **RIGHT** is the structured side: Trossard cuts inside, Meunier overlaps occasionally, De Bruyne drifts into the half-space.
+- **RIGHT** is the structured side: Trossard cuts inside, Castagne overlaps occasionally, De Bruyne drifts into the half-space.
 - Belgium's most effective attacks come from giving Doku the ball wide and letting him decide alone.
 
 ### Final third
@@ -60,7 +60,7 @@ Rudi García's Belgium is the post-Golden-Generation team: still talented, still
 2. When my `player_id` ends with `_3` (RCB — De Winter): physical anchor of the rebuilt line; carry the ball forward when a lane opens; otherwise pass to the `_5` (Tielemans) or the `_7` (De Bruyne) between lines.
 3. When my `player_id` ends with `_2` (LCB — Theate): the more comfortable ball-player of the two CBs; conservative but can step out and progress; long ball forward is acceptable.
 4. When my `player_id` ends with `_1` (LB — De Cuyper): more adventurous than the RB — underlap/overlap the `_8` (Doku) when team_phase is "attacking" AND ball is on left flank; otherwise hold LB height and stay disciplined.
-5. When my `player_id` ends with `_4` (RB — Meunier): occasional overlap when the `_10` (Trossard) cuts inside; otherwise stay disciplined and deep.
+5. When my `player_id` ends with `_4` (RB — Castagne): occasional overlap when the `_10` (Trossard) cuts inside; otherwise stay disciplined and deep.
 6. When my `player_id` ends with `_6` (DM — Onana): destroy and recycle. Stay in front of CBs at all times. Tackle aggressively — strength 17, ball-winner.
 7. When my `player_id` ends with `_5` (DM — Tielemans): drop to receive; pass forward to the `_7` (De Bruyne) or wide to the `_8` (Doku); be the build-up starter.
 8. When my `player_id` ends with `_7` (#10 — De Bruyne): drift into right half-space; receive between lines; THROUGH-BALL to the `_9` (Lukaku) is the primary action; Shoot 22m+ if no pass available.
@@ -73,11 +73,13 @@ Rudi García's Belgium is the post-Golden-Generation team: still talented, still
 
 ## Key Player Notes
 - **Courtois (idx 0)** — world-class keeper restored to the spine (save 19). Belgium can afford a younger back line because he covers it.
-- **De Bruyne (idx 7)** — talisman, primary creator. Free role; everything goes through him. (Tielemans, idx 5, wears the captain's armband.)
+- **De Bruyne (idx 7)** — talisman, captain, and primary creator. Free role; everything goes through him. Now at Napoli; this is his last World Cup.
 - **Doku (idx 8)** — explosive LW. License to dribble alone — Belgium will not double-up his side. Poor defensive discipline accepted.
-- **Lukaku (idx 9)** — target #9. Hold-up is more valuable than goals.
+- **Lukaku (idx 9)** — target #9. Hold-up is more valuable than goals; held off Openda (omitted from the squad) and De Ketelaere for the starting role.
 - **Onana (idx 6)** — Belgium's defensive midfielder backbone — without him, midfield gets overrun.
+- **Tielemans (idx 5)** — deep-lying build-up starter and secondary set-piece / penalty taker.
+- **Castagne (idx 4)** — experienced, two-footed tournament veteran at RB; Meunier is the like-for-like alternative on the right.
 - **Trossard (idx 10)** — under-rated; two-footed; can play any forward role.
 
 ## Tournament Mindset
-Last dance for the Golden Generation. Belgium expects to be a counter-attacking, transition-based team that wins through De Bruyne's distribution and Doku's runs. Realistic ceiling: quarterfinal. Vulnerable to teams that press them — Belgium will not press back.
+Last dance for the Golden Generation core. Belgium expects to be a counter-attacking, transition-based team that wins through De Bruyne's distribution and Doku's runs. Group G opponents: Egypt, Iran, New Zealand. Realistic ceiling: quarterfinal. Vulnerable to teams that press them or sustain possession — Belgium will not press back for the full 90.

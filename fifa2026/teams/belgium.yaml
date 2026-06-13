@@ -17,7 +17,7 @@ players:
     offensive: 6
     penalty: 9
   - name: Maxim De Cuyper
-    number: 5
+    number: 15
     role: DEF
     speed: 15
     skill: 14
@@ -58,18 +58,18 @@ players:
     shoot: 7
     offensive: 14
     penalty: 9
-  - name: Thomas Meunier
-    number: 15
+  - name: Timothy Castagne
+    number: 21
     role: DEF
-    speed: 14
+    speed: 15
     skill: 14
-    strength: 15
+    strength: 14
     save: 0
-    discipline: 14
+    discipline: 15
     dribbling: 12
-    stamina: 15
+    stamina: 17
     pass: 14
-    shoot: 10
+    shoot: 9
     offensive: 13
     penalty: 11
   - name: Youri Tielemans
