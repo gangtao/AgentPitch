@@ -110,7 +110,7 @@ players:
     discipline: 13
     dribbling: 15
     stamina: 16
-    pass: 15
+    pass: 16
     shoot: 14
     offensive: 11
     penalty: 15

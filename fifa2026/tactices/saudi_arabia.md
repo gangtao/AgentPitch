@@ -1,12 +1,12 @@
 # Saudi Arabia — Tactical Profile
 
 ## Identity & Philosophy
-Saudi Arabia arrive at the 2026 World Cup under **Georgios Donis**, the Greek coach appointed in late April 2026 after the federation parted ways with Hervé Renard just seven weeks before the tournament. Donis inherited — and has kept — the team's DNA as the **counter-attacking specialist of Asia**: the side that famously beat Lionel Messi's Argentina 2-1 in Qatar 2022, built on **defensive compactness, lightning transitions, and one moment of magic from Salem Al-Dawsari**. The team is possession-shy by design: they will happily cede 60% of the ball to a superior opponent and wait for the moment to spring a counter. Donis preaches "very organised, very disciplined" football — old-school by intent: **organize, defend, counter, set-pieces**. The 26-man squad is almost entirely Roshn Saudi League based (only RC Lens right-back Saud Abdulhamid plays abroad). Recent form: comfortable through the AFC third round, less dominant than Iran or Japan, but a tactically mature side that knows how to win 1-0.
+Saudi Arabia arrive at the 2026 World Cup under **Georgios Donis**, the 56-year-old Greek coach appointed on 24 April 2026 (contract through July 2027) after the federation sacked Hervé Renard following back-to-back March friendly defeats to Egypt (4-0) and Serbia (2-1), just seven weeks before the tournament. Donis inherited — and has kept — the team's DNA as the **counter-attacking specialist of Asia**: the side that famously beat Lionel Messi's Argentina 2-1 in Qatar 2022, built on **defensive compactness, lightning transitions, and one moment of magic from Salem Al-Dawsari**. The team is possession-shy by design: they will happily cede 60% of the ball to a superior opponent and wait for the moment to spring a counter. Donis preaches "very organised, very disciplined" football — old-school by intent: **organize, defend, counter, set-pieces**. The 26-man squad is almost entirely Roshn Saudi League based (only RC Lens right-back Saud Abdulhamid plays abroad). Recent form: comfortable through the AFC third round, less dominant than Iran or Japan, but a tactically mature side that knows how to win 1-0.
 
 ## Formation
 - Shape: **4-2-3-1** in possession (collapses to a **4-4-1-1 mid-block** out of possession, **4-5-1** against elite opposition).
 - Role mapping (roster order in `saudi_arabia.yaml`):
-  - index 0: GK — **Mohammed Al-Owais (#21)** — 2022 World Cup hero against Argentina, traditional shot-stopper, less of a sweeper, dominates aerially.
+  - index 0: GK — **Mohammed Al-Owais (#21)** — 2022 World Cup hero against Argentina; reclaims the starting jersey for the opener because first-choice Nawaf Al-Aqidi (Al-Nassr) is sidelined by a muscle injury. Traditional shot-stopper, less of a sweeper, dominates aerially.
   - index 1: LB — **Nawaf Boushal (#13)** — disciplined, defensive-first fullback who solves Saudi Arabia's thin left-back depth; rarely overlaps deep, cover-shifts inside for the LCB.
   - index 2: LCB — **Ali Lajami (#3)** — the aerial anchor (strength 15), the line-organiser and duel-winner; stepped in after Al-Amri was cut from the squad.
   - index 3: RCB — **Hassan Al-Tambakti (#5)** — Lajami's calmer partner, sweeper-style, the ball-player of the defence and chief progressor.
@@ -58,7 +58,7 @@ Patterns: **Salem cuts inside, shoots** (this is 30% of Saudi attacks). Salem's 
 ## Key Player Notes
 - **Salem Al-Dawsari (index 7, #10):** The team. The captain and talisman. The scorer of the goal that beat Argentina. Cuts inside from the left, shoots, takes every set-piece. 108 caps, third World Cup. Without him, Saudi Arabia is mid-table Asian. With him, they're a knockout-stage threat.
 - **Lajami (index 2, #3):** The aerial anchor and line-organiser. Strength 15. Wins the set-piece duels in both boxes. Stepped in after Al-Amri was cut from the squad.
-- **Al-Owais (index 0, #21):** The 2022 World Cup hero. Made 10 saves against Argentina. Calm under pressure.
+- **Al-Owais (index 0, #21):** The 2022 World Cup hero. Made 10 saves against Argentina. Calm under pressure. Starts ahead of injured first-choice Nawaf Al-Aqidi (muscle injury).
 - **Kanno (index 5, #23):** The destroyer. Tactical fouler. Sets the team's defensive aggression baseline.
 - **Al-Buraikan (index 10, #9):** The lone 9. Channel runner. Hold-up player. Leading scorer (15 international goals). Finishes inside the box.
 - **Al-Juwayr (index 8, #7):** The young technical creator, now central as the #10. The second source of invention behind Salem.
