@@ -312,15 +312,27 @@ def _process_action(
             ps["passes_attempted"] += 1
 
     elif action == "tackle":
-        if ts:
-            ts["tackles_attempted"] += 1
-        if ps:
-            ps["tackles_attempted"] += 1
-        if result == "controlled":
+        # Issue #38 follow-up: count genuine CONTESTS only. A Tackle intent
+        # can die before any challenge happens — out_of_range (too far),
+        # no_op_settled (settle grace), no_op_carrier_changed (stale
+        # target), no_op_restart_pending (ball not in play), or "ok"
+        # (consumed by a Phase 4 dribble contest — credited via the
+        # carrier's dribble record below). Counting those as "attempts"
+        # made tackle success rates read absurdly low (1/44 in real
+        # matches when the contest-level rate was ~60%).
+        # "Won" = carrier dispossessed: clean take (controlled) OR
+        # deflection (blocked) — matching real-soccer tackle stats, where
+        # dislodging the ball counts even if possession isn't gained.
+        if result in ("controlled", "blocked", "failed", "foul"):
             if ts:
-                ts["tackles_successful"] += 1
+                ts["tackles_attempted"] += 1
             if ps:
-                ps["tackles_successful"] += 1
+                ps["tackles_attempted"] += 1
+            if result in ("controlled", "blocked"):
+                if ts:
+                    ts["tackles_successful"] += 1
+                if ps:
+                    ps["tackles_successful"] += 1
 
     elif action == "move":
         dribble_result = details.get("dribble_result")
@@ -334,3 +346,20 @@ def _process_action(
                     ts["dribbles_successful"] += 1
                 if ps:
                     ps["dribbles_successful"] += 1
+            # The same duel from the defender's side: the targeted
+            # defender was challenging for the ball — a tackle attempt.
+            # A FAILED dribble means the defender stole it: tackle won.
+            defender_id = details.get("dribble_target", "")
+            dinfo = roster.get(defender_id)
+            if dinfo:
+                dts = team_stats.get(dinfo["team"])
+                dps = player_stats.get(defender_id)
+                if dts is not None:
+                    dts["tackles_attempted"] += 1
+                if dps is not None:
+                    dps["tackles_attempted"] += 1
+                if dribble_result == "failed":
+                    if dts is not None:
+                        dts["tackles_successful"] += 1
+                    if dps is not None:
+                        dps["tackles_successful"] += 1
