@@ -53,6 +53,11 @@ class PlayerStateDict(TypedDict):
     passing: int
     shooting: int
     stamina: int
+    # Issue #38 (IFAB Law 12/14): aggression + penalty-conversion ratings
+    # and the player's current caution count (2 yellows = sent off).
+    offensive: int
+    penalty: int
+    yellow_cards: int
     # Health (float, 0..health_max):
     current_health: float
 
@@ -92,14 +97,17 @@ _REQUIRED_PLAYER_STATE_KEYS = frozenset({
     "player_id", "team", "number", "role", "position", "has_ball", "formation_position",
     "formation_zone", "formation_zone_phase",
     "speed", "skill", "strength", "save", "discipline", "dribbling",
-    "passing", "shooting", "stamina", "current_health",
+    "passing", "shooting", "stamina", "offensive", "penalty", "yellow_cards",
+    "current_health",
 }) | _COOLDOWN_KEYS
 
 _PAM_ATTRIBUTE_KEYS = frozenset({
     "speed", "skill", "strength", "save", "discipline", "dribbling",
 })
 
-_EXTRA_INT_KEYS = frozenset({"passing", "shooting", "stamina"})
+_EXTRA_INT_KEYS = frozenset({
+    "passing", "shooting", "stamina", "offensive", "penalty", "yellow_cards",
+})
 
 _REQUIRED_HISTORY_ENTRY_KEYS = frozenset({"tick", "ball_position", "score", "actions"})
 _REQUIRED_HISTORY_ACTION_KEYS = frozenset({"player_id", "team", "action", "result", "details"})

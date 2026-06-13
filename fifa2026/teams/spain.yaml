@@ -14,6 +14,8 @@ players:
     stamina: 14
     pass: 15
     shoot: 4
+    offensive: 5
+    penalty: 8
   - name: Marc Cucurella
     number: 24
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 18
     pass: 15
     shoot: 10
+    offensive: 12
+    penalty: 12
   - name: Aymeric Laporte
     number: 14
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 15
     pass: 17
     shoot: 8
+    offensive: 14
+    penalty: 11
   - name: Pau Cubarsí
     number: 22
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 6
+    offensive: 11
+    penalty: 10
   - name: Marcos Llorente
     number: 5
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 18
     pass: 14
     shoot: 12
+    offensive: 13
+    penalty: 13
   - name: Fabián Ruiz
     number: 8
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 17
     shoot: 14
+    offensive: 11
+    penalty: 15
   - name: Rodri
     number: 16
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 18
     pass: 19
     shoot: 13
+    offensive: 12
+    penalty: 15
   - name: Pedri
     number: 20
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 17
     pass: 19
     shoot: 14
+    offensive: 9
+    penalty: 16
   - name: Nico Williams
     number: 17
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 16
+    offensive: 8
+    penalty: 16
   - name: Mikel Oyarzabal
     number: 21
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 17
+    offensive: 9
+    penalty: 17
   - name: Lamine Yamal
     number: 19
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 16
     pass: 17
     shoot: 17
+    offensive: 8
+    penalty: 18

@@ -87,7 +87,11 @@ _REQUIRED_TOP_KEYS = frozenset({
     "score", "ball", "players", "field", "my_team", "my_player_id",
 })
 # Keys that GSM injects into snapshots for agent convenience (not in GameStateDict TypedDict).
-_EXTRA_ALLOWED_TOP_KEYS = frozenset({"team_phase"})
+# restart_kicker (issue #38, Laws 13/15/16/17): pid of the pending restart
+# taker — free kick, throw-in, corner, or goal kick — (or None), injected
+# per-player by ARE Phase 2 so strategies know the taker must Pass/Shoot
+# (Move is blocked until the ball is put in play).
+_EXTRA_ALLOWED_TOP_KEYS = frozenset({"team_phase", "restart_kicker"})
 
 _REQUIRED_BALL_KEYS = frozenset({"position", "possession", "carrier_id"})
 _REQUIRED_PLAYER_KEYS = frozenset({"team", "role", "position", "has_ball"})

@@ -143,6 +143,10 @@ def test_cooldown_blocks_consecutive_pass(tmp_path):
     # Manually mark an action as just performed at tick 0 by the kickoff carrier.
     carrier_id = gsm.state.ball["carrier_id"]
     gsm.record_action_cooldown(carrier_id, 0)
+    # Issue #38 (Law 8): a KICK_OFF-phase carrier is a restart taker and is
+    # cooldown-EXEMPT (the kickoff kick must not be delayed). Move to
+    # IN_PLAY so this test exercises the plain ADR-0015 cooldown contract.
+    gsm.set_phase("IN_PLAY")
 
     sandbox = Sandbox()
     fallback_handler = FallbackHandler()

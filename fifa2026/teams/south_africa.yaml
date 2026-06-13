@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 13
     shoot: 4
+    offensive: 5
+    penalty: 8
   - name: Aubrey Modiba
     number: 6
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 10
+    offensive: 12
+    penalty: 11
   - name: Mbekezeli Mbokazi
     number: 14
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 6
+    offensive: 14
+    penalty: 8
   - name: Ime Okon
     number: 21
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 6
+    offensive: 13
+    penalty: 8
   - name: Khuliso Mudau
     number: 20
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 9
+    offensive: 12
+    penalty: 10
   - name: Teboho Mokoena
     number: 4
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 13
+    offensive: 10
+    penalty: 14
   - name: Sphephelo Sithole
     number: 13
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
+    offensive: 11
+    penalty: 12
   - name: Jayden Adams
     number: 23
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 15
     pass: 15
     shoot: 12
+    offensive: 10
+    penalty: 13
   - name: Oswin Appollis
     number: 7
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 13
+    offensive: 8
+    penalty: 13
   - name: Lyle Foster
     number: 9
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 15
+    offensive: 9
+    penalty: 15
   - name: Relebohile Mofokeng
     number: 10
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 15
     pass: 14
     shoot: 13
+    offensive: 8
+    penalty: 14

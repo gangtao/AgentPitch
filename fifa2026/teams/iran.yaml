@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
+    offensive: 6
+    penalty: 7
   - name: Milad Mohammadi
     number: 5
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 8
+    offensive: 12
+    penalty: 10
   - name: Shojae Khalilzadeh
     number: 4
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 7
+    offensive: 14
+    penalty: 9
   - name: Ali Nemati
     number: 19
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 7
+    offensive: 14
+    penalty: 9
   - name: Ramin Rezaeian
     number: 23
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 10
+    offensive: 13
+    penalty: 11
   - name: Saeid Ezatolahi
     number: 6
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 11
+    offensive: 11
+    penalty: 12
   - name: Rouzbeh Cheshmi
     number: 15
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 13
+    offensive: 12
+    penalty: 13
   - name: Mehdi Ghaedi
     number: 10
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 13
+    offensive: 10
+    penalty: 13
   - name: Saman Ghoddos
     number: 14
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 13
+    offensive: 10
+    penalty: 14
   - name: Alireza Jahanbakhsh
     number: 7
     role: MID
@@ -122,6 +140,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 14
+    offensive: 10
+    penalty: 14
   - name: Mehdi Taremi
     number: 9
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 16
     pass: 15
     shoot: 16
+    offensive: 10
+    penalty: 16

@@ -275,5 +275,7 @@ class TestRealProductionTemplatesLoad:
         #            and gpt-5 had been ignoring the terse one-liner and
         #            generating import math, which compiles but blows up at
         #            runtime (every tick → silent Hold()).
-        assert templates_module._template_cache[PromptMode.GENERATION].version == "2.8"
+        # 2.8 → 2.9 (generation only): issue #38 — foul system (Law 12),
+        #            offensive/penalty attributes, yellow_cards state.
+        assert templates_module._template_cache[PromptMode.GENERATION].version == "2.9"
         assert templates_module._template_cache[PromptMode.EVOLUTION].version == "2.1"

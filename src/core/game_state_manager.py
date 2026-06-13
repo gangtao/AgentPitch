@@ -141,6 +141,11 @@ class GameStateManager:
             # reduces to plain `skill` in those cases.
             passing = attr.passing if attr.passing is not None else attr.skill
             shooting = attr.shooting if attr.shooting is not None else attr.skill
+            # Issue #38: penalty falls back to the RESOLVED shooting value
+            # (which itself falls back to skill) — a good shooter is a good
+            # default penalty taker.
+            offensive = getattr(attr, "offensive", 10)
+            penalty = attr.penalty if getattr(attr, "penalty", None) is not None else shooting
             # Stamina + initial health (added 2026-04-23). `stamina` is the
             # endurance rating; `current_health` starts at the configured
             # max and drains/recovers per ARE drain logic.
@@ -163,6 +168,13 @@ class GameStateManager:
                 "passing": passing,
                 "shooting": shooting,
                 "stamina": stamina,
+                "offensive": offensive,
+                "penalty": penalty,
+                # Issue #38 (Law 12) card bookkeeping. sent_off players are
+                # excluded from build_tick_snapshot — they stop receiving
+                # callbacks and are invisible to every engine phase.
+                "yellow_cards": 0,
+                "sent_off": False,
                 "current_health": float(health_max),
                 "last_action_tick": _NEVER,
             }
@@ -312,8 +324,12 @@ class GameStateManager:
                 # callbacks) can read it without indexing the outer key.
                 # Stored pstate intentionally omits player_id; the dict key is
                 # authoritative — this is a published-contract convenience only.
+                # Issue #38: sent-off players are EXCLUDED — every engine
+                # phase iterates this snapshot, so exclusion here removes
+                # them from play (no callbacks, no movement, no contests).
                 pid: {**dict(pstate), "player_id": pid}
                 for pid, pstate in s.players.items()
+                if not pstate.get("sent_off", False)
             },
             "field": dict(s.field),
         }
@@ -424,6 +440,9 @@ class GameStateManager:
             "passing": p.get("passing", p["skill"]),
             "shooting": p.get("shooting", p["skill"]),
             "stamina": p.get("stamina", 10),
+            "offensive": p.get("offensive", 10),
+            "penalty": p.get("penalty", p.get("shooting", p["skill"])),
+            "yellow_cards": p.get("yellow_cards", 0),
             "current_health": p.get("current_health", 100.0),
             "cooldown_remaining": cooldown_remaining,
         }
@@ -554,7 +573,7 @@ class GameStateManager:
         candidates = [
             (pid, pstate["position"])
             for pid, pstate in self.state.players.items()
-            if pstate["team"] == team
+            if pstate["team"] == team and not pstate.get("sent_off", False)
         ]
         def dist_sq(pos: tuple[float, float]) -> float:
             return (pos[0] - target[0]) ** 2 + (pos[1] - target[1]) ** 2
@@ -657,6 +676,30 @@ class GameStateManager:
         for p in self.state.players.values():
             p["current_health"] = health_max
 
+    def record_card(self, player_id: str, card: str) -> bool:
+        """Issue #38 (IFAB Law 12): record a yellow or red card.
+
+        Returns True if the player is now sent off (straight red, or second
+        yellow in the match) — in which case the send-off is applied here:
+        the player is flagged sent_off, drops the ball if carrying, and
+        disappears from subsequent tick snapshots. The team plays short
+        (no replacement, per Law 3).
+        """
+        p = self.state.players[player_id]
+        if card == "yellow":
+            p["yellow_cards"] = p.get("yellow_cards", 0) + 1
+            if p["yellow_cards"] < 2:
+                return False
+        elif card != "red":
+            return False  # "none"/careless — nothing to record
+        # Straight red or second yellow → send off.
+        p["sent_off"] = True
+        if self.state.ball.get("carrier_id") == player_id:
+            self.transfer_possession(player_id, None)
+        logger.info("player %s sent off (card=%s, yellows=%d)",
+                    player_id, card, p.get("yellow_cards", 0))
+        return True
+
     def get_pass_landing_zone(self) -> tuple[float, float] | None:
         """Read the current pass landing zone. BPS calls this every tick."""
         return self.state._pass_landing_zone
@@ -734,6 +777,8 @@ class GameStateManager:
     # Internal helpers
     def _reset_positions_to_anchors(self) -> None:
         for pid, anchor in self.state._anchors.items():
+            if self.state.players[pid].get("sent_off", False):
+                continue  # issue #38: sent-off players stay out of play
             self.state.players[pid]["position"] = anchor
             self.state.players[pid]["formation_position"] = anchor
             self.state.players[pid]["has_ball"] = False
@@ -762,6 +807,7 @@ class GameStateManager:
             (abs(pstate["formation_position"][0] - center_x), pid)
             for pid, pstate in self.state.players.items()
             if pstate["team"] == kickoff_team and pstate["role"] != "GK"
+            and not pstate.get("sent_off", False)
         ]
         if candidates:
             candidates.sort(key=lambda c: (c[0], c[1]))
@@ -770,6 +816,7 @@ class GameStateManager:
             fallback = sorted(
                 pid for pid, pstate in self.state.players.items()
                 if pstate["team"] == kickoff_team
+                and not pstate.get("sent_off", False)
             )
             if not fallback:
                 return  # team is empty — shouldn't happen for valid configs
@@ -811,6 +858,8 @@ class GameStateManager:
         margin = 0.5  # keep non-kickers off the literal halfway line
 
         for pid, pstate in self.state.players.items():
+            if pstate.get("sent_off", False):
+                continue  # issue #38: sent-off players stay out of play
             if pid == kicker_id:
                 pstate["position"] = (center_x, center_y)
                 continue

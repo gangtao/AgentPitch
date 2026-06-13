@@ -14,6 +14,8 @@ players:
     stamina: 12
     pass: 11
     shoot: 3
+    offensive: 5
+    penalty: 6
   - name: Duke Lacroix
     number: 13
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 8
+    offensive: 12
+    penalty: 9
   - name: Hannes Delcroix
     number: 5
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 13
     pass: 12
     shoot: 7
+    offensive: 12
+    penalty: 9
   - name: Ricardo Adé
     number: 4
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 14
     pass: 11
     shoot: 7
+    offensive: 13
+    penalty: 9
   - name: Carlens Arcus
     number: 2
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 13
     pass: 11
     shoot: 7
+    offensive: 12
+    penalty: 9
   - name: Louicius Deedson
     number: 11
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 13
+    offensive: 11
+    penalty: 13
   - name: Jean-Ricner Bellegarde
     number: 10
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 12
+    offensive: 11
+    penalty: 13
   - name: Danley Jean Jacques
     number: 17
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 10
+    offensive: 11
+    penalty: 11
   - name: Ruben Providence
     number: 15
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 12
+    offensive: 11
+    penalty: 12
   - name: Duckens Nazon
     number: 9
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 15
+    offensive: 10
+    penalty: 15
   - name: Wilson Isidor
     number: 18
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 14
     pass: 12
     shoot: 15
+    offensive: 9
+    penalty: 15

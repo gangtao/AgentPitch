@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 12
     shoot: 4
+    offensive: 5
+    penalty: 8
   - name: Mathías Olivera
     number: 16
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 8
+    offensive: 12
+    penalty: 10
   - name: José María Giménez
     number: 2
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 8
+    offensive: 15
+    penalty: 10
   - name: Ronald Araújo
     number: 4
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 9
+    offensive: 15
+    penalty: 11
   - name: Guillermo Varela
     number: 13
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 9
+    offensive: 13
+    penalty: 11
   - name: Federico Valverde
     number: 8
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 18
     pass: 17
     shoot: 16
+    offensive: 12
+    penalty: 17
   - name: Manuel Ugarte
     number: 5
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 17
     pass: 14
     shoot: 11
+    offensive: 12
+    penalty: 12
   - name: Rodrigo Bentancur
     number: 6
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 17
     pass: 16
     shoot: 12
+    offensive: 12
+    penalty: 13
   - name: Maximiliano Araújo
     number: 20
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 14
+    offensive: 8
+    penalty: 14
   - name: Darwin Núñez
     number: 9
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 17
     pass: 13
     shoot: 17
+    offensive: 11
+    penalty: 16
   - name: Facundo Pellistri
     number: 11
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 16
     pass: 14
     shoot: 13
+    offensive: 8
+    penalty: 14

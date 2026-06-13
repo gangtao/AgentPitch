@@ -164,6 +164,13 @@
       ['Throw-ins',     ta.oob_throw_ins ?? 0,           tb.oob_throw_ins ?? 0],
       ['Goal kicks',    ta.oob_goal_kicks ?? 0,          tb.oob_goal_kicks ?? 0],
       ['Offsides',      ta.offsides ?? 0,                tb.offsides ?? 0],
+      // Issue #38 (IFAB Law 12): fouls, cards, penalties.
+      ['Fouls',         ta.fouls ?? 0,                   tb.fouls ?? 0],
+      ['Yellow cards',  ta.yellow_cards ?? 0,            tb.yellow_cards ?? 0],
+      ['Red cards',     ta.red_cards ?? 0,               tb.red_cards ?? 0],
+      ['Penalties (scored)',
+        `${ta.penalties_scored ?? 0}/${ta.penalties_awarded ?? 0}`,
+        `${tb.penalties_scored ?? 0}/${tb.penalties_awarded ?? 0}`],
       // Engine-specific metrics
       ['Callback failures', _engineVal(ta.callback_failures ?? 0), _engineVal(tb.callback_failures ?? 0), true],
     ];

@@ -14,6 +14,8 @@ players:
     stamina: 12
     pass: 13
     shoot: 3
+    offensive: 5
+    penalty: 6
   - name: Andrew Robertson
     number: 3
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 18
     pass: 16
     shoot: 11
+    offensive: 11
+    penalty: 12
   - name: Scott McKenna
     number: 26
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 7
+    offensive: 13
+    penalty: 9
   - name: John Souttar
     number: 15
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 14
     pass: 14
     shoot: 7
+    offensive: 13
+    penalty: 9
   - name: Aaron Hickey
     number: 2
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
+    offensive: 11
+    penalty: 10
   - name: Lewis Ferguson
     number: 19
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 13
+    offensive: 11
+    penalty: 14
   - name: Ryan Christie
     number: 11
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 17
     pass: 14
     shoot: 12
+    offensive: 10
+    penalty: 13
   - name: John McGinn
     number: 7
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 14
+    offensive: 11
+    penalty: 14
   - name: Scott McTominay
     number: 4
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 15
+    offensive: 12
+    penalty: 15
   - name: Ben Gannon-Doak
     number: 17
     role: MID
@@ -122,6 +140,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 12
+    offensive: 9
+    penalty: 13
   - name: Ché Adams
     number: 10
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 15
     pass: 13
     shoot: 15
+    offensive: 9
+    penalty: 15

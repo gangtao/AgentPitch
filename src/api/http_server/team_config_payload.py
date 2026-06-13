@@ -25,6 +25,9 @@ class TeamPlayerPayload(BaseModel):
     shooting: Optional[int] = Field(default=None, ge=1, le=20)
     stamina: Optional[int] = Field(default=None, ge=1, le=20)
     number: Optional[int] = Field(default=None, ge=0, le=99)
+    # Issue #38 (IFAB Law 12/14): aggression + penalty-conversion ratings.
+    offensive: Optional[int] = Field(default=None, ge=1, le=20)
+    penalty: Optional[int] = Field(default=None, ge=1, le=20)
 
 
 class TeamConfigPayload(BaseModel):

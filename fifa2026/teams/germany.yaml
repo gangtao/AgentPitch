@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 16
     shoot: 4
+    offensive: 6
+    penalty: 9
   - name: David Raum
     number: 22
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 18
     pass: 16
     shoot: 11
+    offensive: 12
+    penalty: 12
   - name: Jonathan Tah
     number: 4
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 7
+    offensive: 15
+    penalty: 10
   - name: Nico Schlotterbeck
     number: 15
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 8
+    offensive: 14
+    penalty: 11
   - name: Joshua Kimmich
     number: 6
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 17
     pass: 18
     shoot: 13
+    offensive: 11
+    penalty: 15
   - name: Aleksandar Pavlović
     number: 5
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 17
     pass: 17
     shoot: 12
+    offensive: 11
+    penalty: 14
   - name: Leon Goretzka
     number: 8
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 17
     pass: 16
     shoot: 15
+    offensive: 12
+    penalty: 16
   - name: Florian Wirtz
     number: 17
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 17
     pass: 18
     shoot: 16
+    offensive: 10
+    penalty: 17
   - name: Jamal Musiala
     number: 10
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 17
     pass: 17
     shoot: 16
+    offensive: 10
+    penalty: 17
   - name: Leroy Sané
     number: 19
     role: MID
@@ -122,6 +140,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 16
+    offensive: 11
+    penalty: 16
   - name: Kai Havertz
     number: 7
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 16
     pass: 16
     shoot: 17
+    offensive: 9
+    penalty: 17

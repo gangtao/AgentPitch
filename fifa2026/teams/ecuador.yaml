@@ -14,6 +14,8 @@ players:
     stamina: 12
     pass: 11
     shoot: 3
+    offensive: 5
+    penalty: 6
   - name: Pervis Estupiñán
     number: 7
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 16
     pass: 14
     shoot: 9
+    offensive: 12
+    penalty: 11
   - name: Piero Hincapié
     number: 3
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 15
     pass: 14
     shoot: 7
+    offensive: 14
+    penalty: 9
   - name: Willian Pacho
     number: 6
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 6
+    offensive: 14
+    penalty: 9
   - name: Ángelo Preciado
     number: 17
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 15
     pass: 12
     shoot: 8
+    offensive: 12
+    penalty: 9
   - name: Moisés Caicedo
     number: 23
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 12
+    offensive: 12
+    penalty: 13
   - name: Alan Franco
     number: 21
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 10
+    offensive: 12
+    penalty: 11
   - name: Kendry Páez
     number: 10
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 14
     pass: 15
     shoot: 13
+    offensive: 10
+    penalty: 14
   - name: Nilson Angulo
     number: 20
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 13
+    offensive: 8
+    penalty: 13
   - name: Enner Valencia
     number: 13
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 14
     pass: 12
     shoot: 15
+    offensive: 9
+    penalty: 15
   - name: Gonzalo Plata
     number: 19
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 15
     pass: 13
     shoot: 13
+    offensive: 8
+    penalty: 13

@@ -14,6 +14,8 @@ players:
     stamina: 13
     pass: 13
     shoot: 4
+    offensive: 5
+    penalty: 7
   - name: Phillipp Mwene
     number: 16
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 16
     pass: 13
     shoot: 9
+    offensive: 12
+    penalty: 10
   - name: David Alaba
     number: 8
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 15
     pass: 16
     shoot: 12
+    offensive: 12
+    penalty: 14
   - name: Kevin Danso
     number: 3
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
+    offensive: 13
+    penalty: 9
   - name: Konrad Laimer
     number: 20
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 18
     pass: 14
     shoot: 11
+    offensive: 11
+    penalty: 12
   - name: Nicolas Seiwald
     number: 6
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 11
+    offensive: 10
+    penalty: 12
   - name: Xaver Schlager
     number: 4
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 17
     pass: 15
     shoot: 11
+    offensive: 11
+    penalty: 12
   - name: Michael Gregoritsch
     number: 11
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 14
     pass: 13
     shoot: 15
+    offensive: 12
+    penalty: 15
   - name: Marcel Sabitzer
     number: 9
     role: MID
@@ -110,6 +126,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 14
+    offensive: 11
+    penalty: 15
   - name: Romano Schmid
     number: 18
     role: MID
@@ -122,6 +140,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 12
+    offensive: 10
+    penalty: 13
   - name: Marko Arnautović
     number: 7
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 13
     pass: 13
     shoot: 15
+    offensive: 10
+    penalty: 15

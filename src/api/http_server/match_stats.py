@@ -132,6 +132,11 @@ def _empty_team_stats() -> dict[str, dict]:
             "oob_throw_ins": 0,
             "oob_goal_kicks": 0,
             "offsides": 0,
+            "fouls": 0,
+            "yellow_cards": 0,
+            "red_cards": 0,
+            "penalties_awarded": 0,
+            "penalties_scored": 0,
             "gk_saves_caught": 0,
             "gk_saves_parried": 0,
         }
@@ -154,6 +159,11 @@ def _empty_player_stats(info: dict) -> dict:
         "dribbles_successful": 0,
         "distance_run": 0.0,
         "offsides": 0,
+        "fouls": 0,
+        "yellow_cards": 0,
+        "red_cards": 0,
+        "penalties_awarded": 0,
+        "penalties_scored": 0,
         "gk_saves_caught": 0,
         "gk_saves_parried": 0,
         "callback_failures": 0,
@@ -188,6 +198,46 @@ def _process_action(
         if ops is not None:
             ops["offsides"] += 1
         return  # system record — skip other counters
+
+    # Foul (issue #38, Law 12) — fouls/cards keyed to the OFFENDING team and
+    # player; penalties keyed to the fouled team (who takes the kick). A
+    # converted penalty also carries goal_scored/scored_by, counted via the
+    # shared goal path below — so don't `return` before that for penalties.
+    if details.get("foul"):
+        offender_id = details.get("offender_id", "")
+        offender_team = roster.get(offender_id, {}).get("team", "")
+        ots = team_stats.get(offender_team)
+        ops = player_stats.get(offender_id)
+        if ots is not None:
+            ots["fouls"] += 1
+        if ops is not None:
+            ops["fouls"] += 1
+        card = details.get("card")
+        if card in ("yellow", "red"):
+            key = f"{card}_cards"
+            if ots is not None:
+                ots[key] += 1
+            if ops is not None:
+                ops[key] += 1
+        if details.get("restart_type") == "penalty_kick":
+            fouled_team = details.get("restart_team", "")
+            fts = team_stats.get(fouled_team)
+            if fts is not None:
+                fts["penalties_awarded"] += 1
+                if details.get("penalty_outcome") == "goal":
+                    fts["penalties_scored"] += 1
+            # Converted penalty: attribute the goal here — the shared goal
+            # path below is unreachable for system records (the ts/ps None
+            # guard returns first).
+            if details.get("penalty_outcome") == "goal":
+                if fts is not None:
+                    fts["goals"] += 1
+                    fts["shots_on_target"] += 1
+                taker_ps = player_stats.get(details.get("scored_by", ""))
+                if taker_ps is not None:
+                    taker_ps["goals"] += 1
+                    taker_ps["shots_on_target"] += 1
+        return  # foul restart: system record, no other counters
 
     # OOB restart — keyed to the team that takes the restart
     if details.get("out_of_bounds"):
@@ -262,15 +312,27 @@ def _process_action(
             ps["passes_attempted"] += 1
 
     elif action == "tackle":
-        if ts:
-            ts["tackles_attempted"] += 1
-        if ps:
-            ps["tackles_attempted"] += 1
-        if result == "controlled":
+        # Issue #38 follow-up: count genuine CONTESTS only. A Tackle intent
+        # can die before any challenge happens — out_of_range (too far),
+        # no_op_settled (settle grace), no_op_carrier_changed (stale
+        # target), no_op_restart_pending (ball not in play), or "ok"
+        # (consumed by a Phase 4 dribble contest — credited via the
+        # carrier's dribble record below). Counting those as "attempts"
+        # made tackle success rates read absurdly low (1/44 in real
+        # matches when the contest-level rate was ~60%).
+        # "Won" = carrier dispossessed: clean take (controlled) OR
+        # deflection (blocked) — matching real-soccer tackle stats, where
+        # dislodging the ball counts even if possession isn't gained.
+        if result in ("controlled", "blocked", "failed", "foul"):
             if ts:
-                ts["tackles_successful"] += 1
+                ts["tackles_attempted"] += 1
             if ps:
-                ps["tackles_successful"] += 1
+                ps["tackles_attempted"] += 1
+            if result in ("controlled", "blocked"):
+                if ts:
+                    ts["tackles_successful"] += 1
+                if ps:
+                    ps["tackles_successful"] += 1
 
     elif action == "move":
         dribble_result = details.get("dribble_result")
@@ -284,3 +346,20 @@ def _process_action(
                     ts["dribbles_successful"] += 1
                 if ps:
                     ps["dribbles_successful"] += 1
+            # The same duel from the defender's side: the targeted
+            # defender was challenging for the ball — a tackle attempt.
+            # A FAILED dribble means the defender stole it: tackle won.
+            defender_id = details.get("dribble_target", "")
+            dinfo = roster.get(defender_id)
+            if dinfo:
+                dts = team_stats.get(dinfo["team"])
+                dps = player_stats.get(defender_id)
+                if dts is not None:
+                    dts["tackles_attempted"] += 1
+                if dps is not None:
+                    dps["tackles_attempted"] += 1
+                if dribble_result == "failed":
+                    if dts is not None:
+                        dts["tackles_successful"] += 1
+                    if dps is not None:
+                        dps["tackles_successful"] += 1

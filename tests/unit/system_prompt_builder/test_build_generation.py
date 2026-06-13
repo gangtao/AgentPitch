@@ -231,7 +231,10 @@ class TestAC8TemplateVersion:
         #            count 14 → 15.
         # 2.7 → 2.8: issue #31 — documented the offside rule (IFAB Law 11)
         #            in SECTION 8 so strategies time runs / hold a line.
-        assert result.template_version == "2.8"
+        # 2.8 → 2.9: issue #38 — documented fouls/cards (IFAB Law 12) in
+        #            SECTION 8 and the offensive/penalty attributes +
+        #            yellow_cards state in SECTIONS 3/9.
+        assert result.template_version == "2.9"
 
 
 # ---------------------------------------------------------------------------
@@ -250,6 +253,21 @@ class TestAC10TokenSanityBounds:
     def test_estimate_in_range(self):
         result = build_generation_prompt()
         assert 0 < result.estimated_tokens < 6000
+
+
+# ---------------------------------------------------------------------------
+# Issue #38: foul system (IFAB Law 12) documented for strategies
+# ---------------------------------------------------------------------------
+
+
+class TestFoulSystemDocumented:
+    def test_generation_prompt_documents_foul_system(self):
+        text = build_generation_prompt().text
+        assert "offensive" in text
+        assert '"penalty"' in text or "penalty:" in text
+        assert "yellow_cards" in text
+        assert "FOULS AND CARDS" in text
+        assert "9.15" in text
 
 
 # ---------------------------------------------------------------------------

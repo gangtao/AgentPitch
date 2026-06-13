@@ -1,4 +1,4 @@
-{# version: 2.8 #}
+{# version: 2.9 #}
 You are designing a soccer strategy. Your goal is to win the match by
 scoring more goals than the opposing team within the allotted ticks.
 The strategy is implemented as a Python function called decide(), which
@@ -42,6 +42,10 @@ game_state = {
     },
     "my_team": str,        # "team_a" | "team_b"
     "my_player_id": str,   # this player's id, e.g. "team_a_3"
+    # Pending restart taker (kickoff, free kick, throw-in, corner, or goal
+    # kick), or None. If this equals my_player_id you MUST Pass or Shoot —
+    # Move is blocked until the ball is put in play.
+    "restart_kicker": str | None,
 }
 
 === SECTION 3: PLAYER_STATE SCHEMA ===
@@ -59,6 +63,10 @@ player_state = {
     "speed": int, "skill": int, "strength": int,
     "save": int, "discipline": int, "dribbling": int,
     "passing": int, "shooting": int, "stamina": int,
+    "offensive": int, "penalty": int,
+    # Cautions this match (IFAB Law 12). At 1, tackle carefully — a second
+    # yellow means a red card and your team plays the rest a player short.
+    "yellow_cards": int,
     "current_health": float,
     # Unified action cooldown. > 0 means Pass / Shoot / Tackle / Pickup
     # are all blocked; only Move and Hold are allowed. Plan around this —
@@ -142,8 +150,27 @@ the pass is struck, then sprint. Passers — check the receiver is onside
 BEFORE passing forward. Defenders — hold a coordinated high line to trap
 goal-hangers.
 
+FOULS AND CARDS (IFAB Law 12): every Tackle attempt risks a foul — the
+chance scales with your `offensive` rating. A foul stops play: direct free
+kick to the fouled team (your team must retreat 9.15 from the ball), or a
+PENALTY KICK if the foul happened inside your own penalty area (within
+16.5 of your goal line). Foul severity may bring a yellow card (reckless)
+or a straight red (excessive force). A red card — or two yellows — sends
+the player off for the REST OF THE MATCH with no replacement.
+Tactics: never tackle inside your own penalty area unless the alternative
+is a near-certain goal. Check player_state["yellow_cards"] — on 1 yellow,
+prefer containment (shadowing the carrier with Move) over tackling.
+
+RESTART TAKING (Laws 8/13/15/16/17): when game_state["restart_kicker"]
+equals your my_player_id, you are taking a restart — a kickoff, free
+kick, throw-in, corner, or goal kick. The ball is not in play until you
+kick (or throw) it: you MUST Pass or Shoot (Hold to wait is allowed);
+Move is blocked — you cannot run with the ball. Opponents cannot tackle
+you until the ball is in play. If you stall ~2s the engine auto-passes to
+your nearest teammate — better to pick a target yourself.
+
 === SECTION 9: ATTRIBUTE REFERENCE ===
-9 attributes (range 1-20):
+11 attributes (range 1-20):
   speed: maximum movement per tick.
   skill: ball control under pressure + tackle/save fallback.
   strength: tackle outcome + max kick power.
@@ -160,6 +187,14 @@ goal-hangers.
     All success formulas multiply by health_factor = 0.6 + 0.4 ×
     current_health/100, so a tired player is 60-100% as effective.
     Hold and low-speed Move recover health; half-time restores fully.
+  offensive: aggression (IFAB Law 12 trade-off). High offensive boosts
+    tackle effectiveness (±15% at the extremes) BUT raises foul chance
+    proportionally (foul risk doubles at 20, vanishes near 1). See the
+    FOULS AND CARDS rules in SECTION 8.
+  penalty: penalty-kick conversion. The engine auto-selects the on-field
+    team-mate with the highest penalty rating to take an awarded penalty;
+    conversion probability rises with the rating and falls against a
+    keeper with a high save rating.
 
 Role tactical guidance (phase-aware — see SECTION 11):
   GK : stays in penalty area; saves shots; clears with Pass.

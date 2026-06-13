@@ -14,6 +14,8 @@ players:
     stamina: 14
     pass: 16
     shoot: 4
+    offensive: 5
+    penalty: 8
   - name: Nuno Mendes
     number: 25
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 18
     pass: 15
     shoot: 12
+    offensive: 13
+    penalty: 13
   - name: Gonçalo Inácio
     number: 14
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 8
+    offensive: 13
+    penalty: 11
   - name: Rúben Dias
     number: 3
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 16
     pass: 17
     shoot: 8
+    offensive: 14
+    penalty: 11
   - name: João Cancelo
     number: 20
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 16
     pass: 17
     shoot: 13
+    offensive: 12
+    penalty: 14
   - name: Vitinha
     number: 23
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 18
     pass: 18
     shoot: 14
+    offensive: 10
+    penalty: 15
   - name: João Neves
     number: 15
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 18
     pass: 17
     shoot: 13
+    offensive: 10
+    penalty: 14
   - name: Bruno Fernandes
     number: 8
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 18
     pass: 18
     shoot: 16
+    offensive: 11
+    penalty: 17
   - name: Rafael Leão
     number: 17
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 16
+    offensive: 9
+    penalty: 16
   - name: Cristiano Ronaldo
     number: 7
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 14
     pass: 14
     shoot: 18
+    offensive: 10
+    penalty: 18
   - name: Bernardo Silva
     number: 10
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 17
     pass: 18
     shoot: 15
+    offensive: 7
+    penalty: 16

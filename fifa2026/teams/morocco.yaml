@@ -14,6 +14,8 @@ players:
     stamina: 14
     pass: 14
     shoot: 4
+    offensive: 6
+    penalty: 8
   - name: Noussair Mazraoui
     number: 3
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 10
+    offensive: 12
+    penalty: 12
   - name: Nayef Aguerd
     number: 5
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 8
+    offensive: 14
+    penalty: 10
   - name: Issa Diop
     number: 14
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
+    offensive: 14
+    penalty: 9
   - name: Achraf Hakimi
     number: 2
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 18
     pass: 16
     shoot: 13
+    offensive: 12
+    penalty: 14
   - name: Ismael Saibari
     number: 11
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 14
+    offensive: 11
+    penalty: 15
   - name: Neil El Aynaoui
     number: 24
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 17
     pass: 16
     shoot: 13
+    offensive: 11
+    penalty: 14
   - name: Azzedine Ounahi
     number: 8
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 17
     pass: 16
     shoot: 14
+    offensive: 10
+    penalty: 15
   - name: Soufiane Rahimi
     number: 9
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 16
+    offensive: 8
+    penalty: 16
   - name: Ayoub El Kaabi
     number: 20
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 15
     pass: 13
     shoot: 17
+    offensive: 10
+    penalty: 16
   - name: Brahim Díaz
     number: 10
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 16
     pass: 16
     shoot: 16
+    offensive: 8
+    penalty: 16

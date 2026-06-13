@@ -14,6 +14,8 @@ players:
     stamina: 14
     pass: 15
     shoot: 4
+    offensive: 6
+    penalty: 9
   - name: Alex Sandro
     number: 6
     role: DEF
@@ -26,6 +28,8 @@ players:
     stamina: 14
     pass: 15
     shoot: 9
+    offensive: 12
+    penalty: 11
   - name: Gabriel Magalhães
     number: 3
     role: DEF
@@ -38,6 +42,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 8
+    offensive: 15
+    penalty: 11
   - name: Marquinhos
     number: 4
     role: DEF
@@ -50,6 +56,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 8
+    offensive: 14
+    penalty: 11
   - name: Danilo
     number: 13
     role: DEF
@@ -62,6 +70,8 @@ players:
     stamina: 14
     pass: 15
     shoot: 8
+    offensive: 12
+    penalty: 10
   - name: Lucas Paquetá
     number: 20
     role: MID
@@ -74,6 +84,8 @@ players:
     stamina: 15
     pass: 16
     shoot: 14
+    offensive: 12
+    penalty: 15
   - name: Casemiro
     number: 5
     role: MID
@@ -86,6 +98,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 12
+    offensive: 13
+    penalty: 13
   - name: Bruno Guimarães
     number: 8
     role: MID
@@ -98,6 +112,8 @@ players:
     stamina: 18
     pass: 18
     shoot: 13
+    offensive: 12
+    penalty: 14
   - name: Vinícius Júnior
     number: 7
     role: FWD
@@ -110,6 +126,8 @@ players:
     stamina: 16
     pass: 16
     shoot: 17
+    offensive: 8
+    penalty: 17
   - name: Matheus Cunha
     number: 9
     role: FWD
@@ -122,6 +140,8 @@ players:
     stamina: 16
     pass: 15
     shoot: 16
+    offensive: 9
+    penalty: 16
   - name: Raphinha
     number: 11
     role: FWD
@@ -134,3 +154,5 @@ players:
     stamina: 16
     pass: 16
     shoot: 16
+    offensive: 8
+    penalty: 16

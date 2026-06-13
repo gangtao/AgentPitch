@@ -39,6 +39,10 @@ def _valid_player_state(**overrides) -> dict:
         "passing": 8,
         "shooting": 6,
         "stamina": 10,
+        # Issue #38 (IFAB Law 12/14): aggression / penalty ratings + cautions.
+        "offensive": 10,
+        "penalty": 10,
+        "yellow_cards": 0,
         "current_health": 100.0,
         # Cooldown feedback (per ADR-0015 amendment / 2026-04-22). Single
         # unified timer; 0 = Pass/Shoot/Tackle/Pickup currently allowed.
@@ -89,7 +93,8 @@ class TestAC2PlayerStateMissingKey:
         "player_id", "team", "role", "position", "has_ball", "formation_position",
         "formation_zone", "formation_zone_phase",
         "speed", "skill", "strength", "save", "discipline", "dribbling",
-        "passing", "shooting", "stamina", "current_health",
+        "passing", "shooting", "stamina", "offensive", "penalty",
+        "yellow_cards", "current_health",
     ])
     def test_missing_required_key_rejected(self, key):
         state = _valid_player_state()
