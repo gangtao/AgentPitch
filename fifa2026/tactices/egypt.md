@@ -1,22 +1,22 @@
 # Egypt — Tactical Profile
 
 ## Identity & Philosophy
-Hossam Hassan's Egypt is built around one indisputable truth: feed Mohamed Salah. Their 4-3-3 is patient in build-up, defensively organized, and explosive in transition — a side that will absorb pressure for 70 minutes if it means Salah gets four clean 1v1 chances. Veteran spine, structured mid-block, devastating on the counter.
+Hossam Hassan's Egypt is built around one indisputable truth: feed Mohamed Salah. Their 4-3-3 — shifting to a 4-2-3-1 when chasing a game — is patient in build-up, defensively organized, and explosive in transition: a side that will absorb pressure for 70 minutes if it means Salah and Omar Marmoush get four clean 1v1 chances. Veteran spine, structured mid-block, devastating on the counter. Returning to the World Cup for the first time since 2018, Egypt land in Group G with Belgium, Iran and New Zealand; the manager has said the side is "90%" settled with no late tactical revolution. The blueprint is simple and deliberate: tight games, deep stretches without the ball, quick release into Salah or Marmoush.
 
 ## Formation
-- Shape: 4-3-3, defensively organized with Salah floating in from the right.
-- Role mapping (roster index -> tactical role):
-  - 0 El Shenawy — Goalkeeper, shot-stopper, distributes long.
-  - 1 Fatouh — Left-back, conservative, rarely overlaps.
-  - 2 Yasser Ibrahim — Left center-back, aerial commander (strength 16).
-  - 3 Abdelmonem — Right center-back, mobile, line organizer.
-  - 4 Hany — Right-back, holds width, stays deep.
-  - 5 Attia — #6, deep-lying playmaker, dictates tempo.
-  - 6 Hamdi Fathi — #8, ball-winning shuttler.
-  - 7 Ashour — Advanced #8 / roaming #10, drives forward to support Salah.
-  - 8 Trezeguet — Left winger, fast direct outlet.
-  - 9 Marmoush — Center-forward, pace + hold-up, runs in behind.
-  - 10 Salah — Right winger drifting central, talisman.
+- Shape: 4-3-3, defensively organized with Salah floating in from the right; becomes a 4-2-3-1 when chasing.
+- Role mapping (roster order in `egypt.yaml`):
+  - index 0: GK — Mohamed El Shenawy (first-choice shot-stopper at 37; conservative distribution, goes long when pressed)
+  - index 1: LB — Ahmed Fatouh (conservative, rarely overlaps; tucks in to make a back three when Hany stays high)
+  - index 2: LCB — Yasser Ibrahim (aerial commander, strength 16; wins the box)
+  - index 3: RCB — Mohamed Abdelmonem (Nice; mobile, the line organizer who steps out)
+  - index 4: RB — Mohamed Hany (holds width, stays deep as cover behind Salah)
+  - index 5: DM/#6 — Marwan Attia (deep-lying playmaker, screens the back four, dictates tempo — the unsung glue of the side)
+  - index 6: LCM/#8 — Hamdi Fathi (ball-winning shuttler, stamina 17; also a center-back option, so reads danger well)
+  - index 7: RCM/#10 — Emam Ashour (advanced roaming #8/#10; drives forward to support Salah, arrives late at the back post)
+  - index 8: LW — Mahmoud Trezeguet (Al Ahly; fast, direct left-side outlet, runs in behind)
+  - index 9: CF — Omar Marmoush (Manchester City; pace + hold-up, the second weapon, runs in behind)
+  - index 10: RW — Mohamed Salah (Liverpool; captain and talisman, drifts inside onto the left foot)
 
 ## Style of Play
 
@@ -50,10 +50,10 @@ Hossam Hassan's Egypt is built around one indisputable truth: feed Mohamed Salah
 - Ashour arrives late at the back post.
 
 ## Set Pieces
-- Yasser Ibrahim and Abdelmonem are aerial targets.
-- Salah takes most attacking set pieces (corners and free kicks within 25m); Trezeguet is the secondary corner taker.
-- Penalties: Salah is the primary taker, Marmoush the backup.
-- Defensive corners: zonal with Yasser Ibrahim on the near-post.
+- Yasser Ibrahim and Abdelmonem are aerial targets; Marmoush attacks the near post on his run.
+- Salah takes most attacking set pieces (corners and free kicks within 25m); Trezeguet is the secondary corner taker and a left-foot dead-ball alternative.
+- Penalties: Salah is the captain and primary taker, Marmoush the backup.
+- Defensive corners: zonal with Yasser Ibrahim on the near-post; Attia screens the edge of the box.
 
 ## decide() Decision Priorities
 1. If role == "GK" (player_id ends with "_0", El Shenawy) and the press is moderate: short pass to the CBs (player_id ends with "_2" Yasser Ibrahim or "_3" Abdelmonem); only go long if pressed hard.
@@ -70,10 +70,10 @@ Hossam Hassan's Egypt is built around one indisputable truth: feed Mohamed Salah
 12. If leading by 1+: drop the block 8 meters deeper, defend the lead with numbers behind the ball.
 
 ## Key Player Notes
-- **Salah (skill 18, dribbling 18, shoot 18)** is the captain and the entire team's identity. Every tactical choice routes around getting him the ball in a dangerous area.
+- **Salah (skill 18, dribbling 18, shoot 18)** is the captain and the entire team's identity — and the emotional infrastructure of the side. He turns 34 on the day of the opener against Belgium, so manage his minutes, but every tactical choice still routes around getting him the ball in a dangerous area.
 - **Attia** is the tempo-setter — patient, screens the back four, never forces a forward pass.
 - **Yasser Ibrahim (strength 16)** is the aerial anchor at the back; treat all crosses into the box as his to win.
-- **Marmoush's pace (17) and shooting (16)** is the second weapon; leading the line, he pins center-backs and runs in behind to give defenses two simultaneous threats with Salah.
+- **Marmoush's pace (17) and shooting (16)** — now a Manchester City forward — is the second weapon; leading the line, he pins center-backs and runs in behind to give defenses two simultaneous threats with Salah.
 - **Ashour** is the creative engine from the advanced #8 spot — late runs into the box and the link between midfield and Salah.
 - **Trezeguet** offers a direct, pacey left-wing outlet who stretches defenses vertically.
 - **El Shenawy** is a strong shot-stopper but distribution is conservative — accept that build-up will not start from his feet.

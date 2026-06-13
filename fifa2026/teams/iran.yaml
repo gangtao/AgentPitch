@@ -44,34 +44,34 @@ players:
     shoot: 7
     offensive: 14
     penalty: 9
-  - name: Ali Nemati
-    number: 19
+  - name: Hossein Kanaanizadegan
+    number: 8
     role: DEF
     speed: 12
     skill: 13
     strength: 16
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 10
     stamina: 14
-    pass: 13
-    shoot: 7
+    pass: 14
+    shoot: 8
     offensive: 14
     penalty: 9
-  - name: Ramin Rezaeian
-    number: 23
+  - name: Saleh Hardani
+    number: 13
     role: DEF
-    speed: 14
+    speed: 15
     skill: 13
     strength: 14
     save: 0
     discipline: 13
-    dribbling: 13
-    stamina: 16
-    pass: 14
-    shoot: 10
-    offensive: 13
-    penalty: 11
+    dribbling: 12
+    stamina: 17
+    pass: 13
+    shoot: 8
+    offensive: 12
+    penalty: 10
   - name: Saeid Ezatolahi
     number: 6
     role: MID
@@ -79,41 +79,13 @@ players:
     skill: 14
     strength: 15
     save: 0
-    discipline: 15
+    discipline: 14
     dribbling: 12
     stamina: 16
     pass: 14
     shoot: 11
     offensive: 11
     penalty: 12
-  - name: Rouzbeh Cheshmi
-    number: 15
-    role: MID
-    speed: 12
-    skill: 14
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 15
-    pass: 14
-    shoot: 13
-    offensive: 12
-    penalty: 13
-  - name: Mehdi Ghaedi
-    number: 10
-    role: MID
-    speed: 15
-    skill: 14
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 15
-    pass: 14
-    shoot: 13
-    offensive: 10
-    penalty: 13
   - name: Saman Ghoddos
     number: 14
     role: MID
@@ -128,6 +100,34 @@ players:
     shoot: 13
     offensive: 10
     penalty: 14
+  - name: Mohammad Mohebi
+    number: 11
+    role: MID
+    speed: 16
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 13
+    shoot: 13
+    offensive: 9
+    penalty: 12
+  - name: Mehdi Ghayedi
+    number: 10
+    role: MID
+    speed: 15
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 15
+    pass: 14
+    shoot: 14
+    offensive: 9
+    penalty: 13
   - name: Alireza Jahanbakhsh
     number: 7
     role: MID
@@ -153,6 +153,6 @@ players:
     dribbling: 15
     stamina: 16
     pass: 15
-    shoot: 16
-    offensive: 10
+    shoot: 17
+    offensive: 17
     penalty: 16

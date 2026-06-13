@@ -114,20 +114,20 @@ players:
     shoot: 12
     offensive: 12
     penalty: 13
-  - name: Maximiliano Araújo
-    number: 20
+  - name: Giorgian de Arrascaeta
+    number: 10
     role: FWD
-    speed: 16
-    skill: 15
+    speed: 14
+    skill: 17
     strength: 13
     save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 16
-    pass: 14
-    shoot: 14
-    offensive: 8
-    penalty: 14
+    discipline: 14
+    dribbling: 16
+    stamina: 15
+    pass: 16
+    shoot: 15
+    offensive: 9
+    penalty: 15
   - name: Darwin Núñez
     number: 9
     role: FWD
