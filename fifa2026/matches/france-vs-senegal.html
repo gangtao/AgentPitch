@@ -2065,6 +2065,9 @@ function computeMatchStats(events, meta) {
       oob_corners: 0, oob_throw_ins: 0, oob_goal_kicks: 0,
       offsides: 0,
       gk_saves_caught: 0, gk_saves_parried: 0,
+      // Issue #38 (IFAB Law 12): fouls, cards, penalties.
+      fouls: 0, yellow_cards: 0, red_cards: 0,
+      penalties_awarded: 0, penalties_scored: 0,
     };
   }
   // Player stats template
@@ -2155,6 +2158,37 @@ function _processAction(rec, teamStats, playerStats, roster) {
     const ops = playerStats[offenderId];
     if (ops) ops.offsides++;
     return; // system record — skip other counters
+  }
+
+  // Foul (issue #38, Law 12) — fouls/cards keyed to the OFFENDING team
+  // (the record is a `system` action, so derive the team from the roster);
+  // penalties keyed to the fouled team (who takes the kick). Mirrors
+  // src/api/http_server/match_stats.py.
+  if (details.foul) {
+    const offenderId = details.offender_id || '';
+    const offenderTeam = (roster[offenderId] || {}).team || '';
+    const ots = teamStats[offenderTeam];
+    if (ots) ots.fouls++;
+    const card = details.card;
+    if (card === 'yellow' || card === 'red') {
+      if (ots) ots[`${card}_cards`]++;
+    }
+    if (details.restart_type === 'penalty_kick') {
+      const fts = teamStats[details.restart_team || ''];
+      if (fts) {
+        fts.penalties_awarded++;
+        if (details.penalty_outcome === 'goal') {
+          fts.penalties_scored++;
+          // Converted penalty: attribute the goal here — the shared goal
+          // path keys off the GK's action, unreachable for system records.
+          fts.goals++;
+          fts.shots_on_target++;
+          const takerPs = playerStats[details.scored_by || ''];
+          if (takerPs) { takerPs.goals++; takerPs.shots_on_target++; }
+        }
+      }
+    }
+    return; // foul restart: system record — skip other counters
   }
 
   // OOB restart — keyed to restart_team
@@ -2450,6 +2484,13 @@ function _processAction(rec, teamStats, playerStats, roster) {
       ['Throw-ins',     ta.oob_throw_ins ?? 0,           tb.oob_throw_ins ?? 0],
       ['Goal kicks',    ta.oob_goal_kicks ?? 0,          tb.oob_goal_kicks ?? 0],
       ['Offsides',      ta.offsides ?? 0,                tb.offsides ?? 0],
+      // Issue #38 (IFAB Law 12): fouls, cards, penalties.
+      ['Fouls',         ta.fouls ?? 0,                   tb.fouls ?? 0],
+      ['Yellow cards',  ta.yellow_cards ?? 0,            tb.yellow_cards ?? 0],
+      ['Red cards',     ta.red_cards ?? 0,               tb.red_cards ?? 0],
+      ['Penalties (scored)',
+        `${ta.penalties_scored ?? 0}/${ta.penalties_awarded ?? 0}`,
+        `${tb.penalties_scored ?? 0}/${tb.penalties_awarded ?? 0}`],
       // Engine-specific metrics
       ['Callback failures', _engineVal(ta.callback_failures ?? 0), _engineVal(tb.callback_failures ?? 0), true],
     ];
