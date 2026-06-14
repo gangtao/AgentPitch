@@ -116,7 +116,7 @@ A genuine rematch with pedigree. The sides have met three times, most memorably 
 
 ### Simulation Report — **Saudi Arabia 0–2 Uruguay**
 
-Bielsa's machine did to Saudi Arabia what Bielsa's machines do: it took the ball, took the territory, and squeezed until something gave. Uruguay held **60% possession**, out-shot the Saudis **21 to 1**, and out-tackled them **100 to 86** — the most combative defensive performance the simulator has logged this tournament, a press that simply never switched off.
+Bielsa's machine did to Saudi Arabia what Bielsa's machines do: it took the ball, took the territory, and squeezed until something gave. Uruguay held **60% possession**, out-shot the Saudis **21 to 1**, and won the duel count **43 tackles to 32** — a press that simply never switched off.
 
 For an hour the Donis block held, and **Mohammed Al-Owais** kept answering. Then the pressure told. On **52 minutes**, **Darwin Núñez** — who finished with a barely-believable **thirteen shots** — converted one of them for **1–0**, the reward for living on the last defender's shoulder all afternoon. On **65 minutes**, **Giorgian de Arrascaeta** drifted in from the left and doubled it, **2–0**, the creator turning finisher. Núñez kept firing to the end; **Valverde** and **Pellistri** chipped in further efforts; the only surprise was that the margin stayed at two.
 
@@ -158,7 +158,7 @@ The day's quiet lesson in the difference between having the ball and using it. *
 
 The match turned on the boots of **Mehdi Ghayedi**, and on his efficiency above all. Iran's busiest shooter was actually **Alireza Jahanbakhsh**, who carved out **seven** efforts from the right without reward; Ghayedi, by contrast, took just **three** all match and scored with two of them. The first arrived on **25 minutes**, the dribbling number ten finishing a transition past **Max Crocombe**; the second on **71 minutes** sealed it, **2–0**, the same player again the coolest head in a frantic box. Taremi added three shots as the focal point but it was the man behind him who punished the All Whites.
 
-New Zealand did exactly what Bazeley's blueprint demands — they saw plenty of the ball and went route-one toward **Chris Wood**, who got two shots away, with **Matthew Garbett** adding three more from the right. But Iran's block did its job: 53% of the ball turned into seven shots and no goals, and the All Whites never found the knockdown that springs Wood clean. Iran out-tackled them **68 to 37** and were sharper in both boxes. Final whistle: **Iran 2, New Zealand 0**.
+New Zealand did exactly what Bazeley's blueprint demands — they saw plenty of the ball and went route-one toward **Chris Wood**, who got two shots away, with **Matthew Garbett** adding three more from the right. But Iran's block did its job: 53% of the ball turned into seven shots and no goals, and the All Whites never found the knockdown that springs Wood clean. The tackle battle was near-even — **52 contests to 48** — but Iran were sharper in both boxes. Final whistle: **Iran 2, New Zealand 0**.
 
 **AI takeaway:** The model's read is the one this tournament keeps writing: possession without penetration is worth nothing, and a compact side that breaks clinically beats a patient one that does not. Ghayedi scoring twice from three shots while Jahanbakhsh blazed seven is the whole match in a sentence — Iran were the more ruthless team, not the busier one. New Zealand will rue a 53%-of-the-ball afternoon that produced no goals; in a group with Belgium and Egypt, chances this scarce will not be forgiven.
 

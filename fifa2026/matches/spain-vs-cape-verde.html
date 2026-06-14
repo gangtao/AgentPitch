@@ -2208,11 +2208,21 @@ function _processAction(rec, teamStats, playerStats, roster) {
     if (ts) ts.passes_attempted++;
     if (ps) ps.passes_attempted++;
   } else if (action === 'tackle') {
-    if (ts) ts.tackles_attempted++;
-    if (ps) ps.tackles_attempted++;
-    if (result === 'controlled') {
-      if (ts) ts.tackles_successful++;
-      if (ps) ps.tackles_successful++;
+    // Issue #38 follow-up — parity with match_stats.py (commit b50e042):
+    // count genuine CONTESTS only. A Tackle intent can die before any
+    // challenge (out_of_range, no_op_settled, no_op_carrier_changed,
+    // no_op_restart_pending, or "ok" = consumed by a Phase 4 dribble
+    // contest and credited via the carrier's dribble record below).
+    // Counting those as attempts made tackle rates read absurdly low.
+    // "Won" = carrier dispossessed: clean take (controlled) OR
+    // deflection (blocked).
+    if (result === 'controlled' || result === 'blocked' || result === 'failed' || result === 'foul') {
+      if (ts) ts.tackles_attempted++;
+      if (ps) ps.tackles_attempted++;
+      if (result === 'controlled' || result === 'blocked') {
+        if (ts) ts.tackles_successful++;
+        if (ps) ps.tackles_successful++;
+      }
     }
   } else if (action === 'move' && details.dribble_result != null) {
     if (ts) ts.dribbles_attempted++;
@@ -2220,6 +2230,21 @@ function _processAction(rec, teamStats, playerStats, roster) {
     if (details.dribble_result === 'success') {
       if (ts) ts.dribbles_successful++;
       if (ps) ps.dribbles_successful++;
+    }
+    // The same duel from the defender's side: the targeted defender was
+    // challenging for the ball — a tackle attempt. A FAILED dribble means
+    // the defender stole it: tackle won.
+    const defenderId = details.dribble_target || '';
+    const dinfo = roster[defenderId];
+    if (dinfo) {
+      const dts = teamStats[dinfo.team];
+      const dps = playerStats[defenderId];
+      if (dts) dts.tackles_attempted++;
+      if (dps) dps.tackles_attempted++;
+      if (details.dribble_result === 'failed') {
+        if (dts) dts.tackles_successful++;
+        if (dps) dps.tackles_successful++;
+      }
     }
   }
 }
