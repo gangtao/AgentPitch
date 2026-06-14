@@ -151,6 +151,7 @@
     const rows = [
       ['Possession',    _pct(ta.possession_pct),       _pct(tb.possession_pct)],
       ['Goals',         ta.goals ?? 0,                  tb.goals ?? 0],
+      ['Assists',       ta.assists ?? 0,                tb.assists ?? 0],
       ['Shots',         ta.shots ?? 0,                  tb.shots ?? 0],
       ['Shots on target', ta.shots_on_target ?? 0,      tb.shots_on_target ?? 0],
       ['Passes (attempted)', ta.passes_attempted ?? 0,   tb.passes_attempted ?? 0],
@@ -233,6 +234,7 @@
           <td class="pid-cell">${_esc(shortPid)}</td>
           <td class="role-cell">${_esc(p.role)}</td>
           <td>${p.goals ?? 0}</td>
+          <td>${p.assists ?? 0}</td>
           <td>${p.shots ?? 0}</td>
           <td>${p.shots_on_target ?? 0}</td>
           <td>${p.passes_attempted ?? 0}</td>
@@ -251,7 +253,7 @@
         <table class="stats-player-table" aria-label="${label} player statistics">
           <thead>
             <tr>
-              <th>#</th><th>Role</th><th>G</th><th>Sh</th><th>SoT</th>
+              <th>#</th><th>Role</th><th>G</th><th title="Assists">A</th><th>Sh</th><th>SoT</th>
               <th>Pass</th><th>Tkl W/A</th><th>Drb W/A</th><th>GK Sv</th>
               <th>Dist</th><th title="Callback failures">CB Fail</th>
             </tr>
