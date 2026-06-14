@@ -2058,7 +2058,7 @@ function computeMatchStats(events, meta) {
   // Team stats template
   function emptyTeam() {
     return {
-      possession_pct: 50.0, goals: 0, shots: 0, shots_on_target: 0,
+      possession_pct: 50.0, goals: 0, assists: 0, shots: 0, shots_on_target: 0,
       passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
       dribbles_attempted: 0, dribbles_successful: 0, callback_failures: 0,
       oob_corners: 0, oob_throw_ins: 0, oob_goal_kicks: 0,
@@ -2073,7 +2073,7 @@ function computeMatchStats(events, meta) {
   function emptyPlayer(info) {
     return {
       team: info.team, role: info.role, number: info.number, name: info.name || '',
-      goals: 0, shots: 0, shots_on_target: 0,
+      goals: 0, assists: 0, shots: 0, shots_on_target: 0,
       passes_attempted: 0, tackles_attempted: 0, tackles_successful: 0,
       dribbles_attempted: 0, dribbles_successful: 0,
       distance_run: 0.0, offsides: 0,
@@ -2090,6 +2090,8 @@ function computeMatchStats(events, meta) {
 
   let possA = 0, possB = 0;
   const prevPositions = {};
+  // Assist chain tracking (issue #47) — mirrors match_stats.py.
+  const assistState = { open_pass: null, armed: null };
 
   for (const tick of events) {
     // Possession
@@ -2109,7 +2111,7 @@ function computeMatchStats(events, meta) {
 
     // Actions
     for (const rec of (tick.actions || [])) {
-      _processAction(rec, teamStats, playerStats, roster);
+      _processAction(rec, teamStats, playerStats, roster, assistState);
     }
   }
 
@@ -2138,7 +2140,77 @@ function computeMatchStats(events, meta) {
   return { match_id: meta.match_id || '', teams: teamStats, players: playerStats };
 }
 
-function _processAction(rec, teamStats, playerStats, roster) {
+// Tackle results that never engaged the ball — they don't break an assist chain.
+const _TACKLE_NO_OP_RESULTS = new Set(
+  ['out_of_range', 'no_op_settled', 'no_op_carrier_changed', 'no_op_restart_pending']
+);
+
+// Track the pass→shot→goal chain and credit assists (issue #47). Mirrors
+// _update_assist_state in src/api/http_server/match_stats.py.
+function _updateAssistState(rec, st, teamStats, playerStats, roster) {
+  const action = (rec.action || '').toLowerCase();
+  const result = (rec.result || '').toLowerCase();
+  const details = rec.details || {};
+
+  // System restarts (offside, OOB, foul) break the chain. Penalty goals come
+  // through the foul branch, so they never carry an assist.
+  if (details.offside || details.out_of_bounds || details.foul) {
+    st.open_pass = null; st.armed = null;
+    return;
+  }
+
+  // Goal (open play) — credit the armed passer iff the armed shot belongs to
+  // this scorer and the passer is a different teammate.
+  const goalTeam = details.goal_scored;
+  if (goalTeam) {
+    const scorer = details.scored_by || '';
+    const armed = st.armed;
+    if (armed && armed.team === goalTeam && armed.shooter === scorer && armed.passer !== scorer) {
+      const pinfo = roster[armed.passer];
+      if (pinfo && pinfo.team === goalTeam) {
+        const ats = teamStats[goalTeam];
+        const aps = playerStats[armed.passer];
+        if (ats) ats.assists++;
+        if (aps) aps.assists++;
+      }
+    }
+    st.open_pass = null; st.armed = null;
+    return;
+  }
+
+  // A save means a shot missed its mark and the ball changed hands.
+  if (details.goalkeeper_save === 'success' || details.goalkeeper_save === 'blocked') {
+    st.open_pass = null; st.armed = null;
+    return;
+  }
+
+  if (action === 'pass') {
+    st.open_pass = { passer: rec.player_id || '', team: rec.team || '' };
+    st.armed = null;
+  } else if (action === 'shoot') {
+    const shooter = rec.player_id || '';
+    const team = rec.team || '';
+    const op = st.open_pass;
+    if (op && op.team === team && op.passer !== shooter) {
+      st.armed = { shooter, passer: op.passer, team };
+    } else {
+      st.armed = null;
+    }
+    st.open_pass = null;
+  } else if (action === 'tackle') {
+    if (!_TACKLE_NO_OP_RESULTS.has(result)) {
+      st.open_pass = null; st.armed = null;
+    }
+  } else if (action === 'move') {
+    if (details.dribble_result != null) {
+      st.open_pass = null; st.armed = null;
+    }
+  }
+}
+
+function _processAction(rec, teamStats, playerStats, roster, assistState) {
+  if (assistState) _updateAssistState(rec, assistState, teamStats, playerStats, roster);
+
   const pid    = rec.player_id || '';
   const team   = rec.team || '';
   const action = (rec.action || '').toLowerCase();
@@ -2470,6 +2542,7 @@ function _processAction(rec, teamStats, playerStats, roster) {
     const rows = [
       ['Possession',    _pct(ta.possession_pct),       _pct(tb.possession_pct)],
       ['Goals',         ta.goals ?? 0,                  tb.goals ?? 0],
+      ['Assists',       ta.assists ?? 0,                tb.assists ?? 0],
       ['Shots',         ta.shots ?? 0,                  tb.shots ?? 0],
       ['Shots on target', ta.shots_on_target ?? 0,      tb.shots_on_target ?? 0],
       ['Passes (attempted)', ta.passes_attempted ?? 0,   tb.passes_attempted ?? 0],
@@ -2552,6 +2625,7 @@ function _processAction(rec, teamStats, playerStats, roster) {
           <td class="pid-cell">${_esc(shortPid)}</td>
           <td class="role-cell">${_esc(p.role)}</td>
           <td>${p.goals ?? 0}</td>
+          <td>${p.assists ?? 0}</td>
           <td>${p.shots ?? 0}</td>
           <td>${p.shots_on_target ?? 0}</td>
           <td>${p.passes_attempted ?? 0}</td>
@@ -2570,7 +2644,7 @@ function _processAction(rec, teamStats, playerStats, roster) {
         <table class="stats-player-table" aria-label="${label} player statistics">
           <thead>
             <tr>
-              <th>#</th><th>Role</th><th>G</th><th>Sh</th><th>SoT</th>
+              <th>#</th><th>Role</th><th>G</th><th title="Assists">A</th><th>Sh</th><th>SoT</th>
               <th>Pass</th><th>Tkl W/A</th><th>Drb W/A</th><th>GK Sv</th>
               <th>Dist</th><th title="Callback failures">CB Fail</th>
             </tr>

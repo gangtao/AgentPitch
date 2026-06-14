@@ -29,6 +29,10 @@ def compute_match_stats(events: list[dict], meta: dict) -> dict:
     poss_a = 0
     poss_b = 0
     prev_positions: dict[str, list[float]] = {}
+    # Assist chain tracking (issue #47). open_pass = the last pass still "live"
+    # (could become an assist); armed = the shooter+passer locked in at shot
+    # time, credited if that shooter is the next scorer.
+    assist_state: dict[str, Any] = {"open_pass": None, "armed": None}
 
     for tick in events:
         # Possession
@@ -52,7 +56,7 @@ def compute_match_stats(events: list[dict], meta: dict) -> dict:
 
         # Actions
         for action_rec in tick.get("actions") or []:
-            _process_action(action_rec, team_stats, player_stats, roster)
+            _process_action(action_rec, team_stats, player_stats, roster, assist_state)
 
     # Compute possession percentages
     total_poss = poss_a + poss_b
@@ -120,6 +124,7 @@ def _empty_team_stats() -> dict[str, dict]:
         return {
             "possession_pct": 50.0,
             "goals": 0,
+            "assists": 0,
             "shots": 0,
             "shots_on_target": 0,
             "passes_attempted": 0,
@@ -150,6 +155,7 @@ def _empty_player_stats(info: dict) -> dict:
         "number": info["number"],
         "name": info["name"],
         "goals": 0,
+        "assists": 0,
         "shots": 0,
         "shots_on_target": 0,
         "passes_attempted": 0,
@@ -170,13 +176,104 @@ def _empty_player_stats(info: dict) -> dict:
     }
 
 
+# Tackle results that are no-ops — the challenge never engaged the ball, so they
+# don't break an assist chain (mirrors the contest filter in the tackle counters).
+_TACKLE_NO_OP_RESULTS = frozenset(
+    {"out_of_range", "no_op_settled", "no_op_carrier_changed", "no_op_restart_pending"}
+)
+
+
+def _update_assist_state(
+    rec: dict,
+    assist_state: dict[str, Any],
+    team_stats: dict[str, dict],
+    player_stats: dict[str, dict],
+    roster: dict[str, dict],
+) -> None:
+    """Track the pass→shot→goal chain and credit assists (issue #47).
+
+    An assist goes to the player whose pass was the scorer's last touch before
+    the goal, with no intervening ball event. Any tackle/dribble/opponent
+    possession/save/restart breaks the chain, so the goal counts as unassisted.
+    """
+    action = (rec.get("action") or "").lower()
+    result = (rec.get("result") or "").lower()
+    details: dict = rec.get("details") or {}
+
+    # System restarts (offside #31, OOB, foul #38) break the chain. Penalty
+    # goals come through the foul branch and so never carry an assist.
+    if details.get("offside") or details.get("out_of_bounds") or details.get("foul"):
+        assist_state["open_pass"] = None
+        assist_state["armed"] = None
+        return
+
+    # Goal (open play) — recorded on the conceding GK's record. Credit the armed
+    # passer iff the armed shot belongs to this scorer and the passer is a
+    # different teammate.
+    goal_team = details.get("goal_scored")
+    if goal_team:
+        scorer = details.get("scored_by", "")
+        armed = assist_state["armed"]
+        if (
+            armed is not None
+            and armed["team"] == goal_team
+            and armed["shooter"] == scorer
+            and armed["passer"] != scorer
+        ):
+            passer = armed["passer"]
+            pinfo = roster.get(passer)
+            if pinfo is not None and pinfo.get("team") == goal_team:
+                ats = team_stats.get(goal_team)
+                aps = player_stats.get(passer)
+                if ats is not None:
+                    ats["assists"] += 1
+                if aps is not None:
+                    aps["assists"] += 1
+        assist_state["open_pass"] = None
+        assist_state["armed"] = None
+        return
+
+    # A save means a shot missed its mark and the ball changed hands.
+    if details.get("goalkeeper_save") in ("success", "blocked"):
+        assist_state["open_pass"] = None
+        assist_state["armed"] = None
+        return
+
+    if action == "pass":
+        # New live pass; any previously armed (post-shot) assist is now stale.
+        assist_state["open_pass"] = {"passer": rec.get("player_id", ""), "team": rec.get("team", "")}
+        assist_state["armed"] = None
+    elif action == "shoot":
+        shooter = rec.get("player_id", "")
+        team = rec.get("team", "")
+        op = assist_state["open_pass"]
+        if op is not None and op["team"] == team and op["passer"] != shooter:
+            assist_state["armed"] = {"shooter": shooter, "passer": op["passer"], "team": team}
+        else:
+            assist_state["armed"] = None
+        assist_state["open_pass"] = None
+    elif action == "tackle":
+        if result not in _TACKLE_NO_OP_RESULTS:
+            assist_state["open_pass"] = None
+            assist_state["armed"] = None
+    elif action == "move":
+        if details.get("dribble_result") is not None:
+            # A dribble = the player took the ball himself, not a clean assist.
+            assist_state["open_pass"] = None
+            assist_state["armed"] = None
+
+
 def _process_action(
     rec: dict,
     team_stats: dict[str, dict],
     player_stats: dict[str, dict],
     roster: dict[str, dict],
+    assist_state: dict[str, Any] | None = None,
 ) -> None:
     """Update team and player counters for one action record."""
+    if assist_state is not None:
+        _update_assist_state(rec, assist_state, team_stats, player_stats, roster)
+
     pid = rec.get("player_id", "")
     team = rec.get("team", "")
     action = (rec.get("action") or "").lower()
