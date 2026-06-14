@@ -14,7 +14,7 @@ Reigning World Cup champions (2022) and back-to-back Copa América winners (2021
   - index 5: RCM/8 — **Rodrigo De Paul** — Messi's bodyguard, box-to-box engine, all-action presser. Covers the right channel when Molina bombs on.
   - index 6: DM/6 — **Enzo Fernández** — deep-lying playmaker, the metronome who dictates tempo with long diagonals and split passes.
   - index 7: LCM/8 — **Alexis Mac Allister** — left-sided box-to-box, late runs into the box, second-phase corner threat, alternate set-piece taker.
-  - index 8: LW — **Thiago Almada** — inside-forward, ball-carrier, drifts inside to combine with Mac Allister; gives natural width to Tagliafico's overlap.
+  - index 8: LF — **Lautaro Martínez** — central striker and primary penalty-box presence; strong runner who attacks the channels, holds the ball under pressure, and finishes first time. Drops to the left to give Tagliafico's overlap space when Messi tucks inside on the right.
   - index 9: ST — **Julián Álvarez** — pressing forward, both 9 and 10 in one body; drops into the half-space when Messi pushes high, runs the channel when Messi gets the ball.
   - index 10: RW — **Lionel Messi** — free role from the right; no defensive responsibility, drops between the lines, the team's chief creator and finisher.
 
@@ -26,16 +26,16 @@ Patient short build-up from the back: Emi Martínez splits the CBs, Enzo drops b
 **Mid-block** primarily, with selective high-press triggers: a back-pass to the opposition GK, or a CB taking a heavy first touch. Álvarez leads the press, curving his run to cut the passing lane to the deeper CB. Messi does NOT press — he hovers between the lines, conserving energy for the transition. De Paul and Mac Allister are the engines who jump into midfield duels.
 
 ### Defensive shape
-Drops into a **4-4-2** with Messi alongside Álvarez nominally but really walking. Almada drops to LM forming the left bank of four. De Paul and Mac Allister become the wider midfielders in a flat four with Enzo and one of them shielding. CBs hold a high line behind a compact mid-block; offside trap is a weapon.
+Drops into a **4-4-2** with Messi alongside Lautaro/Álvarez nominally but really walking. Mac Allister and De Paul tuck back to form the wide midfielders in a flat four with Enzo shielding; the front two stay high to spearhead the counter. CBs hold a high line behind a compact mid-block; offside trap is a weapon.
 
 ### Wide play
-Asymmetric: **left** = Tagliafico underlap + Almada wide, **right** = Molina overlap + Messi inside. The right side is where the chances are manufactured (Messi-Molina-De Paul triangle); the left side is where the second-phase finishing arrives (Mac Allister late runs).
+Asymmetric: **left** = Tagliafico overlap with Lautaro attacking the channel ahead of him, **right** = Molina overlap + Messi inside. The right side is where the chances are manufactured (Messi-Molina-De Paul triangle); the left side is where the second-phase finishing arrives (Mac Allister late runs, Lautaro at the back post).
 
 ### Final third
-Patterns: Messi-to-Molina cut-back from the right byline; Messi between the lines slipping Álvarez through the middle; Mac Allister's late arrival at the back post; switches of play from Enzo to Almada isolating the opposition RB. Argentina is a counter-attack monster — three passes from own half to a shot is a feature, not an accident.
+Patterns: Messi-to-Molina cut-back from the right byline; Messi between the lines slipping Lautaro or Álvarez through the middle; Mac Allister's late arrival at the back post; switches of play from Enzo to the left isolating the opposition RB. Argentina is a counter-attack monster — three passes from own half to a shot is a feature, not an accident.
 
 ## Set Pieces
-- Attacking corners: Messi delivers from the right (in-swinger), Mac Allister from the left (in-swinger). Primary aerial targets: Romero, Otamendi, Álvarez at the near post.
+- Attacking corners: Messi delivers from the right (in-swinger), Mac Allister from the left (in-swinger). Primary aerial targets: Romero, Otamendi, Lautaro at the near post.
 - Defending corners: **hybrid** — three zonal markers on the six-yard line, four man-markers, two short-corner blockers. Romero attacks the first ball.
 - Free kicks: Messi takes direct from any zone within 30 yards. Enzo delivers wide free kicks into the box.
 - Penalties: **Messi** primary, **Álvarez** secondary, **Mac Allister** tertiary.
@@ -43,13 +43,13 @@ Patterns: Messi-to-Molina cut-back from the right byline; Messi between the line
 ## decide() Decision Priorities
 Concrete rules the LLM should encode:
 1. **If my `player_id` ends with `_10` (RW free role, Messi) and team_phase == "defending":** Hold or slow-walk toward the halfway line — do NOT track back. Conserve stamina.
-2. **If my `player_id` ends with `_10` (RW free role, Messi) and I have the ball in the right half-space:** Prefer Pass to a teammate running in behind on the left (LW `_8` / LB `_1`) or to RB `_4` on the overlap. Shoot only if angle < 25° and distance < 22.
+2. **If my `player_id` ends with `_10` (RW free role, Messi) and I have the ball in the right half-space:** Prefer Pass to a striker running in behind through the middle/left channel (LF `_8` Lautaro / ST `_9` Álvarez) or to RB `_4` / LB `_1` on the overlap. Shoot only if angle < 25° and distance < 22.
 3. **If my `role == "GK"` (player_id `_0`, Emi Martínez) and the ball is in the opposition half:** Sweep up to 25 units out of the box; otherwise stay on the goal line.
 4. **If my `player_id` ends with `_3` (RCB, Otamendi) and team_phase == "attacking" and no opponent within 8 units:** Recycle a safe forward Pass to Enzo or the fullback rather than carrying.
 5. **If my `player_id` ends with `_4` (RB, Molina) and team_phase == "attacking" and the ball is on the left:** Sprint forward to the opposition byline — overlap is automatic.
 6. **If my `player_id` ends with `_5` (RCM, De Paul) and the ball-carrier's `player_id` ends with `_10` (Messi):** Position myself 8-12 units behind and to the carrier's right (cover-shadow for the counter-press if `_10` loses it).
 7. **If my `role == "FWD"` and Argentina has just lost the ball in the opposition third:** Immediately tackle the nearest opponent within 6 units (5-second counter-press window).
-8. **If team_phase == "defending" and my `player_id` ends with `_8` (LW, Almada):** Drop to LM position, stay within 5 units of LB `_1` (Tagliafico).
+8. **If team_phase == "defending" and my `player_id` ends with `_8` (LF, Lautaro):** Stay high as the left of a front two — do NOT drop into the back four. Hold a position to spearhead the counter and screen the lane to the opposition's deeper CB.
 9. **If my `player_id` ends with `_9` (ST, Álvarez) and a Brazilian/Uruguayan CB takes a heavy first touch (ball > 3 units from their feet):** Sprint to press.
 10. **If team is leading by 1+ goals and minute > 75:** Drop deeper, recycle possession, kill the clock. `_5` (De Paul) / `_7` (Mac Allister) hold ball in corner.
 11. **If my `role == "MID"` and team_phase == "transition_attack":** Sprint forward — Argentina counters in 3-4 passes. Prefer forward Pass over carry.
@@ -60,7 +60,8 @@ Concrete rules the LLM should encode:
 - **Mac Allister (#20):** License to gamble on the second ball in the box; late runner from deep. Tertiary penalty taker.
 - **De Paul (#7):** Messi's bodyguard — instructed to occupy the space Messi vacates and counter-press the moment Messi loses possession.
 - **Otamendi (#19):** Veteran aerial anchor and line organizer at RCB. Distributes safely and holds the high line; not a ball-carrier — recycle to Enzo or the fullbacks.
-- **Álvarez (#9):** Free to drop into the 10 when Messi pushes up the channel; effectively a fluid front three with Almada.
+- **Lautaro (#22):** Central striker and chief penalty-box finisher; strong, attacks the channels, holds the ball to bring runners in. Recovered from a soleus strain and back in the starting front three for the Algeria opener (in for Almada, now a depth/impact option). Near-post aerial target on corners.
+- **Álvarez (#9):** Free to drop into the 10 when Messi pushes up the channel; effectively a fluid front three with Lautaro and Messi.
 
 ## Tournament Mindset
 Defending champions know how to win ugly. Argentina will happily play a tight, low-scoring tournament: keep clean sheets, let Messi-Álvarez-Mac Allister produce one moment per game. Stamina-managed: Messi at <14 stamina is still better than most teams' best player, but the side is built to protect him.
