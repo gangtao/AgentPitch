@@ -56,7 +56,7 @@ Asymmetric. Nusa hugs the touchline LW and looks to isolate the opposition RB; S
 
 ## Key Player Notes
 - **Erling Haaland (index 9):** the team is calibrated to feed him. He should make 2 runs every attacking phase: one near-post, one in behind. Free shooting license — if within 22m and angle, SHOOT.
-- **Martin Ødegaard (index 7, captain):** free role behind Haaland. Allowed to drift to either flank to pick up possession. All set-pieces.
+- **Martin Ødegaard (index 7, captain):** free role behind Haaland. Allowed to drift to either flank to pick up possession. All set-pieces. Comes into the World Cup off an injury-plagued club season — match-sharpness is the key variable; if he fades, Norway lose their primary creative link and lean harder on route-one service to Haaland/Sørloth.
 - **Antonio Nusa (index 8):** primary 1v1 dribbler. Encourage taking on his man — speed 18 wins most foot-races.
 - **Sander Berge (index 6):** the disciplined balance to the offensive front. Never out of position.
 - **Kristian Thorstvedt (index 5):** box-to-box engine with a goal threat; shuttles to cover Ødegaard's forward bursts and leads the gegenpress from central midfield.

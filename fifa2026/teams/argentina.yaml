@@ -114,18 +114,18 @@ players:
     shoot: 14
     offensive: 10
     penalty: 15
-  - name: Thiago Almada
-    number: 16
+  - name: Lautaro Martínez
+    number: 22
     role: FWD
-    speed: 17
+    speed: 16
     skill: 17
-    strength: 12
+    strength: 16
     save: 0
-    discipline: 13
-    dribbling: 17
+    discipline: 14
+    dribbling: 15
     stamina: 16
-    pass: 16
-    shoot: 15
+    pass: 14
+    shoot: 18
     offensive: 8
     penalty: 16
   - name: Julián Álvarez
