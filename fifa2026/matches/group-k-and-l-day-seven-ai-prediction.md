@@ -1,4 +1,4 @@
-# Wissa's Hat-Trick Stuns Portugal, Williams Runs Riot — AI Calls Day Seven
+# DR Congo Topple Portugal, Williams Runs Riot — AI Calls Day Seven
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's seventh day through the machine. Here is what it saw.*
 
@@ -8,7 +8,7 @@
 
 Day seven completes the set. **Group K** and **Group L** — the eleventh and twelfth groups, the last to begin — bring the field's final eight teams onto the stage. Group K opens with the day's heavyweight on paper: **Portugal vs DR Congo** at NRG Stadium in Houston, Cristiano Ronaldo's sixth and final World Cup beginning against the Leopards, before the group's other pairing closes the night — **Uzbekistan vs Colombia** under the lights of Mexico City. Group L stages the tie of the round, a wound reopened: **England vs Croatia** at AT&T Stadium in Arlington, eight years on from the semi-final that broke English hearts; and at BMO Field in Toronto, **Ghana vs Panama**, two sides who have never once met.
 
-As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. The machine's verdict on day seven: a bombshell in Houston, where **DR Congo lead Portugal 3–1 through a Yoane Wissa hat-trick** before Rafael Leão's late double rescues a stunned 3–3; England avenge 2018 with a second-half turnaround past Croatia; **Iñaki Williams helps himself to a hat-trick** as Ghana sweep Panama aside; and Colombia's class tells in a single Luis Suárez goal against debutants Uzbekistan.
+As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. The machine's verdict on day seven: a bombshell in Houston, where **DR Congo beat Portugal 1–0**, Yoane Wissa's first-half strike toppling the −360 favourites despite fifteen Portuguese shots; England avenge 2018 with a second-half turnaround past Croatia; **Iñaki Williams helps himself to a hat-trick** as Ghana sweep Panama aside; and Colombia's class tells in a single Luis Suárez goal against debutants Uzbekistan.
 
 ---
 
@@ -38,15 +38,15 @@ The two nations have virtually no shared history: they have never met at a World
 | **MID** | Vitinha (23), João Neves (15), Bruno Fernandes (8) | Ngal'ayel Mukau (6), Samuel Moutoussamy (8), Noah Sadiki (14), Théo Bongonda (7) |
 | **FWD** | Rafael Leão (17), Cristiano Ronaldo (7), Bernardo Silva (10) | Yoane Wissa (20), Cédric Bakambu (17) |
 
-### Simulation Report — **Portugal 3–3 DR Congo**
+### Simulation Report — **Portugal 0–1 DR Congo**
 
-The result of the day, and the one nobody on the −360 line wanted to see. On a dead-even split of possession — **50% each** — Portugal out-shot the Leopards **20 to 9** and hit the target fourteen times to four, and still could not win. DR Congo did not just compete; for an hour they led.
+The upset of the day, in full. There was no rescue this time. DR Congo edged possession **52% to 48%**, and though Portugal out-shot the Leopards **15 to 6** and hit the target ten times to three, they could not score the goal that mattered — and DR Congo could.
 
-It started early and it started badly for the favourites. On **3 minutes**, **Yoane Wissa** struck for **1–0**, punishing the first Portuguese turnover. **Bernardo Silva** levelled on **18 minutes**, but Wissa would not stop: he restored the lead on **28 minutes** for **2–1**, and completed his **hat-trick** on **55 minutes** — **3–1 DR Congo**, and a genuine earthquake building in Houston. Then Portugal's class finally caught light. **Rafael Leão** pulled one back on **59 minutes**, and with the clock running down to the **89th minute**, Leão struck again — his second of the night — to rescue a barely-deserved **3–3**.
+The decisive moment came on **37 minutes**: **Yoane Wissa**, fed by **Cédric Bakambu**, struck to make it **1–0** — and from there Desabre's side did what good underdogs do, defending the lead for their lives. Portugal laid siege after the break, fifteen shots and ten on target, but **Lionel Mpasi** and a packed DR Congo box would not break. **Ronaldo**, **Leão** and **Bruno Fernandes** all probed; none could find the equaliser.
 
-DR Congo will not know whether to celebrate or weep. **Ngal'ayel Mukau**'s assist set up one of the goals, Wissa's three were ruthless on a total of just nine shots, and a 3–1 lead with half an hour left is the stuff of which fairytales are made. But the machine also shows the cost of sitting on a lead against a side that shoots twenty times: Portugal's volume told in the end. Final whistle: **Portugal 3, DR Congo 3**.
+Six shots to fifteen is the very picture of a smash-and-grab — but on a day the favourites simply could not finish, one ruthless Bakambu-to-Wissa combination was enough. DR Congo, back at a World Cup for the first time since 1974, held firm to the whistle. Final whistle: **Portugal 0, DR Congo 1**.
 
-**AI takeaway:** The model delivers day seven's bombshell. Wissa's hat-trick and a 3–1 lead are the headline; Leão's two-goal rescue act is the reason Portugal escape with a point rather than the upset of the tournament. Martínez will be alarmed that an hour of his side's football left them chasing a debutant; Desabre will rue a two-goal cushion surrendered late. A draw that feels like a win for DR Congo, and a defeat avoided for Portugal.
+**AI takeaway:** The machine delivers day seven's bombshell — DR Congo topple a Portugal side that dominated the shot count but never the scoreboard. Wissa's finish and a disciplined low block did the rest. Martínez will be alarmed that fifteen shots yielded nothing from his star-studded front line; Desabre's Leopards announce themselves as Group K's wrecking ball with a result nobody on the −360 line saw coming.
 
 ---
 
@@ -166,12 +166,12 @@ This was the low-block heist Uzbekistan had to attempt and very nearly stretched
 
 ## The Picture, Per the Machine
 
-Day seven, per the simulation: a debutant's near-miracle, a captain's hat-trick, an old wound reopened — and the last two groups finally up and running.
+Day seven, per the simulation: a debutant's giant-killing, a hat-trick in Toronto, an old wound reopened — and the last two groups finally up and running.
 
 | Match | Result | Group |
 |---|---|---|
-| 🇵🇹 Portugal drew DR Congo | 3 – 3 | K |
-| 🇨🇩 DR Congo drew Portugal | 3 – 3 | K |
+| 🇵🇹 Portugal lost to DR Congo | 0 – 1 | K |
+| 🇨🇩 **DR Congo** bt Portugal | **1 – 0** | K |
 | 🏴󠁧󠁢󠁥󠁮󠁧󠁿 **England** bt Croatia | **2 – 1** | L |
 | 🇭🇷 Croatia lost to England | 1 – 2 | L |
 | 🇬🇭 **Ghana** bt Panama | **3 – 0** | L |
@@ -179,7 +179,7 @@ Day seven, per the simulation: a debutant's near-miracle, a captain's hat-trick,
 | 🇺🇿 Uzbekistan lost to Colombia | 0 – 1 | K |
 | 🇨🇴 **Colombia** bt Uzbekistan | **1 – 0** | K |
 
-The headline writes itself: **Portugal, −360 favourites, held to a 3–3 by a DR Congo side that led them 3–1** through Yoane Wissa's hat-trick, with only Rafael Leão's late double sparing the favourites' blushes. Elsewhere the form held — but rarely comfortably. England needed a four-minute second-half burst from Saka and Rashford to turn around a Croatia side that led at the break; Colombia's 58% possession and ten shots produced only a single Suárez goal against debutants Uzbekistan. The exception was Toronto, where **Ghana were ruthless** — 24 shots, an Iñaki Williams hat-trick, and a Panama side restricted to a single effort all night. The shape of the final groups: **Group K is wide open**, DR Congo announcing themselves as nobody's whipping boys and Colombia top on the only win; **Group L belongs to England and Ghana** after opening-day statements, with Croatia and Panama already needing to respond.
+The headline writes itself: **Portugal, −360 favourites, beaten 1–0 by a DR Congo side** that soaked up fifteen shots and struck once through Yoane Wissa. Elsewhere the form held — but rarely comfortably. England needed a four-minute second-half burst from Saka and Rashford to turn around a Croatia side that led at the break; Colombia's 58% possession and ten shots produced only a single Suárez goal against debutants Uzbekistan. The exception was Toronto, where **Ghana were ruthless** — 24 shots, an Iñaki Williams hat-trick, and a Panama side restricted to a single effort all night. The shape of the final groups: **Group K is blown wide open**, DR Congo and Colombia both winning to share top spot while Portugal and Uzbekistan already play catch-up; **Group L belongs to England and Ghana** after opening-day statements, with Croatia and Panama needing to respond.
 
 ---
 
