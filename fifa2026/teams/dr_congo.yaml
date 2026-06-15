@@ -72,20 +72,20 @@ players:
     shoot: 9
     offensive: 12
     penalty: 11
-  - name: Meschak Elia
-    number: 13
+  - name: Ngal'ayel Mukau
+    number: 6
     role: MID
-    speed: 16
-    skill: 13
-    strength: 12
+    speed: 13
+    skill: 14
+    strength: 13
     save: 0
-    discipline: 11
-    dribbling: 15
-    stamina: 15
-    pass: 12
+    discipline: 12
+    dribbling: 13
+    stamina: 16
+    pass: 14
     shoot: 12
-    offensive: 11
-    penalty: 12
+    offensive: 12
+    penalty: 11
   - name: Samuel Moutoussamy
     number: 8
     role: MID
@@ -114,19 +114,19 @@ players:
     shoot: 11
     offensive: 11
     penalty: 12
-  - name: Nathanaël Mbuku
+  - name: Théo Bongonda
     number: 7
     role: MID
     speed: 16
-    skill: 13
-    strength: 11
+    skill: 14
+    strength: 12
     save: 0
-    discipline: 12
+    discipline: 11
     dribbling: 15
     stamina: 14
     pass: 12
-    shoot: 12
-    offensive: 10
+    shoot: 13
+    offensive: 11
     penalty: 12
   - name: Yoane Wissa
     number: 20

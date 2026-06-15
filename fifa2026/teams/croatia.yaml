@@ -16,6 +16,20 @@ players:
     shoot: 4
     offensive: 5
     penalty: 8
+  - name: Josip Stanišić
+    number: 2
+    role: DEF
+    speed: 14
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 9
+    offensive: 12
+    penalty: 11
   - name: Joško Gvardiol
     number: 4
     role: DEF
@@ -57,20 +71,6 @@ players:
     pass: 14
     shoot: 9
     offensive: 15
-    penalty: 11
-  - name: Josip Stanišić
-    number: 2
-    role: DEF
-    speed: 14
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 15
-    dribbling: 12
-    stamina: 16
-    pass: 14
-    shoot: 9
-    offensive: 12
     penalty: 11
   - name: Mateo Kovačić
     number: 8
@@ -128,19 +128,19 @@ players:
     shoot: 16
     offensive: 11
     penalty: 16
-  - name: Marco Pašalić
-    number: 24
+  - name: Luka Sučić
+    number: 26
     role: MID
     speed: 15
-    skill: 14
-    strength: 12
+    skill: 16
+    strength: 13
     save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 15
-    pass: 13
+    discipline: 14
+    dribbling: 16
+    stamina: 16
+    pass: 16
     shoot: 13
-    offensive: 10
+    offensive: 11
     penalty: 13
   - name: Ante Budimir
     number: 11

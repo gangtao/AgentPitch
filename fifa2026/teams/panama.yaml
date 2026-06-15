@@ -1,4 +1,4 @@
-# Formation: 3-4-2-1
+# Formation: 4-2-3-1
 team_id: panama
 name: Panama
 players:
@@ -8,7 +8,7 @@ players:
     speed: 10
     skill: 12
     strength: 14
-    save: 13
+    save: 14
     discipline: 14
     dribbling: 5
     stamina: 12
@@ -16,6 +16,20 @@ players:
     shoot: 3
     offensive: 5
     penalty: 6
+  - name: Eric Davis
+    number: 15
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 14
+    pass: 13
+    shoot: 8
+    offensive: 11
+    penalty: 10
   - name: José Córdoba
     number: 3
     role: DEF
@@ -33,45 +47,73 @@ players:
   - name: Andrés Andrade
     number: 16
     role: DEF
-    speed: 13
+    speed: 12
     skill: 13
     strength: 14
     save: 0
-    discipline: 13
-    dribbling: 11
+    discipline: 14
+    dribbling: 10
     stamina: 14
     pass: 12
-    shoot: 8
-    offensive: 13
-    penalty: 10
-  - name: Carlos Harvey
-    number: 14
+    shoot: 7
+    offensive: 11
+    penalty: 9
+  - name: Michael Amir Murillo
+    number: 23
     role: DEF
-    speed: 13
-    skill: 13
+    speed: 15
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 15
+    pass: 13
+    shoot: 9
+    offensive: 13
+    penalty: 11
+  - name: Aníbal Godoy
+    number: 20
+    role: MID
+    speed: 11
+    skill: 14
     strength: 14
     save: 0
     discipline: 13
     dribbling: 12
     stamina: 15
-    pass: 13
-    shoot: 10
-    offensive: 13
-    penalty: 11
-  - name: Eric Davis
-    number: 15
+    pass: 14
+    shoot: 11
+    offensive: 10
+    penalty: 12
+  - name: Carlos Harvey
+    number: 14
     role: MID
     speed: 13
     skill: 13
+    strength: 14
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 10
+    offensive: 12
+    penalty: 11
+  - name: Cecilio Waterman
+    number: 18
+    role: MID
+    speed: 14
+    skill: 13
     strength: 13
     save: 0
-    discipline: 13
-    dribbling: 12
+    discipline: 12
+    dribbling: 13
     stamina: 14
-    pass: 13
-    shoot: 8
-    offensive: 11
-    penalty: 10
+    pass: 11
+    shoot: 14
+    offensive: 9
+    penalty: 14
   - name: Cristian Martínez
     number: 6
     role: MID
@@ -86,48 +128,20 @@ players:
     shoot: 10
     offensive: 10
     penalty: 11
-  - name: Aníbal Godoy
-    number: 20
-    role: MID
-    speed: 12
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 12
-    stamina: 15
-    pass: 14
-    shoot: 11
-    offensive: 11
-    penalty: 12
-  - name: Michael Amir Murillo
-    number: 23
+  - name: José Luis Rodríguez
+    number: 7
     role: MID
     speed: 15
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
-    pass: 13
-    shoot: 9
-    offensive: 11
-    penalty: 11
-  - name: Cecilio Waterman
-    number: 18
-    role: FWD
-    speed: 14
     skill: 13
-    strength: 13
+    strength: 12
     save: 0
     discipline: 12
-    dribbling: 13
+    dribbling: 14
     stamina: 14
-    pass: 11
-    shoot: 14
+    pass: 12
+    shoot: 12
     offensive: 9
-    penalty: 14
+    penalty: 12
   - name: Ismael Díaz
     number: 10
     role: FWD
@@ -140,19 +154,5 @@ players:
     stamina: 14
     pass: 13
     shoot: 15
-    offensive: 8
+    offensive: 9
     penalty: 15
-  - name: José Luis Rodríguez
-    number: 7
-    role: FWD
-    speed: 15
-    skill: 13
-    strength: 12
-    save: 0
-    discipline: 12
-    dribbling: 14
-    stamina: 14
-    pass: 12
-    shoot: 12
-    offensive: 8
-    penalty: 12
