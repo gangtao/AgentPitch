@@ -2474,7 +2474,7 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
     panel.classList.add('stats-fullview');
 
     // Hide the field area so the stats panel fills the vacated space
-    const body = document.querySelector('#section-matches .body');
+    const body = (document.querySelector('#section-matches .body')||document.querySelector('.body'));
     if (body) body.style.display = 'none';
 
     if (_statsCache) {
@@ -2508,7 +2508,7 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
       panel.classList.remove('stats-fullview');
     }
     // Restore the field area when leaving fullview stats
-    const body = document.querySelector('#section-matches .body');
+    const body = (document.querySelector('#section-matches .body')||document.querySelector('.body'));
     if (body) body.style.display = '';
   }
 

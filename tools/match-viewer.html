@@ -2406,7 +2406,7 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
               panel.removeAttribute('hidden');
               panel.style.display = '';
               panel.classList.add('stats-fullview');
-              const body = document.querySelector('.body');
+              const body = _fieldBody();
               if (body) body.style.display = 'none';
               _renderStats(panel, _statsCache);
             }
@@ -2452,6 +2452,16 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
 
   // ── Panel toggle ──────────────────────────────────────────────────────────
 
+  // The field/live-view container. On the live server it lives under
+  // #section-matches; in the standalone bundle there is no #section-matches
+  // wrapper, so fall back to the bare `.body`. Show and restore MUST resolve
+  // the same element, or toggling stats back to the live view leaves the
+  // field hidden (display:none never cleared).
+  function _fieldBody() {
+    return document.querySelector('#section-matches .body')
+        || document.querySelector('.body');
+  }
+
   async function _toggle(matchId) {
     if (_fetching) return;  // ignore clicks while fetch is in-flight
 
@@ -2473,7 +2483,7 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
     panel.classList.add('stats-fullview');
 
     // Hide the field area so the stats panel fills the vacated space
-    const body = document.querySelector('#section-matches .body');
+    const body = _fieldBody();
     if (body) body.style.display = 'none';
 
     if (_statsCache) {
@@ -2507,7 +2517,7 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
       panel.classList.remove('stats-fullview');
     }
     // Restore the field area when leaving fullview stats
-    const body = document.querySelector('#section-matches .body');
+    const body = _fieldBody();
     if (body) body.style.display = '';
   }
 
