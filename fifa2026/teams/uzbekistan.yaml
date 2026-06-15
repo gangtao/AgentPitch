@@ -1,4 +1,4 @@
-# Formation: 3-4-3
+# Formation: 3-4-2-1
 team_id: uzbekistan
 name: Uzbekistan
 players:
@@ -86,32 +86,32 @@ players:
     shoot: 10
     offensive: 11
     penalty: 11
-  - name: Odiljon Hamrobekov
-    number: 9
+  - name: Akmal Mozgovoy
+    number: 70
     role: MID
-    speed: 13
-    skill: 14
+    speed: 12
+    skill: 13
     strength: 13
     save: 0
-    discipline: 14
-    dribbling: 12
-    stamina: 16
-    pass: 14
-    shoot: 11
+    discipline: 13
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 9
     offensive: 10
-    penalty: 12
-  - name: Khojiakbar Alijonov
-    number: 3
+    penalty: 10
+  - name: Farrukh Sayfiev
+    number: 34
     role: MID
     speed: 13
     skill: 12
-    strength: 13
+    strength: 12
     save: 0
     discipline: 13
     dribbling: 11
     stamina: 14
     pass: 12
-    shoot: 8
+    shoot: 7
     offensive: 11
     penalty: 9
   - name: Abbosbek Fayzullaev
@@ -128,20 +128,6 @@ players:
     shoot: 13
     offensive: 8
     penalty: 14
-  - name: Eldor Shomurodov
-    number: 14
-    role: FWD
-    speed: 13
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 14
-    pass: 12
-    shoot: 14
-    offensive: 9
-    penalty: 14
   - name: Oston Urunov
     number: 11
     role: FWD
@@ -156,3 +142,17 @@ players:
     shoot: 12
     offensive: 8
     penalty: 12
+  - name: Eldor Shomurodov
+    number: 14
+    role: FWD
+    speed: 13
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 14
+    pass: 12
+    shoot: 14
+    offensive: 9
+    penalty: 14
