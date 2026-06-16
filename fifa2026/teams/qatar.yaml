@@ -2,12 +2,12 @@
 team_id: qatar
 name: Qatar
 players:
-  - name: Meshaal Barsham
-    number: 22
+  - name: Mahmoud Abunada
+    number: 1
     role: GK
-    speed: 12
+    speed: 13
     skill: 13
-    strength: 14
+    strength: 13
     save: 15
     discipline: 14
     dribbling: 5

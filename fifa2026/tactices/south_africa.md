@@ -12,7 +12,7 @@ Hugo Broos has rebuilt Bafana Bafana into a confident, technically clean 4-3-3 �
   - 3 Okon — Right center-back, tall and composed.
   - 4 Mudau — Right-back, balanced.
   - 5 Mokoena — #6, deep-lying conductor and set-piece taker.
-  - 6 Sithole — #8, ball-winner.
+  - 6 Mbatha — #8, ball-winner (in for the suspended Sithole; defensive midfielder, long-range threat).
   - 7 Jayden Adams — #8, press-resistant passer, late box arrivals.
   - 8 Appollis — Left winger, direct dribbler.
   - 9 Lyle Foster — Center-forward, mobile target.
@@ -29,12 +29,12 @@ Hugo Broos has rebuilt Bafana Bafana into a confident, technically clean 4-3-3 �
 ### Pressing
 - Mid-block press, coordinated rather than constant.
 - Trigger: opposition CB receives in poor body shape.
-- Foster presses; Mofokeng and Appollis jump the full-backs; Sithole steps on the pivot.
+- Foster presses; Mofokeng and Appollis jump the full-backs; Mbatha steps on the pivot.
 - Adams's energy supplements pressing waves.
 
 ### Defensive shape
 - 4-1-4-1 mid-block, compact and well-drilled.
-- Mokoena screens; Sithole and Adams shuttle.
+- Mokoena screens; Mbatha and Adams shuttle.
 - Center-backs hold a moderate line; Modiba and Mudau tuck inside when ball is opposite.
 
 ### Wide play
@@ -56,14 +56,14 @@ Hugo Broos has rebuilt Bafana Bafana into a confident, technically clean 4-3-3 �
 ## decide() Decision Priorities
 1. If role == "GK" (player_id ends with "_0", Ronwen Williams): comfortable starting attacks short; long balls reserved for clear channel opportunities.
 2. If player_id ends with "_5" (Mokoena, #6 #6; skill 15, pass 16): always face forward, primary outlet from defense.
-3. If player_id ends with "_6" (Sithole, MID #8) and opponent has ball in midfield: tackle hard; he's the ball-winner.
+3. If player_id ends with "_6" (Mbatha, MID #8) and opponent has ball in midfield: tackle hard; he's the ball-winner.
 4. If player_id ends with "_7" (Jayden Adams, MID #23; skill 14, pass 15): link play between the lines, play forward early, and arrive late at the edge of the box for cutbacks.
 5. If player_id ends with "_8" (Appollis, LW #7): attack the left channel, dribble at the full-back, and combine with the CF (player_id ends with "_9", Foster). The young creator occupies the right (player_id ends with "_10", Mofokeng), who drifts between lines to link play.
 6. If player_id ends with "_9" (Foster, CF #9): run channels constantly; attack near-post on crosses.
 7. If player_id ends with "_1" (Modiba, LB #3): overlap on the left; provide width and crosses.
 8. If turnover in own half: counter-press for 4 seconds, then drop into mid-block.
 9. If defending in own third: maintain 4-1-4-1 distances, Mokoena (player_id ends with "_5") screens.
-10. If trailing late: push Mudau (player_id ends with "_4", RB) higher, drop Sithole (player_id ends with "_6") alongside center-backs, push Adams (player_id ends with "_7") higher as a second creator.
+10. If trailing late: push Mudau (player_id ends with "_4", RB) higher, drop Mbatha (player_id ends with "_6") alongside center-backs, push Adams (player_id ends with "_7") higher as a second creator.
 11. If leading 1-0: drop block 8m deeper, defend the box.
 12. If a penalty is awarded against South Africa: trust the GK (player_id ends with "_0", Ronwen Williams) to save it — he is the team's saving grace.
 
