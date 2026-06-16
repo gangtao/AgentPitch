@@ -86,20 +86,20 @@ players:
     shoot: 13
     offensive: 10
     penalty: 14
-  - name: Sphephelo Sithole
-    number: 13
+  - name: Thalente Mbatha
+    number: 8
     role: MID
     speed: 13
-    skill: 14
+    skill: 13
     strength: 14
     save: 0
     discipline: 13
-    dribbling: 13
+    dribbling: 12
     stamina: 16
-    pass: 14
-    shoot: 11
+    pass: 13
+    shoot: 13
     offensive: 11
-    penalty: 12
+    penalty: 11
   - name: Jayden Adams
     number: 23
     role: MID

@@ -9,10 +9,10 @@ Co-hosts of the 2026 World Cup and the most-supported team in CONCACAF. Returnin
   - index 0: GK — **Raúl Rangel** (#1) — first-choice shot-stopper, having beaten out the veteran Ochoa (squad presence only); good with feet for short build-up, not a sweeper.
   - index 1: LB — **Jesús Gallardo** (#23) — experienced overlapping fullback; provides natural width on the left because the LW cuts inside.
   - index 2: LCB — **Johan Vásquez** (#5) — ball-playing CB, comfortable carrying out, the primary progressor from the back.
-  - index 3: RCB — **César Montes** (#3) — physical, aerially dominant, the back-line enforcer; not a ball player.
+  - index 3: RCB — **Edson Álvarez** (#4) — captain, deputising at centre-back this match with César Montes suspended (red card vs South Africa); reads the game, dominant in the air, steps out to break up play.
   - index 4: RB — **Israel Reyes** (#15) — disciplined two-way right back; positionally sound first, picks his moments to overlap behind the RW.
   - index 5: CM/8/10 — **Gilberto Mora** (#19) — the young #10 operating from the left interior, the team's chief creator from midfield; gets between the lines, slips passes into the forwards.
-  - index 6: DM/6 — **Edson Álvarez** (#4) — defensive anchor and captain; the holding midfielder who covers the entire width of the pitch, tackles 1v1, and starts short attacks.
+  - index 6: DM/6 — **Érik Lira** (#14) — the holding midfielder deputising for Álvarez (shifted to CB this match); a modern ball-winning pivot who screens the back four, recycles short, and tackles 1v1. Shone in the opener when Álvarez was reshuffled.
   - index 7: CM/8 — **Álvaro Fidalgo** (#8) — the right-sided #8; Spain-schooled ball-circulation metronome (pass 17), sets the tempo between Álvarez and Mora.
   - index 8: LW — **Julián Quiñones** (#16) — mobile, in-form goalscorer (33 goals this season); cuts inside off the left, runs in behind, and can rotate with Jiménez.
   - index 9: CF — **Raúl Jiménez** (#9) — physical, hold-up #9, target man for crosses and second balls; the veteran centre-forward.
@@ -21,13 +21,13 @@ Co-hosts of the 2026 World Cup and the most-supported team in CONCACAF. Returnin
 ## Style of Play
 
 ### Build-up
-**Patient short build-up.** Rangel splits the CBs wide, Álvarez drops between them to form a 3+1, Gallardo and Reyes push high to give width. **Vásquez is the primary progressor** — he carries forward into midfield with the ball at his feet. Mexico is comfortable in long possession sequences (15+ passes), waiting for the opposition press to fatigue before going vertical. When pressed hard, the first option is back to Rangel, then a switch to the opposite fullback.
+**Patient short build-up.** Rangel splits the CBs wide, Lira drops between them to form a 3+1, Gallardo and Reyes push high to give width. **Vásquez is the primary progressor** — he carries forward into midfield with the ball at his feet. Mexico is comfortable in long possession sequences (15+ passes), waiting for the opposition press to fatigue before going vertical. When pressed hard, the first option is back to Rangel, then a switch to the opposite fullback.
 
 ### Pressing
-**Mid-block first, selective high press.** Trigger: opposition CB taking a heavy first touch — Jiménez and Quiñones squeeze, Mora jumps into midfield. The press is **possession-oriented** rather than chaos-oriented — Mexico wants to win the ball back to play, not just disrupt. Álvarez does not press; he sits in front of the back four as the safety net.
+**Mid-block first, selective high press.** Trigger: opposition CB taking a heavy first touch — Jiménez and Quiñones squeeze, Mora jumps into midfield. The press is **possession-oriented** rather than chaos-oriented — Mexico wants to win the ball back to play, not just disrupt. Lira does not press; he sits in front of the back four as the safety net.
 
 ### Defensive shape
-Compact **4-1-4-1** with Álvarez as the single pivot. The two #8s (Mora, Fidalgo) drop to form a flat midfield four with Quiñones and Alvarado (or Jiménez dropping). The block is **mid-to-low**, conservative — Aguirre is happy to absorb pressure and counter through Quiñones and Alvarado. **Tactical fouling** is encouraged: a yellow card to break a counter-attack on Álvarez or Fidalgo is a feature, not a failure.
+Compact **4-1-4-1** with Lira as the single pivot (deputising for Álvarez, who drops into the back four at RCB this match). The two #8s (Mora, Fidalgo) drop to form a flat midfield four with Quiñones and Alvarado (or Jiménez dropping). The block is **mid-to-low**, conservative — Aguirre is happy to absorb pressure and counter through Quiñones and Alvarado. **Tactical fouling** is encouraged: a yellow card to break a counter-attack on Lira or Fidalgo is a feature, not a failure.
 
 ### Wide play
 Asymmetric. **Left** = Quiñones inside + Gallardo overlap; this is where Mexico's chance creation happens via cut-backs from the byline. **Right** = Reyes overlap + Alvarado wide-and-inside hybrid. Mora drifts to the left half-space to combine with Quiñones-Gallardo.
@@ -37,14 +37,14 @@ Patterns: Quiñones cut-back from the left byline to Mora arriving at the top of
 
 ## Set Pieces
 - **Set-piece danger team.** Aguirre's Mexico is among the best in CONCACAF on dead balls.
-- Attacking corners: **Mora** delivers from the right (in-swinger), **Fidalgo** from the left (in-swinger). Primary aerial targets: Montes (front post), Jiménez (penalty spot), Vásquez (back post).
-- Defending corners: **man-marking** with two zonal at the front post. Montes takes the most dangerous opposing target.
+- Attacking corners: **Mora** delivers from the right (in-swinger), **Fidalgo** from the left (in-swinger). Primary aerial targets: Álvarez (front post), Jiménez (penalty spot), Vásquez (back post).
+- Defending corners: **man-marking** with two zonal at the front post. Álvarez (deputising at CB) takes the most dangerous opposing target.
 - Free kicks: **Mora** takes direct from any zone within 28 units; **Fidalgo** delivers wide free kicks.
 - Penalties: **Jiménez** primary, **Quiñones** secondary, **Mora** tertiary.
 
 ## decide() Decision Priorities
 Concrete rules the LLM should encode:
-1. **If my player_id ends with "_6" (DM, jersey #4 — Álvarez) and the opposition has the ball within 10 units of the centre circle:** Move to intercept the passing lane to the opposition #10. Tackle if within 5 units.
+1. **If my player_id ends with "_6" (DM, jersey #14 — Lira) and the opposition has the ball within 10 units of the centre circle:** Move to intercept the passing lane to the opposition #10. Tackle if within 5 units.
 2. **If my player_id ends with "_8" (LW, jersey #16 — Quiñones) and team_phase == "transition_attack":** Sprint forward on the diagonal cutting inside — the through-ball or shot is the priority over wide play.
 3. **If my player_id ends with "_2" (LCB, jersey #5 — Vásquez) and team_phase == "building_up" and no opponent within 8 units:** Carry the ball forward into midfield. Do not pass short.
 4. **If my role is GK (player_id ends with "_0" — Rangel) and team_phase == "building_up":** Pass short to the nearest unmarked CB. Avoid long balls unless press intensity is high.
@@ -53,12 +53,13 @@ Concrete rules the LLM should encode:
 7. **If my player_id ends with "_9" (CF, jersey #9 — Jiménez) and a teammate delivers a cross:** attack the penalty spot or back post — not the near post.
 8. **If my player_id ends with "_1" (LB, jersey #23 — Gallardo) and team_phase == "attacking" and the LW (player_id ends with "_8") has the ball inside:** Sprint forward and outside the LW (overlap to byline).
 9. **If my role is MID and team has held possession > 30 seconds:** keep circulating the ball — patience over verticality unless a clear through-ball is available.
-10. **If team is leading by 1+ goals and minute > 75:** Compress the block. The DM (player_id ends with "_6") drops between the CBs to form a 5-3-1 if needed. Tactical fouling intensifies.
+10. **If team is leading by 1+ goals and minute > 75:** Compress the block. The DM (player_id ends with "_6" — Lira) drops between the CBs to form a 5-3-1 if needed. Tactical fouling intensifies.
 11. **If my player_id ends with "_10" (RW, jersey #25 — Alvarado) and the ball is on the left:** make a blindside run between LB and LCB.
 12. **Set pieces / penalties / direct free kicks within 28 units:** defer to the CM (player_id ends with "_5" — Mora) for creation and the CF (player_id ends with "_9" — Jiménez) for penalties.
 
 ## Key Player Notes
-- **Edson Álvarez (index 6, #4):** Captain, defensive anchor, tackle leader — fully recovered from spring ankle surgery. The most important player tactically — his discipline (17) and stamina (17) allow him to cover for both fullbacks pushing up.
+- **Edson Álvarez (index 3, #4):** Captain and natural defensive anchor, deputising at **centre-back this match** with César Montes suspended (red card vs South Africa). His discipline (17), strength (16) and reading of the game make him a commanding emergency CB who steps out to break up play; Lira screens in front of him in the pivot.
+- **Érik Lira (index 6, #14):** The deputy pivot, in for Álvarez (shifted to CB). Modern ball-winning #6 — screens the back four, recycles short, tackles 1v1; impressed when reshuffled into the role in the opener.
 - **Quiñones (index 8, #16):** In-form goalscorer (33 goals this season); the team's primary counter-attack outlet from the left, rotates with Jiménez, secondary penalty taker.
 - **Mora (index 5, #19):** The 17-year-old creator. The team's chief creator from open play and primary set-piece deliverer.
 - **Fidalgo (index 7, #8):** The metronome. Best passer in the team (pass 17); recycles possession and dictates when Mexico goes vertical.

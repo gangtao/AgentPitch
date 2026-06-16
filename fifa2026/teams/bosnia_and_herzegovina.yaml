@@ -142,17 +142,17 @@ players:
     shoot: 14
     offensive: 9
     penalty: 14
-  - name: Edin Džeko
-    number: 11
+  - name: Jovo Lukić
+    number: 25
     role: FWD
-    speed: 10
-    skill: 14
+    speed: 13
+    skill: 12
     strength: 15
     save: 0
-    discipline: 13
-    dribbling: 12
-    stamina: 11
-    pass: 13
-    shoot: 15
+    discipline: 12
+    dribbling: 11
+    stamina: 14
+    pass: 11
+    shoot: 14
     offensive: 9
-    penalty: 15
+    penalty: 12

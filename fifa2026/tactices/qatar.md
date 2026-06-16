@@ -6,7 +6,7 @@ Qatar are the **back-to-back AFC Asian Cup champions (2019, 2024)** and the most
 ## Formation
 - Shape: **4-3-3** in possession (rotates to a **4-2-3-1** when Edmilson tucks inside and Afif holds width; defensive shape is a compact **4-5-1** with the wide forwards dropping to form a midfield five and Almoez leading the line alone).
 - Role mapping (roster order in `qatar.yaml`):
-  - index 0: GK — **Meshaal Barsham** — 2022 World Cup keeper, reflex shot-stopper, less of a sweeper, dominates his box.
+  - index 0: GK — **Mahmoud Abunada** — Lopetegui's surprise first-choice (over 2024 Asian Cup keeper Barsham); a 26-year-old reflex shot-stopper, named Man of the Match with six saves on debut in the 1-1 vs Switzerland. Less of a sweeper, dominates his box.
   - index 1: LB — **Sultan Al-Brake** — left-back; hard-running, overlaps to give width on the left so Afif can drift inside.
   - index 2: LCB — **Lucas Mendes** — naturalised Brazilian-born CB, left-of-centre, the most technical defender and the chief ball-progressor from the back.
   - index 3: RCB — **Boualem Khoukhi** — veteran centre-back, aerial duel-winner, the organiser of the line and a set-piece threat.
@@ -37,14 +37,14 @@ Patterns: **Afif drifts in from the left, receives between the lines, dribbles i
 
 ## Set Pieces
 - Attacking corners: **Afif** in-swingers from the right (left foot), **Edmilson** out-swingers from the left. Targets: Almoez (penalty spot, primary aerial), Khoukhi (back post), Mendes (near post flick-on).
-- Defending corners: hybrid — Khoukhi attacks the first ball; Almoez and Mendes mark the two most dangerous opposition runners; zonal markers across the six-yard line; Barsham on his line.
+- Defending corners: hybrid — Khoukhi attacks the first ball; Almoez and Mendes mark the two most dangerous opposition runners; zonal markers across the six-yard line; Abunada on his line.
 - Free kicks: **Afif** direct from any angle within 28 yards; he scored from a direct free kick against Lebanon in the 2023 Asian Cup.
 - Penalties: **Afif** primary, **Almoez** secondary, **Edmilson** tertiary.
 
 ## decide() Decision Priorities
 1. **If my player_id ends with "_8" (LW Afif, #11) and team_phase == "attacking":** Drift inside from the left into the #10 space between the opposition lines, 8-12 units behind the index-9 Almoez. Receive on the half-turn.
 2. **If my player_id ends with "_8" (LW Afif, #11) and I have the ball facing forward in the opposition half:** Dribble — skill 16, dribbling 16. Take on the first defender; Shoot if angle opens within 24 units.
-3. **If my role == "GK" (index 0, Meshaal Barsham, #22) and a cross is incoming:** Punch under physical pressure; otherwise stay on the line.
+3. **If my role == "GK" (index 0, Mahmoud Abunada, #1) and a cross is incoming:** Punch under physical pressure; otherwise stay on the line.
 4. **If my player_id ends with "_1" (LB Al-Brake, #18) or "_4" (RB Pedro Miguel, #2) and team_phase == "attacking":** Overlap to the touchline in the opposition's defensive third — the full-backs supply width while the wide forwards (index-8 Afif, index-10 Edmilson) tuck inside.
 5. **If my player_id ends with "_1" or "_4" (full-backs) and team_phase == "defending":** Tuck inside and stay narrow next to the CBs to deny the half-spaces; keep a compact back four.
 6. **If my player_id ends with "_6" (DM Boudiaf, #12) and the opposition has the ball within 35 units of my goal:** Step to the ball-carrier, tactical foul if breaking through; otherwise screen in front of the back four.
