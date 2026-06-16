@@ -1,4 +1,4 @@
-# Qatar Stun Canada, Son Sinks Mexico — AI's Day Eight Belongs to the Underdogs
+# Foster Stuns Czechia, Bosnia Heist Switzerland Again — AI's Day Eight Favours the Underdog
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's eighth day through the machine. Here is what it saw.*
 
@@ -8,7 +8,7 @@
 
 Day eight turns the calendar over. The opening round is complete across all twelve groups, and now the **second round of group fixtures begins** — the matches where the early winners look to confirm and the early losers cannot afford to lose again. The machine returns to **Group A** and **Group B**, the tournaments that started it all back on day one. Group A reconvenes in the heat: **Czechia vs South Africa** at Mercedes-Benz Stadium in Atlanta to open, before the co-hosts close the night under the lights of Guadalajara — **Mexico vs South Korea** at Estadio Akron. Group B stages its full second round on the West Coast: **Switzerland vs Bosnia-Herzegovina** at SoFi Stadium in Inglewood, and **Canada vs Qatar** at a roaring BC Place in Vancouver.
 
-As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. The machine's verdict on day eight was a bad one for the favourites: only **Czechia held the line, beating South Africa 3–1**; everywhere else the underdog bit. **Bosnia upset Switzerland 1–0** in Inglewood, **Qatar stunned Canada 3–1** in Vancouver behind an Akram Afif brace, and **South Korea downed the co-hosts**, Son Heung-min and Oh Hyeon-gyu sinking Mexico 2–0 in Guadalajara.
+As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. The machine's verdict on day eight leaned hard toward the underdog. In Atlanta, **South Africa stunned the fancied Czechs 1–0**, Lyle Foster striking inside six minutes and Bafana Bafana battering the goal thereafter; in Inglewood, **Bosnia heisted Switzerland 1–0 again** — the Swiss out-shooting them nine to two and still losing to a Jovo Lukić finish; and in Guadalajara, **South Korea downed the co-hosts 1–0**, Son Heung-min punishing a Mexico side that had two-thirds of the ball and nothing to show for it. Only in Vancouver did the favourite hold: **Canada edged Qatar 1–0** through an early Jonathan David goal.
 
 ---
 
@@ -38,15 +38,15 @@ These two nations are near-strangers on the international stage, with just a sin
 | **MID** | David Jurásek (14), Vladimír Darida (8), Tomáš Souček (22), Vladimír Coufal (5) | Teboho Mokoena (4), Thalente Mbatha (8), Jayden Adams (23) |
 | **FWD** | Pavel Šulc (15), Adam Hložek (9), Patrik Schick (10) | Oswin Appollis (7), Lyle Foster (9), Relebohile Mofokeng (10) |
 
-### Simulation Report — **Czechia 3–1 South Africa**
+### Simulation Report — **Czechia 0–1 South Africa**
 
-A match that defied the possession sheet. **South Africa kept the ball — 59% to 41% — and out-shot Czechia 12 to 6**, yet walked off beaten by two. The story of the afternoon was Bafana Bafana's profligacy against Czech ruthlessness: **Lyle Foster alone had nine attempts and did not score**, while Czechia converted from barely half the volume.
+The day's first upset, and an early one. **South Africa took the game to the fancied Czechs from the whistle, owning 60% of the ball and battering the goal 15 shots to 2** — and they did not have to wait long for the reward. On **6 minutes**, **Lyle Foster** struck to make it **1–0**, and from there Bafana Bafana simply kept coming.
 
-The Czechs struck early and kept striking. **Patrik Schick** opened on **13 minutes**, the finisher doing what he does; **Pavel Šulc** made it two on **34 minutes**. South Africa got a foothold back just before the break when **Oswin Appollis** pulled one back on **42 minutes** for **2–1**, and the momentum looked to have turned. But Czechia's transitions kept biting, and **Vladimír Darida** settled it on **58 minutes**, the veteran arriving to restore the two-goal cushion at **3–1**. From there Souček and the back three smothered the South African pressure to the whistle.
+The chances piled up without a second goal — **Relebohile Mofokeng**, drifting in off the right, was the game's busiest player with **eleven attempts**, and **Oswin Appollis** added three more — but Ronwen Williams's goal was rarely troubled at the other end. Czechia, set up to soak and counter behind a back three, barely surfaced: **just two shots all afternoon**, neither carrying real menace. Hašek's side defended their way to within one goal of a point, but never looked like taking it.
 
-Twelve shots and a goal is a respectable afternoon's work for South Africa — but nine of them came from a striker who could not find the net, and Czechia needed only six to score three. Final whistle: **Czechia 3, South Africa 1**.
+Fifteen shots to two, and a deserved win built on Foster's early finish: South Africa controlled and created, and this time the finish came early enough to hold. Final whistle: **Czechia 0, South Africa 1**.
 
-**AI takeaway:** The model reads a textbook smash-and-grab inverted — except here the side with the ball was the one that lost. Hašek's Czechia were clinical on the counter, Schick and Šulc taking their early chances and Darida punishing South Africa's response, exactly the transition game their shape is built for. Broos will be tormented by the finishing: 12 shots, nine from Foster, and only an Appollis strike to show for it. Bafana Bafana controlled and created — and still go to game three needing points.
+**AI takeaway:** The model calls a clean upset. Broos's South Africa pressed and passed the Czechs off the park, Foster's sixth-minute strike rewarding a fast start and Mofokeng's eleven attempts underlining the dominance. That they won by only one is down to profligacy, not control. Hašek will be alarmed: two shots from a side built to counter is no platform, and Czechia — slight favourites at −130 — now have ground to make up in Group A.
 
 ---
 
@@ -78,13 +78,13 @@ For all that both have been European mainstays this past decade, Switzerland and
 
 ### Simulation Report — **Switzerland 0–1 Bosnia-Herzegovina**
 
-The favourite's caution, punished. **Switzerland dominated the ball — 68% to 32% — but managed only four shots**, and Bosnia's nine carried the greater threat all evening. Yakin's park-the-bus pragmatism asked for one moment of quality; it was Bosnia who produced it.
+A genuine heist. **Switzerland did everything but score — 63% of the ball, and nine shots to Bosnia's two** — and lost. Yakin's side asked the questions all evening; Bosnia answered the only one that mattered.
 
-For an hour the pattern held: Switzerland circulating in front of a compact Bosnian block, **Breel Embolo** firing the few chances that came (three of Switzerland's four attempts were his) without reward. Bosnia bided their time, and their reference point delivered. On **78 minutes**, **Ermedin Demirović** — the busiest forward on the pitch with eight efforts of his own — finally beat Kobel to make it **1–0**. Switzerland had no reply; their territorial control never translated into the clear sight of goal a winner demands, and Bosnia saw out the final stretch to claim a famous result.
+**Breel Embolo** was relentless, firing **eight of Switzerland's nine attempts** as the Swiss worked opening after opening — but the finish never came. Bosnia, pinned back and threatening only in flashes, needed just one of their two shots. On **31 minutes**, **Jovo Lukić** — the mobile forward in for the injured Džeko — struck against the run of play to make it **1–0**, and then Barbarez's men dug in. Vasilj and a packed Bosnian box repelled everything Switzerland threw at them across the hour that followed, and the lead held to the whistle.
 
-Sixty-eight per cent of the ball and four shots is the whole story of Switzerland's evening — possession without penetration. Bosnia, without Džeko and supposedly blunted, were the sharper side. Final whistle: **Switzerland 0, Bosnia-Herzegovina 1**.
+Nine shots to two and a defeat: Switzerland's evening was all territory and no end product, Embolo's eight efforts the very picture of it. Bosnia, clinical and brave, did it to the Swiss a second time. Final whistle: **Switzerland 0, Bosnia-Herzegovina 1**.
 
-**AI takeaway:** The model serves up the classic low-block trap — the side that wanted the ball got it, and got nowhere. Switzerland's compact, counter-first identity left them with no plan B when Bosnia matched their discipline, and Embolo's isolated three shots were never going to be enough. Barbarez will be thrilled: shorn of Džeko, Bosnia stayed compact, let Demirović run the channels, and took their moment. A genuine upset that blows Group B wide open.
+**AI takeaway:** The model serves up the heist of the round — the side with the ball, the shots and the territory beaten by the side with the one clinical moment. Switzerland's revamped attack created plenty (nine shots, Embolo busy throughout), but a single Lukić strike and a heroic Bosnian rearguard settled it. Barbarez will be thrilled: shorn of Džeko, Bosnia took their chance and defended for their lives. A second straight upset of the Swiss that blows Group B wide open.
 
 ---
 
@@ -114,15 +114,15 @@ Canada and Qatar have crossed paths exactly once, and the meeting was both recen
 | **MID** | Liam Millar (11), Ismaël Koné (8), Stephen Eustáquio (7), Tajon Buchanan (17) | Assim Madibo (23), Karim Boudiaf (12), Mohamed Manai (26) |
 | **FWD** | Jonathan David (10), Cyle Larin (9) | Akram Afif (11), Almoez Ali (19), Edmilson Junior (8) |
 
-### Simulation Report — **Canada 1–3 Qatar**
+### Simulation Report — **Canada 1–0 Qatar**
 
-The shock of the day, and the crowd silenced. **Qatar took 61% of the ball and matched Canada shot-for-shot at 11 apiece**, then proved by far the more clinical side — and the man who made it happen was **Akram Afif**, who led all players with eight attempts and finished with a brace.
+The night's one win for the favourite — but Canada had to earn it. **Qatar edged possession 53% to 47% and matched the co-hosts shot-for-shot at nine apiece**, making BC Place sweat long after Canada had taken the lead.
 
-Afif struck first on **20 minutes** to stun BC Place. Canada answered almost immediately — **Jonathan David**, the busiest Canadian with seven shots, levelled on **23 minutes** at **1–1** — and for a moment the favourites looked set to take over. Instead Qatar reasserted: **Almoez Ali** restored the lead on **38 minutes** for **2–1**, and after the break Lopetegui's side defended with Abunada-led composure before **Afif** sealed his double on **78 minutes** to make it **3–1**. Canada threw bodies forward — eleven shots, David and Larin a combined ten of them — but Qatar's keeper and a disciplined low block held firm.
+The decisive moment came early. On **16 minutes**, **Jonathan David** — the game's busiest player with eight attempts — struck to put Canada **1–0** up, and that proved to be the difference. Qatar pushed back hard: **Almoez Ali** was a persistent threat with six efforts of his own and **Akram Afif** added three, but Maxime Crépeau and a disciplined Canadian block held the line. Marsch's side, content to defend their lead and break, never added the second their early control promised — and never quite needed to.
 
-Eleven shots each, but a 3–1 to the outsiders: Qatar took their half-chances and Canada spurned the lot. Afif's two goals from eight attempts were the cold edge a home crowd could not supply. Final whistle: **Canada 1, Qatar 3**.
+Nine shots each, a single goal, and a nervy hold: Canada took their early chance through David and survived Qatar's response. Final whistle: **Canada 1, Qatar 0**.
 
-**AI takeaway:** The model delivers the biggest upset of the round. Marsch's Canada generated enough — eleven shots, David and Larin busy all night — but ran into a Qatar side that defended its box and struck on the counter with ruthless economy. Abunada justified his promotion, and Afif was simply unplayable, turning eight efforts into two goals. For the co-hosts, a chastening night in front of their own; for Qatar, a result that resets Group B entirely.
+**AI takeaway:** The model gives the favourites their due — just barely. David's 16th-minute finish settled an even contest that Qatar, with the edge in possession and a lively Almoez Ali, might easily have levelled. Marsch will take the three points and the clean sheet; Lopetegui will rue Qatar's finishing, beaten despite matching Canada blow for blow. In a Group B blown open by Bosnia, Canada's narrow win keeps the co-hosts in front.
 
 ---
 
@@ -152,34 +152,34 @@ This is the most storied pairing of the matchday, and crucially it is a rivalry 
 | **MID** | Gilberto Mora (19), Érik Lira (14), Álvaro Fidalgo (8) | Paik Seung-ho (8), Hwang In-beom (6), Son Heung-min (7), Lee Jae-sung (10), Lee Kang-in (19) |
 | **FWD** | Julián Quiñones (16), Raúl Jiménez (9), Roberto Alvarado (25) | Oh Hyeon-gyu (18) |
 
-### Simulation Report — **Mexico 0–2 South Korea**
+### Simulation Report — **Mexico 0–1 South Korea**
 
-History counted for nothing. South Korea were the better side from first whistle to last, **owning 63% of the ball and battering Mexico's goal with 16 shots to a meagre 2** — and the co-hosts' unbeaten World Cup record against the Koreans fell on home soil in Guadalajara.
+Possession is not the same as penetration, and Mexico learned it the hard way. The co-hosts **dominated the ball — 66% to 34% — but mustered just two shots**, and South Korea picked them off to overturn a World Cup history that had always run El Tri's way.
 
-Mexico's reshuffled spine, missing the suspended Montes, was pinned back for long stretches as Korea probed and pressed. The breakthrough came on **64 minutes**: **Son Heung-min**, the game's most dangerous player with eight attempts of his own, finally found the finish to make it **1–0**. Aguirre's side, managing just two shots all night, could not respond, and Korea added the gloss late — **Oh Hyeon-gyu**, busy with seven efforts, struck on **84 minutes** for a deserved **2–0**. Rangel's goal had been under siege all evening; that the margin was only two flattered the hosts.
+For all their territory, Aguirre's side could not turn control into clear chances; the ball went sideways in front of a compact Korean block that was happy to cede it. Korea, by contrast, were sharp on the break — and their talisman delivered. On **37 minutes**, **Son Heung-min**, the game's most dangerous player with four attempts, struck to make it **1–0**. It was enough. Mexico pressed the ball without ever pressing the goal — **Roberto Alvarado** and **Raúl Jiménez** managed a shot apiece — while **Oh Hyeon-gyu** twice threatened a Korean second. The hosts' two-thirds of possession yielded nothing.
 
-Sixteen shots to two tells the whole story — and a famous Korean win, their first over Mexico at a World Cup. Final whistle: **Mexico 0, South Korea 2**.
+Two shots from 66% of the ball tells the story — and a famous Korean win, their first over Mexico at a World Cup. Final whistle: **Mexico 0, South Korea 1**.
 
-**AI takeaway:** The model sees a comprehensive away performance and the most lopsided shot count of the round. Hong's Korea pressed Mexico's makeshift defence into submission, Son and Oh Hyeon-gyu turning relentless pressure into goals, while El Tri — without Montes and restricted to two shots — never got going in front of their own fans. Aguirre has a Group A problem; Korea, two from two on the underdog ledger this day, suddenly look the team to beat.
+**AI takeaway:** The model reads a clinical away win over a toothless host. Hong's Korea sat off, let Mexico have the ball where it could not hurt them, and struck through Son on the counter — exactly the game plan their pace invites. El Tri's 66% possession and two shots is the damning line: control without threat. Aguirre has a Group A problem to solve, while Korea's smash-and-grab makes them real contenders to top the group.
 
 ---
 
 ## The Picture, Per the Machine
 
-Day eight, per the simulation: the favourites falling everywhere but Atlanta — a co-host beaten at home, a Swiss low-block out-thought, and Qatar producing the shock of the tournament so far.
+Day eight, per the simulation: an underdog's day. Three of the four favourites fell, two of them to single goals defended for dear life, with only Canada surviving — and even they were made to sweat.
 
 | Match | Result | Group |
 |---|---|---|
-| 🇨🇿 **Czechia** bt South Africa | **3 – 1** | A |
-| 🇿🇦 South Africa lost to Czechia | 1 – 3 | A |
+| 🇨🇿 Czechia lost to South Africa | 0 – 1 | A |
+| 🇿🇦 **South Africa** bt Czechia | **1 – 0** | A |
 | 🇨🇭 Switzerland lost to Bosnia | 0 – 1 | B |
 | 🇧🇦 **Bosnia-Herzegovina** bt Switzerland | **1 – 0** | B |
-| 🇨🇦 Canada lost to Qatar | 1 – 3 | B |
-| 🇶🇦 **Qatar** bt Canada | **3 – 1** | B |
-| 🇲🇽 Mexico lost to South Korea | 0 – 2 | A |
-| 🇰🇷 **South Korea** bt Mexico | **2 – 0** | A |
+| 🇨🇦 **Canada** bt Qatar | **1 – 0** | B |
+| 🇶🇦 Qatar lost to Canada | 0 – 1 | B |
+| 🇲🇽 Mexico lost to South Korea | 0 – 1 | A |
+| 🇰🇷 **South Korea** bt Mexico | **1 – 0** | A |
 
-The through-line of day eight is the favourite undone by its own control. Three times the side with more of the ball lost: **South Africa** had 59% and 12 shots in Atlanta and still went down 3–1 to Czechia's clinical counters; **Switzerland** had 68% and four shots in Inglewood and were picked off by Demirović; **Canada** matched Qatar shot-for-shot at home and were buried 3–1 by Akram Afif's brace. Only **Czechia** turned dominance-by-someone-else into a win, Schick, Šulc and Darida punishing Lyle Foster's nine wasted attempts. And in Guadalajara the machine produced its boldest call of all — **South Korea 2–0 over the co-hosts**, 16 shots to 2, a first World Cup win over Mexico built on Son and Oh Hyeon-gyu. The shape of the groups after round two, per the simulation: **Group A** belongs to Czechia and South Korea, leaving Mexico and South Africa with ground to make up; **Group B** is blown open, Bosnia and Qatar leapfrogging the fancied Swiss and Canadians.
+The through-line of day eight is the early goal, defended to the death — and the favourite undone by its own control. **South Africa** struck through Foster inside six minutes and then battered Czechia 15 shots to 2 to seal a deserved upset; **Bosnia** pulled off the heist of the round, beaten 9–2 on shots by Switzerland yet winning through a single Jovo Lukić strike; and **South Korea** sat off Mexico, let the hosts have 66% of a ball they could do nothing with, and broke through Son for a first-ever World Cup win over El Tri. Only **Canada** held serve, Jonathan David's early goal enough to edge an even contest with a lively Qatar. The shape of the groups after round two, per the simulation: **Group A** belongs to South Africa and South Korea, leaving the fancied Czechs and the co-hosts Mexico with ground to make up; **Group B** is blown open by Bosnia, with Canada the only seed still standing tall.
 
 ---
 
