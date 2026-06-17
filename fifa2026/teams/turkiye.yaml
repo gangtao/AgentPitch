@@ -2,15 +2,15 @@
 team_id: turkiye
 name: Türkiye
 players:
-  - name: Mert Günok
-    number: 1
+  - name: Uğurcan Çakır
+    number: 23
     role: GK
-    speed: 11
+    speed: 12
     skill: 13
     strength: 15
-    save: 15
+    save: 17
     discipline: 14
-    dribbling: 5
+    dribbling: 6
     stamina: 13
     pass: 12
     shoot: 4
@@ -51,7 +51,7 @@ players:
     skill: 13
     strength: 16
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 10
     stamina: 15
     pass: 13
@@ -85,7 +85,7 @@ players:
     pass: 18
     shoot: 16
     offensive: 11
-    penalty: 16
+    penalty: 17
   - name: İsmail Yüksek
     number: 16
     role: MID
@@ -100,19 +100,33 @@ players:
     shoot: 11
     offensive: 11
     penalty: 12
-  - name: Kerem Aktürkoğlu
-    number: 7
+  - name: Barış Alper Yılmaz
+    number: 21
     role: MID
     speed: 16
-    skill: 15
-    strength: 12
+    skill: 14
+    strength: 14
     save: 0
     discipline: 13
-    dribbling: 16
+    dribbling: 15
     stamina: 16
-    pass: 14
+    pass: 13
     shoot: 14
     offensive: 10
+    penalty: 14
+  - name: Orkun Kökçü
+    number: 18
+    role: MID
+    speed: 13
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 16
+    pass: 16
+    shoot: 14
+    offensive: 11
     penalty: 14
   - name: Arda Güler
     number: 8
@@ -128,31 +142,17 @@ players:
     shoot: 15
     offensive: 10
     penalty: 16
-  - name: Kenan Yıldız
-    number: 11
-    role: MID
+  - name: Kerem Aktürkoğlu
+    number: 7
+    role: FWD
     speed: 16
-    skill: 16
+    skill: 15
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 17
-    stamina: 15
-    pass: 14
-    shoot: 15
-    offensive: 10
-    penalty: 15
-  - name: Barış Alper Yılmaz
-    number: 21
-    role: FWD
-    speed: 16
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 14
+    dribbling: 16
     stamina: 16
-    pass: 13
+    pass: 14
     shoot: 14
     offensive: 9
     penalty: 14

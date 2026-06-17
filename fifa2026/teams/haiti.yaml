@@ -16,20 +16,20 @@ players:
     shoot: 3
     offensive: 5
     penalty: 6
-  - name: Duke Lacroix
-    number: 13
+  - name: Martin Expérience
+    number: 8
     role: DEF
     speed: 13
-    skill: 12
+    skill: 11
     strength: 13
     save: 0
     discipline: 13
-    dribbling: 12
+    dribbling: 11
     stamina: 14
-    pass: 12
-    shoot: 8
-    offensive: 12
-    penalty: 9
+    pass: 11
+    shoot: 7
+    offensive: 11
+    penalty: 8
   - name: Hannes Delcroix
     number: 5
     role: DEF
@@ -128,20 +128,20 @@ players:
     shoot: 12
     offensive: 11
     penalty: 12
-  - name: Duckens Nazon
-    number: 9
+  - name: Frantzdy Pierrot
+    number: 20
     role: FWD
-    speed: 13
-    skill: 14
+    speed: 12
+    skill: 13
     strength: 15
     save: 0
     discipline: 12
-    dribbling: 13
+    dribbling: 12
     stamina: 14
-    pass: 12
-    shoot: 15
-    offensive: 10
-    penalty: 15
+    pass: 11
+    shoot: 14
+    offensive: 9
+    penalty: 13
   - name: Wilson Isidor
     number: 18
     role: FWD

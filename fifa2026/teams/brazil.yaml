@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: brazil
 name: Brazil
 players:
@@ -72,20 +72,6 @@ players:
     shoot: 8
     offensive: 12
     penalty: 10
-  - name: Lucas Paquetá
-    number: 20
-    role: MID
-    speed: 14
-    skill: 16
-    strength: 14
-    save: 0
-    discipline: 12
-    dribbling: 16
-    stamina: 15
-    pass: 16
-    shoot: 14
-    offensive: 12
-    penalty: 15
   - name: Casemiro
     number: 5
     role: MID
@@ -114,6 +100,20 @@ players:
     shoot: 13
     offensive: 12
     penalty: 14
+  - name: Lucas Paquetá
+    number: 20
+    role: MID
+    speed: 14
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 12
+    dribbling: 16
+    stamina: 15
+    pass: 16
+    shoot: 14
+    offensive: 12
+    penalty: 15
   - name: Vinícius Júnior
     number: 7
     role: FWD
@@ -127,7 +127,7 @@ players:
     pass: 16
     shoot: 17
     offensive: 8
-    penalty: 17
+    penalty: 16
   - name: Matheus Cunha
     number: 9
     role: FWD
@@ -155,4 +155,4 @@ players:
     pass: 16
     shoot: 16
     offensive: 8
-    penalty: 16
+    penalty: 18
