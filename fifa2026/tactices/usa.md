@@ -8,7 +8,7 @@ Co-hosts of the 2026 World Cup and the most-watched USMNT in history. Under **Ma
 - Role mapping (roster order in `usa.yaml`):
   - index 0: GK — **Matt Freese** — competent shot-stopper, modest distribution. Stays near the goal line, no sweeping ambition.
   - index 1: LCB — **Tim Ream** — veteran left-sided organizer of the back three, calm in possession, the deepest progressive passer; holds the line and commands the offside trap.
-  - index 2: CCB — **Miles Robinson** — athletic central stopper, the primary aerial monitor of the back three; recovery pace to defend the space behind a moderately high line (in for the injured Chris Richards).
+  - index 2: CCB — **Chris Richards** — first-choice central stopper of the back three, the primary aerial monitor; Crystal Palace's commanding centre-back with recovery pace to defend the space behind a moderately high line. Recovered from his pre-tournament ankle scare and started the opener.
   - index 3: RCB — **Alex Freeman** — young, rapid right-sided center-back; covers in behind when Dest pushes up, steps into the right channel, comfortable carrying out.
   - index 4: LWB — **Antonee Robinson** — flying left wing-back, Pulisic's overlap partner; the engine of the left side, bombs the touchline and recovers any deficit with sheer pace and stamina.
   - index 5: DM/6 — **Tyler Adams** — ball-winning anchor, all-action presser, the leader of the press triggers; protects the back three and recycles short.
@@ -27,7 +27,9 @@ Short build-up from the back when possible: the back three splits wide, Adams dr
 **High press is the identity.** Trigger #1: opposition GK receiving a back-pass — Balogun curves his run, Pulisic and Tillman jump the fullbacks, Adams steps into the #6 space. Trigger #2: a heavy first touch from any opposition midfielder — the nearest USA player (often McKennie) sprints to engage within 6 units. The press is **man-oriented** in the front six, **zonal** in the back four. The whole side is fit, stamina rated 14+ across the spine, and Pochettino expects 90-minute intensity.
 
 ### Defensive shape
-When the press is broken, the USA drop into a compact **5-4-1** with the wing-backs (Robinson, Dest) tucking into a back five and Pulisic/Tillman pinching alongside Adams and McKennie in the midfield band. The block is **mid-height** (around the halfway line) rather than deep — Pochettino refuses to invite pressure. Ream and Miles Robinson hold a moderately high line; Adams shields the channel in front of them. Robinson and Dest fold into the back five without the ball.
+When the press is broken, the USA drop into a compact **5-4-1** with the wing-backs (Robinson, Dest) tucking into a back five and Pulisic/Tillman pinching alongside Adams and McKennie in the midfield band. The block is **mid-height** (around the halfway line) rather than deep — Pochettino refuses to invite pressure. Ream and Chris Richards hold a moderately high line; Adams shields the channel in front of them. Robinson and Dest fold into the back five without the ball.
+
+> **Form note (post-Matchday 1):** The USA opened with a commanding **4-1 win over Paraguay** (own goal 7', Balogun brace, Reyna 90+8') and sit top of Group D level on points with Australia. Balogun's brace announces his form as the focal point. Pulisic was withdrawn at half-time and limped off late — managed minutes — but is **expected fit** for Australia. Chris Richards came through 90 minutes after his ankle scare and reclaims his first-choice CB slot. A win over Australia (Matchday 2, June 19, Seattle) seals knockout qualification.
 
 ### Wide play
 Asymmetric: **left** = Pulisic inside + Robinson overlap (the main creation channel — Robinson reaches the byline, Pulisic shoots from the half-space). **Right** = Tillman inside + Dest underlap. McKennie is the late runner who arrives at the back post on cut-backs.
@@ -36,7 +38,7 @@ Asymmetric: **left** = Pulisic inside + Robinson overlap (the main creation chan
 Patterns: Pulisic-Robinson 1-2 down the left ending in a Robinson cut-back; Pulisic cutting inside onto his right foot for a curling shot from 22 units; Balogun running the channel between RB and RCB onto a Tillman through-ball; McKennie late arriving on a corner or a deflected ball in the six-yard box. Direct counter-attack from a press turnover: Adams wins it → vertical pass to Pulisic → Pulisic-Balogun in 3 passes.
 
 ## Set Pieces
-- Attacking corners: **Pulisic** delivers from both sides (in-swinger from the right, out-swinger from the left). Primary aerial targets: McKennie, Miles Robinson, Freeman at the near post.
+- Attacking corners: **Pulisic** delivers from both sides (in-swinger from the right, out-swinger from the left). Primary aerial targets: McKennie, Chris Richards, Freeman at the near post.
 - Defending corners: **hybrid** — three zonal markers on the six-yard line, four man-markers (one each on the most dangerous attackers), two short-corner blockers. Adams takes the front-post zonal slot.
 - Free kicks: **Pulisic** takes direct from any zone within 28 units. McKennie delivers wide free kicks into the box.
 - Penalties: **Pulisic** primary, **Balogun** secondary, **McKennie** tertiary.
@@ -62,6 +64,7 @@ Concrete rules the LLM should encode:
 - **Robinson (4):** Underrated attacking weapon — speed 17, stamina 17. Pochettino licenses him to overlap repeatedly even into stoppage time.
 - **Balogun (9):** Pressing forward. License to gamble on the offside line and run the channel between RB and RCB.
 - **McKennie (6):** Late runner. Best aerial midfielder. Tertiary penalty taker.
+- **Richards (2):** First-choice central stopper and chief aerial monitor of the back three; recovered from a pre-tournament ankle scare to start and complete the opener. Primary defender of the space behind the high line.
 - **Dest (7):** Inverts in build-up. Pochettino's primary tactical wrinkle — the right wing-back tucks inside to turn the 3-4-2-1 into a 3-2-5 in possession.
 
 ## Tournament Mindset

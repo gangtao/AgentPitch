@@ -30,19 +30,19 @@ players:
     shoot: 6
     offensive: 11
     penalty: 9
-  - name: Miles Robinson
-    number: 12
+  - name: Chris Richards
+    number: 3
     role: DEF
     speed: 15
-    skill: 14
+    skill: 15
     strength: 16
     save: 0
-    discipline: 13
-    dribbling: 10
+    discipline: 14
+    dribbling: 11
     stamina: 15
-    pass: 12
+    pass: 13
     shoot: 7
-    offensive: 14
+    offensive: 12
     penalty: 9
   - name: Alex Freeman
     number: 16

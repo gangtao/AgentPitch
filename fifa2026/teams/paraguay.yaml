@@ -16,20 +16,20 @@ players:
     shoot: 3
     offensive: 5
     penalty: 6
-  - name: Junior Alonso
-    number: 6
+  - name: Alexandro Maidana
+    number: 13
     role: DEF
     speed: 14
-    skill: 13
-    strength: 16
+    skill: 12
+    strength: 13
     save: 0
     discipline: 12
-    dribbling: 10
+    dribbling: 11
     stamina: 15
-    pass: 13
-    shoot: 7
-    offensive: 14
-    penalty: 9
+    pass: 12
+    shoot: 6
+    offensive: 12
+    penalty: 8
   - name: Omar Alderete
     number: 3
     role: DEF
