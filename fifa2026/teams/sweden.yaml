@@ -1,35 +1,21 @@
-# Formation: 4-3-3
+# Formation: 3-4-3
 team_id: sweden
 name: Sweden
 players:
-  - name: Viktor Johansson
-    number: 12
+  - name: Kristoffer Nordfeldt
+    number: 23
     role: GK
-    speed: 11
-    skill: 13
-    strength: 14
+    speed: 10
+    skill: 12
+    strength: 13
     save: 14
     discipline: 14
     dribbling: 5
-    stamina: 13
+    stamina: 12
     pass: 12
     shoot: 4
     offensive: 5
     penalty: 7
-  - name: Gabriel Gudmundsson
-    number: 5
-    role: DEF
-    speed: 15
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 16
-    pass: 14
-    shoot: 9
-    offensive: 12
-    penalty: 10
   - name: Victor Lindelöf
     number: 3
     role: DEF
@@ -42,7 +28,7 @@ players:
     stamina: 16
     pass: 15
     shoot: 9
-    offensive: 12
+    offensive: 11
     penalty: 11
   - name: Isak Hien
     number: 4
@@ -56,36 +42,50 @@ players:
     stamina: 15
     pass: 13
     shoot: 7
-    offensive: 14
+    offensive: 13
     penalty: 9
-  - name: Daniel Svensson
-    number: 8
+  - name: Gustaf Lagerbielke
+    number: 2
     role: DEF
+    speed: 13
+    skill: 12
+    strength: 15
+    save: 0
+    discipline: 13
+    dribbling: 9
+    stamina: 15
+    pass: 12
+    shoot: 7
+    offensive: 11
+    penalty: 8
+  - name: Gabriel Gudmundsson
+    number: 5
+    role: MID
     speed: 15
     skill: 13
     strength: 13
     save: 0
     discipline: 14
     dribbling: 13
-    stamina: 16
+    stamina: 17
     pass: 14
-    shoot: 8
+    shoot: 9
     offensive: 12
     penalty: 10
-  - name: Mattias Svanberg
-    number: 19
+  - name: Jesper Karlström
+    number: 16
     role: MID
-    speed: 13
+    speed: 12
     skill: 14
     strength: 14
     save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 17
+    discipline: 15
+    dribbling: 12
+    stamina: 16
     pass: 15
-    shoot: 13
-    offensive: 11
-    penalty: 13
+    shoot: 9
+    offensive: 9
+    penalty: 11
   - name: Yasin Ayari
     number: 18
     role: MID
@@ -95,53 +95,25 @@ players:
     save: 0
     discipline: 13
     dribbling: 14
-    stamina: 16
+    stamina: 17
     pass: 15
-    shoot: 12
-    offensive: 11
+    shoot: 14
+    offensive: 12
     penalty: 13
-  - name: Lucas Bergvall
-    number: 7
+  - name: Daniel Svensson
+    number: 8
     role: MID
-    speed: 14
-    skill: 16
-    strength: 12
+    speed: 15
+    skill: 13
+    strength: 13
     save: 0
     discipline: 14
-    dribbling: 15
+    dribbling: 13
     stamina: 17
-    pass: 16
-    shoot: 12
-    offensive: 10
-    penalty: 13
-  - name: Alexander Isak
-    number: 9
-    role: FWD
-    speed: 16
-    skill: 16
-    strength: 14
-    save: 0
-    discipline: 14
-    dribbling: 16
-    stamina: 16
     pass: 14
-    shoot: 17
-    offensive: 9
-    penalty: 17
-  - name: Viktor Gyökeres
-    number: 17
-    role: FWD
-    speed: 16
-    skill: 15
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 17
-    pass: 13
-    shoot: 17
-    offensive: 10
-    penalty: 16
+    shoot: 8
+    offensive: 12
+    penalty: 10
   - name: Anthony Elanga
     number: 11
     role: FWD
@@ -156,3 +128,31 @@ players:
     shoot: 13
     offensive: 8
     penalty: 13
+  - name: Viktor Gyökeres
+    number: 17
+    role: FWD
+    speed: 16
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 17
+    pass: 13
+    shoot: 17
+    offensive: 10
+    penalty: 16
+  - name: Alexander Isak
+    number: 9
+    role: FWD
+    speed: 16
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 16
+    pass: 14
+    shoot: 17
+    offensive: 9
+    penalty: 17

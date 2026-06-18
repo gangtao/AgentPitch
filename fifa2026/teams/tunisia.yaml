@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 4-3-3
 team_id: tunisia
 name: Tunisia
 players:
@@ -16,48 +16,6 @@ players:
     shoot: 4
     offensive: 5
     penalty: 7
-  - name: Ali Abdi
-    number: 2
-    role: DEF
-    speed: 14
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 15
-    pass: 14
-    shoot: 10
-    offensive: 12
-    penalty: 11
-  - name: Montassar Talbi
-    number: 3
-    role: DEF
-    speed: 13
-    skill: 13
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 14
-    pass: 13
-    shoot: 7
-    offensive: 13
-    penalty: 9
-  - name: Dylan Bronn
-    number: 6
-    role: DEF
-    speed: 13
-    skill: 14
-    strength: 15
-    save: 0
-    discipline: 13
-    dribbling: 11
-    stamina: 14
-    pass: 13
-    shoot: 8
-    offensive: 13
-    penalty: 10
   - name: Yan Valery
     number: 20
     role: DEF
@@ -72,6 +30,48 @@ players:
     shoot: 9
     offensive: 12
     penalty: 10
+  - name: Dylan Bronn
+    number: 6
+    role: DEF
+    speed: 13
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 14
+    pass: 13
+    shoot: 8
+    offensive: 13
+    penalty: 10
+  - name: Montassar Talbi
+    number: 3
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 14
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 7
+    offensive: 13
+    penalty: 9
+  - name: Ali Abdi
+    number: 2
+    role: DEF
+    speed: 14
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 15
+    pass: 14
+    shoot: 10
+    offensive: 12
+    penalty: 14
   - name: Ellyes Skhiri
     number: 17
     role: MID
@@ -86,20 +86,6 @@ players:
     shoot: 12
     offensive: 11
     penalty: 13
-  - name: Rani Khedira
-    number: 13
-    role: MID
-    speed: 12
-    skill: 14
-    strength: 15
-    save: 0
-    discipline: 15
-    dribbling: 11
-    stamina: 16
-    pass: 14
-    shoot: 10
-    offensive: 11
-    penalty: 11
   - name: Hannibal Mejbri
     number: 10
     role: MID
@@ -107,13 +93,27 @@ players:
     skill: 15
     strength: 13
     save: 0
-    discipline: 12
+    discipline: 11
     dribbling: 16
     stamina: 16
     pass: 15
     shoot: 13
     offensive: 11
-    penalty: 14
+    penalty: 13
+  - name: Anis Ben Slimane
+    number: 25
+    role: MID
+    speed: 14
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 16
+    pass: 13
+    shoot: 12
+    offensive: 10
+    penalty: 12
   - name: Elias Achouri
     number: 7
     role: FWD
@@ -128,6 +128,20 @@ players:
     shoot: 13
     offensive: 8
     penalty: 13
+  - name: Firas Chaouat
+    number: 9
+    role: FWD
+    speed: 13
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 14
+    pass: 12
+    shoot: 14
+    offensive: 7
+    penalty: 11
   - name: Elias Saad
     number: 8
     role: FWD
@@ -141,18 +155,4 @@ players:
     pass: 13
     shoot: 14
     offensive: 8
-    penalty: 14
-  - name: Anis Ben Slimane
-    number: 25
-    role: FWD
-    speed: 14
-    skill: 13
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 16
-    pass: 13
-    shoot: 12
-    offensive: 9
-    penalty: 12
+    penalty: 13

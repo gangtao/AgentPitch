@@ -1,7 +1,7 @@
 # Netherlands — Tactical Profile
 
 ## Identity & Philosophy
-Ronald Koeman's Netherlands is modern Total Football: positional, vertical, and built on technical CBs and a creative midfield. Possession is purposeful — not for its own sake but to verticalize through Frenkie de Jong and reach Gakpo / Malen in the final third. The team is comfortable with risk: high line, aggressive overlaps, asymmetric width. Recent results: Euro 2024 semifinal (lost to England), strong qualifying campaign — Dutch football confidence is back. With Jurriën Timber and Xavi Simons both ruled out injured and Memphis Depay injury-limited on the bench, Koeman has settled on a 4-2-3-1: Micky van de Ven's recovery pace shifts to left-back, Jan Paul van Hecke partners Van Dijk at CB, a de Jong–Gravenberch double pivot sits behind Reijnders at #10, and Malen leads the line.
+Ronald Koeman's Netherlands is modern Total Football: positional, vertical, and built on technical CBs and a creative midfield. Possession is purposeful — not for its own sake but to verticalize through Frenkie de Jong and reach Gakpo / Malen in the final third. The team is comfortable with risk: high line, aggressive overlaps, asymmetric width. Recent results: Euro 2024 semifinal, strong qualifying campaign — Dutch football confidence is back. **Matchday 1 (June 14, 2026): Netherlands 2-2 Japan** — Van Dijk (51') and Summerville (64') gave the Oranje a 2-1 lead, but Japan equalised twice (Nakamura, then a Kamada flick-on off an Ito corner at 88'). A disappointing draw that exposed the high line's fragility on transitions and a soft second goal conceded at a set piece. With Xavi Simons ruled out for the tournament (ruptured ACL) and Jeremie Frimpong omitted, Koeman has settled on a 4-2-3-1: Micky van de Ven's recovery pace shifts to left-back, Jan Paul van Hecke partners Van Dijk at CB, a de Jong–Gravenberch double pivot sits behind Reijnders at #10, and Malen leads the line. **Memphis Depay** has recovered from his thigh injury but was not yet fit to start vs Japan — he came on for the final ~20 minutes and remains the team's designated dead-ball and penalty taker whenever he is on the pitch; off the bench he is the late-game game-changer.
 
 ## Formation
 - Shape: 4-2-3-1 (de Jong + Gravenberch double pivot; Reijnders as the #10)
@@ -51,10 +51,10 @@ Ronald Koeman's Netherlands is modern Total Football: positional, vertical, and 
 - Malen attacks the last line — through-balls in behind (speed 18) rather than link play; first-time finishes (shoot 15).
 
 ## Set Pieces
-- Corners: Gakpo or de Jong takes; targets Van Dijk (back post), Van Hecke (near post), Dumfries (penalty spot — aerial threat).
-- Direct FKs: Gakpo primary (curling onto his right foot), de Jong central (low driven), Reijnders the alternative from the right side.
-- Penalties: Gakpo is the designated taker.
-- Defending: Van Dijk + Van Hecke are the centre-back duo — zonal back post, man-marked at near post; van de Ven's pace covers any deep restart.
+- Corners: Gakpo or Reijnders takes (Depay when on); targets Van Dijk (back post — scored from Gravenberch's cross vs Japan), Van Hecke (near post), Dumfries (penalty spot — aerial threat).
+- Direct FKs: Reijnders primary, Gakpo curling onto his right foot, de Jong central low-driven (Depay is first choice once on the pitch).
+- Penalties: Gakpo is the on-pitch designated taker (penalty 17); Depay takes over as first choice whenever he is on. Reijnders/de Jong are alternates.
+- Defending: Van Dijk + Van Hecke are the centre-back duo — zonal back post, man-marked at near post; van de Ven's pace covers any deep restart. **MD1 fix:** tighten the near-post zone and back-post man-marking after conceding the late Kamada flick-on from a corner.
 
 ## decide() Decision Priorities
 1. When my role is GK: always pass short to a CB; commit to the build, don't go long unless triple-pressed.
@@ -79,8 +79,9 @@ Ronald Koeman's Netherlands is modern Total Football: positional, vertical, and 
 - **Frenkie de Jong (idx 6)** — the brain and vice-captain. Allowed to carry the ball into midfield from CB position.
 - **Gravenberch (idx 7)** — powerful two-way pivot partner; ball progression from deep and the cover behind Dumfries.
 - **Dumfries (idx 4)** — the overlap engine on the right; doubles up with Summerville for 2v1s.
-- **Malen (idx 9)** — leads the line with Depay injury-limited on the bench; pure pace in behind (speed 18), the high line's worst nightmare.
-- **Summerville (idx 10)** — the 1v1 specialist on the right (dribbling 17); direct, fearless, byline-or-cut-in.
+- **Malen (idx 9)** — starts ahead of the recovering Depay; pure pace in behind (speed 18), the high line's worst nightmare. Holds the shirt until Depay is match-fit.
+- **Summerville (idx 10)** — the 1v1 specialist on the right (dribbling 17); direct, fearless, byline-or-cut-in. Scored the 2-1 vs Japan with a cut-in to the far post.
+- **Depay (bench)** — captain-in-spirit and all-time top scorer, back from a thigh injury but not yet 90-minutes fit; entered late vs Japan. The team's designated penalty / free-kick / corner deliverer and the most likely game-changer from the bench. Expected to push for a start once sharp.
 
 ## Tournament Mindset
-Aggressive, technical, ambitious. Koeman trusts the Dutch tradition of attack — Netherlands won't park the bus, even when leading. Vulnerable to fast counter-attackers exploiting the high line, but on their best day a top-4 team.
+Aggressive, technical, ambitious. Koeman trusts the Dutch tradition of attack — Netherlands won't park the bus, even when leading. Vulnerable to fast counter-attackers exploiting the high line (Japan twice punished transitions in MD1) and to set pieces. After the opening-day draw, the Sweden fixture is must-win territory: expect the Oranje to be more clinical at protecting a lead and tighter at defensive set pieces, while keeping the same front-foot identity. On their best day a top-4 team.

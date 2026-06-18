@@ -33,7 +33,7 @@ players:
   - name: Virgil van Dijk
     number: 4
     role: DEF
-    speed: 15
+    speed: 14
     skill: 17
     strength: 19
     save: 0
@@ -41,8 +41,8 @@ players:
     dribbling: 12
     stamina: 16
     pass: 17
-    shoot: 9
-    offensive: 14
+    shoot: 10
+    offensive: 15
     penalty: 12
   - name: Jan Paul van Hecke
     number: 6

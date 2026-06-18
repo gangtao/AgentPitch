@@ -16,20 +16,34 @@ players:
     shoot: 4
     offensive: 5
     penalty: 8
-  - name: Ghislain Konan
-    number: 3
+  - name: Evan Ndicka
+    number: 4
     role: DEF
     speed: 15
     skill: 14
-    strength: 14
+    strength: 16
     save: 0
-    discipline: 13
-    dribbling: 13
+    discipline: 14
+    dribbling: 11
     stamina: 16
     pass: 14
-    shoot: 10
+    shoot: 6
     offensive: 13
-    penalty: 11
+    penalty: 9
+  - name: Ousmane Diomande
+    number: 5
+    role: DEF
+    speed: 15
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 7
+    offensive: 14
+    penalty: 10
   - name: Emmanuel Agbadou
     number: 20
     role: DEF
@@ -44,33 +58,19 @@ players:
     shoot: 6
     offensive: 14
     penalty: 9
-  - name: Odilon Kossounou
-    number: 7
-    role: DEF
-    speed: 14
-    skill: 15
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 16
-    pass: 14
-    shoot: 7
-    offensive: 14
-    penalty: 10
-  - name: Guéla Doué
+  - name: Wilfried Singo
     number: 17
     role: DEF
-    speed: 16
+    speed: 17
     skill: 14
-    strength: 14
+    strength: 16
     save: 0
     discipline: 13
-    dribbling: 14
-    stamina: 16
-    pass: 14
-    shoot: 8
-    offensive: 13
+    dribbling: 13
+    stamina: 17
+    pass: 13
+    shoot: 9
+    offensive: 14
     penalty: 10
   - name: Seko Fofana
     number: 6

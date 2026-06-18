@@ -72,33 +72,33 @@ players:
     shoot: 14
     offensive: 10
     penalty: 14
-  - name: Wataru Endō
+  - name: Kaishu Sano
     number: 6
     role: MID
-    speed: 13
-    skill: 15
+    speed: 14
+    skill: 14
     strength: 15
     save: 0
-    discipline: 16
-    dribbling: 13
+    discipline: 15
+    dribbling: 12
     stamina: 17
-    pass: 15
-    shoot: 11
+    pass: 14
+    shoot: 10
     offensive: 11
-    penalty: 12
-  - name: Ao Tanaka
-    number: 7
+    penalty: 11
+  - name: Daichi Kamada
+    number: 15
     role: MID
-    speed: 14
-    skill: 15
+    speed: 13
+    skill: 16
     strength: 14
     save: 0
     discipline: 15
     dribbling: 14
-    stamina: 17
+    stamina: 16
     pass: 16
-    shoot: 12
-    offensive: 11
+    shoot: 14
+    offensive: 10
     penalty: 13
   - name: Junya Itō
     number: 14
