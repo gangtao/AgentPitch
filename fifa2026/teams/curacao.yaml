@@ -1,4 +1,4 @@
-# Formation: 4-4-2
+# Formation: 4-3-3
 team_id: curacao
 name: Curaçao
 players:
@@ -16,20 +16,20 @@ players:
     shoot: 3
     offensive: 5
     penalty: 6
-  - name: Ar'jany Martha
-    number: 15
+  - name: Sherel Floranus
+    number: 5
     role: DEF
-    speed: 15
-    skill: 12
-    strength: 11
+    speed: 13
+    skill: 11
+    strength: 12
     save: 0
-    discipline: 11
-    dribbling: 13
+    discipline: 12
+    dribbling: 11
     stamina: 14
     pass: 11
     shoot: 7
     offensive: 11
-    penalty: 9
+    penalty: 8
   - name: Armando Obispo
     number: 18
     role: DEF
@@ -42,60 +42,46 @@ players:
     stamina: 13
     pass: 11
     shoot: 7
-    offensive: 13
+    offensive: 11
     penalty: 9
-  - name: Roshon van Eijma
-    number: 4
+  - name: Riechedly Bazoer
+    number: 6
     role: DEF
     speed: 11
-    skill: 11
-    strength: 13
+    skill: 13
+    strength: 14
     save: 0
-    discipline: 13
-    dribbling: 10
+    discipline: 10
+    dribbling: 11
     stamina: 13
-    pass: 11
-    shoot: 7
-    offensive: 12
-    penalty: 8
-  - name: Sherel Floranus
-    number: 5
+    pass: 13
+    shoot: 8
+    offensive: 11
+    penalty: 9
+  - name: Deveron Fonville
+    number: 2
     role: DEF
-    speed: 12
+    speed: 13
     skill: 11
-    strength: 12
+    strength: 11
     save: 0
     discipline: 12
     dribbling: 11
-    stamina: 13
+    stamina: 14
     pass: 11
-    shoot: 7
-    offensive: 12
-    penalty: 8
-  - name: Gervane Kastaneer
-    number: 19
-    role: MID
-    speed: 13
-    skill: 12
-    strength: 12
-    save: 0
-    discipline: 12
-    dribbling: 12
-    stamina: 13
-    pass: 11
-    shoot: 12
+    shoot: 6
     offensive: 11
-    penalty: 12
+    penalty: 7
   - name: Leandro Bacuna
     number: 10
     role: MID
-    speed: 12
+    speed: 11
     skill: 13
     strength: 13
     save: 0
     discipline: 12
-    dribbling: 13
-    stamina: 14
+    dribbling: 12
+    stamina: 13
     pass: 13
     shoot: 11
     offensive: 11
@@ -107,16 +93,30 @@ players:
     skill: 13
     strength: 13
     save: 0
-    discipline: 12
+    discipline: 11
     dribbling: 12
     stamina: 13
     pass: 12
-    shoot: 8
+    shoot: 9
     offensive: 11
     penalty: 10
+  - name: Livano Comenencia
+    number: 8
+    role: MID
+    speed: 13
+    skill: 13
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 13
+    stamina: 14
+    pass: 12
+    shoot: 12
+    offensive: 13
+    penalty: 11
   - name: Tahith Chong
     number: 21
-    role: MID
+    role: FWD
     speed: 13
     skill: 14
     strength: 11
@@ -126,7 +126,7 @@ players:
     stamina: 13
     pass: 13
     shoot: 12
-    offensive: 10
+    offensive: 11
     penalty: 13
   - name: Jürgen Locadia
     number: 9
@@ -137,10 +137,10 @@ players:
     save: 0
     discipline: 11
     dribbling: 12
-    stamina: 13
+    stamina: 12
     pass: 11
     shoot: 13
-    offensive: 10
+    offensive: 11
     penalty: 13
   - name: Sontje Hansen
     number: 12
@@ -154,5 +154,5 @@ players:
     stamina: 13
     pass: 12
     shoot: 13
-    offensive: 8
+    offensive: 10
     penalty: 13

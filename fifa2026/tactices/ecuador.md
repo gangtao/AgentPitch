@@ -1,68 +1,70 @@
 # Ecuador — Tactical Profile
 
 ## Identity & Philosophy
-Ecuador under Sebastián Beccacece are a compact, athletic, counter-attacking side built on the foundation of one of the world's best defensive midfield anchors (Moisés Caicedo) and a generation of young technical talent (Páez, Plata, Hincapié, Pacho). Beccacece's philosophy is pragmatic: deny space centrally, force play wide, win the second ball through Caicedo, transition vertically via Plata and Estupiñán's overlapping runs. Recent results: solid CONMEBOL qualifying performance, points deduction navigated, arriving as a dangerous outsider known for taking points off the giants.
+Sebastián Beccacece's Ecuador are a compact, athletic, defence-first side built on the foundation of one of the world's best defensive midfielders (Moisés Caicedo) and a generation of young, European-based talent (Hincapié, Pacho, Ordóñez, Plata). Beccacece's philosophy is pragmatic and vertical: sit in a disciplined mid-block, deny space centrally, win the ball through the double pivot, then transition quickly with long diagonals to the wide forwards (Plata, Angulo). They prize defensive solidity over expansive possession — a low-error, high-intensity unit that frustrates better opponents and breaks them in transition. They arrive in USA/Canada/Mexico as a dangerous outsider who took a 19-game unbeaten streak into the tournament. That run ended in their opener: **Ivory Coast 1-0 Ecuador (Amad Diallo, 90')** in Group E — Ecuador dominated the first half (Yeboah and Minda both hit the bar, Valencia hit the woodwork) but were undone by a late sucker punch and now must win to revive their campaign vs Curaçao.
 
 ## Formation
-- Shape: **4-3-3** (Caicedo anchoring a midfield three, becomes 4-5-1 / 4-1-4-1 out of possession as the wingers tuck in)
+- Shape: **4-2-3-1** (Caicedo + Vite as a double pivot; out of possession the wide attackers drop to form a compact 4-4-1-1 / 4-5-1 mid-block)
 - Role mapping (roster order in `ecuador.yaml`):
-  - index 0: GK — **Hernán Galíndez** — experienced traditional keeper, shot-stopper, modest with feet; not a sweeper.
-  - index 1: LB — **Pervis Estupiñán** — elite overlapping fullback, the team's primary width-provider on the left, top dead-ball delivery from the left.
-  - index 2: LCB — **Piero Hincapié** — aggressive, left-footed ball-progressor, will step into midfield to break lines.
-  - index 3: RCB — **Willian Pacho** — left-footed, calm, fast across the ground; the recovery defender of the pair.
-  - index 4: RB — **Ángelo Preciado** — more conservative than Estupiñán; overlaps selectively.
-  - index 5: CM (anchor) — **Moisés Caicedo** — the world-class anchor, screens the back four, wins the duel, recycles to the playmakers.
-  - index 6: CM (box-to-box) — **Alan Franco** — defensive runner, covers Preciado's overlaps, the box-to-box ballast alongside Caicedo.
-  - index 7: CM (advanced) — **Kendry Páez** — young creative engine of the three, drifts into the half-spaces, the team's chief progressive passer in tight spaces.
-  - index 8: LW — **Nilson Angulo** — direct, pacy left winger (speed 16, dribbling 15), attacks the outside lane and the byline.
-  - index 9: ST — **Enner Valencia** — captain, holds the ball up, makes intelligent runs in behind, the experienced focal point and near-post threat.
-  - index 10: RW — **Gonzalo Plata** — direct, pacy, 1v1 dribbler, the team's chief carrier on transitions, holds the right touchline.
+  - index 0: GK — **Hernán Galíndez** — experienced first-choice keeper, shot-stopper, modest with feet; not a sweeper.
+  - index 1: LB — **Piero Hincapié** — aggressive, left-footed ball-progressor deployed at left-back; steps into midfield to break lines.
+  - index 2: LCB — **Willian Pacho** — left-footed, calm, fast across the ground; the recovery defender and the spine's anchor.
+  - index 3: RCB — **Joel Ordóñez** — young, physical, dominant in the air; the more conservative stopper of the pair.
+  - index 4: RB — **Pervis Estupiñán** — elite overlapping fullback (naturally left-footed but deployed right); the team's primary attacking width and top dead-ball delivery.
+  - index 5: DM (anchor) — **Moisés Caicedo** — the world-class screen, wins the duel, recycles to the forwards; the engine of the side.
+  - index 6: DM (deep playmaker) — **Pedro Vite** — circulates possession beside Caicedo, lets the anchor roam and the fullbacks push on; the build-up metronome.
+  - index 7: LAM — **Nilson Angulo** — direct, pacy left attacker (speed 16, dribbling 15); cuts inside onto his stronger foot as Estupiñán/Hincapié provide overlap.
+  - index 8: CAM (#10) — **Gonzalo Plata** — the chief carrier and creator operating off the right/central; a 1v1 dribbler who drives transitions.
+  - index 9: RAM — **John Yeboah** — direct, pacy wide attacker; stretches the line and arrives at the back post.
+  - index 10: ST — **Enner Valencia** — captain, holds the ball up, makes intelligent runs in behind, the experienced focal point, set-piece and penalty taker.
 
 ## Style of Play
+
 ### Build-up
-**Mixed: short out of the back, vertical as soon as Caicedo gets the ball.** Galíndez plays short to Pacho or Hincapié. Caicedo drops between the CBs when pressed. The fullbacks (Estupiñán especially) push high and wide. Once Caicedo receives facing forward, the ball goes vertical — into Páez between the lines or long to Valencia with the wingers (Angulo/Plata) breaking off him. Ecuador will go long quickly under pressure; they do not force the build-up.
+**Mixed: short out of the back, vertical as soon as the pivot turns.** Galíndez plays short to Pacho or Ordóñez. Caicedo or Vite drops to receive between/beside the CBs when pressed. The fullbacks (Estupiñán especially) push high and wide. Once a pivot receives facing forward, the ball goes vertical — a long diagonal to the wide forwards (Angulo/Yeboah) or into Plata between the lines, with Valencia pinning the CBs. Ecuador will go long quickly under pressure; they do not force the build-up.
 
 ### Pressing
-**Mid-block with selective high-press in transition moments.** Press triggers: opposition GK passing short, opposition CM receiving with back to play. Valencia leads the press by cover-shadowing the deepest CM, with Páez stepping up beside him and the wingers (Angulo/Plata) curving runs onto the fullbacks. Caicedo aggressively jumps onto the opposition #10. Ecuador is **not** a sustained high-press team — they don't have the stamina to do it for 90 minutes.
+**Mid-block with selective high-press in transition moments.** Press triggers: opposition GK passing short, opposition CM receiving with back to play. Valencia leads by cover-shadowing the deepest pivot, Plata steps up beside him, and the wide forwards (Angulo/Yeboah) curve runs onto the fullbacks. Caicedo aggressively jumps onto the opposition #10. Ecuador are **not** a sustained 90-minute high-press team — they pick their moments and otherwise drop into shape.
 
 ### Defensive shape
-Out-of-possession: **4-5-1 / 4-1-4-1** — Angulo and Plata tuck in alongside Franco and Páez to form a midfield five; Valencia holds the line while screening the opposition pivot. The CBs hold a **medium-deep line** behind a compact midfield. Caicedo is the screen in front of the back four.
+Out-of-possession: **4-4-1-1 / 4-5-1** — Angulo and Yeboah tuck in alongside Caicedo and Vite to form a compact midfield bank; Plata screens just ahead, Valencia holds the line. The CBs hold a **medium-deep line**. The double pivot is the screen in front of the back four — Caicedo the ball-winner, Vite the cover.
 
 ### Wide play
-**Asymmetric:** Estupiñán bombs forward as the primary attacking width on the left; Angulo can come inside as Estupiñán overlaps outside. On the right, Plata holds the touchline because Preciado is more conservative.
+**Asymmetric:** Estupiñán bombs forward from right-back as a primary attacking outlet; Hincapié is more measured but steps into midfield with the ball. The wide forwards (Angulo left, Yeboah right) cut inside, trusting the fullbacks to provide the overlap and width.
 
 ### Final third
-Patterns: **Estupiñán crosses** from the left byline to Valencia attacking the near post. **Plata 1v1 isolation** vs the opposition LB on the right — let him cook. **Páez between the lines** finding a runner. Ecuador is most dangerous in **transition** — a Caicedo turnover into a 4-pass move ending with Plata or Estupiñán's cross to Valencia and the far-post winger.
+Patterns: **fullback overlap into a cutback** for Valencia or the arriving Plata. **Plata 1v1 isolation** — let him cook on the carry. **Long diagonal switch** to the far wide forward attacking the back post. Ecuador are most dangerous in **transition** — a Caicedo turnover into a 3-4 pass move ending with a Plata drive or an Estupiñán cross to Valencia and the far-post runner.
 
 ## Set Pieces
-- Attacking corners: **Estupiñán** delivers (left-footed in-swingers from the right, out-swingers from the left). **Páez** alternate. Aerial targets: Pacho, Hincapié, Valencia, Franco.
-- Defending corners: **hybrid** — four zonal markers, three man-markers, two short-corner watchers. Pacho attacks the first ball.
-- Free kicks: **Estupiñán** delivers from set positions. **Páez** direct from central positions.
-- Penalties: **Valencia** primary, **Páez** secondary.
+- Attacking corners: **Estupiñán** delivers (left-footed in-swingers from the right, out-swingers from the left). Aerial targets: Pacho, Ordóñez, Hincapié, Valencia.
+- Defending corners: **hybrid** — four zonal markers, three man-markers, two short-corner watchers. Pacho/Ordóñez attack the first ball.
+- Free kicks: **Estupiñán** delivers from set positions. **Plata** direct from central positions.
+- Penalties: **Valencia** primary (all-time leading scorer, ice-cold), **Plata** secondary.
 
 ## decide() Decision Priorities
 Concrete rules the LLM should encode:
 1. **If my `player_id` ends with `_5` (DM, Caicedo) and team_phase == "defending":** Position centrally between the CBs and the midfield line; never venture past the halfway line.
 2. **If my `player_id` ends with `_5` (DM, Caicedo) and an opponent has the ball within 8 units in central midfield:** Tackle (this is his primary action).
-3. **If my `player_id` ends with `_1` (LB, Estupiñán) and team_phase == "attacking":** Sprint to the byline; prefer cross Pass to `_9` (ST Valencia) at the near post.
-4. **If my `role == "GK"` (player_id `_0`, Galíndez) and pressed by 1 forward:** Play short to `_3` (Pacho); **if pressed by 2 forwards:** punt long toward `_9` (Valencia).
-5. **If my `player_id` ends with `_7` (advanced CM, Páez) and I receive between the lines:** Face forward, look for `_10` (RW Plata)'s diagonal run or `_1` (LB Estupiñán)'s overlap before considering carry.
-6. **If team_phase == "defending" and my `player_id` ends with `_10` (RW, Plata):** Drop into the midfield five; `_8` (LW Angulo) tucks in on the left.
-7. **If my `player_id` ends with `_9` (ST, Valencia) and team_phase == "transition_attack":** Sprint into the channel between the opposition CBs; act as the outlet with the wingers (`_8` Angulo, `_10` Plata) breaking either side.
-8. **If my `player_id` ends with `_2` (LCB, Hincapié) and no opponent within 10 units in midfield:** Step forward with the ball to break the line.
-9. **If team_phase == "transition_defense":** Both wingers (`_8` Angulo, `_10` Plata) drop into the 5-man midfield bank within 6 ticks; only `_5` (Caicedo) holds central position immediately.
-10. **If team is leading by 1+ goals and minute > 70:** Drop to low block, deny central space, rely on counters via `_10` (Plata).
-11. **If my `role == "FWD"` and I'm carrying the ball in the attacking third with no clear pass:** `_9` (Valencia) Hold and wait for support, `_8` (Angulo) / `_10` (Plata) Shoot if in range else lay it off.
-12. **Set-piece in attacking third with `_1` (Estupiñán) available:** Defer delivery to `_1`.
+3. **If my `player_id` ends with `_6` (DM, Vite) and team has the ball:** Stay beside Caicedo, circulate to keep possession; if a vertical lane is open, drive it forward, else recycle to a CB. Do not both pivots advance at once.
+4. **If my `player_id` ends with `_4` (RB, Estupiñán) and team_phase == "attacking":** Sprint to the byline; prefer cross Pass to `_10` (ST Valencia) at the near post or cutback to `_8` (Plata).
+5. **If my `role == "GK"` (player_id `_0`, Galíndez) and pressed by 1 forward:** Play short to `_2` (Pacho); **if pressed by 2 forwards:** punt long toward `_10` (Valencia).
+6. **If my `player_id` ends with `_8` (CAM, Plata) and I receive between the lines:** Face forward; carry at the defence 1v1 or look for `_9` (RAM Yeboah) / `_7` (LAM Angulo) diagonal runs and `_4` (Estupiñán)'s overlap before recycling.
+7. **If team_phase == "defending":** Both wide forwards (`_7` Angulo, `_9` Yeboah) drop into the midfield four; `_8` (Plata) screens ahead of the pivot.
+8. **If my `player_id` ends with `_10` (ST, Valencia) and team_phase == "transition_attack":** Sprint into the channel between the opposition CBs; act as the outlet with the wide forwards (`_7` Angulo, `_9` Yeboah) breaking either side.
+9. **If my `player_id` ends with `_1` (LB, Hincapié) and no opponent within 10 units in midfield:** Step forward with the ball to break the line.
+10. **If team_phase == "transition_defense":** Both wide forwards (`_7` Angulo, `_9` Yeboah) drop into the midfield bank within 6 ticks; `_5` (Caicedo) holds central position immediately, `_6` (Vite) covers the vacated pivot space.
+11. **If team is leading by 1+ goals and minute > 70:** Drop to low block, deny central space, rely on counters via `_8` (Plata) and `_4` (Estupiñán).
+12. **If my `role == "MID"` and I'm a wide forward (`_7` Angulo / `_9` Yeboah) carrying in the attacking third with no clear pass:** Shoot if in range, else lay it off to `_8` (Plata) or `_10` (Valencia).
+13. **Set-piece in attacking third with `_4` (Estupiñán) available:** Defer delivery to `_4`.
 
 ## Key Player Notes
 - **Caicedo (23):** The world-class anchor. Never leaves the central screen position. Every defensive recovery in midfield is his first.
-- **Estupiñán (7):** Most attacking player in the back line — provides all left-side width and delivery.
-- **Páez (10):** Young creative — license to take risks between the lines from the advanced midfield role.
-- **Valencia (13):** Captain, focal point, set-piece and penalty taker.
-- **Plata (19):** Counter-attack carrier — let him 1v1 the LB on transitions from the right.
-- **Angulo (20):** Direct left winger — pace and dribbling on the outside, the left-side counter outlet.
-- **Pacho & Hincapié:** Two world-class, left-footed centre-backs (PSG / Arsenal) — the defensive spine and the source of progressive line-breaking carries.
+- **Vite (8):** The second pivot — circulates possession, frees Caicedo to roam and the fullbacks to push; the deeper of the two on the ball.
+- **Estupiñán (7):** Most attacking player in the back line — provides right-side width and all the dead-ball delivery despite being left-footed.
+- **Plata (19):** The chief creator and transition carrier — license to take on his man 1v1; secondary penalty taker.
+- **Valencia (13):** Captain, focal point, set-piece outlet and primary penalty taker; Ecuador's all-time top scorer.
+- **Angulo (20) & Yeboah (11):** Direct, pacy wide forwards — pace and dribbling on the outside, the transition outlets either side.
+- **Pacho, Hincapié & Ordóñez:** The European-based defensive spine (PSG / Bayer Leverkusen / Club Brugge) — two left-footed line-breakers plus a physical aerial stopper.
 
 ## Tournament Mindset
-Ecuador are the dangerous outsiders: athletic, disciplined, and capable of frustrating any of the giants for 70 minutes before Valencia or Plata break a game in transition. They will not chase a game from behind well — falling behind is fatal. Stamina-managed: Ecuador's mid-block requires fresh legs in the wide forward positions.
+Ecuador are the wounded outsiders: athletic, disciplined, and capable of frustrating anyone, but smarting from a 90th-minute defeat to Ivory Coast that ended a 19-game unbeaten run. They must now win vs Curaçao to keep control of their Group E fate. They will not chase a game from behind well — falling behind is costly. Stamina-managed: their mid-block needs fresh legs in the wide forward positions, where Beccacece rotates Angulo, Yeboah and Páez. Against weaker opposition they will be the dominant side and must convert the chances they create — finishing was the one thing missing against Ivory Coast.
