@@ -1,4 +1,4 @@
-# Amad Sinks Germany Again, Renard's Tunisia Steal the 1000th — AI's Day Ten Defies the Favourites
+# Tunisia Steal the 1000th, Germany Held — AI's Day Ten Frustrates the Favourites
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's tenth day through the machine. Here is what it saw.*
 
@@ -8,7 +8,7 @@
 
 Day ten carries the second round of group fixtures back into **Group E** and **Group F**, the two pools the machine last visited on day four. Matchday two is where the openers get answered, and on Saturday, June 20 the schedule runs from a Houston lunchtime to a midnight kickoff across the Mexican border — a fixture that happens to be the **1,000th match in FIFA World Cup history**. **Group F** bookends the day: **Netherlands vs Sweden** opens it under the roof at NRG Stadium in Houston, before **Tunisia vs Japan** closes it after midnight at the Estadio BBVA in Monterrey — the milestone match, and the first under Tunisia's new coach **Hervé Renard**. In between, **Group E** stages two on either side of the evening: **Germany vs Ivory Coast** at BMO Field in Toronto, and **Ecuador vs Curaçao** under the lights of Arrowhead Stadium in Kansas City, where the smallest nation ever to reach a World Cup tries to hold on once more.
 
-As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. The machine's day ten was a day of favourites frustrated. In Houston, the **Netherlands were held 1–1** by Sweden, Viktor Gyökeres striking first before Cody Gakpo's reply. In Toronto came the heist of the day: **Ivory Coast beat Germany 1–0** despite being out-shot 16 to 6, **Amad Diallo**'s strike the only goal — a near-carbon copy of his real-world 90th-minute winner over Ecuador on Matchday 1. In Kansas City, **Ecuador and Curaçao played out a goalless draw**, the Caribbean debutants holding 65% possession against them and a deep block keeping the favourites out. And in Monterrey, the milestone produced a story to match: **Tunisia 2–1 Japan**, Renard's side coming from a goal down — despite Japan's 59% of the ball — to win on a **Firas Chaouat** brace.
+As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. The machine's day ten was a day of favourites frustrated. In Houston, the **Netherlands were held 1–1** by Sweden, Viktor Gyökeres striking first before Cody Gakpo's reply. In Toronto, **Germany were held 1–1** by Ivory Coast in an even, end-to-end Group E draw — Evann Guessand striking early before Jamal Musiala equalised, shots level at 11 apiece. In Kansas City, **Ecuador and Curaçao played out a goalless draw**, the Caribbean debutants holding 65% possession against them and a deep block keeping the favourites out. And in Monterrey, the milestone produced a story to match: **Tunisia 2–1 Japan**, Renard's side coming from a goal down — despite Japan's 59% of the ball — to win on a **Firas Chaouat** brace.
 
 ---
 
@@ -76,15 +76,15 @@ There is almost no history to lean on here: Germany and Ivory Coast have met jus
 | **MID** | Aleksandar Pavlović (5), Felix Nmecha (14), Florian Wirtz (17), Jamal Musiala (10), Leroy Sané (19) | Seko Fofana (6), Ibrahim Sangaré (18), Franck Kessié (8) |
 | **FWD** | Kai Havertz (7) | Yan Diomande (11), Evann Guessand (22), Amad Diallo (15) |
 
-### Simulation Report — **Germany 0–1 Ivory Coast**
+### Simulation Report — **Germany 1–1 Ivory Coast**
 
-A heist in Toronto. Germany did everything but score — **58% of the ball, 16 shots to Ivory Coast's 6**, the back-to-front dominance the favourites were supposed to bring — and lost it to a single strike from a name that is making a habit of this.
+An even night in Toronto. Two Matchday-1 winners traded blows in a genuinely balanced contest — **Germany edging possession 56% to 44% but the shots dead level at 11 apiece** — and a share of the spoils was the honest read on a game neither side deserved to lose.
 
-The breakthrough was the only one of the night. On **42 minutes**, **Amad Diallo** struck to put Ivory Coast **1–0** up, a smash-and-grab on one of his side's six attempts that sent Faé's men in front against the run of play — and a near-replay of the 90th-minute winner he scored against Ecuador in Matchday 1. Germany poured forward in response, **Havertz working five shots, Musiala and Sané four apiece**, the whole machine funnelling chances toward Yahia Fofana's goal, but the finish never came.
+Ivory Coast struck first. On **12 minutes**, **Evann Guessand** opened the scoring for **1–0**, the striker punishing an early German lapse to send Faé's men in front. Germany did not let the lead settle. On **19 minutes**, **Jamal Musiala** levelled at **1–1**, the equaliser arriving fast and restoring the balance — both goals from open play, no penalty, no own goal.
 
-The numbers tell the story of the gap between dominance and result: Germany logged 67 tackle attempts to Ivory Coast's 61 in a fiercely contested midfield, but **Guessand and Amad** carried the only real cutting edge for the Ivorians, three attempts each. Sixteen shots, 58% of the ball, and nothing on the board. Final whistle: **Germany 0, Ivory Coast 1** — the heist of the day.
+From there the game ran end to end without a decisive third. Germany worked the ball and the chances — **Guessand led all shooters with eight attempts for Ivory Coast, Musiala four for Germany, Amad Diallo three, with Sané, Nmecha and Wirtz two apiece** — while the tackle counts told of a fiercely contested midfield: Germany 70 attempts (30 won) to Ivory Coast's 56 (29 won). Amad remained a live threat on the break with his three shots, but the finish never came a second time. Final whistle: **Germany 1, Ivory Coast 1** — a fair draw between two openers' winners.
 
-**AI takeaway:** The model hands Ivory Coast a result that defies almost every underlying number — and pins it on the one player who keeps finding the moment. Amad Diallo's strike, echoing his real-world Matchday-1 winner, was the entire margin in a game Germany controlled from first whistle to last. Nagelsmann will rage at the wastefulness: 16 shots without a goal is a profligacy that turns dominance into nothing. For Faé, it is the counter-punchers' dream — soak the pressure, take the one chance, and steal the group's marquee fixture.
+**AI takeaway:** The model serves up an even Group E draw, not a smash-and-grab. Ivory Coast led early through Guessand and Germany equalised quickly through Musiala; from there the shots finished level at 11–11 and honours were even. The favourites' dominance is no longer the theme — this is a fair result between two sides that both won on Matchday 1. Nagelsmann will take the point but want the cutting edge that turns parity into a win; for Faé, matching Germany shot-for-shot in Toronto is its own statement of intent.
 
 ---
 
@@ -166,20 +166,20 @@ From there the new shape held, and the threat all ran through one man. **Chaouat
 
 ## The Picture, Per the Machine
 
-Day ten, per the simulation: a day for the underdogs and the counter-punchers. Two favourites were beaten, one was held, and only Sweden's share of the spoils kept a Group F frontrunner level.
+Day ten, per the simulation: a day the favourites were frustrated. Three were held to draws and only the underdog Tunisia won, the Netherlands, Germany and Ecuador all made to share the spoils.
 
 | Match | Result | Group |
 |---|---|---|
 | 🇳🇱 Netherlands drew with Sweden | **1 – 1** | F |
 | 🇸🇪 Sweden drew with Netherlands | 1 – 1 | F |
-| 🇩🇪 Germany lost to Ivory Coast | 0 – 1 | E |
-| 🇨🇮 **Ivory Coast** bt Germany | **1 – 0** | E |
+| 🇩🇪 Germany drew with Ivory Coast | **1 – 1** | E |
+| 🇨🇮 Ivory Coast drew with Germany | 1 – 1 | E |
 | 🇪🇨 Ecuador drew with Curaçao | **0 – 0** | E |
 | 🇨🇼 Curaçao drew with Ecuador | 0 – 0 | E |
 | 🇹🇳 **Tunisia** bt Japan | **2 – 1** | F |
 | 🇯🇵 Japan lost to Tunisia | 1 – 2 | F |
 
-The through-line of day ten is the favourite undone by efficiency. **Ivory Coast** were out-shot 16 to 6 and held 42% of the ball, and still beat **Germany** 1–0 — Amad Diallo's strike, echoing his real-world Matchday-1 winner, the only goal of a contest Germany controlled throughout. In Monterrey's 1,000th-match milestone, **Tunisia** answered Japan's 59% possession with a Firas Chaouat brace to win 2–1 on Hervé Renard's debut. In Houston, the **Netherlands** dominated the ball and shots (55%, 10 to 5) but were held 1–1 by a clinical Swedish front line, Gakpo's eight shots yielding one. And in Kansas City, the day's tightest blank: **Ecuador 65% possession, Curaçao the four-shot leader through Sontje Hansen**, and the smallest nation ever at a World Cup taking a goalless point. The shape of the groups after round two, per the simulation: **Group E** is blown wide open, Ivory Coast leading on six points with Germany, Ecuador and Curaçao all chasing; **Group F** is a logjam, Sweden and Tunisia in the mix with the Netherlands and Japan made to wait.
+The through-line of day ten is the favourite frustrated. In Toronto, **Germany** and **Ivory Coast** played out an even 1–1 draw, Evann Guessand's early strike cancelled out fast by Jamal Musiala, the shots finishing level at 11 apiece — a fair share between two Matchday-1 winners. In Monterrey's 1,000th-match milestone, **Tunisia** answered Japan's 59% possession with a Firas Chaouat brace to win 2–1 on Hervé Renard's debut. In Houston, the **Netherlands** dominated the ball and shots (55%, 10 to 5) but were held 1–1 by a clinical Swedish front line, Gakpo's eight shots yielding one. And in Kansas City, the day's tightest blank: **Ecuador 65% possession, Curaçao the four-shot leader through Sontje Hansen**, and the smallest nation ever at a World Cup taking a goalless point. The shape of the groups after round two, per the simulation: **Group E** is tight at the top, **Germany and Ivory Coast both on four points** — Germany ahead on goal difference thanks to their 7–1 Matchday-1 rout of Curaçao — with **Ecuador and Curaçao both on one point** after their goalless draw; **Group F** is a logjam, Sweden and Tunisia in the mix with the Netherlands and Japan made to wait.
 
 ---
 
