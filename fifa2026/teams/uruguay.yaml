@@ -2,16 +2,16 @@
 team_id: uruguay
 name: Uruguay
 players:
-  - name: Sergio Rochet
-    number: 1
+  - name: Fernando Muslera
+    number: 23
     role: GK
-    speed: 11
-    skill: 14
-    strength: 15
+    speed: 9
+    skill: 15
+    strength: 14
     save: 16
-    discipline: 15
+    discipline: 14
     dribbling: 5
-    stamina: 13
+    stamina: 12
     pass: 12
     shoot: 4
     offensive: 5
@@ -142,17 +142,17 @@ players:
     shoot: 17
     offensive: 11
     penalty: 16
-  - name: Facundo Pellistri
+  - name: Maximiliano Araújo
     number: 11
     role: FWD
     speed: 17
-    skill: 15
-    strength: 12
+    skill: 14
+    strength: 13
     save: 0
     discipline: 14
-    dribbling: 16
-    stamina: 16
+    dribbling: 15
+    stamina: 17
     pass: 14
     shoot: 13
-    offensive: 8
-    penalty: 14
+    offensive: 9
+    penalty: 13
