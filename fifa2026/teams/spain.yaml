@@ -114,20 +114,20 @@ players:
     shoot: 14
     offensive: 9
     penalty: 16
-  - name: Nico Williams
-    number: 17
+  - name: Gavi
+    number: 9
     role: FWD
-    speed: 19
-    skill: 17
+    speed: 15
+    skill: 16
     strength: 13
     save: 0
-    discipline: 14
-    dribbling: 18
-    stamina: 17
-    pass: 15
-    shoot: 16
-    offensive: 8
-    penalty: 16
+    discipline: 13
+    dribbling: 16
+    stamina: 18
+    pass: 16
+    shoot: 13
+    offensive: 10
+    penalty: 14
   - name: Mikel Oyarzabal
     number: 21
     role: FWD
@@ -142,17 +142,17 @@ players:
     shoot: 17
     offensive: 9
     penalty: 17
-  - name: Lamine Yamal
-    number: 19
+  - name: Ferran Torres
+    number: 7
     role: FWD
-    speed: 18
-    skill: 19
-    strength: 12
+    speed: 16
+    skill: 16
+    strength: 14
     save: 0
     discipline: 14
-    dribbling: 19
+    dribbling: 15
     stamina: 16
-    pass: 17
-    shoot: 17
-    offensive: 8
-    penalty: 18
+    pass: 15
+    shoot: 16
+    offensive: 9
+    penalty: 15

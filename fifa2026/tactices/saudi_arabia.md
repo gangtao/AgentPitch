@@ -8,8 +8,8 @@ Saudi Arabia arrive at the 2026 World Cup under **Georgios Donis**, the 56-year-
 - Role mapping (roster order in `saudi_arabia.yaml`):
   - index 0: GK — **Mohammed Al-Owais (#21)** — 2022 World Cup hero against Argentina; reclaims the starting jersey for the opener because first-choice Nawaf Al-Aqidi (Al-Nassr) is sidelined by a muscle injury. Traditional shot-stopper, less of a sweeper, dominates aerially.
   - index 1: LB — **Nawaf Boushal (#13)** — disciplined, defensive-first fullback who solves Saudi Arabia's thin left-back depth; rarely overlaps deep, cover-shifts inside for the LCB.
-  - index 2: LCB — **Ali Lajami (#3)** — the aerial anchor (strength 15), the line-organiser and duel-winner; stepped in after Al-Amri was cut from the squad.
-  - index 3: RCB — **Hassan Al-Tambakti (#5)** — Lajami's calmer partner, sweeper-style, the ball-player of the defence and chief progressor.
+  - index 2: LCB — **Abdulelah Al-Amri (#4)** — the aerial anchor (strength 15), the line-organiser and duel-winner; scored Saudi Arabia's goal in the 1-1 Matchday 1 draw with Uruguay (header, 41'). Ali Lajami is the squad backup at centre-back.
+  - index 3: RCB — **Hassan Al-Tambakti (#5)** — Al-Amri's calmer partner, sweeper-style, the ball-player of the defence and chief progressor.
   - index 4: RB — **Saud Abdulhamid (#12)** — the only Europe-based player (RC Lens), most attacking of the back four, the natural width-giver on the right, overlapping fullback.
   - index 5: DM — **Mohamed Kanno (#23)** — the destroyer, the screen, the foul-taker, the captain figure in midfield.
   - index 6: DM — **Abdullah Al-Khaibari (#15)** — Kanno's disciplined partner in Donis's double pivot, recycles possession, screens the back four.
@@ -27,7 +27,7 @@ Direct and pragmatic. Saudi Arabia builds short from the back when uncontested b
 **Low to mid-block. No high press.** Saudi Arabia retreats to a compact shape around the halfway line or deeper. They do not press the opposition GK or CBs. The press triggers are: (1) opposition pass into a wide channel (the fullback + winger close down), (2) a heavy first touch in midfield (Kanno jumps). The team is happy to defend in their own half for 70% of the match against a top opponent and conserve stamina for the counter.
 
 ### Defensive shape
-Compact **4-4-1-1** with Salem dropping to LM out of possession (yes — Salem tracks back, a Donis non-negotiable). Nasser Al-Dawsari drops to RM. Al-Juwayr plays just behind Al-Buraikan in transition but drops into the midfield five when defending. The back four sits 25 units off goal. The CBs (Lajami, Al-Tambakti) hold the line. The shape is famously hard to break down — Saudi Arabia conceded only 4 goals in the 2022 group stage despite drawing Argentina and Mexico.
+Compact **4-4-1-1** with Salem dropping to LM out of possession (yes — Salem tracks back, a Donis non-negotiable). Nasser Al-Dawsari drops to RM. Al-Juwayr plays just behind Al-Buraikan in transition but drops into the midfield five when defending. The back four sits 25 units off goal. The CBs (Al-Amri, Al-Tambakti) hold the line. The shape is famously hard to break down — Saudi Arabia conceded only 4 goals in the 2022 group stage despite drawing Argentina and Mexico.
 
 ### Wide play
 **Asymmetric, heavily left-loaded.** Almost every Saudi attack runs through Salem on the left. He cuts inside on his right foot, Boushal underlaps to occupy the opposition RB, and Al-Juwayr arrives late from central midfield. The right side is the secondary outlet — Nasser Al-Dawsari drifts inside, Abdulhamid overlaps. The crosses come from deep when they come at all; Saudi Arabia would rather have Salem cut inside and shoot than cross from the touchline.
@@ -36,8 +36,8 @@ Compact **4-4-1-1** with Salem dropping to LM out of possession (yes — Salem t
 Patterns: **Salem cuts inside, shoots** (this is 30% of Saudi attacks). Salem's slipped through-ball to Al-Buraikan sprinting in behind. Al-Juwayr's late arrival in the box for a cut-back. Nasser Al-Dawsari's combination with Abdulhamid on the right. Saudi Arabia creates 3-5 chances per match — the conversion depends entirely on Salem and Al-Buraikan being clinical.
 
 ## Set Pieces
-- Attacking corners: **Salem Al-Dawsari** in-swingers from the right (right foot), **Nasser Al-Dawsari** out-swingers from the left. Targets: Lajami (penalty spot, primary aerial), Al-Tambakti (back post), Al-Buraikan (near post flick-on).
-- Defending corners: man-marking heavy. Lajami marks the opposition's most dangerous striker; four zonal markers; Al-Owais on his line.
+- Attacking corners: **Salem Al-Dawsari** in-swingers from the right (right foot), **Nasser Al-Dawsari** out-swingers from the left. Targets: Al-Amri (penalty spot, primary aerial — he scored from a set-piece header vs Uruguay), Al-Tambakti (back post), Al-Buraikan (near post flick-on).
+- Defending corners: man-marking heavy. Al-Amri marks the opposition's most dangerous striker; four zonal markers; Al-Owais on his line.
 - Free kicks: **Salem** direct from any angle within 28 yards (right foot, world-class striker of a free kick — he scored a world-class direct free kick against Argentina).
 - Penalties: **Salem** primary, **Al-Buraikan** secondary, **Nasser Al-Dawsari** tertiary.
 
@@ -46,18 +46,18 @@ Patterns: **Salem cuts inside, shoots** (this is 30% of Saudi attacks). Salem's 
 2. **If my player_id ends with "_7" (LAM Salem, #10) and team_phase == "defending":** Drop to LM. Donis's instruction is non-negotiable — Salem tracks back.
 3. **If team_phase == "defending" and the opposition is past midfield:** Drop into **4-4-1-1** at the halfway line, then collapse to **4-5-1** if the ball enters my final third.
 4. **If my role == "GK" (index 0, Al-Owais, #21) and a long ball is incoming into my box:** Stay on my line; do not sweep. Punch only under direct physical pressure.
-5. **If my player_id ends with "_2" (LCB Lajami, #3) and a cross or aerial duel is incoming:** Attack the ball aggressively. Win the header. Strength 15, aerial anchor.
+5. **If my player_id ends with "_2" (LCB Al-Amri, #4) and a cross or aerial duel is incoming:** Attack the ball aggressively. Win the header. Strength 15, aerial anchor (scored a set-piece header vs Uruguay).
 6. **If team_phase == "transition_attack":** Index-7 Salem (LAM) sprints diagonally inside; index-10 Al-Buraikan runs the channel; index-8 Al-Juwayr is the trailer; index-9 Nasser Al-Dawsari the secondary runner on the right.
 7. **If my player_id ends with "_5" (DM Kanno, #23) and the opposition is breaking past midfield:** Tactical foul within 4 units of the ball-carrier. Take the yellow.
 8. **If my role == "DEF" and my player_id ends with "_1" (LB Boushal, #13) or "_4" (RB Abdulhamid, #12) and team_phase == "attacking":** Only Abdulhamid (index 4) overlaps; Boushal (index 1) stays underlap-deep as cover for Salem cutting inside.
 9. **If my player_id ends with "_10" (CF Al-Buraikan, #9) and the index-7 Salem has the ball cutting inside:** Make a near-post run; Salem's pass-or-shoot decision will use me as the third option.
 10. **If team is leading by 1+ goals after minute 75:** Drop everyone behind the ball into **4-5-1**; recycle possession with deliberate time-wasting via the index-0 Al-Owais.
-11. **If a defensive corner is incoming:** The index-2 Lajami marks the most dangerous CF; the index-3 Al-Tambakti covers; the index-10 Al-Buraikan stays on the halfway line as a counter-outlet.
+11. **If a defensive corner is incoming:** The index-2 Al-Amri marks the most dangerous CF; the index-3 Al-Tambakti covers; the index-10 Al-Buraikan stays on the halfway line as a counter-outlet.
 12. **Set-pieces 20-28 yards from goal:** Defer dead-ball to the index-7 Salem Al-Dawsari (every time).
 
 ## Key Player Notes
 - **Salem Al-Dawsari (index 7, #10):** The team. The captain and talisman. The scorer of the goal that beat Argentina. Cuts inside from the left, shoots, takes every set-piece. 108 caps, third World Cup. Without him, Saudi Arabia is mid-table Asian. With him, they're a knockout-stage threat.
-- **Lajami (index 2, #3):** The aerial anchor and line-organiser. Strength 15. Wins the set-piece duels in both boxes. Stepped in after Al-Amri was cut from the squad.
+- **Al-Amri (index 2, #4):** The aerial anchor and line-organiser. Strength 15. Wins the set-piece duels in both boxes. Scored Saudi Arabia's goal in the 1-1 Matchday 1 draw with Uruguay (header, 41'). Ali Lajami is the centre-back backup.
 - **Al-Owais (index 0, #21):** The 2022 World Cup hero. Made 10 saves against Argentina. Calm under pressure. Starts ahead of injured first-choice Nawaf Al-Aqidi (muscle injury).
 - **Kanno (index 5, #23):** The destroyer. Tactical fouler. Sets the team's defensive aggression baseline.
 - **Al-Buraikan (index 10, #9):** The lone 9. Channel runner. Hold-up player. Leading scorer (15 international goals). Finishes inside the box.

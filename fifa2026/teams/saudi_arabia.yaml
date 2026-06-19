@@ -31,8 +31,8 @@ players:
     shoot: 7
     offensive: 12
     penalty: 9
-  - name: Ali Lajami
-    number: 3
+  - name: Abdulelah Al-Amri
+    number: 4
     role: DEF
     speed: 13
     skill: 13
@@ -42,7 +42,7 @@ players:
     dribbling: 10
     stamina: 14
     pass: 13
-    shoot: 8
+    shoot: 9
     offensive: 13
     penalty: 10
   - name: Hassan Al-Tambakti
