@@ -1,4 +1,4 @@
-# Formation: 3-4-3
+# Formation: 4-3-3
 team_id: jordan
 name: Jordan
 players:
@@ -44,8 +44,8 @@ players:
     shoot: 7
     offensive: 12
     penalty: 9
-  - name: Husam Abu Dahab
-    number: 4
+  - name: Mo Abualnadi
+    number: 16
     role: DEF
     speed: 12
     skill: 12
@@ -54,24 +54,38 @@ players:
     discipline: 13
     dribbling: 9
     stamina: 14
-    pass: 12
-    shoot: 7
-    offensive: 13
-    penalty: 9
-  - name: Mahmoud Al-Mardi
-    number: 13
+    pass: 11
+    shoot: 6
+    offensive: 12
+    penalty: 8
+  - name: Ehsan Haddad
+    number: 23
+    role: DEF
+    speed: 13
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 8
+    offensive: 10
+    penalty: 10
+  - name: Noor Al-Rawabdeh
+    number: 8
     role: MID
-    speed: 14
-    skill: 12
+    speed: 13
+    skill: 13
     strength: 13
     save: 0
     discipline: 13
     dribbling: 12
     stamina: 15
-    pass: 12
-    shoot: 8
-    offensive: 11
-    penalty: 9
+    pass: 13
+    shoot: 9
+    offensive: 10
+    penalty: 10
   - name: Ibrahim Sa'deh
     number: 15
     role: MID
@@ -100,20 +114,6 @@ players:
     shoot: 11
     offensive: 10
     penalty: 12
-  - name: Ehsan Haddad
-    number: 23
-    role: MID
-    speed: 13
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 15
-    pass: 13
-    shoot: 8
-    offensive: 10
-    penalty: 10
   - name: Mohammad Abu Zrayq
     number: 7
     role: FWD

@@ -16,20 +16,20 @@ players:
     shoot: 4
     offensive: 6
     penalty: 8
-  - name: Theo Hernández
-    number: 19
+  - name: Lucas Digne
+    number: 3
     role: DEF
-    speed: 18
-    skill: 15
+    speed: 15
+    skill: 14
     strength: 14
     save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 18
+    discipline: 15
+    dribbling: 13
+    stamina: 16
     pass: 15
-    shoot: 13
-    offensive: 13
-    penalty: 14
+    shoot: 10
+    offensive: 11
+    penalty: 12
   - name: Dayot Upamecano
     number: 4
     role: DEF
@@ -72,20 +72,20 @@ players:
     shoot: 8
     offensive: 12
     penalty: 11
-  - name: Aurélien Tchouaméni
-    number: 8
+  - name: Manu Koné
+    number: 6
     role: MID
-    speed: 14
-    skill: 17
-    strength: 17
+    speed: 15
+    skill: 15
+    strength: 16
     save: 0
-    discipline: 16
+    discipline: 14
     dribbling: 15
     stamina: 18
-    pass: 18
-    shoot: 13
+    pass: 15
+    shoot: 12
     offensive: 12
-    penalty: 14
+    penalty: 13
   - name: Adrien Rabiot
     number: 14
     role: MID
@@ -100,6 +100,20 @@ players:
     shoot: 13
     offensive: 12
     penalty: 14
+  - name: Ousmane Dembélé
+    number: 7
+    role: MID
+    speed: 18
+    skill: 18
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 19
+    stamina: 16
+    pass: 16
+    shoot: 16
+    offensive: 8
+    penalty: 17
   - name: Michael Olise
     number: 11
     role: MID
@@ -114,20 +128,20 @@ players:
     shoot: 16
     offensive: 10
     penalty: 17
-  - name: Rayan Cherki
-    number: 24
-    role: MID
-    speed: 15
-    skill: 18
+  - name: Bradley Barcola
+    number: 12
+    role: FWD
+    speed: 18
+    skill: 16
     strength: 12
     save: 0
-    discipline: 13
+    discipline: 14
     dribbling: 18
-    stamina: 15
-    pass: 17
+    stamina: 16
+    pass: 14
     shoot: 15
-    offensive: 10
-    penalty: 16
+    offensive: 9
+    penalty: 15
   - name: Kylian Mbappé
     number: 10
     role: FWD
@@ -142,17 +156,3 @@ players:
     shoot: 19
     offensive: 9
     penalty: 19
-  - name: Ousmane Dembélé
-    number: 7
-    role: FWD
-    speed: 18
-    skill: 18
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 19
-    stamina: 16
-    pass: 16
-    shoot: 16
-    offensive: 8
-    penalty: 17

@@ -13,10 +13,10 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
   - 4 Diatta — Right-back, converted winger, surges forward.
   - 5 Pape Gueye — Left #8, physical screen, progressive carrier.
   - 6 Idrissa Gueye — #6, ball-winner, ruthless pressing trigger.
-  - 7 Diarra — Right #8, energetic shuttler.
+  - 7 Camara — Right #8, dynamic box-to-box shuttler.
   - 8 Mané — Left winger / inside-forward, talisman.
   - 9 Jackson — Center-forward, runner-in-behind.
-  - 10 Ndiaye — Right winger / second striker, dribbler.
+  - 10 Sarr — Right winger, direct pace and finishing.
 
 ## Style of Play
 
@@ -28,7 +28,7 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 
 ### Pressing
 - High press is the default identity. Trigger: any opponent receiving in their own third with their back to play.
-- Jackson presses the center-back; Mané and Ndiaye press the full-backs; Pape Gueye and Diarra step on the pivot.
+- Jackson presses the center-back; Mané and Sarr press the full-backs; Pape Gueye and Camara step on the pivot.
 - Idrissa Gueye sweeps and hunts second balls.
 - The press is aggressive enough to risk being broken — counter-press immediately if first wave fails.
 
@@ -40,14 +40,14 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 
 ### Wide play
 - Mané is the focal point: receive on the left touchline, drive inside, shoot or combine with Pape Gueye.
-- Diatta surges from right-back to create 2v1s with Ndiaye.
+- Diatta surges from right-back to create 2v1s with Sarr.
 - Crosses are early and direct — to Jackson's near-post run.
 
 ### Final third
 - Jackson runs the channels constantly — every transition looks for him in behind first.
 - Mané takes 1v1s and shoots from the left half-space.
-- Ndiaye is the dribble-and-cut-inside threat from the right.
-- Diarra makes the late box arrival on cutbacks.
+- Sarr is the direct, pacy threat from the right — runs at defenders and finishes.
+- Camara makes the late box arrival on cutbacks.
 
 ## Set Pieces
 - Koulibaly and Niakhaté dominate attacking corners — far-post target plus near-post flick.
@@ -65,14 +65,14 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 8. If defending and the RCB (player_id ends with "_3", Koulibaly) is engaged in a duel: the LCB (player_id ends with "_2", Niakhaté) drops 5m to cover the space behind him.
 9. If the LCM (player_id ends with "_5", Pape Gueye) is between lines unmarked: any midfielder should pass forward to him to progress play immediately.
 10. If trailing in the second half: Koulibaly (player_id ends with "_3") steps higher, Idrissa Gueye (player_id ends with "_6") becomes a second #8, Niakhaté (player_id ends with "_2") plays as a lone CB with Diouf (player_id ends with "_1") and Diatta (player_id ends with "_4") as wingbacks.
-11. If player_id ends with "_10" (Ndiaye, RW #13) is 1v1 on the right: dribble at the defender, cut inside onto the left foot.
+11. If player_id ends with "_10" (Sarr, RW #18) is 1v1 on the right: run at the defender with pace, drive inside or shoot early.
 12. If leading by 2+: maintain high press but allow opposition to play in own third; pick off the long ball.
 
 ## Key Player Notes
 - **Mané (skill 17, dribbling 17)** is the senior leader — when in doubt, give him the ball on the left.
 - **Koulibaly** is still the defensive talisman; trust him in duels but cover his pace with Niakhaté.
 - **Jackson's pace (17)** is best weapon against high lines — repeatedly target the channel behind the opposition full-back.
-- **Pape Gueye** is the physical left #8 — a screen in front of the back four and a progressive carrier; he shields rather than crashing the box, leaving the late runs to Diarra.
+- **Pape Gueye** is the physical left #8 — a screen in front of the back four and a progressive carrier; he shields rather than crashing the box, leaving the late runs to Camara.
 - **Idrissa Gueye** is the destroyer; never expect him to drive the team forward, but he wins everything in the middle third.
 
 ## Tournament Mindset
