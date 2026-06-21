@@ -1,4 +1,4 @@
-# Formation: 4-4-1-1
+# Formation: 3-4-1-2
 team_id: dr_congo
 name: DR Congo
 players:
@@ -16,20 +16,6 @@ players:
     shoot: 3
     offensive: 5
     penalty: 6
-  - name: Arthur Masuaku
-    number: 26
-    role: DEF
-    speed: 13
-    skill: 13
-    strength: 12
-    save: 0
-    discipline: 12
-    dribbling: 13
-    stamina: 14
-    pass: 13
-    shoot: 9
-    offensive: 12
-    penalty: 10
   - name: Axel Tuanzebe
     number: 4
     role: DEF
@@ -58,20 +44,34 @@ players:
     shoot: 8
     offensive: 14
     penalty: 10
-  - name: Aaron Wan-Bissaka
-    number: 2
+  - name: Steve Kapuadi
+    number: 3
     role: DEF
-    speed: 16
-    skill: 15
-    strength: 14
+    speed: 12
+    skill: 12
+    strength: 16
     save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 16
+    discipline: 12
+    dribbling: 9
+    stamina: 14
+    pass: 11
+    shoot: 6
+    offensive: 12
+    penalty: 8
+  - name: Arthur Masuaku
+    number: 26
+    role: MID
+    speed: 14
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 11
+    dribbling: 13
+    stamina: 15
     pass: 13
     shoot: 9
     offensive: 12
-    penalty: 11
+    penalty: 10
   - name: Ngal'ayel Mukau
     number: 6
     role: MID
@@ -114,20 +114,20 @@ players:
     shoot: 11
     offensive: 11
     penalty: 12
-  - name: Théo Bongonda
-    number: 7
+  - name: Aaron Wan-Bissaka
+    number: 2
     role: MID
     speed: 16
-    skill: 14
-    strength: 12
+    skill: 15
+    strength: 14
     save: 0
-    discipline: 11
-    dribbling: 15
-    stamina: 14
-    pass: 12
-    shoot: 13
-    offensive: 11
-    penalty: 12
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 13
+    shoot: 9
+    offensive: 12
+    penalty: 11
   - name: Yoane Wissa
     number: 20
     role: FWD
