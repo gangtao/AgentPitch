@@ -72,20 +72,20 @@ players:
     shoot: 9
     offensive: 13
     penalty: 11
-  - name: Richard Ríos
+  - name: Gustavo Puerta
     number: 6
     role: MID
     speed: 14
-    skill: 15
-    strength: 14
+    skill: 13
+    strength: 15
     save: 0
-    discipline: 14
-    dribbling: 14
+    discipline: 13
+    dribbling: 12
     stamina: 17
-    pass: 15
-    shoot: 12
-    offensive: 11
-    penalty: 13
+    pass: 13
+    shoot: 10
+    offensive: 12
+    penalty: 11
   - name: Jefferson Lerma
     number: 16
     role: MID

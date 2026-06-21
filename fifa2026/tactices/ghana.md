@@ -1,82 +1,85 @@
 # Ghana — Tactical Profile
 
 ## Identity & Philosophy
-Carlos Queiroz's Ghana is the most direct, transitional side in this cohort. The Portuguese veteran took the job in April 2026 (replacing Otto Addo after the Austria/Germany friendly defeats) with little preparation time, so he leans on a simple, organised 4-3-3 built around what he inherited: a Thomas Partey-anchored midfield and the relentless pace of Iñaki Williams, Antoine Semenyo and Abdul Fatawu. The Black Stars play on the front foot in transition — long carries, sharp through balls, and shots from the break — while staying compact and disciplined out of possession. Ghana arrive without Mohammed Kudus (injured, omitted from the 26) and without Alexander Djiku (also injured), forcing Queiroz to rebuild the spine around Partey, captain Jordan Ayew, and the wide runners. Verticality the instant the ball is won is the whole idea.
+Carlos Queiroz's Ghana is the most direct, transitional side in this group. The Portuguese veteran took the job in April 2026 (replacing Otto Addo after the Austria/Germany friendly defeats) with little preparation time, and the opener forced an even more pragmatic shape on him. After a chaotic build-up to Matchday 1 — Thomas Partey was denied a Canadian visa and Mohammed Kudus and Mohammed Salisu were unavailable — Ghana set up in a compact, double-pivot **4-2-3-1** and ground out a 1-0 win over Panama through a stoppage-time Caleb Yirenkyi winner. The Black Stars play on the front foot in transition — long carries, sharp through balls, and shots from the break — while staying compact and disciplined out of possession behind two screening midfielders. Verticality the instant the ball is won is the whole idea, and the relentless pace of Semenyo, Fatawu, Sulemana and captain Jordan Ayew is the weapon.
+
+**Matchday 1 update (17 June, vs Panama — 1-0 win):** Ghana started Ati-Zigi; Senaya, Adjetey, Opoku, Mensah; Yirenkyi, Owusu, Semenyo; Sulemana; Ayew, but the night turned on two events. First-choice keeper **Lawrence Ati-Zigi was withdrawn at half-time with discomfort** (reports suggest up to three weeks out); substitute **Benjamin Asare** came on and made three crucial saves to preserve the clean sheet. Caleb Yirenkyi scored the stoppage-time winner. No suspensions. For Matchday 2 vs England (23 June, Gillette Stadium), the two big changes are **Thomas Partey returning** — he was cleared to enter the USA and slots straight into the double pivot, likely demoting Elisha Owusu to the bench — and **Asare keeping the gloves** while Ati-Zigi recovers. Abdul Fatawu adds right-sided width to the front three. The defence and the front line are otherwise as they finished MD1.
 
 ## Formation
-- Shape: 4-3-3 with a flat back four, a Partey-anchored midfield three, and a pacey, interchangeable front three; full-backs push high in possession.
+- Shape: 4-2-3-1 with a flat back four, a **double pivot** (Partey + Yirenkyi) shielding the defence, a roaming central #10, two pacey wide forwards, and a lone striker; full-backs push high in possession.
 - Role mapping (roster order in `ghana.yaml`):
-  - index 0: GK — **Lawrence Ati-Zigi** — experienced No. 1 reinstated for the opener; commanding shot-stopper (save 15), keeps distribution simple.
+  - index 0: GK — **Benjamin Asare** — promoted to No. 1 after Ati-Zigi's MD1 injury; brave shot-stopper (save 15), keeps distribution simple.
   - index 1: LB — **Gideon Mensah** — left-back, attacking, provides all the left-side width and overlaps Semenyo.
-  - index 2: LCB — **Abdul Mumin** — left-centre of the back four; calm positional anchor after Djiku's injury withdrawal.
+  - index 2: LCB — **Jonas Adjetey** — left-centre of the back four; young, physical, calm positional anchor.
   - index 3: RCB — **Jerome Opoku** — right-centre of the back four, physical aerial presence.
-  - index 4: RB — **Alidu Seidu** — right-back, quick and aggressive, recovers and overlaps Fatawu.
-  - index 5: LCM/#8 — **Antoine Semenyo** — left of the midfield three but a forward by instinct; drives infield from the left half-space, direct and powerful.
-  - index 6: DM/#6 — **Thomas Partey** — single pivot and deep-lying conductor; sets every tempo (pass 16).
-  - index 7: RCM/#8 — **Elisha Owusu** — right of the three, ball-winner and tempo-setter who shields the back four.
-  - index 8: LW — **Abdul Fatawu** — left of the front three (cuts in off either flank); vertical, direct dribbler, beats his man wide (speed 17, dribbling 16).
-  - index 9: CF — **Iñaki Williams** — lone centre-forward, runner-in-behind, focal point of the counter.
-  - index 10: RW — **Jordan Ayew** — right of the front three, veteran captain; links play, drifts inside, arrives late in the box.
+  - index 4: RB — **Marvin Senaya** — right-back, quick and aggressive, recovers and overlaps Fatawu.
+  - index 5: DM/#6 — **Caleb Yirenkyi** — right side of the double pivot, ball-winner and box-arriving runner who scored the MD1 winner.
+  - index 6: DM/#6 — **Thomas Partey** — deeper of the two pivots and the deep-lying conductor; sets every tempo (pass 16).
+  - index 7: RW — **Abdul Fatawu** — right of the front three; vertical, direct dribbler who beats his man wide or cuts in (speed 17, dribbling 16).
+  - index 8: CAM/#10 — **Kamaldeen Sulemana** — central attacking midfielder off the striker; drives at the back line, links the wide runners, shoots from the half-spaces.
+  - index 9: LW — **Antoine Semenyo** — left of the front three but a forward by instinct; drives infield from the left half-space, direct and powerful, the primary scorer threat.
+  - index 10: CF — **Jordan Ayew** — lone centre-forward and veteran captain; links play, holds for runners, drifts wide and arrives late in the box.
 
 ## Style of Play
 
 ### Build-up
-- Short when uncontested, but very direct under pressure — Ati-Zigi often launches long to Williams's channel run.
-- Partey is the primary first-pass option, dropping between or beside the centre-backs to receive.
-- The full-backs Mensah and Seidu push high quickly to stretch the pitch.
-- Semenyo or Ayew drops between the lines to receive on the half-turn between the opposition midfield and defence.
+- Short when uncontested, but very direct under pressure — Asare often launches long into the channels for the wide runners.
+- Partey is the primary first-pass option, dropping between or beside the centre-backs to receive; Yirenkyi stays slightly higher.
+- The full-backs Mensah and Senaya push high quickly to stretch the pitch.
+- Sulemana or Ayew drops between the lines to receive on the half-turn between the opposition midfield and defence.
 
 ### Pressing
 - Aggressive but not constant — high-press in coordinated waves rather than 90-minute intensity.
 - Trigger: opposition full-back receives near the touchline with limited options.
-- Williams presses the CB; Fatawu and Ayew jump the full-backs; Owusu and Semenyo step onto the opposition pivot.
-- If the first wave is broken, retreat fast into a 4-5-1 / 4-1-4-1 mid-block.
+- Ayew presses the CB; Fatawu and Semenyo jump the full-backs; Sulemana steps onto the opposition pivot while Partey and Yirenkyi screen behind.
+- If the first wave is broken, retreat fast into a compact 4-4-1-1 / 4-2-3-1 mid-block.
 
 ### Defensive shape
-- 4-1-4-1 mid-block: Partey shields the back four, the wide forwards Fatawu and Ayew drop onto the midfield line, Semenyo and Owusu tuck in.
-- Partey covers the half-spaces and screens centrally.
-- Seidu's and Mensah's speed lets them recover deep then surge again.
+- 4-2-3-1 mid-block: Partey and Yirenkyi double-screen the back four, the wide forwards Fatawu and Semenyo drop onto the midfield line, Sulemana tucks in onto the opposition pivot.
+- The double pivot covers the half-spaces and screens centrally — this is the security the single-pivot shape lacked.
+- Senaya's and Mensah's speed lets them recover deep then surge again.
 - Wide forwards track back to make a flat midfield band when the ball is on the opposite flank.
 
 ### Wide play
-- Right side: Ayew's intelligence + Seidu's pace create a combinational, overlapping threat.
-- Left side: Semenyo's physicality drifting inside + Mensah's overlap form a direct attacking force; Fatawu hugs the touchline.
-- Crosses target Williams's near-post run and the far-side forward arriving late.
+- Right side: Fatawu's pace + Senaya's overlap create a direct, byline-hunting threat.
+- Left side: Semenyo's physicality drifting inside + Mensah's overlap form a direct attacking force.
+- Crosses target Ayew's near-post run and the far-side forward arriving late.
 
 ### Final third
-- Williams runs the channels constantly; Ghana plays a lot of long diagonals to him.
+- Ayew runs the channels and holds the ball up; Ghana plays a lot of long diagonals into the wide forwards.
 - Semenyo cuts inside from the left half-space for shots and drives at defenders 1v1.
-- Fatawu attacks the byline and the far post; Ayew links play and arrives late in the box from the right.
-- Counter-attacks are 4-5 second sequences: win ball, Partey forward, Williams runs in behind.
+- Fatawu attacks the byline and the far post; Sulemana arrives centrally to shoot or thread the final ball.
+- Counter-attacks are 4-5 second sequences: win ball, Partey forward, wide runners sprint in behind.
 
 ## Set Pieces
-- Mumin, Opoku, and Williams are the main aerial targets.
+- Adjetey, Opoku, and Ayew are the main aerial targets.
 - Partey and Jordan Ayew share set-piece duty depending on distance and side; Semenyo and Fatawu are options from direct free-kicks.
 - Penalties: Jordan Ayew (captain) is the primary taker, with Semenyo as backup.
-- Defensive set pieces: zonal, Partey screens, Mumin/Opoku on the biggest aerial threats.
+- Defensive set pieces: zonal, Partey and Yirenkyi screen, Adjetey/Opoku on the biggest aerial threats.
 
 ## decide() Decision Priorities
-1. If role == "GK" (player_id ends with "_0", Ati-Zigi) under pressure: long ball to the CF channel run (player_id ends with "_9", Williams) rather than a risky short pass.
-2. If player_id ends with "_6" (Partey, #5; pass 16): face forward, look for the vertical pass into the front three — into the CF run (player_id ends with "_9", Williams) or into Semenyo (player_id ends with "_5") in the left half-space first; only recycle to a centre-back if no lane.
-3. If player_id ends with "_5" (Semenyo, #11; skill 16, dribbling 16, shoot 15): when receiving in the left half-space, drive inside onto the right foot — shoot if inside 22m and the angle is open, otherwise combine or feed Williams.
-4. If player_id ends with "_9" (Williams, CF #19; speed 17, stamina 17): constantly check the offside line; sprint in behind whenever a midfielder has time to play a through ball.
-5. If player_id ends with "_10" (Ayew, RW #9): link play on the right, drift inside to combine, and arrive late in the box for cut-backs.
-6. If player_id ends with "_8" (Fatawu, LW #7; speed 17, dribbling 16): receive wide on the touchline, take on the full-back 1v1, get to the byline or cut inside to shoot.
-7. If turnover in own half: outlet long to Williams (player_id ends with "_9") if visible; counter through Semenyo (player_id ends with "_5") if not.
-8. If defending: 4-1-4-1 mid-block with Partey (player_id ends with "_6") screening the back four — Williams (player_id ends with "_9") stays highest as the counter outlet.
-9. If player_id ends with "_1" (Mensah, LB #14) has the ball: overlap Semenyo (player_id ends with "_5") aggressively and cross early to Williams's near-post run.
-10. If player_id ends with "_7" (Owusu, MID #8): win the second ball, set the tempo, and recycle quickly to Partey (player_id ends with "_6") or spring the full-backs.
-11. If player_id ends with "_4" (Seidu, RB #21): push high on the right and provide overlapping width, especially when Ayew (player_id ends with "_10") tucks inside.
-12. If trailing late: push full-backs Mensah (player_id ends with "_1") and Seidu (player_id ends with "_4") to winger heights, Partey (player_id ends with "_6") alone behind, throw extra runners forward.
+1. If role == "GK" (player_id ends with "_0", Asare) under pressure: long ball into a wide-forward channel run (player_id ends with "_7" Fatawu or "_9" Semenyo) rather than a risky short pass.
+2. If player_id ends with "_6" (Partey, #5; pass 16): face forward, look for the vertical pass into the front three — into Sulemana (player_id ends with "_8") or Semenyo (player_id ends with "_9") in the half-spaces first; only recycle to a centre-back or to Yirenkyi (player_id ends with "_5") if no lane.
+3. If player_id ends with "_9" (Semenyo, #11; skill 16, dribbling 16, shoot 15): when receiving in the left half-space, drive inside onto the right foot — shoot if inside 22m and the angle is open, otherwise combine or feed Ayew.
+4. If player_id ends with "_10" (Ayew, CF #9; captain): hold up and link, drift wide to combine, and arrive late in the box for cut-backs; check the offside line for runs in behind.
+5. If player_id ends with "_8" (Sulemana, #10): receive between the lines on the half-turn, drive at the back four, shoot from the edge of the box or slide the final ball to the wide runners.
+6. If player_id ends with "_7" (Fatawu, RW #7; speed 17, dribbling 16): receive wide on the touchline, take on the full-back 1v1, get to the byline or cut inside to shoot.
+7. If turnover in own half: outlet long to a wide forward (player_id ends with "_7" or "_9") if visible; counter through Sulemana (player_id ends with "_8") if not.
+8. If defending: 4-2-3-1 mid-block with Partey (player_id ends with "_6") and Yirenkyi (player_id ends with "_5") double-screening the back four — Ayew (player_id ends with "_10") stays highest as the counter outlet.
+9. If player_id ends with "_1" (Mensah, LB #14) has the ball: overlap Semenyo (player_id ends with "_9") aggressively and cross early to Ayew's near-post run.
+10. If player_id ends with "_5" (Yirenkyi, DM #3): win the second ball, screen alongside Partey, and either recycle to Partey (player_id ends with "_6") or break forward late into the box.
+11. If player_id ends with "_4" (Senaya, RB #26): push high on the right and provide overlapping width, especially when Fatawu (player_id ends with "_7") cuts inside.
+12. If trailing late: push full-backs Mensah (player_id ends with "_1") and Senaya (player_id ends with "_4") to winger heights, Partey (player_id ends with "_6") alone behind, throw extra runners forward.
 13. If counter-attack opportunity: maximum 4 passes before a shot or final-third entry; speed over precision.
 
 ## Key Player Notes
-- **Iñaki Williams (speed 17, stamina 17)** is the running weapon and focal point of the attack; his stamina lets him sprint repeatedly for 90 minutes.
-- **Antoine Semenyo (skill 16, dribbling 16, shoot 15)** is the primary creator and scorer threat — with Kudus injured, even more of the creative burden falls on him; encourage him to take on defenders and shoot from the left half-space.
-- **Thomas Partey** is the calming presence and the single pivot the whole system rests on — without him, Ghana becomes too transition-dependent.
-- **Jordan Ayew** is the captain and tournament intelligence — set-piece and penalty taker, links the front line.
-- **Abdul Fatawu** is a pure pace-and-dribble wide threat — a 1v1 weapon against slower full-backs.
-- **Lawrence Ati-Zigi** is the experienced No. 1 — solid and unflashy; keep his distribution simple.
+- **Antoine Semenyo (skill 16, dribbling 16, shoot 15)** is the primary creator and scorer threat — with Kudus out, the bulk of the creative burden falls on him; encourage him to take on defenders and shoot from the left half-space.
+- **Thomas Partey** returns from the MD1 visa fiasco as the calming presence the system rests on; the double pivot with Yirenkyi is far more secure than a lone screen.
+- **Caleb Yirenkyi** is the energetic ball-winner who arrives in the box — he scored Ghana's stoppage-time MD1 winner; pairs with Partey to shield the back four.
+- **Abdul Fatawu** is a pure pace-and-dribble wide threat — a 1v1 weapon against slower full-backs (speed 17).
+- **Kamaldeen Sulemana** is the dynamic #10 — direct, two-footed, drives at defenders and connects the wide runners.
+- **Jordan Ayew** is the captain and tournament intelligence — set-piece and penalty taker, leads the line and links the front four.
+- **Benjamin Asare** is the brave stand-in No. 1 after Ati-Zigi's injury — earned trust with three big MD1 saves; keep his distribution simple.
 
 ## Tournament Mindset
-Ghana open Group L against Panama in Toronto on June 17 — a game the Black Stars are quietly expected to win and need to win, given England and Croatia loom as the group's heavyweights. Ghana believes in moments: one Semenyo dribble, one Fatawu run, or one Williams sprint in behind can break Panama's organised low block. Missing Kudus and Djiku, and with Queiroz only weeks into the job, they will lean on individual quality and ruthless transitions rather than control — they prefer chaos to patience once the ball is won, and the opener is the must-win-feel start to a group they fancy escaping.
+Ghana beat Panama 1-0 in Toronto on Matchday 1 and now face the group's heavyweight, England (4-2 winners over Croatia), in Foxborough on June 23 — followed by Croatia. Having banked three points in a scrappy opener, the Black Stars will set up to frustrate and strike: a compact double pivot, disciplined wide forwards tracking back, and ruthless transitions when Partey wins it and the pace breaks free. Ghana believes in moments — one Semenyo dribble, one Fatawu run, one Sulemana drive — to puncture a stronger side. With Partey back and Asare settled, they prefer chaos to control once the ball is won, and a result against England would all but book their place in the next round.

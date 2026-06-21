@@ -1,18 +1,18 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: ghana
 name: Ghana
 players:
-  - name: Lawrence Ati-Zigi
-    number: 1
+  - name: Benjamin Asare
+    number: 16
     role: GK
     speed: 11
-    skill: 12
+    skill: 11
     strength: 14
     save: 15
     discipline: 14
     dribbling: 5
     stamina: 13
-    pass: 12
+    pass: 11
     shoot: 3
     offensive: 5
     penalty: 6
@@ -30,20 +30,20 @@ players:
     shoot: 8
     offensive: 12
     penalty: 9
-  - name: Abdul Mumin
-    number: 6
+  - name: Jonas Adjetey
+    number: 4
     role: DEF
-    speed: 13
-    skill: 14
+    speed: 14
+    skill: 13
     strength: 16
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 11
     stamina: 15
-    pass: 13
+    pass: 12
     shoot: 6
-    offensive: 13
-    penalty: 9
+    offensive: 12
+    penalty: 8
   - name: Jerome Opoku
     number: 18
     role: DEF
@@ -58,34 +58,34 @@ players:
     shoot: 7
     offensive: 13
     penalty: 9
-  - name: Alidu Seidu
-    number: 21
+  - name: Marvin Senaya
+    number: 26
     role: DEF
     speed: 16
     skill: 13
-    strength: 14
+    strength: 13
     save: 0
-    discipline: 12
-    dribbling: 12
+    discipline: 13
+    dribbling: 13
     stamina: 16
     pass: 12
     shoot: 6
     offensive: 12
     penalty: 8
-  - name: Antoine Semenyo
-    number: 11
+  - name: Caleb Yirenkyi
+    number: 3
     role: MID
-    speed: 16
-    skill: 16
+    speed: 14
+    skill: 14
     strength: 15
     save: 0
     discipline: 13
-    dribbling: 16
+    dribbling: 13
     stamina: 16
-    pass: 14
-    shoot: 15
-    offensive: 11
-    penalty: 15
+    pass: 13
+    shoot: 11
+    offensive: 12
+    penalty: 11
   - name: Thomas Partey
     number: 5
     role: MID
@@ -100,23 +100,9 @@ players:
     shoot: 13
     offensive: 12
     penalty: 14
-  - name: Elisha Owusu
-    number: 8
-    role: MID
-    speed: 13
-    skill: 14
-    strength: 15
-    save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 16
-    pass: 14
-    shoot: 10
-    offensive: 11
-    penalty: 11
   - name: Abdul Fatawu
     number: 7
-    role: FWD
+    role: MID
     speed: 17
     skill: 16
     strength: 13
@@ -128,20 +114,34 @@ players:
     shoot: 14
     offensive: 9
     penalty: 13
-  - name: Iñaki Williams
-    number: 19
-    role: FWD
+  - name: Kamaldeen Sulemana
+    number: 22
+    role: MID
     speed: 17
-    skill: 15
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 12
+    dribbling: 16
+    stamina: 16
+    pass: 13
+    shoot: 13
+    offensive: 9
+    penalty: 13
+  - name: Antoine Semenyo
+    number: 11
+    role: MID
+    speed: 16
+    skill: 16
     strength: 15
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 16
-    stamina: 17
+    stamina: 16
     pass: 14
-    shoot: 16
-    offensive: 9
-    penalty: 16
+    shoot: 15
+    offensive: 11
+    penalty: 15
   - name: Jordan Ayew
     number: 9
     role: FWD

@@ -3,6 +3,8 @@
 ## Identity & Philosophy
 Colombia under Néstor Lorenzo is a balanced, possession-comfortable side built around the renaissance of James Rodríguez as a deep-lying #10 and the direct, devastating wing play of Luis Díaz. After a 28-match unbeaten run from 2022 to 2024 (broken by the Copa América 2024 final loss to Argentina), Colombia have established themselves as the second-best CONMEBOL side. Lorenzo's philosophy: defensive solidity first, then unleash James and Díaz on counter-attacks and patient possession sequences. This is a big-tournament team that gets better as the games tighten.
 
+**Matchday 1 update (17 June, vs Uzbekistan — 3-1 win):** Colombia opened Group K with a convincing 3-1 victory, James Rodríguez pulling the strings from the #10 and the Díaz–Suárez–Arias front line clicking. Manager Lorenzo had a fully fit squad and chose the physical, mobile **Gustavo Puerta** alongside Jefferson Lerma in the double pivot (over Richard Ríos) — Puerta's legs and ball-winning suiting the screen role in front of the back four. No injuries, no bookings of consequence, no suspensions. For Matchday 2 vs DR Congo (23 June) the probable XI is **unchanged** from the Uzbekistan win: same 4-2-3-1, same Puerta-Lerma pivot, James as the floating 10. The selection watch is purely rotational depth (Ríos pressing for Puerta's slot) — the system is settled.
+
 ## Formation
 - Shape: **4-2-3-1** (very stable, with James as the floating 10)
 - Role mapping (roster order in `colombia.yaml`):
@@ -11,8 +13,8 @@ Colombia under Néstor Lorenzo is a balanced, possession-comfortable side built 
   - index 2: LCB — **Davinson Sánchez** — aerial dominator, no-nonsense, stays in shape.
   - index 3: RCB — **Jhon Lucumí** — left-footed, calmer on the ball, the marginal ball-progressor of the pair.
   - index 4: RB — **Daniel Muñoz** — physical, more defensive than Mojica but still overlaps; double-fullback overlap is rare — usually one stays.
-  - index 5: DM — **Richard Ríos** — box-to-box presence in the pivot, ball-carrier, can drive forward through the middle.
-  - index 6: DM — **Jefferson Lerma** — destroyer, the screen, allows Ríos and James to roam.
+  - index 5: DM — **Gustavo Puerta** — physical, mobile ball-winner in the pivot; the energy of the double-six, presses and recovers, keeps it simple in possession (MD1 starter over Ríos).
+  - index 6: DM — **Jefferson Lerma** — destroyer, the screen, allows Puerta to range and James to roam.
   - index 7: LW — **Luis Díaz** — direct 1v1 winger, the team's chief carrier, drives at the opposition RB.
   - index 8: AM/10 — **James Rodríguez** — the conductor, plays as a deep 10, drifts to the right half-space to combine with Muñoz/Arias; the team's chief creator and dead-ball specialist.
   - index 9: RW — **Jhon Arias** — work-rate, two-way winger, defensive cover for Muñoz, secondary creator.
@@ -47,7 +49,7 @@ Concrete rules the LLM should encode:
 3. **If my `player_id` ends with `_7` (LW, Díaz) and I have the ball with an opponent in front:** Attempt to Move (dribble) at the opponent's inside shoulder — cut inside, shoot with the right foot.
 4. **If my `player_id` ends with `_1` (LB, Mojica) and team_phase == "attacking":** Sprint to byline, prefer cross/cutback Pass over carry once past the halfway line.
 5. **If my `role == "GK"` (player_id `_0`, Vargas):** Stay in box, do NOT sweep aggressively (rare for Colombia).
-6. **If my `player_id` ends with `_6` (DM, Lerma):** Sit between the CBs in build-up; never venture past the halfway line.
+6. **If my `player_id` ends with `_6` (DM, Lerma):** Sit between the CBs in build-up; never venture past the halfway line. The `_5` player (Puerta) is the one licensed to step forward and screen.
 7. **If team_phase == "defending" and my `player_id` ends with `_7` (LW, Díaz):** Drop toward LM but only when LB `_1` (Mojica) is exposed; otherwise stay high as counter-attack outlet.
 8. **If team_phase == "defending" and my `player_id` ends with `_9` (RW, Arias):** Always drop to RM, double up on the opposition LW with RB `_4` (Muñoz).
 9. **If my `player_id` ends with `_10` (ST, Suárez) and ball is being played long from defense:** Spin in behind the last defender into the channel; prefer a Move (run onto the ball) or quick lay-off Pass to `_8` (James) over a static hold.
@@ -59,6 +61,7 @@ Concrete rules the LLM should encode:
 - **James Rodríguez (10):** The team's heart. Free role between the lines. No defensive duty beyond a token jog. Every set-piece is his.
 - **Luis Díaz (7):** Licensed to be the chief 1v1 dribbler. Will attempt to beat his man even when a simpler pass exists.
 - **Mojica (17):** Most attacking fullback in CONMEBOL alongside Estupiñán — bombs forward.
+- **Gustavo Puerta (6):** The youngest starter and MD1 pivot pick over Ríos. Physical, two-way midfielder who covers ground, wins second balls and keeps possession simple — the legs that let Lerma hold and James float. Ríos is the like-for-like rotation behind him.
 - **Lerma (16):** The defensive sentinel — anchors so James can roam.
 - **Luis Suárez (25):** In-form penalty-box finisher (Primeira Liga top scorer with Sporting); has displaced Córdoba as the starter. Runs the channels and gambles on the shoulder of the last defender rather than holding play up. Clinical inside the box.
 

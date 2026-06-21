@@ -100,6 +100,20 @@ players:
     shoot: 14
     offensive: 12
     penalty: 15
+  - name: Noni Madueke
+    number: 20
+    role: MID
+    speed: 17
+    skill: 16
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 17
+    stamina: 16
+    pass: 14
+    shoot: 15
+    offensive: 8
+    penalty: 14
   - name: Jude Bellingham
     number: 10
     role: MID
@@ -114,20 +128,20 @@ players:
     shoot: 17
     offensive: 12
     penalty: 17
-  - name: Marcus Rashford
-    number: 11
+  - name: Anthony Gordon
+    number: 18
     role: FWD
-    speed: 17
+    speed: 18
     skill: 16
-    strength: 15
+    strength: 14
     save: 0
     discipline: 13
-    dribbling: 17
-    stamina: 16
+    dribbling: 16
+    stamina: 17
     pass: 14
-    shoot: 16
+    shoot: 15
     offensive: 9
-    penalty: 16
+    penalty: 14
   - name: Harry Kane
     number: 9
     role: FWD
@@ -142,17 +156,3 @@ players:
     shoot: 19
     offensive: 9
     penalty: 19
-  - name: Bukayo Saka
-    number: 7
-    role: FWD
-    speed: 17
-    skill: 18
-    strength: 14
-    save: 0
-    discipline: 16
-    dribbling: 18
-    stamina: 17
-    pass: 16
-    shoot: 17
-    offensive: 8
-    penalty: 17
