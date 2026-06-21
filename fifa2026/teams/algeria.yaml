@@ -30,20 +30,20 @@ players:
     shoot: 11
     offensive: 13
     penalty: 12
-  - name: Samir Chergui
-    number: 5
+  - name: Ramy Bensebaini
+    number: 21
     role: DEF
-    speed: 14
-    skill: 13
-    strength: 15
+    speed: 15
+    skill: 15
+    strength: 16
     save: 0
     discipline: 14
-    dribbling: 11
-    stamina: 15
-    pass: 13
-    shoot: 7
+    dribbling: 14
+    stamina: 16
+    pass: 14
+    shoot: 9
     offensive: 13
-    penalty: 9
+    penalty: 11
   - name: Aïssa Mandi
     number: 2
     role: DEF
@@ -73,7 +73,7 @@ players:
     offensive: 12
     penalty: 11
   - name: Nabil Bentaleb
-    number: 4
+    number: 19
     role: MID
     speed: 13
     skill: 15
@@ -86,20 +86,20 @@ players:
     shoot: 11
     offensive: 11
     penalty: 12
-  - name: Houssem Aouar
-    number: 8
+  - name: Hicham Boudaoui
+    number: 14
     role: MID
-    speed: 13
-    skill: 16
-    strength: 13
+    speed: 15
+    skill: 14
+    strength: 14
     save: 0
-    discipline: 13
-    dribbling: 16
-    stamina: 15
-    pass: 16
-    shoot: 13
+    discipline: 14
+    dribbling: 13
+    stamina: 17
+    pass: 14
+    shoot: 11
     offensive: 11
-    penalty: 14
+    penalty: 12
   - name: Ibrahim Maza
     number: 22
     role: MID

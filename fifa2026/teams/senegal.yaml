@@ -100,10 +100,10 @@ players:
     shoot: 12
     offensive: 12
     penalty: 13
-  - name: Habib Diarra
-    number: 21
+  - name: Lamine Camara
+    number: 8
     role: MID
-    speed: 14
+    speed: 16
     skill: 15
     strength: 13
     save: 0
@@ -112,7 +112,7 @@ players:
     stamina: 17
     pass: 15
     shoot: 12
-    offensive: 10
+    offensive: 11
     penalty: 13
   - name: Sadio Mané
     number: 10
@@ -142,17 +142,17 @@ players:
     shoot: 16
     offensive: 9
     penalty: 16
-  - name: Iliman Ndiaye
-    number: 13
+  - name: Ismaïla Sarr
+    number: 18
     role: FWD
     speed: 17
     skill: 16
-    strength: 13
+    strength: 14
     save: 0
-    discipline: 14
-    dribbling: 17
+    discipline: 13
+    dribbling: 16
     stamina: 17
-    pass: 15
-    shoot: 15
-    offensive: 8
+    pass: 14
+    shoot: 16
+    offensive: 9
     penalty: 15

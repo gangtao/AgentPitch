@@ -1,71 +1,80 @@
 # Austria — Tactical Profile
 
 ## Identity & Philosophy
-Austria under Ralf Rangnick are the modern heirs to the Bielsa/Klopp pressing school — aggressive, vertical, ferocious in transition, and tactically uncompromising. Rangnick's "12-second rule" (counter-press to win the ball back within 12 seconds of losing it) defines them. They surprised everyone by topping their Euro 2024 group above France and the Netherlands, and arrive at the World Cup as one of the most cohesive sides on the planet — despite losing Christoph Baumgartner to injury on the eve of the tournament.
+Austria under Ralf Rangnick are the modern heirs to the Bielsa/Klopp pressing school — aggressive, vertical, ferocious in transition, and tactically uncompromising. Rangnick's gegenpress and "win it back within seconds" doctrine define them: they provoke the opponent into building out, swarm the carrier, and attack the vacated space the instant they regain. They stunned Euro 2024 by topping a group containing France and the Netherlands, and arrive at the World Cup as one of the most cohesive, drilled sides in the field — built around captain David Alaba, record scorer Marko Arnautović, and a German-Bundesliga spine (Seiwald, X. Schlager, Laimer, Sabitzer).
+
+**Matchday 1 update (17 June, vs Jordan — 3-1 win):** Austria opened Group J with a hard-fought 3-1 victory over tournament debutants Jordan, earning their first World Cup win in 36 years. Romano Schmid opened the scoring (21'), Jordan equalised, but Austria pulled clear via a late own goal and an Arnautović penalty (90+12') — making the 37-year-old Austria's oldest-ever World Cup scorer. Rangnick fielded eight Bundesliga-based players and rotated bodies through the match, but the strongest-XI identity is unchanged. No suspensions carried into MD2; the chief selection watch is the wide-forward band, where Patrick Wimmer's pace gives Rangnick a starting option on the right and Michael Gregoritsch waits as the alternate target/near-post finisher.
 
 ## Formation
-- Shape: 4-2-3-1
+- Shape: 4-2-3-1 with a double pivot; FBs jump-press and push high (effectively 2-4-4 in the press)
 - Role mapping (roster order in `austria.yaml`):
-  - index 0 (`austria_0`, A. Schlager): GK — Austria's established No.1, composed shot-stopper, comfortable with the ball at his feet, expected to play short.
-  - index 1 (`austria_1`, Mwene): LB — pressing fullback, jumps into midfield.
-  - index 2 (`austria_2`, Alaba): LCB — leader, ball-playing CB (highest-skill defender).
-  - index 3 (`austria_3`, Danso): RCB — physical, comfortable defending high.
-  - index 4 (`austria_4`, Laimer): RB — the engine repurposed wide, highest stamina (18), presses relentlessly.
-  - index 5 (`austria_5`, Seiwald): DM — disciplined ball-winner, screens behind X. Schlager.
-  - index 6 (`austria_6`, X. Schlager): DM/box-to-box — returning ball-winner, all-action duel machine.
-  - index 7 (`austria_7`, Gregoritsch): LW/inverted — physical near-post presence, scoring threat (shoot 15). Starts with Baumgartner out injured.
-  - index 8 (`austria_8`, Sabitzer): AM/#10 — creative hub, transitions trigger man.
-  - index 9 (`austria_9`, Schmid): RW — tireless half-space worker, presses and combines.
-  - index 10 (`austria_10`, Arnautović): CF — target man, ageing but holds up play.
+  - index 0: GK — Alexander Schlager (composed No.1, comfortable with the ball, plays short when the press is light)
+  - index 1: LB — Phillipp Mwene (pressing fullback; leaves the line to attack wide receivers, jumps into midfield)
+  - index 2: LCB — David Alaba (captain & ball-playing leader; highest-skill defender, pass 16 — the build-up brain who steps into midfield)
+  - index 3: RCB — Kevin Danso (physical, aggressive; strength 16, comfortable defending the high line)
+  - index 4: RB — Konrad Laimer (the engine repurposed wide; stamina 18, presses and overlaps relentlessly on the right)
+  - index 5: DM — Nicolas Seiwald (disciplined holder; the safety net behind X. Schlager, screens the back four)
+  - index 6: DM/box-to-box — Xaver Schlager (all-action duel machine; wins it, carries 10m, releases Sabitzer)
+  - index 7: LW — Romano Schmid (tireless wide worker; presses, combines inside, drifts into the half-space)
+  - index 8: AM/#10 — Marcel Sabitzer (creative hub; the transitions trigger man and second striker in the press, pass 16)
+  - index 9: RW — Patrick Wimmer (direct, pacey wide threat; speed 16 / dribble 16, takes on the FB and cuts inside)
+  - index 10: CF — Marko Arnautović (target man; ageing but holds up play, leads the first press, primary penalty taker)
 
 ## Style of Play
 
 ### Build-up
-Short build-up only if the press is light. If pressed, Alaba clips diagonals to Schmid wide or long into Arnautović. The DM pair (Seiwald, X. Schlager) split to either side of the CB pairing. Build-up is brief — the goal is to provoke the opposition press, win the ball back high, and attack the vacated space.
+- From Alexander Schlager: short to a CB only when the press is light; otherwise go long into Arnautović or clip a diagonal to a winger.
+- The DM pair (Seiwald, X. Schlager) split either side of the CB pairing; Alaba steps into midfield to recycle and progress.
+- Build-up is deliberately brief — the aim is to provoke the opponent's press, win the ball back high, and attack the vacated space, not to hold possession for its own sake.
 
-### Pressing (block height + trigger)
-**High block**. Press triggers (any of):
-1. Opposition CB takes a touch oriented sideways or backward.
-2. Pass to the opposition fullback near the touchline — wide trap.
-3. Opposition GK plays short — Arnautović triggers, wingers curve runs to lock CBs.
-The line of confrontation sits ~10m inside opposition half.
+### Pressing
+- **High block, gegenpress.** Press triggers (any of): opponent CB takes a touch oriented sideways or backward; a pass goes to the opposition fullback near the touchline (wide trap); the opposition GK plays short.
+- The line of confrontation sits ~10m inside the opposition half. Arnautović triggers; the wingers (Schmid, Wimmer) curve runs to lock the CBs; Sabitzer pushes up as a second striker.
+- The instant Austria lose the ball, the nearest players swarm the carrier — Austria do NOT retreat first; they counter-press.
 
 ### Defensive shape
-4-4-2 with Sabitzer pushing alongside Arnautović during the press; 4-2-3-1 when defending deeper. Crucially, after losing the ball Austria do NOT retreat — they swarm. **Counter-press (gegenpress)** is the default reaction within 12 seconds of any turnover.
+- 4-4-2 with Sabitzer alongside Arnautović during the press; settles to 4-2-3-1 when defending deeper.
+- High line, accepting the risk in behind for the sake of compression and a short pitch.
+- Mwene and Laimer are jump-pressers — they leave the back line to attack opposition wide receivers, with Danso/Alaba sliding across to cover.
 
 ### Wide play
-Mwene and Laimer are jump-pressers — they leave their defensive line to attack opposition wide receivers. Schmid hugs the right touchline; Gregoritsch inverts inside to create overloads in the half-space.
+- Asymmetric energy: **RIGHT** Laimer (_4) overlaps and presses behind Wimmer (_9), who takes on the FB and cuts inside. **LEFT** Schmid (_7) drifts inside into the half-space while Mwene (_1) provides the wide push.
+- Half-space combinations around Sabitzer (_8) are Austria's most dangerous pattern; wingers arriving inside, not hugging the byline.
 
 ### Final third
-Quick combinations on edge of the box. Arnautović holds up, Sabitzer arrives late between the lines, Gregoritsch makes a near-post run. Crosses are low and into the 6-yard box.
+- Quick combinations on the edge of the box. Arnautović holds up, Sabitzer arrives late between the lines, the wingers make near-post and back-post runs.
+- Crosses are low and driven into the 6-yard box; cutbacks target Sabitzer arriving from deep.
 
 ## Set Pieces
-- Corners: Alaba delivers — inswingers, varied near-/far-post targets. Arnautović, Danso, Gregoritsch are the primary aerial threats.
-- Free kicks (direct): Alaba left-footed from the right; Sabitzer right-footed from the left.
-- Penalties: Arnautović first; Sabitzer second.
+- Corners: Sabitzer and Seiwald deliver — inswingers, varied near-/far-post targets. Arnautović, Danso and Alaba are the primary aerial threats; Gregoritsch attacks the near post when on.
+- Direct FKs: Alaba (left-footed from the right), Sabitzer (right-footed from the left); Arnautović for power central efforts.
+- Penalties: Arnautović is first taker; Sabitzer is the alternate.
+- Defending: man-orient on the biggest aerial threats; the holder (Seiwald) patrols the edge of the box for second balls.
 
 ## decide() Decision Priorities
-1. **Counter-press trigger:** if Austria loses possession AND ball is within 35m of where it was lost, ALL players within 15m of the ball must TACKLE or close down — within 12 simulated seconds.
-2. If my player_id ends with "_10" (CF, Arnautović, #7): when opposition GK has the ball, sprint diagonally to block the pass to the right CB — never let him play centrally.
-3. If my player_id ends with "_7" or "_9" (wingers, Gregoritsch/Schmid): on the press, curve runs to cut off the back-pass while approaching the wide CB.
-4. If my player_id ends with "_6" (DM, X. Schlager, #4): shadow the opposition #6 — whenever they receive, TACKLE inside 1 tick.
-5. If my player_id ends with "_8" (AM, Sabitzer, #9): in possession, demand the ball facing forward in the half-space; out of possession, push up to become a second striker.
-6. If my player_id ends with "_5" (DM, Seiwald, #6): never venture forward of the halfway line — he is the safety net for "_6" (X. Schlager)'s adventures.
-7. If my player_id ends with "_2" (LCB, Alaba, #8): if Austria wins the ball in the opposition third, immediately PASS forward (no recycling allowed).
-8. If my player_id ends with "_1" (LB, Mwene, #16): jump-press the opposition right winger when ball is on Austria's left. High line is acceptable.
-9. If my player_id ends with "_4" (RB, Laimer, #20): jump-press the opposition left winger — stamina 18 lets him press and recover, with "_3" (Danso) sliding over to cover.
-10. On regain: nearest player to ball MOVE forward into space, second-nearest demands ball with a vertical pass option.
-11. If my player_id ends with "_7" or "_9" (Gregoritsch/Schmid): when isolated 1v1 with fullback, DRIBBLE inside — half-space arrival is more dangerous than a wide cross.
-12. If my player_id ends with "_10" (Arnautović): if play breaks down, drop to halfway line as a target — he's the press's emergency outlet.
-13. If leading with under 10 minutes, drop the line of confrontation by 10m but maintain compactness — never park the bus.
+1. **Counter-press trigger:** when Austria loses possession AND the ball is within 35m of where it was lost, ALL players within 15m of the ball must Tackle or close down immediately — swarm, do not retreat.
+2. When my role is GK (`_0` — A. Schlager): pass short to a CB only if the press is light; otherwise go long to the `_10` player (Arnautović) or clip wide to a winger.
+3. When my `player_id` ends with `_10` (CF — Arnautović): when the opposition GK has the ball, sprint diagonally to block the pass into the right CB — lead the first press; if play breaks down, drop to the halfway line as the emergency outlet.
+4. When my `player_id` ends with `_7` or `_9` (wingers — Schmid/Wimmer): on the press, curve runs to cut off the back-pass while approaching the wide CB; when isolated 1v1 with the fullback, Dribble inside — half-space arrival beats a wide cross.
+5. When my `player_id` ends with `_6` (DM — X. Schlager): shadow the opposition #6; the moment they receive, Tackle. After winning it, carry forward and release the `_8` player (Sabitzer).
+6. When my `player_id` ends with `_5` (DM — Seiwald): never venture forward of the halfway line — the safety net for `_6` (X. Schlager); shield the back four and recycle.
+7. When my `player_id` ends with `_8` (AM — Sabitzer): in possession, demand the ball facing forward in the half-space and turn forward — never backward (pass 16); out of possession, push up to become a second striker.
+8. When my `player_id` ends with `_2` (LCB — Alaba, captain): if Austria win the ball in the opposition third, immediately Pass forward (no recycling); step into midfight to progress when the press is beaten.
+9. When my `player_id` ends with `_1` (LB — Mwene): jump-press the opposition right winger when the ball is on Austria's left; a high line is acceptable.
+10. When my `player_id` ends with `_4` (RB — Laimer): jump-press the opposition left winger — stamina 18 lets him press and recover, with `_3` (Danso) sliding over to cover; overlap behind Wimmer in attack.
+11. On regain: nearest player to the ball Move forward into space; second-nearest demands the ball as a vertical pass option — go fast and vertical.
+12. Shoot from outside the box only if my `player_id` ends with `_8` or `_10` (Sabitzer/Arnautović) AND there is a clear lane.
+13. When leading with under 10 minutes, drop the line of confrontation by ~10m and stay compact — never park the bus.
 
 ## Key Player Notes
-- **Marcel Sabitzer (index 8):** team's creative leader. Allowed maximum positional freedom; the offensive #10 in possession, the second striker in the press.
-- **Konrad Laimer (index 4):** the engine. Highest stamina (18). Shifted to right back with Posch benched — press trigger AND overlapping runner on the right.
-- **Xaver Schlager (index 6):** the returning duel machine in the double pivot — wins the ball, carries it 10m, releases Sabitzer.
-- **David Alaba (index 2, captain):** primary set-piece taker, build-up brain. Allowed to step into midfield to recycle.
-- **Marko Arnautović (index 10):** ageing but irreplaceable. Press leader (despite low speed), target man, primary penalty taker. Limit his off-the-ball running distance — he must conserve for the press triggers.
-- **Michael Gregoritsch (index 7):** steps in with Baumgartner out of the World Cup injured — a near-post finisher (shoot 15), instruct him to attack the box every time Sabitzer receives.
+- **David Alaba (idx 2, captain)** — the build-up brain and defensive organiser; primary left-side set-piece deliverer, steps into midfield to recycle. Highest-skill defender (skill 17, pass 16).
+- **Marcel Sabitzer (idx 8)** — the creative leader with maximum positional freedom; the #10 in possession and a second striker in the press. Corners/free-kicks and alternate penalty taker.
+- **Marko Arnautović (idx 10)** — ageing but irreplaceable target man; leads the first press despite low speed, holds up play, and is the primary penalty taker (the late MD1 winner vs Jordan). Conserve his off-the-ball running for the press triggers.
+- **Konrad Laimer (idx 4)** — the engine, repurposed at right back; stamina 18 makes him both a press trigger and an overlapping runner behind Wimmer.
+- **Xaver Schlager (idx 6)** — the duel machine in the double pivot: wins the ball, carries it forward, and releases Sabitzer.
+- **Nicolas Seiwald (idx 5)** — the disciplined holding screen; the structural balance that lets the rest press without leaving the back four exposed.
+- **Patrick Wimmer (idx 9)** — the direct, pacey right-sided threat (speed 16 / dribble 16); takes on the fullback and cuts inside. Starts ahead of Gregoritsch, who is the bench target/near-post alternate.
+- **Romano Schmid (idx 7)** — the tireless left-sided worker; opened the scoring on MD1, presses and combines into the half-space.
 
 ## Tournament Mindset
-Austria will press anyone — and that includes Brazil. The risk is that an opposition team that bypasses the press cleanly (long balls, technically gifted DMs) can exploit space behind. But Austria's tactical clarity makes them deeply uncomfortable to play against in a one-off knockout match.
+Austria sit in Group J with holders Argentina, Algeria and Jordan, and opened with a 3-1 win over Jordan — three points and confidence on the board for MD2 against Argentina at AT&T Stadium. Austria will press anyone, and that includes the world champions: the plan against Argentina is to deny Messi & co. clean build-up, force errors high, and attack in transition. The risk is that a technically gifted side which bypasses the press (long balls, elite ball-carriers) can exploit the space behind a high line — but Austria's tactical clarity and cohesion make them a deeply uncomfortable opponent in a one-off match. Identity over caution: they will not abandon the press, only adjust its height.

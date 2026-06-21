@@ -16,20 +16,20 @@ players:
     shoot: 4
     offensive: 6
     penalty: 8
-  - name: Nicolás Tagliafico
-    number: 3
+  - name: Facundo Medina
+    number: 17
     role: DEF
     speed: 15
-    skill: 15
-    strength: 14
+    skill: 14
+    strength: 15
     save: 0
-    discipline: 16
+    discipline: 14
     dribbling: 12
     stamina: 17
     pass: 15
-    shoot: 9
-    offensive: 11
-    penalty: 11
+    shoot: 7
+    offensive: 10
+    penalty: 9
   - name: Cristian Romero
     number: 13
     role: DEF
@@ -44,34 +44,34 @@ players:
     shoot: 8
     offensive: 15
     penalty: 11
-  - name: Nicolás Otamendi
-    number: 19
+  - name: Lisandro Martínez
+    number: 25
     role: DEF
-    speed: 12
-    skill: 15
+    speed: 14
+    skill: 16
     strength: 17
     save: 0
-    discipline: 12
-    dribbling: 9
-    stamina: 15
-    pass: 14
+    discipline: 13
+    dribbling: 11
+    stamina: 16
+    pass: 15
     shoot: 8
-    offensive: 15
+    offensive: 14
     penalty: 10
-  - name: Nahuel Molina
-    number: 26
+  - name: Gonzalo Montiel
+    number: 4
     role: DEF
-    speed: 16
-    skill: 15
+    speed: 15
+    skill: 14
     strength: 14
     save: 0
     discipline: 15
-    dribbling: 13
-    stamina: 17
-    pass: 15
-    shoot: 10
-    offensive: 12
-    penalty: 12
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 8
+    offensive: 11
+    penalty: 14
   - name: Rodrigo De Paul
     number: 7
     role: MID
@@ -114,6 +114,20 @@ players:
     shoot: 14
     offensive: 10
     penalty: 15
+  - name: Thiago Almada
+    number: 18
+    role: FWD
+    speed: 16
+    skill: 16
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 17
+    stamina: 16
+    pass: 15
+    shoot: 14
+    offensive: 8
+    penalty: 13
   - name: Lautaro Martínez
     number: 22
     role: FWD
@@ -128,20 +142,6 @@ players:
     shoot: 18
     offensive: 8
     penalty: 16
-  - name: Julián Álvarez
-    number: 9
-    role: FWD
-    speed: 17
-    skill: 17
-    strength: 14
-    save: 0
-    discipline: 15
-    dribbling: 16
-    stamina: 17
-    pass: 15
-    shoot: 18
-    offensive: 8
-    penalty: 18
   - name: Lionel Messi
     number: 10
     role: FWD

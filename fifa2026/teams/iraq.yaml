@@ -8,11 +8,11 @@ players:
     speed: 11
     skill: 12
     strength: 14
-    save: 13
+    save: 14
     discipline: 13
     dribbling: 5
     stamina: 13
-    pass: 12
+    pass: 11
     shoot: 4
     offensive: 5
     penalty: 7
@@ -30,20 +30,20 @@ players:
     shoot: 8
     offensive: 12
     penalty: 9
-  - name: Rebin Sulaka
-    number: 2
+  - name: Akam Hashim
+    number: 5
     role: DEF
     speed: 12
-    skill: 13
+    skill: 12
     strength: 15
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 9
     stamina: 14
-    pass: 12
-    shoot: 8
-    offensive: 13
-    penalty: 10
+    pass: 11
+    shoot: 7
+    offensive: 12
+    penalty: 9
   - name: Zaid Tahseen
     number: 4
     role: DEF
@@ -70,7 +70,7 @@ players:
     stamina: 14
     pass: 12
     shoot: 8
-    offensive: 12
+    offensive: 11
     penalty: 9
   - name: Ibrahim Bayesh
     number: 8
@@ -93,41 +93,41 @@ players:
     skill: 13
     strength: 13
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 12
     stamina: 15
     pass: 14
     shoot: 11
     offensive: 10
     penalty: 12
-  - name: Zidane Iqbal
-    number: 14
+  - name: Zaid Ismael
+    number: 6
     role: MID
     speed: 13
-    skill: 15
-    strength: 12
+    skill: 13
+    strength: 13
     save: 0
-    discipline: 13
-    dribbling: 14
+    discipline: 14
+    dribbling: 12
     stamina: 15
-    pass: 15
-    shoot: 12
+    pass: 13
+    shoot: 10
     offensive: 10
-    penalty: 13
-  - name: Youssef Amyn
+    penalty: 11
+  - name: Ali Jasim
     number: 7
     role: MID
-    speed: 14
+    speed: 15
     skill: 14
     strength: 12
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 15
     stamina: 14
     pass: 13
     shoot: 12
-    offensive: 10
-    penalty: 13
+    offensive: 9
+    penalty: 12
   - name: Aymen Hussein
     number: 18
     role: FWD
