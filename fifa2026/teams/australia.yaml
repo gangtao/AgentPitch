@@ -114,34 +114,34 @@ players:
     shoot: 9
     offensive: 11
     penalty: 10
-  - name: Connor Metcalfe
-    number: 8
+  - name: Nishan Velupillay
+    number: 23
     role: FWD
-    speed: 14
-    skill: 14
-    strength: 13
+    speed: 16
+    skill: 13
+    strength: 12
     save: 0
-    discipline: 14
+    discipline: 13
+    dribbling: 15
+    stamina: 15
+    pass: 13
+    shoot: 13
+    offensive: 9
+    penalty: 11
+  - name: Mathew Leckie
+    number: 7
+    role: FWD
+    speed: 15
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
     dribbling: 13
-    stamina: 16
-    pass: 14
-    shoot: 14
+    stamina: 15
+    pass: 13
+    shoot: 13
     offensive: 9
     penalty: 12
-  - name: Nestory Irankunda
-    number: 17
-    role: FWD
-    speed: 17
-    skill: 14
-    strength: 11
-    save: 0
-    discipline: 12
-    dribbling: 16
-    stamina: 14
-    pass: 13
-    shoot: 14
-    offensive: 9
-    penalty: 14
   - name: Mohamed Toure
     number: 9
     role: FWD

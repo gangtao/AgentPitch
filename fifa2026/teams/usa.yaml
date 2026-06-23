@@ -1,4 +1,4 @@
-# Formation: 3-4-2-1
+# Formation: 4-3-3
 team_id: usa
 name: United States
 players:
@@ -16,143 +16,143 @@ players:
     shoot: 4
     offensive: 5
     penalty: 7
-  - name: Tim Ream
-    number: 13
-    role: DEF
-    speed: 10
-    skill: 15
-    strength: 14
-    save: 0
-    discipline: 16
-    dribbling: 10
-    stamina: 13
-    pass: 15
-    shoot: 6
-    offensive: 11
-    penalty: 9
-  - name: Chris Richards
-    number: 3
+  - name: Joe Scally
+    number: 23
     role: DEF
     speed: 15
-    skill: 15
-    strength: 16
+    skill: 13
+    strength: 13
     save: 0
     discipline: 14
-    dribbling: 11
-    stamina: 15
+    dribbling: 12
+    stamina: 16
     pass: 13
     shoot: 7
-    offensive: 12
+    offensive: 11
     penalty: 9
-  - name: Alex Freeman
-    number: 16
+  - name: Walker Zimmerman
+    number: 3
     role: DEF
-    speed: 16
+    speed: 12
+    skill: 13
+    strength: 17
+    save: 0
+    discipline: 14
+    dribbling: 8
+    stamina: 13
+    pass: 12
+    shoot: 7
+    offensive: 11
+    penalty: 9
+  - name: Mark McKenzie
+    number: 15
+    role: DEF
+    speed: 14
     skill: 13
     strength: 14
     save: 0
     discipline: 13
+    dribbling: 11
+    stamina: 14
+    pass: 13
+    shoot: 6
+    offensive: 10
+    penalty: 8
+  - name: Max Arfsten
+    number: 25
+    role: DEF
+    speed: 16
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 17
+    pass: 12
+    shoot: 9
+    offensive: 12
+    penalty: 10
+  - name: Johnny Cardoso
+    number: 20
+    role: MID
+    speed: 13
+    skill: 14
+    strength: 15
+    save: 0
+    discipline: 13
     dribbling: 12
     stamina: 16
-    pass: 12
-    shoot: 8
-    offensive: 13
-    penalty: 10
-  - name: Antonee Robinson
-    number: 5
+    pass: 14
+    shoot: 9
+    offensive: 10
+    penalty: 11
+  - name: Cristian Roldan
+    number: 19
     role: MID
+    speed: 13
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 17
+    pass: 14
+    shoot: 9
+    offensive: 10
+    penalty: 11
+  - name: Yunus Musah
+    number: 6
+    role: MID
+    speed: 16
+    skill: 15
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 17
+    pass: 14
+    shoot: 10
+    offensive: 11
+    penalty: 12
+  - name: Timothy Weah
+    number: 21
+    role: FWD
     speed: 17
     skill: 14
     strength: 13
     save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 17
-    pass: 13
-    shoot: 9
-    offensive: 10
-    penalty: 11
-  - name: Tyler Adams
-    number: 4
-    role: MID
-    speed: 14
-    skill: 16
-    strength: 14
-    save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 18
-    pass: 15
-    shoot: 10
-    offensive: 11
-    penalty: 12
-  - name: Weston McKennie
-    number: 8
-    role: MID
-    speed: 13
-    skill: 15
-    strength: 15
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 16
-    pass: 15
-    shoot: 13
-    offensive: 12
-    penalty: 14
-  - name: Sergiño Dest
-    number: 2
-    role: MID
-    speed: 16
-    skill: 15
-    strength: 12
-    save: 0
     discipline: 13
     dribbling: 15
     stamina: 16
-    pass: 14
-    shoot: 10
-    offensive: 10
-    penalty: 12
-  - name: Christian Pulisic
-    number: 10
-    role: FWD
-    speed: 16
-    skill: 17
-    strength: 12
-    save: 0
-    discipline: 14
-    dribbling: 17
-    stamina: 16
-    pass: 15
-    shoot: 15
+    pass: 13
+    shoot: 12
     offensive: 8
-    penalty: 16
-  - name: Folarin Balogun
-    number: 20
+    penalty: 12
+  - name: Ricardo Pepi
+    number: 9
     role: FWD
     speed: 15
     skill: 14
     strength: 14
     save: 0
     discipline: 14
-    dribbling: 14
+    dribbling: 13
     stamina: 15
     pass: 12
-    shoot: 16
+    shoot: 15
     offensive: 9
-    penalty: 15
-  - name: Malik Tillman
-    number: 17
+    penalty: 14
+  - name: Brenden Aaronson
+    number: 11
     role: FWD
-    speed: 14
-    skill: 16
-    strength: 13
+    speed: 16
+    skill: 15
+    strength: 11
     save: 0
     discipline: 13
-    dribbling: 16
-    stamina: 15
-    pass: 15
-    shoot: 14
+    dribbling: 15
+    stamina: 17
+    pass: 14
+    shoot: 12
     offensive: 8
-    penalty: 15
+    penalty: 13

@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 4-4-2
 team_id: paraguay
 name: Paraguay
 players:
@@ -16,19 +16,19 @@ players:
     shoot: 3
     offensive: 5
     penalty: 6
-  - name: Alexandro Maidana
-    number: 13
+  - name: Júnior Alonso
+    number: 6
     role: DEF
-    speed: 14
+    speed: 13
     skill: 12
-    strength: 13
+    strength: 14
     save: 0
-    discipline: 12
-    dribbling: 11
+    discipline: 13
+    dribbling: 10
     stamina: 15
     pass: 12
     shoot: 6
-    offensive: 12
+    offensive: 11
     penalty: 8
   - name: Omar Alderete
     number: 3
@@ -47,13 +47,13 @@ players:
   - name: Gustavo Gómez
     number: 15
     role: DEF
-    speed: 13
+    speed: 12
     skill: 14
     strength: 17
     save: 0
     discipline: 11
     dribbling: 9
-    stamina: 15
+    stamina: 14
     pass: 13
     shoot: 8
     offensive: 16
@@ -72,6 +72,20 @@ players:
     shoot: 8
     offensive: 13
     penalty: 10
+  - name: Miguel Almirón
+    number: 23
+    role: MID
+    speed: 16
+    skill: 15
+    strength: 11
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 14
+    shoot: 13
+    offensive: 9
+    penalty: 12
   - name: Andrés Cubas
     number: 14
     role: MID
@@ -79,41 +93,41 @@ players:
     skill: 13
     strength: 15
     save: 0
-    discipline: 11
+    discipline: 10
     dribbling: 12
     stamina: 16
     pass: 13
-    shoot: 10
+    shoot: 9
     offensive: 13
     penalty: 11
   - name: Damián Bobadilla
-    number: 16
+    number: 5
     role: MID
     speed: 13
     skill: 13
-    strength: 15
+    strength: 14
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 12
     stamina: 16
     pass: 13
     shoot: 11
     offensive: 12
-    penalty: 12
-  - name: Miguel Almirón
-    number: 10
-    role: FWD
-    speed: 16
-    skill: 15
-    strength: 12
+    penalty: 11
+  - name: Diego Gómez
+    number: 8
+    role: MID
+    speed: 15
+    skill: 14
+    strength: 13
     save: 0
-    discipline: 14
-    dribbling: 15
-    stamina: 17
+    discipline: 13
+    dribbling: 14
+    stamina: 16
     pass: 14
-    shoot: 14
-    offensive: 8
-    penalty: 14
+    shoot: 13
+    offensive: 9
+    penalty: 13
   - name: Julio Enciso
     number: 19
     role: FWD
@@ -133,26 +147,12 @@ players:
     role: FWD
     speed: 13
     skill: 14
-    strength: 14
+    strength: 15
     save: 0
     discipline: 12
-    dribbling: 13
+    dribbling: 12
     stamina: 14
     pass: 12
-    shoot: 15
-    offensive: 9
-    penalty: 15
-  - name: Diego Gómez
-    number: 8
-    role: FWD
-    speed: 14
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 16
-    pass: 14
-    shoot: 13
-    offensive: 8
-    penalty: 13
+    shoot: 14
+    offensive: 10
+    penalty: 14
