@@ -1,4 +1,4 @@
-# Formation: 3-4-2-1
+# Formation: 3-5-2
 team_id: czechia
 name: Czechia
 players:
@@ -58,34 +58,34 @@ players:
     shoot: 7
     offensive: 13
     penalty: 9
-  - name: David Jurásek
-    number: 14
+  - name: Jaroslav Zelený
+    number: 20
     role: MID
-    speed: 15
-    skill: 13
-    strength: 12
+    speed: 13
+    skill: 12
+    strength: 13
     save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 16
+    discipline: 14
+    dribbling: 11
+    stamina: 15
     pass: 13
-    shoot: 8
-    offensive: 10
-    penalty: 10
-  - name: Vladimír Darida
-    number: 8
+    shoot: 7
+    offensive: 11
+    penalty: 9
+  - name: Lukáš Červ
+    number: 12
     role: MID
     speed: 13
     skill: 14
-    strength: 12
+    strength: 13
     save: 0
     discipline: 14
     dribbling: 13
     stamina: 16
-    pass: 15
-    shoot: 12
-    offensive: 10
-    penalty: 13
+    pass: 14
+    shoot: 11
+    offensive: 11
+    penalty: 11
   - name: Tomáš Souček
     number: 22
     role: MID
@@ -98,7 +98,7 @@ players:
     stamina: 17
     pass: 14
     shoot: 14
-    offensive: 12
+    offensive: 13
     penalty: 14
   - name: Vladimír Coufal
     number: 5
@@ -116,7 +116,7 @@ players:
     penalty: 10
   - name: Pavel Šulc
     number: 15
-    role: FWD
+    role: MID
     speed: 14
     skill: 15
     strength: 12
@@ -126,7 +126,7 @@ players:
     stamina: 16
     pass: 15
     shoot: 13
-    offensive: 8
+    offensive: 13
     penalty: 14
   - name: Adam Hložek
     number: 9
@@ -140,7 +140,7 @@ players:
     stamina: 15
     pass: 14
     shoot: 15
-    offensive: 9
+    offensive: 14
     penalty: 15
   - name: Patrik Schick
     number: 10
@@ -154,5 +154,5 @@ players:
     stamina: 14
     pass: 13
     shoot: 16
-    offensive: 10
+    offensive: 15
     penalty: 15
