@@ -16,20 +16,20 @@ players:
     shoot: 3
     offensive: 5
     penalty: 6
-  - name: Martin Expérience
-    number: 8
+  - name: Duke Lacroix
+    number: 13
     role: DEF
     speed: 13
     skill: 11
-    strength: 13
+    strength: 12
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 11
     stamina: 14
     pass: 11
-    shoot: 7
+    shoot: 6
     offensive: 11
-    penalty: 8
+    penalty: 7
   - name: Hannes Delcroix
     number: 5
     role: DEF

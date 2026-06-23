@@ -1,7 +1,7 @@
 # Morocco — Tactical Profile
 
 ## Identity & Philosophy
-Mohamed Ouahbi's Morocco — who took over from Walid Regragui in March 2026 — carries forward the counter-attacking ferocity that powered the 2022 World Cup semi-final run, now built around a younger, more technical spine. They defend in a compact mid-block, then break vertically through Hakimi's overlap and the on-ball quality of Brahim Díaz, El Khannouss and Ounahi. The Atlas Lions opened Group C with a brave, organised 1-1 draw against Brazil (Saibari with a first-time chip off a Brahim through-ball), sitting second on one point behind Scotland heading into Matchday 2. They are tournament-tested: disciplined, fearless, and ruthless on the transition.
+Mohamed Ouahbi's Morocco — who took over from Walid Regragui in March 2026 — carries forward the counter-attacking ferocity that powered the 2022 World Cup semi-final run, now built around a younger, more technical spine. They defend in a compact mid-block, then break vertically through Hakimi's overlap and the on-ball quality of Brahim Díaz, El Khannouss and Ounahi. The Atlas Lions opened Group C with a brave, organised 1-1 draw against Brazil (Saibari with a first-time chip off a Brahim through-ball), then beat Scotland 1-0 on Matchday 2 — Saibari again, volleying home Brahim's through-ball after just 71 seconds, the fastest goal of the tournament so far. That four-point haul (W-D) sent Morocco top of Group C, level on points with Brazil and qualification all but secured. They are tournament-tested: disciplined, fearless, and ruthless on the transition.
 
 ## Formation
 - Shape: 4-2-3-1 — a double pivot screens the back four, an attacking three plays off a mobile lone striker. Morphs to a 4-4-2 / 4-5-1 mid-block out of possession.
@@ -16,7 +16,7 @@ Mohamed Ouahbi's Morocco — who took over from Walid Regragui in March 2026 —
   - index 7: DM — Neil El Aynaoui (box-to-box pivot, deep distributor and late-arriving runner)
   - index 8: CAM — Azzedine Ounahi (central attacking midfielder, half-space progressor and carrier)
   - index 9: RM / right #10 — Brahim Díaz (right of the attacking three, free-roaming primary creator)
-  - index 10: CF — Ismael Saibari (mobile lone striker, drops to combine then runs the channels; scored vs Brazil)
+  - index 10: CF — Ismael Saibari (mobile lone striker, drops to combine then runs the channels; scored vs Brazil and vs Scotland)
 
 ## Style of Play
 
@@ -66,17 +66,18 @@ Mohamed Ouahbi's Morocco — who took over from Walid Regragui in March 2026 —
 10. When turnover occurs in the opposition half: counter-press for ~5 seconds; if not won, drop into the mid-block.
 11. When defending in own third: the nearest pivot (`_6` Bouaddi / `_7` El Aynaoui) tracks the central runner; the wide #10s (`_5`, `_9`) recover to flatten the midfield four.
 12. When trailing in the final 15 minutes: the RB (`_4`, Hakimi) pushes onto the wing as a wingback and the LB (`_1`, Mazraoui) drops into a back-three to free numbers forward.
-13. When leading by 1+ in the final 10 minutes: drop the block ~5 meters deeper and prioritize ball circulation over progression.
+13. When leading by 1+ in the final 10 minutes against a superior or level opponent: drop the block ~5 meters deeper and prioritize ball circulation over progression.
+14. Final-group-game vs Haiti — chasing goal difference: while leading by 1-2 goals and time remains, keep pressing for more rather than killing the game — the RB (`_4`, Hakimi) stays high, the wide #10s (`_5`, `_9`) keep attacking, and the CF (`_10`, Saibari) keeps making near-post runs. Only shut the game down (priority 13 behavior) if leading by 3+ or inside the final 5 minutes.
 
 ## Key Player Notes
 - **Hakimi (idx 4)** — the tactical fulcrum; route attacks through or past him. Stamina 18 sustains 90 minutes of overlap. Alternate penalty taker.
 - **Brahim Díaz (idx 9)** — the creative engine and primary penalty taker; dribbling 18 means he should attempt 1v1s liberally and shoot from the right half-space.
 - **El Khannouss (idx 5)** — left-footed dribbler/creator who started vs Brazil in place of the injured Ezzalzouli; drifts infield and shares dead-ball duties.
-- **Saibari (idx 10)** — Eredivisie Player of the Season operating as a mobile false-nine; scored vs Brazil with a first-time chip. Links play and finishes channel runs.
+- **Saibari (idx 10)** — Eredivisie Player of the Season operating as a mobile false-nine; scored in both group games so far (a first-time chip vs Brazil, a 71-second volley vs Scotland). Hot in front of goal — feed his near-post and channel runs relentlessly. Links play and finishes channel runs.
 - **Bouaddi (idx 6)** — 18-year-old Lille pivot; composed beyond his years, the deepest ball-winner and screener.
 - **El Aynaoui (idx 7)** — box-to-box partner in the double pivot; wins duels, recycles, and hits the deep switch (pass 16).
 - **Bounou (idx 0)** — "Bono"; comfortable starting attacks with his feet — first option short to a CB, second a long diagonal to Hakimi.
 - **Riad (idx 2)** — Crystal Palace center-back deputising for the injured Aguerd (pubalgia); the more progressive of the CB pair.
 
 ## Tournament Mindset
-Patient against superior opponents, ruthless on the transition; Morocco believes any match can be won 1-0 on a Hakimi assist and a Bounou clean sheet. After a battling draw with Brazil, a positive result against Scotland on Matchday 2 puts qualification firmly in their own hands.
+Patient against superior opponents, ruthless on the transition; Morocco believes any match can be won 1-0 on a Hakimi assist and a Bounou clean sheet. After a battling draw with Brazil and a 1-0 win over Scotland, the Atlas Lions go into the final group game against Haiti sitting top of Group C and all but qualified. Against an already-eliminated Haiti the priority shifts from caution to control: win the match, then chase goal difference, because finishing first (and a kinder knockout draw) likely hinges on outscoring Brazil. Expect Morocco to play on the front foot — sustained pressure, Hakimi high, and waves of crosses for Saibari — while never gifting Haiti the transition. The mindset is professional ruthlessness: bank the result early, keep the clean sheet, and add goals while the game is open.

@@ -51,7 +51,7 @@ players:
     skill: 13
     strength: 16
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 10
     stamina: 15
     pass: 13
@@ -86,34 +86,6 @@ players:
     shoot: 16
     offensive: 11
     penalty: 17
-  - name: İsmail Yüksek
-    number: 16
-    role: MID
-    speed: 13
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 15
-    dribbling: 12
-    stamina: 17
-    pass: 14
-    shoot: 11
-    offensive: 11
-    penalty: 12
-  - name: Barış Alper Yılmaz
-    number: 21
-    role: MID
-    speed: 16
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 16
-    pass: 13
-    shoot: 14
-    offensive: 10
-    penalty: 14
   - name: Orkun Kökçü
     number: 18
     role: MID
@@ -127,6 +99,20 @@ players:
     pass: 16
     shoot: 14
     offensive: 11
+    penalty: 14
+  - name: Barış Alper Yılmaz
+    number: 21
+    role: MID
+    speed: 16
+    skill: 14
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 16
+    pass: 13
+    shoot: 14
+    offensive: 10
     penalty: 14
   - name: Arda Güler
     number: 8
@@ -142,6 +128,20 @@ players:
     shoot: 15
     offensive: 10
     penalty: 16
+  - name: Kenan Yıldız
+    number: 9
+    role: FWD
+    speed: 16
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 15
+    pass: 14
+    shoot: 15
+    offensive: 9
+    penalty: 14
   - name: Kerem Aktürkoğlu
     number: 7
     role: FWD
