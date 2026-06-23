@@ -30,6 +30,20 @@ players:
     shoot: 8
     offensive: 12
     penalty: 10
+  - name: Moïse Bombito
+    number: 3
+    role: DEF
+    speed: 15
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 10
+    stamina: 14
+    pass: 12
+    shoot: 7
+    offensive: 13
+    penalty: 9
   - name: Derek Cornelius
     number: 13
     role: DEF
@@ -44,20 +58,6 @@ players:
     shoot: 7
     offensive: 13
     penalty: 9
-  - name: Luc de Fougerolles
-    number: 4
-    role: DEF
-    speed: 13
-    skill: 13
-    strength: 14
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 14
-    pass: 13
-    shoot: 6
-    offensive: 12
-    penalty: 8
   - name: Alistair Johnston
     number: 2
     role: DEF
@@ -72,29 +72,29 @@ players:
     shoot: 8
     offensive: 12
     penalty: 10
-  - name: Liam Millar
-    number: 11
+  - name: Ali Ahmed
+    number: 19
     role: MID
-    speed: 15
+    speed: 16
     skill: 13
-    strength: 12
+    strength: 11
     save: 0
     discipline: 13
-    dribbling: 14
-    stamina: 15
+    dribbling: 15
+    stamina: 16
     pass: 13
     shoot: 11
     offensive: 10
-    penalty: 12
-  - name: Ismaël Koné
-    number: 8
+    penalty: 11
+  - name: Nathan Saliba
+    number: 18
     role: MID
     speed: 14
     skill: 14
-    strength: 14
+    strength: 13
     save: 0
     discipline: 13
-    dribbling: 14
+    dribbling: 13
     stamina: 16
     pass: 14
     shoot: 12

@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: south_africa
 name: South Africa
 players:
@@ -28,7 +28,7 @@ players:
     stamina: 15
     pass: 13
     shoot: 10
-    offensive: 12
+    offensive: 13
     penalty: 11
   - name: Mbekezeli Mbokazi
     number: 14
@@ -70,22 +70,22 @@ players:
     stamina: 15
     pass: 13
     shoot: 9
-    offensive: 12
+    offensive: 13
     penalty: 10
-  - name: Teboho Mokoena
-    number: 4
+  - name: Sphephelo Sithole
+    number: 15
     role: MID
     speed: 13
-    skill: 15
-    strength: 13
+    skill: 13
+    strength: 14
     save: 0
-    discipline: 14
-    dribbling: 14
+    discipline: 11
+    dribbling: 12
     stamina: 16
-    pass: 16
-    shoot: 13
-    offensive: 10
-    penalty: 14
+    pass: 13
+    shoot: 11
+    offensive: 11
+    penalty: 11
   - name: Thalente Mbatha
     number: 8
     role: MID
@@ -96,24 +96,24 @@ players:
     discipline: 13
     dribbling: 12
     stamina: 16
-    pass: 13
+    pass: 14
     shoot: 13
-    offensive: 11
+    offensive: 12
     penalty: 11
-  - name: Jayden Adams
-    number: 23
+  - name: Relebohile Mofokeng
+    number: 10
     role: MID
-    speed: 13
-    skill: 14
+    speed: 15
+    skill: 15
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 14
+    dribbling: 16
     stamina: 15
     pass: 15
-    shoot: 12
-    offensive: 10
-    penalty: 13
+    shoot: 13
+    offensive: 9
+    penalty: 14
   - name: Oswin Appollis
     number: 7
     role: FWD
@@ -142,17 +142,17 @@ players:
     shoot: 15
     offensive: 9
     penalty: 15
-  - name: Relebohile Mofokeng
-    number: 10
+  - name: Thapelo Maseko
+    number: 40
     role: FWD
-    speed: 15
-    skill: 15
+    speed: 16
+    skill: 14
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 16
+    dribbling: 15
     stamina: 15
-    pass: 14
-    shoot: 13
+    pass: 13
+    shoot: 12
     offensive: 8
-    penalty: 14
+    penalty: 12

@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 3-4-2-1
 team_id: south_korea
 name: South Korea
 players:
@@ -16,20 +16,20 @@ players:
     shoot: 4
     offensive: 5
     penalty: 7
-  - name: Seol Young-woo
-    number: 22
+  - name: Lee Ki-hyuk
+    number: 3
     role: DEF
-    speed: 16
-    skill: 14
-    strength: 13
+    speed: 14
+    skill: 13
+    strength: 15
     save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 17
+    discipline: 14
+    dribbling: 11
+    stamina: 15
     pass: 13
-    shoot: 9
-    offensive: 12
-    penalty: 11
+    shoot: 8
+    offensive: 11
+    penalty: 10
   - name: Kim Min-jae
     number: 4
     role: DEF
@@ -44,30 +44,44 @@ players:
     shoot: 9
     offensive: 14
     penalty: 11
-  - name: Kim Tae-hyeon
-    number: 5
-    role: DEF
-    speed: 13
-    skill: 14
-    strength: 15
-    save: 0
-    discipline: 15
-    dribbling: 10
-    stamina: 14
-    pass: 13
-    shoot: 8
-    offensive: 12
-    penalty: 10
-  - name: Lee Tae-seok
-    number: 13
+  - name: Lee Han-beom
+    number: 2
     role: DEF
     speed: 15
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 14
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 8
+    offensive: 11
+    penalty: 10
+  - name: Seol Young-woo
+    number: 22
+    role: DEF
+    speed: 16
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 17
+    pass: 13
+    shoot: 9
+    offensive: 12
+    penalty: 11
+  - name: Kim Moon-hwan
+    number: 15
+    role: DEF
+    speed: 16
     skill: 13
     strength: 13
     save: 0
     discipline: 14
     dribbling: 13
-    stamina: 16
+    stamina: 17
     pass: 13
     shoot: 9
     offensive: 12
@@ -100,20 +114,6 @@ players:
     shoot: 12
     offensive: 10
     penalty: 13
-  - name: Son Heung-min
-    number: 7
-    role: MID
-    speed: 18
-    skill: 17
-    strength: 14
-    save: 0
-    discipline: 16
-    dribbling: 17
-    stamina: 17
-    pass: 16
-    shoot: 18
-    offensive: 10
-    penalty: 18
   - name: Lee Jae-sung
     number: 10
     role: MID
@@ -142,17 +142,17 @@ players:
     shoot: 15
     offensive: 10
     penalty: 16
-  - name: Oh Hyeon-gyu
-    number: 18
+  - name: Son Heung-min
+    number: 7
     role: FWD
-    speed: 15
-    skill: 14
-    strength: 16
+    speed: 18
+    skill: 17
+    strength: 14
     save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 15
-    pass: 12
-    shoot: 15
+    discipline: 16
+    dribbling: 17
+    stamina: 17
+    pass: 16
+    shoot: 18
     offensive: 10
-    penalty: 15
+    penalty: 18

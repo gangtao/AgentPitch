@@ -30,20 +30,6 @@ players:
     shoot: 7
     offensive: 12
     penalty: 9
-  - name: Lucas Mendes
-    number: 3
-    role: DEF
-    speed: 13
-    skill: 13
-    strength: 14
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 14
-    pass: 13
-    shoot: 8
-    offensive: 12
-    penalty: 10
   - name: Boualem Khoukhi
     number: 16
     role: DEF
@@ -72,22 +58,36 @@ players:
     shoot: 7
     offensive: 12
     penalty: 9
-  - name: Assim Madibo
-    number: 23
-    role: MID
+  - name: Ayoub Al-Oui
+    number: 13
+    role: DEF
     speed: 13
-    skill: 14
+    skill: 12
     strength: 13
     save: 0
-    discipline: 14
-    dribbling: 12
-    stamina: 16
-    pass: 14
-    shoot: 10
+    discipline: 13
+    dribbling: 10
+    stamina: 14
+    pass: 12
+    shoot: 6
+    offensive: 11
+    penalty: 8
+  - name: Issa Laye
+    number: 4
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 11
+    stamina: 15
+    pass: 13
+    shoot: 9
     offensive: 10
-    penalty: 11
-  - name: Karim Boudiaf
-    number: 12
+    penalty: 10
+  - name: Jassem Gaber
+    number: 5
     role: MID
     speed: 12
     skill: 13
@@ -97,23 +97,23 @@ players:
     dribbling: 11
     stamina: 15
     pass: 13
-    shoot: 10
-    offensive: 11
-    penalty: 11
-  - name: Mohamed Manai
-    number: 26
+    shoot: 9
+    offensive: 10
+    penalty: 10
+  - name: Ahmed Fathi
+    number: 20
     role: MID
     speed: 13
     skill: 13
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 13
-    stamina: 14
+    dribbling: 12
+    stamina: 15
     pass: 13
-    shoot: 11
+    shoot: 10
     offensive: 10
-    penalty: 12
+    penalty: 11
   - name: Akram Afif
     number: 11
     role: FWD
