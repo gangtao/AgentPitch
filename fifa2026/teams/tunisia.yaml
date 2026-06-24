@@ -30,20 +30,20 @@ players:
     shoot: 9
     offensive: 12
     penalty: 10
-  - name: Dylan Bronn
-    number: 6
+  - name: Omar Rekik
+    number: 4
     role: DEF
-    speed: 13
-    skill: 14
+    speed: 14
+    skill: 13
     strength: 15
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 11
-    stamina: 14
+    stamina: 15
     pass: 13
-    shoot: 8
+    shoot: 9
     offensive: 13
-    penalty: 10
+    penalty: 9
   - name: Montassar Talbi
     number: 3
     role: DEF
@@ -114,20 +114,6 @@ players:
     shoot: 12
     offensive: 10
     penalty: 12
-  - name: Elias Achouri
-    number: 7
-    role: FWD
-    speed: 15
-    skill: 14
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 15
-    pass: 14
-    shoot: 13
-    offensive: 8
-    penalty: 13
   - name: Firas Chaouat
     number: 9
     role: FWD
@@ -156,3 +142,17 @@ players:
     shoot: 14
     offensive: 8
     penalty: 13
+  - name: Hazem Mastouri
+    number: 21
+    role: FWD
+    speed: 15
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 15
+    pass: 12
+    shoot: 13
+    offensive: 8
+    penalty: 11

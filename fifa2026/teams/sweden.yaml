@@ -1,4 +1,4 @@
-# Formation: 3-4-3
+# Formation: 3-5-2
 team_id: sweden
 name: Sweden
 players:
@@ -72,20 +72,6 @@ players:
     shoot: 9
     offensive: 12
     penalty: 10
-  - name: Jesper Karlström
-    number: 16
-    role: MID
-    speed: 12
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 15
-    dribbling: 12
-    stamina: 16
-    pass: 15
-    shoot: 9
-    offensive: 9
-    penalty: 11
   - name: Yasin Ayari
     number: 18
     role: MID
@@ -100,48 +86,48 @@ players:
     shoot: 14
     offensive: 12
     penalty: 13
-  - name: Daniel Svensson
-    number: 8
+  - name: Jesper Karlström
+    number: 16
     role: MID
-    speed: 15
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 13
-    stamina: 17
-    pass: 14
-    shoot: 8
-    offensive: 12
-    penalty: 10
-  - name: Anthony Elanga
-    number: 11
-    role: FWD
-    speed: 18
+    speed: 12
     skill: 14
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 12
+    stamina: 16
+    pass: 15
+    shoot: 9
+    offensive: 9
+    penalty: 11
+  - name: Benjamin Nygren
+    number: 10
+    role: MID
+    speed: 13
+    skill: 15
     strength: 12
     save: 0
     discipline: 13
-    dribbling: 15
+    dribbling: 14
     stamina: 16
-    pass: 13
-    shoot: 13
-    offensive: 8
+    pass: 14
+    shoot: 14
+    offensive: 13
     penalty: 13
-  - name: Viktor Gyökeres
-    number: 17
-    role: FWD
-    speed: 16
-    skill: 15
-    strength: 16
+  - name: Alexander Bernhardsson
+    number: 21
+    role: MID
+    speed: 15
+    skill: 13
+    strength: 12
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 14
     stamina: 17
     pass: 13
-    shoot: 17
-    offensive: 10
-    penalty: 16
+    shoot: 11
+    offensive: 13
+    penalty: 10
   - name: Alexander Isak
     number: 9
     role: FWD
@@ -156,3 +142,17 @@ players:
     shoot: 17
     offensive: 9
     penalty: 17
+  - name: Viktor Gyökeres
+    number: 17
+    role: FWD
+    speed: 16
+    skill: 15
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 17
+    pass: 13
+    shoot: 17
+    offensive: 10
+    penalty: 16

@@ -16,34 +16,20 @@ players:
     shoot: 4
     offensive: 5
     penalty: 8
-  - name: Evan Ndicka
-    number: 4
+  - name: Ghislain Konan
+    number: 3
     role: DEF
-    speed: 15
+    speed: 14
     skill: 14
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 16
-    pass: 14
-    shoot: 6
-    offensive: 13
-    penalty: 9
-  - name: Ousmane Diomande
-    number: 5
-    role: DEF
-    speed: 15
-    skill: 15
-    strength: 16
+    strength: 14
     save: 0
     discipline: 13
     dribbling: 12
     stamina: 16
     pass: 14
     shoot: 7
-    offensive: 14
-    penalty: 10
+    offensive: 13
+    penalty: 9
   - name: Emmanuel Agbadou
     number: 20
     role: DEF
@@ -58,34 +44,34 @@ players:
     shoot: 6
     offensive: 14
     penalty: 9
-  - name: Wilfried Singo
-    number: 17
+  - name: Odilon Kossounou
+    number: 7
     role: DEF
-    speed: 17
+    speed: 16
     skill: 14
     strength: 16
     save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 17
+    discipline: 12
+    dribbling: 11
+    stamina: 16
     pass: 13
-    shoot: 9
-    offensive: 14
-    penalty: 10
-  - name: Seko Fofana
-    number: 6
-    role: MID
-    speed: 14
-    skill: 15
-    strength: 16
+    shoot: 6
+    offensive: 13
+    penalty: 9
+  - name: Guela Doue
+    number: 17
+    role: DEF
+    speed: 16
+    skill: 14
+    strength: 15
     save: 0
     discipline: 13
-    dribbling: 15
-    stamina: 17
-    pass: 15
-    shoot: 14
-    offensive: 13
-    penalty: 14
+    dribbling: 13
+    stamina: 16
+    pass: 13
+    shoot: 7
+    offensive: 14
+    penalty: 9
   - name: Ibrahim Sangaré
     number: 18
     role: MID
@@ -114,6 +100,20 @@ players:
     shoot: 14
     offensive: 13
     penalty: 15
+  - name: Christ Inao Oulaï
+    number: 26
+    role: MID
+    speed: 14
+    skill: 14
+    strength: 16
+    save: 0
+    discipline: 13
+    dribbling: 13
+    stamina: 17
+    pass: 14
+    shoot: 11
+    offensive: 12
+    penalty: 11
   - name: Yan Diomande
     number: 11
     role: FWD
@@ -128,20 +128,20 @@ players:
     shoot: 14
     offensive: 8
     penalty: 14
-  - name: Evann Guessand
-    number: 22
+  - name: Ange-Yoan Bonny
+    number: 9
     role: FWD
-    speed: 15
+    speed: 14
     skill: 15
-    strength: 15
+    strength: 16
     save: 0
     discipline: 13
-    dribbling: 14
+    dribbling: 13
     stamina: 15
     pass: 14
     shoot: 15
     offensive: 9
-    penalty: 15
+    penalty: 14
   - name: Amad Diallo
     number: 15
     role: FWD

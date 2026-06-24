@@ -1,4 +1,4 @@
-# Formation: 4-2-3-1
+# Formation: 4-3-3
 team_id: netherlands
 name: Netherlands
 players:
@@ -72,20 +72,6 @@ players:
     shoot: 11
     offensive: 14
     penalty: 12
-  - name: Tijjani Reijnders
-    number: 14
-    role: MID
-    speed: 15
-    skill: 17
-    strength: 14
-    save: 0
-    discipline: 15
-    dribbling: 16
-    stamina: 18
-    pass: 17
-    shoot: 14
-    offensive: 11
-    penalty: 15
   - name: Frenkie de Jong
     number: 21
     role: MID
@@ -99,6 +85,20 @@ players:
     pass: 18
     shoot: 13
     offensive: 10
+    penalty: 15
+  - name: Tijjani Reijnders
+    number: 14
+    role: MID
+    speed: 15
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 16
+    stamina: 18
+    pass: 17
+    shoot: 14
+    offensive: 11
     penalty: 15
   - name: Ryan Gravenberch
     number: 8
@@ -128,6 +128,20 @@ players:
     shoot: 17
     offensive: 9
     penalty: 17
+  - name: Brian Brobbey
+    number: 9
+    role: FWD
+    speed: 16
+    skill: 15
+    strength: 17
+    save: 0
+    discipline: 14
+    dribbling: 14
+    stamina: 16
+    pass: 13
+    shoot: 16
+    offensive: 8
+    penalty: 14
   - name: Donyell Malen
     number: 18
     role: FWD
@@ -142,17 +156,3 @@ players:
     shoot: 15
     offensive: 8
     penalty: 15
-  - name: Crysencio Summerville
-    number: 24
-    role: FWD
-    speed: 17
-    skill: 15
-    strength: 11
-    save: 0
-    discipline: 13
-    dribbling: 17
-    stamina: 15
-    pass: 14
-    shoot: 14
-    offensive: 7
-    penalty: 14
