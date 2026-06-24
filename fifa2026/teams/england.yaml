@@ -44,20 +44,20 @@ players:
     shoot: 7
     offensive: 14
     penalty: 10
-  - name: John Stones
-    number: 5
+  - name: Ezri Konsa
+    number: 12
     role: DEF
-    speed: 13
-    skill: 17
+    speed: 15
+    skill: 15
     strength: 16
     save: 0
-    discipline: 15
-    dribbling: 13
+    discipline: 14
+    dribbling: 12
     stamina: 15
-    pass: 17
-    shoot: 8
+    pass: 14
+    shoot: 6
     offensive: 13
-    penalty: 11
+    penalty: 9
   - name: Reece James
     number: 24
     role: DEF

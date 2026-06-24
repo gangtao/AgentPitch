@@ -1,12 +1,12 @@
 # Senegal — Tactical Profile
 
 ## Identity & Philosophy
-The 2022 AFCON champions are the most physical, athletic side in African football. Under Pape Thiaw, Senegal play a high-tempo, direct 4-3-3 built on aggressive pressing, vertical transitions, and brutal duel-winning across every line. Where Morocco controls, Senegal attacks — they want the game played at 100 mph.
+The 2022 AFCON champions are the most physical, athletic side in African football. Under Pape Thiaw, Senegal play a high-tempo, direct 4-3-3 built on aggressive pressing, vertical transitions, and brutal duel-winning across every line. Where Morocco controls, Senegal attacks — they want the game played at 100 mph. But the tournament has gone wrong: beaten by France on Matchday 1 and edged 3-2 by Norway on Matchday 2, Senegal sit pointless and bottom-half of Group I going into the decider against Iraq (Fri June 26, BMO Field, Toronto). With Iraq also on zero points, this is a straight must-win — and Senegal almost certainly need a big margin to steal one of the best-third-place qualifying spots. Expect them at full intensity from minute one.
 
 ## Formation
 - Shape: 4-3-3, aggressive and vertical, pressing high.
 - Role mapping (roster index -> tactical role):
-  - 0 Mendy — Goalkeeper, dominant in the air, distributes long.
+  - 0 Diaw — Goalkeeper (deputising for the injured Mendy), shot-stopper, distributes long.
   - 1 Diouf — Left-back, attacking, raw pace.
   - 2 Niakhaté — Left center-back, mobile, second-ball winner.
   - 3 Koulibaly — Right center-back, captain, physical leader.
@@ -21,7 +21,7 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 ## Style of Play
 
 ### Build-up
-- Short when uncontested, but Mendy is encouraged to go long to Jackson's channel run if pressed.
+- Short when uncontested, but Diaw (in for the injured Mendy) is encouraged to go long to Jackson's channel run if pressed — he is less assured on the ball, so simplify his options under pressure.
 - Koulibaly is the calmest passer — first option from goal kicks.
 - Idrissa Gueye drops between center-backs only against high pressure.
 - Build-up is shorter and faster than Morocco's — fewer touches, more vertical.
@@ -34,9 +34,9 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 
 ### Defensive shape
 - 4-1-4-1 if forced to drop, but the team prefers to stay 4-3-3 and press.
-- Koulibaly aggressively steps out to win duels in midfield.
+- Koulibaly aggressively steps out to win duels in midfield (under scrutiny after two leaky games — back him but cover his pace).
 - Niakhaté covers behind, especially against runners in behind.
-- Diatta tucks into midfield as an extra runner; Diouf stays wide.
+- Diatta tucks into midfield as an extra runner; Diouf stays wide on the left.
 
 ### Wide play
 - Mané is the focal point: receive on the left touchline, drive inside, shoot or combine with Pape Gueye.
@@ -55,7 +55,7 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 - Defensive set pieces: man-marking on the biggest threats, Koulibaly on the most dangerous aerial opponent.
 
 ## decide() Decision Priorities
-1. If role == "GK" (player_id ends with "_0", Mendy) and pressed: long ball to the CF (player_id ends with "_9", Jackson) channel run rather than risky short pass.
+1. If role == "GK" (player_id ends with "_0", Diaw) and pressed: long ball to the CF (player_id ends with "_9", Jackson) channel run rather than risky short pass.
 2. If player_id ends with "_3" (Koulibaly, RCB #3) and unpressed in own half: step into midfield with the ball; release the #6 (player_id ends with "_6", Idrissa Gueye) or LCM (player_id ends with "_5", Pape Gueye) in space.
 3. If player_id ends with "_6" (Idrissa Gueye, MID #5) and opponent receives with back to goal in the middle third: tackle immediately.
 4. If player_id ends with "_8" (Mané, LW #10): when receiving on the left wing with space inside, dribble inside onto right foot and shoot if range is good (<22m).
@@ -69,11 +69,13 @@ The 2022 AFCON champions are the most physical, athletic side in African footbal
 12. If leading by 2+: maintain high press but allow opposition to play in own third; pick off the long ball.
 
 ## Key Player Notes
-- **Mané (skill 17, dribbling 17)** is the senior leader — when in doubt, give him the ball on the left.
-- **Koulibaly** is still the defensive talisman; trust him in duels but cover his pace with Niakhaté.
+- **Mory Diaw** deputises for the injured Édouard Mendy (left-knee medial-ligament strain suffered vs Norway). A solid but less commanding keeper — keep his distribution simple and protect him with a deeper second-ball screen.
+- **Mané (skill 17, dribbling 17)** is the senior leader — yet to truly ignite this tournament; when in doubt, give him the ball on the left and let him decide the game.
+- **Ismaïla Sarr** was Senegal's standout in the 3-2 loss to Norway — the most in-form attacker; isolate him 1v1 on the right and feed him early.
+- **Koulibaly** is the under-fire captain; two defeats have him in the spotlight, but he retains his place for this decider — trust him in duels and cover his pace with Niakhaté.
 - **Jackson's pace (17)** is best weapon against high lines — repeatedly target the channel behind the opposition full-back.
 - **Pape Gueye** is the physical left #8 — a screen in front of the back four and a progressive carrier; he shields rather than crashing the box, leaving the late runs to Camara.
 - **Idrissa Gueye** is the destroyer; never expect him to drive the team forward, but he wins everything in the middle third.
 
 ## Tournament Mindset
-Senegal believes they will out-run and out-physical anyone. They will accept open games and trade chances, confident in Mendy's saves and Mané's moments.
+Senegal arrive pointless after losses to France and Norway — this is a do-or-die decider against an Iraq side also on zero. They must win, and almost certainly win big, to chase a best-third-place berth. Expect them to over-commit: full press, full tempo, accept open trades and back Mané and Sarr to produce the moments, with Diaw asked to keep them in it.

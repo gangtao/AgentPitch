@@ -100,8 +100,8 @@ players:
     shoot: 9
     offensive: 10
     penalty: 10
-  - name: Farrukh Sayfiev
-    number: 34
+  - name: Behruz Karimov
+    number: 8
     role: MID
     speed: 13
     skill: 12

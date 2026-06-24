@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-4-2
 team_id: jordan
 name: Jordan
 players:
@@ -86,6 +86,20 @@ players:
     shoot: 9
     offensive: 10
     penalty: 10
+  - name: Rajaei Ayed
+    number: 6
+    role: MID
+    speed: 11
+    skill: 13
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 11
+    stamina: 14
+    pass: 13
+    shoot: 8
+    offensive: 9
+    penalty: 10
   - name: Ibrahim Sa'deh
     number: 15
     role: MID
@@ -100,9 +114,23 @@ players:
     shoot: 10
     offensive: 10
     penalty: 11
+  - name: Musa Al-Tamari
+    number: 10
+    role: MID
+    speed: 17
+    skill: 15
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 16
+    pass: 14
+    shoot: 15
+    offensive: 8
+    penalty: 15
   - name: Nizar Al-Rashdan
     number: 21
-    role: MID
+    role: FWD
     speed: 13
     skill: 14
     strength: 13
@@ -114,20 +142,6 @@ players:
     shoot: 11
     offensive: 10
     penalty: 12
-  - name: Mohammad Abu Zrayq
-    number: 7
-    role: FWD
-    speed: 14
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
-    pass: 12
-    shoot: 13
-    offensive: 8
-    penalty: 13
   - name: Ali Olwan
     number: 9
     role: FWD
@@ -142,17 +156,3 @@ players:
     shoot: 15
     offensive: 9
     penalty: 14
-  - name: Musa Al-Tamari
-    number: 10
-    role: FWD
-    speed: 17
-    skill: 15
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 16
-    stamina: 16
-    pass: 14
-    shoot: 15
-    offensive: 8
-    penalty: 15

@@ -8,7 +8,7 @@ players:
     speed: 10
     skill: 12
     strength: 13
-    save: 14
+    save: 15
     discipline: 14
     dribbling: 4
     stamina: 12
@@ -30,6 +30,20 @@ players:
     shoot: 6
     offensive: 11
     penalty: 8
+  - name: Diney
+    number: 3
+    role: DEF
+    speed: 12
+    skill: 12
+    strength: 14
+    save: 0
+    discipline: 13
+    dribbling: 9
+    stamina: 13
+    pass: 11
+    shoot: 5
+    offensive: 9
+    penalty: 7
   - name: Roberto Lopes
     number: 4
     role: DEF
@@ -44,20 +58,6 @@ players:
     shoot: 6
     offensive: 12
     penalty: 8
-  - name: Logan Costa
-    number: 5
-    role: DEF
-    speed: 14
-    skill: 15
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 11
-    stamina: 14
-    pass: 14
-    shoot: 8
-    offensive: 14
-    penalty: 9
   - name: Steven Moreira
     number: 2
     role: DEF
@@ -83,15 +83,15 @@ players:
     dribbling: 11
     stamina: 16
     pass: 13
-    shoot: 8
-    offensive: 10
+    shoot: 9
+    offensive: 11
     penalty: 10
-  - name: Yannick Semedo
-    number: 16
+  - name: Marco Duarte
+    number: 8
     role: MID
     speed: 12
     skill: 12
-    strength: 12
+    strength: 13
     save: 0
     discipline: 14
     dribbling: 11
@@ -100,20 +100,20 @@ players:
     shoot: 8
     offensive: 9
     penalty: 9
-  - name: Willy Semedo
-    number: 17
+  - name: Garry Rodrigues
+    number: 7
     role: MID
     speed: 14
-    skill: 13
-    strength: 12
+    skill: 14
+    strength: 11
     save: 0
     discipline: 12
-    dribbling: 13
-    stamina: 14
-    pass: 12
-    shoot: 13
+    dribbling: 14
+    stamina: 13
+    pass: 13
+    shoot: 12
     offensive: 11
-    penalty: 12
+    penalty: 11
   - name: Jamiro Monteiro
     number: 10
     role: MID
@@ -142,7 +142,7 @@ players:
     shoot: 13
     offensive: 9
     penalty: 14
-  - name: Dailon Livramento
+  - name: Gilson Benchimol
     number: 19
     role: FWD
     speed: 15
@@ -155,4 +155,4 @@ players:
     pass: 12
     shoot: 14
     offensive: 8
-    penalty: 14
+    penalty: 13

@@ -44,20 +44,20 @@ players:
     shoot: 6
     offensive: 12
     penalty: 9
-  - name: Nathan Ngoy
-    number: 16
+  - name: Arthur Theate
+    number: 5
     role: DEF
-    speed: 16
-    skill: 13
-    strength: 15
+    speed: 14
+    skill: 14
+    strength: 16
     save: 0
     discipline: 13
     dribbling: 11
     stamina: 16
-    pass: 12
-    shoot: 6
-    offensive: 13
-    penalty: 8
+    pass: 13
+    shoot: 7
+    offensive: 12
+    penalty: 9
   - name: Thomas Meunier
     number: 2
     role: DEF
@@ -86,20 +86,20 @@ players:
     shoot: 15
     offensive: 10
     penalty: 16
-  - name: Amadou Onana
-    number: 24
+  - name: Nicolas Raskin
+    number: 6
     role: MID
     speed: 14
     skill: 15
-    strength: 17
+    strength: 15
     save: 0
     discipline: 14
     dribbling: 13
     stamina: 17
     pass: 15
-    shoot: 12
-    offensive: 13
-    penalty: 13
+    shoot: 11
+    offensive: 12
+    penalty: 11
   - name: Kevin De Bruyne
     number: 7
     role: MID
@@ -128,20 +128,20 @@ players:
     shoot: 14
     offensive: 9
     penalty: 15
-  - name: Charles De Ketelaere
-    number: 17
+  - name: Romelu Lukaku
+    number: 9
     role: FWD
     speed: 14
-    skill: 16
-    strength: 14
+    skill: 15
+    strength: 18
     save: 0
     discipline: 14
-    dribbling: 15
-    stamina: 16
-    pass: 15
-    shoot: 14
-    offensive: 9
-    penalty: 13
+    dribbling: 12
+    stamina: 13
+    pass: 12
+    shoot: 17
+    offensive: 8
+    penalty: 16
   - name: Leandro Trossard
     number: 10
     role: FWD

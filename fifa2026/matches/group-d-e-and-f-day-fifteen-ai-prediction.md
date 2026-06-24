@@ -1,16 +1,14 @@
-# Gyökeres Strikes Twice but Japan Hit Back, and Germany's Reserves Down Ecuador — AI's Day Sixteen
+# Gyökeres and Gakpo Strike Twice, and Türkiye Sink a Rotated USA — AI's Day Fifteen
 
-*An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's sixteenth day through the machine. Here is what it saw.*
+*An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's fifteenth day through the machine. Here is what it saw.*
 
-**Filed: June 24, 2026 — on the eve of the final Group E & F games**
+**Filed: June 24, 2026 — on the eve of the final group games**
 
 ---
 
-Day sixteen carries matchday three onward — the final round of the group stage, where the two fixtures in a group kick off **simultaneously** so no one can play to a known result. After Groups C & D closed on day fifteen, the wheel turns to **Group E** and **Group F**, the two pools the machine last visited on day ten. The whole round lands on **Thursday, June 25**. **Group E** goes first, at **4:00 PM ET**: **Curaçao vs Ivory Coast** at Lincoln Financial Field in Philadelphia, and **Ecuador vs Germany** simultaneously at MetLife Stadium. Then **Group F** closes the night at **7:00 PM ET**: **Japan vs Sweden** at AT&T Stadium in Arlington, and **Tunisia vs Netherlands** at Arrowhead Stadium in Kansas City.
+Day fifteen carries the final round onward — matchday three, where the two fixtures in a group kick off **simultaneously** so no one can play to a known result. Three more pools settle their fate on **Thursday, June 25**: **Group D**, **Group E** and **Group F** — six matches across two coasts. **Group E** goes first at **4:00 PM ET**: **Curaçao vs Ivory Coast** at Lincoln Financial Field in Philadelphia and **Ecuador vs Germany** at MetLife Stadium. **Group F** follows at **7:00 PM ET**: **Japan vs Sweden** at AT&T Stadium in Arlington and **Tunisia vs Netherlands** at Arrowhead Stadium in Kansas City. Then **Group D** closes the night at **10:00 PM ET** on the West Coast: **Türkiye vs United States** at SoFi Stadium in Inglewood and **Paraguay vs Australia** at Levi's Stadium in Santa Clara.
 
-The groups arrive poised. In **Group E**, **Germany** are already through and top on six points; behind them **Ecuador** (two), **Ivory Coast** and **Curaçao** (one apiece) are all still scrapping for the second qualifying place — Curaçao and Ivory Coast meeting head-to-head, Ecuador facing the group's bogey side. In **Group F**, the machine's tournament has been turned on its head from the seedings: **Tunisia** top the pool on four points after their day-ten win over Japan, **Japan** sit second on three, **Sweden** third on two, and a misfiring **Netherlands** prop up the group on one — every side still alive, and the Dutch needing to win to survive.
-
-As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. And the machine delivered a day of clinical favourites and one breathless draw. In Philadelphia, **Ivory Coast beat Curaçao 1–0**, Ange-Yoan Bonny settling it after an 18-shot siege. At MetLife, **Germany's rotated side won 3–1 at Ecuador**, Jamie Leweling scoring twice. In Arlington, the game of the day: **Japan and Sweden drew 2–2**, Viktor Gyökeres striking twice but Japan hitting back through Ueda and Kubo. And in Kansas City, **the Netherlands won 2–1 at Tunisia**, a Cody Gakpo brace outlasting a 21-shot Tunisian barrage.
+As ever, we handed all six fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. And the machine served up its loudest day of the final round — clinical favourites in Group E, chaos in Group F, and a brace of must-win upsets in Group D. In Philadelphia, **Ivory Coast beat Curaçao 1–0**. At MetLife, **Germany's rotated side won 3–1 at Ecuador**, Jamie Leweling scoring twice. In Arlington, the game of the round: **Japan and Sweden drew 2–2**, Viktor Gyökeres striking twice but Japan hitting back. In Kansas City, **the Netherlands won 2–1 at Tunisia** behind a Cody Gakpo brace. At SoFi, **Türkiye beat a much-changed United States 1–0**. And in Santa Clara, **Paraguay won the knockout 1–0**, dumping Australia out.
 
 ---
 
@@ -146,22 +144,86 @@ A barrage met by a finisher. Tunisia threw everything at the must-win Dutch — 
 
 ---
 
+## Match 5 — Türkiye vs United States
+
+### Match Info
+- **Competition:** 2026 FIFA World Cup, Group D (Matchday 3)
+- **Date / Time:** Thursday, June 25, 2026 — 10:00 PM ET
+- **Venue:** SoFi Stadium, Inglewood, California
+- **Broadcast:** FOX
+- **Market line:** USA −105, O/U 2.5
+
+### The Teams
+**Türkiye**, under **Vincenzo Montella**, must win to keep their slim hopes alive and tilt forward in their **4-2-3-1**. **Uğurcan Çakır** in goal; a back four of **Ferdi Kadıoğlu**, **Abdülkerim Bardakcı**, **Merih Demiral** and **Zeki Çelik**; **Hakan Çalhanoğlu** and **Orkun Kökçü** the double pivot; **Barış Alper Yılmaz**, the gifted **Arda Güler** and **Kerem Aktürkoğlu** behind the promoted **Kenan Yıldız**. After eighteen shots without a goal against Paraguay, the brief is simple: be ruthless.
+
+**United States**, under **Mauricio Pochettino**, are already through as group winners and ring the changes for the dead rubber, resting the first-choice spine ahead of the knockouts. A heavily rotated **4-3-3**: **Matt Freese** behind **Joe Scally**, **Walker Zimmerman**, **Mark McKenzie** and **Max Arfsten**; **Johnny Cardoso**, **Cristian Roldan** and **Yunus Musah** in midfield; **Timothy Weah**, **Ricardo Pepi** and **Brenden Aaronson** up front. Manage the night, dodge injuries, keep top spot.
+
+### Historical Backdrop
+A young rivalry, and a Turkish edge. Türkiye and the USMNT have met **three times, all since 2003**, with Türkiye leading 2–1 — and, contrary to a common myth, they did **not** meet at the 2002 World Cup, where the two were in separate groups. Their actual meetings: the **2003 Confederations Cup group stage (Türkiye 2–1)**, their only previous competitive clash; a **2010 pre-World Cup friendly in Philadelphia (USA 2–1)**, sealed by Altidore and Dempsey; and a **June 2025 friendly in East Hartford (Türkiye 2–1)**, when Arda Güler and Kerem Aktürkoğlu came from behind to beat a young USA side.
+*(Sources: [Türkiye 2–1 USA, 2025 friendly — ESPN](https://www.espn.com/soccer/match/_/gameId/734219/turkiye-united-states), [Türkiye 2–1 USA, 2003 Confederations Cup — ESPN](https://www.espn.com/soccer/match/_/gameId/98473/united-states-turkey), [USA 2–1 Türkiye, 2010 friendly — ESPN](https://www.espn.com/soccer/match/_/gameId/289210/turkiye-united-states))*
+
+### Lineups (as simulated)
+| | Türkiye | United States |
+|---|---|---|
+| **GK** | Uğurcan Çakır (23) | Matt Freese (24) |
+| **DEF** | Ferdi Kadıoğlu (20), Abdülkerim Bardakcı (14), Merih Demiral (3), Zeki Çelik (2) | Joe Scally (23), Walker Zimmerman (3), Mark McKenzie (15), Max Arfsten (25) |
+| **MID** | Hakan Çalhanoğlu (10), Orkun Kökçü (18), Barış Alper Yılmaz (21), Arda Güler (8) | Johnny Cardoso (20), Cristian Roldan (19), Yunus Musah (6) |
+| **FWD** | Kenan Yıldız (9), Kerem Aktürkoğlu (7) | Timothy Weah (21), Ricardo Pepi (9), Brenden Aaronson (11) |
+
+### Simulation Report — **Türkiye 1–0 United States**
+The motivation gap told. With a knockout place on the line for one side and a rotated reserve XI for the other, Türkiye found the cutting edge that deserted them against Paraguay. The shot counts were close — **United States edged them 13 to 11**, **Brenden Aaronson** a one-man show with ten attempts off the left — and the rotated Americans actually shaded possession at **52%**. But it was Türkiye who struck: on **26'**, **Kenan Yıldız**, promoted into the side, drove infield and finished for **1–0**, **Barış Alper Yılmaz** adding three further efforts as Montella's side carried the greater threat where it counted. The USA reserves pressed in the second half — Aaronson firing again and again — but Freese's opposite number held, and Türkiye saw out a win that keeps them alive.
+
+**AI takeaway:** The machine reads a textbook dead-rubber upset: a desperate side beating a rested one. Aaronson's ten shots without reward sum up the cost of rotation — volume from the second string, but no finish — while Yıldız's early goal rewards a Türkiye team that finally took one of its chances. Pochettino will not mind, top spot long secured; for Türkiye it is the win they had to have, even if the other Group D result may yet decide whether it was enough.
+
+---
+
+## Match 6 — Paraguay vs Australia
+
+### Match Info
+- **Competition:** 2026 FIFA World Cup, Group D (Matchday 3)
+- **Date / Time:** Thursday, June 25, 2026 — 10:00 PM ET
+- **Venue:** Levi's Stadium, Santa Clara, California
+- **Broadcast:** FS1
+- **Market line:** Paraguay +195, O/U 1.5
+
+### The Teams
+**Paraguay**, under **Gustavo Alfaro**, must win to go through and set up to counter in a compact **4-4-2**. **Orlando Gill** in goal; a back four of **Júnior Alonso**, **Omar Alderete**, captain **Gustavo Gómez** and **Juan José Cáceres**; a midfield of **Miguel Almirón**, the holding **Andrés Cubas**, **Damián Bobadilla** and **Diego Gómez**; **Julio Enciso** and **Antonio Sanabria** the front two. Stay compact, break fast, and take the chance the game offers.
+
+**Australia**, under **Tony Popović**, need only a draw to advance and arrive in their **3-4-2-1**. **Patrick Beach** in goal; a back three of **Cameron Burgess**, **Harry Souttar** and **Alessandro Circati**; **Jordan Bos** and **Jacob Italiano** as wing-backs around **Aiden O'Neill** and **Paul Okon-Engstler**; **Nishan Velupillay** and **Mathew Leckie** supporting **Mohamed Toure**. Control the tempo, see out the point, and qualify.
+
+### Historical Backdrop
+A familiar friendly foe, and an Australian hoodoo: Paraguay have **never beaten Australia**. The sides have met **five times, all friendlies and none competitive** — three in June 2000 (two goalless draws and a 2–1 Australia win), a 1–1 draw in 2006, and a 1–0 Australia win in 2010 — leaving Australia unbeaten at two wins and three draws. The two have **never met at a World Cup** (in 2010 they were drawn into different groups), so Santa Clara is a genuine first competitive meeting, with qualification on the line.
+*(Sources: [Australia v Paraguay record — 11v11](https://www.11v11.com/teams/australia/tab/opposingTeams/opposition/Paraguay/), [Australia vs Paraguay encounters — National Football Teams](https://www.national-football-teams.com/encounter/teams/12/144/Australia_vs_Paraguay.html), [Australia national football team results — Wikipedia](https://en.wikipedia.org/wiki/Australia_national_soccer_team_results))*
+
+### Lineups (as simulated)
+| | Paraguay | Australia |
+|---|---|---|
+| **GK** | Orlando Gill (12) | Patrick Beach (12) |
+| **DEF** | Júnior Alonso (6), Omar Alderete (3), Gustavo Gómez (15), Juan José Cáceres (4) | Cameron Burgess (21), Harry Souttar (19), Alessandro Circati (3) |
+| **MID** | Miguel Almirón (23), Andrés Cubas (14), Damián Bobadilla (5), Diego Gómez (8) | Jordan Bos (5), Aiden O'Neill (13), Paul Okon-Engstler (16), Jacob Italiano (4) |
+| **FWD** | Julio Enciso (19), Antonio Sanabria (9) | Nishan Velupillay (23), Mathew Leckie (7), Mohamed Toure (9) |
+
+### Simulation Report — **Paraguay 1–0 Australia**
+The knockout went to the side that had to win it. Needing three points where a draw would have done for Australia, Paraguay took the game to the Socceroos — **55% possession, thirteen shots to nine** — and broke the resistance in the second half. **Julio Enciso** was the spearhead and the matchwinner, firing nine of Paraguay's thirteen attempts and striking on **51'** for the only goal of the night. Australia, set up to manage the point that would send them through, chased the game once behind; **Mathew Leckie** (five shots) and **Nishan Velupillay** (four) carried the threat on the break, but Gill and the Paraguayan back four — captain Gustavo Gómez marshalling — held firm through a tense finish. Paraguay won the contest of nerve.
+
+**AI takeaway:** The machine delivers the cruelest twist of the round: Australia, needing only a draw, are undone by the one side beneath them that simply had to win. Enciso's nine-shot, one-goal evening is the difference — a lone spearhead carrying a counter-attacking plan to exactly the result it was designed for. Paraguay leap from the bottom rung into contention; Australia's caution, a point from safety, costs them everything when Enciso finds the corner.
+
+---
+
 ## The Picture, Per the Machine
 
-Day sixteen, per the simulation: clinical favourites in Group E, and chaos in Group F. Both of the day's heavy lines held — Ivory Coast and Germany did their jobs — while the Group F games detonated the table.
+Day fifteen, per the simulation: the favourites held firm in Group E, while Groups D and F detonated. Three of the six games turned on a single goal, two penalty-box finishers struck braces, and the chasing sides bit back.
 
 | Match | Result | Group |
-|---|---|---|
+|-------|--------|-------|
 | 🇨🇼 Curaçao lost to Ivory Coast | 0 – 1 | E |
-| 🇨🇮 **Ivory Coast** bt Curaçao | **1 – 0** | E |
 | 🇪🇨 Ecuador lost to Germany | 1 – 3 | E |
-| 🇩🇪 **Germany** bt Ecuador | **3 – 1** | E |
 | 🇯🇵 Japan drew Sweden | **2 – 2** | F |
-| 🇸🇪 Sweden drew Japan | **2 – 2** | F |
 | 🇹🇳 Tunisia lost to Netherlands | 1 – 2 | F |
-| 🇳🇱 **Netherlands** bt Tunisia | **2 – 1** | F |
+| 🇹🇷 **Türkiye** bt United States | **1 – 0** | D |
+| 🇵🇾 **Paraguay** bt Australia | **1 – 0** | D |
 
-The through-line of day sixteen is the favourites holding their nerve while the bottom of Group F erupts. In **Group E**, the simulator sends **Germany through as winners on nine points** even with a shadow XI, and lifts **Ivory Coast into second** thanks to Bonny's single decisive moment — Ecuador's loss leaving them third, Curaçao bottom and out. In **Group F**, the machine throws everything up in the air: **Tunisia's barrage goes unrewarded** and the **Netherlands' clinical Gakpo** drags the Dutch off the bottom and back into contention, while **Japan and Sweden's 2–2** leaves a logjam at the top in which three sides finish level on four points and goal difference decides who survives. Gyökeres's brace and Gakpo's brace are the day's defining images — two penalty-box finishers who turned modest chances into the goals that bent a group out of shape.
+In **Group D**, the machine leaves **United States through on top** despite their rotated reserves losing to a must-win **Türkiye**, while **Paraguay's knockout win** dumps out an **Australia** side that needed only a draw — the day's cruellest twist. In **Group E**, **Germany cruise through as winners** even with a shadow XI, and **Ivory Coast take second** through Bonny's single decisive moment, leaving **Ecuador** third and **Curaçao** out. In **Group F**, the table buckles: **Tunisia's 21-shot barrage goes unrewarded**, the **Netherlands' clinical Gakpo** drags the Dutch back into contention, and **Japan and Sweden's 2–2** leaves a logjam at the top where goal difference decides who survives. Gyökeres's brace, Gakpo's brace and Paraguay's smash-and-grab are the images of a day that reshaped three groups.
 
 ---
 

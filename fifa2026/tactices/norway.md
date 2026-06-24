@@ -1,7 +1,9 @@
 # Norway — Tactical Profile
 
 ## Identity & Philosophy
-Norway under Ståle Solbakken are a vertical, direct attacking side built almost entirely around exploiting the cataclysmic finishing ability of Erling Haaland and the conducting genius of Martin Ødegaard. They are not a possession team — they want the ball moving forward within three passes. Recent qualifying form has been strong, propelled by goals from Haaland and creative dominance from Ødegaard. The defensive backline is less mobile than the front line, which means midfielders must track back diligently.
+Norway under Ståle Solbakken are a vertical, direct attacking side built almost entirely around exploiting the cataclysmic finishing ability of Erling Haaland and the conducting genius of Martin Ødegaard. They are not a possession team — they want the ball moving forward within three passes. Tournament form has been ruthless: a 4-1 demolition of Iraq (Haaland brace) on Matchday 1 and a 3-2 win over Senegal (Haaland brace again) on Matchday 2, both already securing knockout qualification. Haaland has four goals in two games. The defensive backline is less mobile than the front line, which means midfielders must track back diligently — and the Senegal game (two goals conceded, including a 90+3 equaliser threat from Ismaïla Sarr) exposed that the back four can be stretched when the wide forwards do not recover.
+
+Matchday 3 is a winner-takes-top-spot clash with France at Gillette Stadium (Foxborough). France lead Group I on goal difference (+5 to Norway's +4); both are through to the Round of 32, so the prize is the group win and a softer knockout bracket. Against a France side that defends deep and counters with Mbappé/Dembélé pace, Norway must respect the transition risk: this is the one fixture where Berge and Aursnes hold shape rather than overload the press, and where the back four cannot afford to step up loosely.
 
 ## Formation
 - Shape: 4-3-3
@@ -63,4 +65,4 @@ Asymmetric. Nusa hugs the touchline LW and looks to isolate the opposition RB; S
 - **Alexander Sørloth (index 10):** powerful second striker deployed wide-right who drifts inside; a genuine aerial and finishing threat that gives Norway a second focal point alongside Haaland.
 
 ## Tournament Mindset
-Norway are dangerous in any moment but vulnerable to teams that exploit central midfield gaps when Aursnes pushes forward. They will trade chances; in a high-scoring shootout they back themselves to outscore anyone because of Haaland — and now carry a second aerial threat in Sørloth.
+Norway are dangerous in any moment but vulnerable to teams that exploit central midfield gaps when Aursnes pushes forward. They will trade chances; in a high-scoring shootout they back themselves to outscore anyone because of Haaland — and now carry a second aerial threat in Sørloth. Versus France for top spot, the calculus shifts: already qualified and only one goal behind on difference, Norway need a win (or a high-margin result) to finish first. Solbakken will weigh ambition against France's lethal counter — expect Norway to attack but with Berge anchored deeper than usual, the wide forwards disciplined in recovery, and a willingness to settle for a draw rather than over-commit and get caught by Mbappé in behind.

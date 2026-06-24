@@ -3,7 +3,11 @@
 ## Identity & Philosophy
 Luis de la Fuente's Spain is the modern heir to tiki-taka, refreshed with vertical wide threats. The midfield (Rodri-Pedri-Fabián) is the team's bloodstream — they dictate tempo, rotate constantly, and starve opponents of the ball. Spain won Euro 2024 with 65% average possession across the tournament, then mixed that with the most direct wingers in world football (Yamal & Williams). Juego de posición with teeth. They arrive in USA/Mexico/Canada as the FIFA No. 2-ranked side, reigning European champions, and a heavy pre-tournament favourite — drawn into Group H with Cape Verde, Uruguay and Saudi Arabia. De la Fuente named a squad with no Real Madrid players (Carvajal, Huijsen omitted) and handed the captaincy to Rodri, his Ballon d'Or-winning pivot.
 
-**Matchday 1 update (15 June, vs Cape Verde — 0-0):** A 0-0 stalemate and one of the tournament's biggest early shocks. Spain piled up 27 shots (7 on target) but Cape Verde keeper Vozinha and a deep block held firm. Crucially, with Lamine Yamal managing a hamstring, de la Fuente started a more functional front three — **Ferran Torres (right), Oyarzabal (centre), Gavi (left)** — and kept Yamal and Nico Williams on the bench (Yamal came on in the second half but could not break the deadlock). Only one booking (Pedri, 90+3'), no suspensions. For Matchday 2 vs Saudi Arabia (21 June) the wide-forward workload is the chief selection watch point; the most likely XI continues with the Cape Verde front three (Ferran/Oyarzabal/Gavi) and Yamal/Williams as high-impact options off the bench while Yamal's minutes are managed. The defence and midfield are unchanged from MD1.
+**Matchday 1 (15 June, vs Cape Verde — 0-0):** A goalless stalemate and one of the tournament's biggest early shocks. Spain piled up 25+ shots on 74% possession but Cape Verde keeper Vozinha and a deep block held firm. With Lamine Yamal managing a hamstring, de la Fuente started a more functional front three — Ferran Torres (right), Oyarzabal (centre), Gavi (left) — and kept Yamal and Nico Williams on the bench. Only one booking (Pedri, 90+3').
+
+**Matchday 2 (21 June, vs Saudi Arabia — 4-0):** Emphatic recovery. **Lamine Yamal opened the scoring (10') in his first World Cup start**, Oyarzabal struck twice (21', 24'), and an Al Tambakti own goal (49') completed the rout. Yamal and Williams were restored to the wings and immediately transformed the attack. Result: Spain top Group H on **4 points (+4)** after two games.
+
+**Matchday 3 (26 June, vs Uruguay, Estadio Akron, Guadalajara):** Spain sit two points clear at the top and seal **first place in Group H with a win or a draw**; Uruguay (2 pts, after a 1-1 vs Saudi Arabia and a 2-2 vs Cape Verde) must win to be sure of advancing, so expect them to commit forward — a more open game than the two deep blocks Spain faced earlier. Yamal, fit and flying after his MD2 goal, is expected to keep his place. The probable XI returns to Spain's first-choice front three: **Williams (left), Oyarzabal (centre), Yamal (right)**, with Gavi and Ferran dropping to the bench. Defence and midfield unchanged: Simón; Cucurella, Laporte, Cubarsí, Llorente; Fabián, Rodri, Pedri. No suspensions; Pedri carries one yellow.
 
 ## Formation
 - Shape: 4-3-3 with a single pivot (Rodri); FBs ultra-high in possession (effectively 2-3-5)
@@ -16,10 +20,10 @@ Luis de la Fuente's Spain is the modern heir to tiki-taka, refreshed with vertic
   - index 5: LCM/#8 — Fabián Ruiz (left-side advanced interior; elegant left foot, arrives in box late, half-space passer & long-range threat — this third-midfield slot is contested by Gavi, Merino and Dani Olmo, but Fabián is the Euro 2024 incumbent)
   - index 6: DM/#6 — Rodri (captain & irreplaceable pivot — pass 19, skill 18 — sets every tempo)
   - index 7: RCM/#8 — Pedri (right-side interior; receives between lines, the best on-ball link)
-  - index 8: LW — Gavi (left-sided forward; energetic, drifts inside to combine and presses relentlessly; stamina 18 — MD1 starter with Williams benched)
-  - index 9: CF — Mikel Oyarzabal (link-up #9, drops to combine, holds for runners; clinical finisher, shoot 17)
-  - index 10: RW — Ferran Torres (right-sided forward; orthodox width with a goal threat, shoot 16 — MD1 starter while Yamal's minutes are managed)
-  - bench impact: Nico Williams (vertical byline LW, speed 19) and Lamine Yamal (inverted RW, dribble 19 / shoot 17) enter to change games — the _8 and _10 spatial roles are theirs when on
+  - index 8: LW — Nico Williams (vertical byline winger; speed 19, hugs the touchline, takes the FB on the outside and whips early; restored to the XI for MD3)
+  - index 9: CF — Mikel Oyarzabal (link-up #9, drops to combine, holds for runners; clinical finisher, shoot 17 — two goals vs Saudi Arabia)
+  - index 10: RW — Lamine Yamal (inverted right winger; dribble 19 / shoot 17, drifts into the right half-space to curl with his left — scored on MD2, Spain's primary creator and a set-piece taker)
+  - bench impact: Gavi (relentless left-sided forward, stamina 18 — MD1 starter) and Ferran Torres (orthodox right width with a goal threat, shoot 16 — MD1 starter) are now high-impact options; they take the _8 and _10 spatial roles when on
 
 ## Style of Play
 
@@ -32,7 +36,7 @@ Luis de la Fuente's Spain is the modern heir to tiki-taka, refreshed with vertic
 ### Pressing
 - Counter-press (Cruyff/Guardiola school): the moment Spain loses it, the nearest 3 players collapse on the carrier for 6 seconds. If not won back, drop to mid-block.
 - Trigger high press: opponent CB receives with back to play, OR a square pass between CBs is in flight.
-- Oyarzabal leads, Yamal & Williams curve runs to lock the FBs. Pedri/Fabián jump #6.
+- Oyarzabal leads, Williams & Yamal curve runs to lock the FBs. Pedri/Fabián jump #6.
 
 ### Defensive shape
 - 4-1-4-1 with Rodri shielding. High line (offside trap) — line ~ 50% of pitch length.
@@ -40,17 +44,17 @@ Luis de la Fuente's Spain is the modern heir to tiki-taka, refreshed with vertic
 - Vulnerable to direct balls in behind — Spain accepts the risk for compression.
 
 ### Wide play
-- Asymmetric width: **LEFT** Gavi (_8) holds the wide channel and combines inside → Cucurella overlaps/underlaps. **RIGHT** Ferran (_10) stretches the line and arrives at the back post → Llorente overlaps. (When Williams/Yamal sub on, the pattern sharpens into pure byline width left and inverted-cut right.)
-- Half-space combinations: the right-side Ferran-Pedri-Llorente triangle is Spain's most dangerous pattern.
+- Asymmetric width: **LEFT** Williams (_8) hugs the byline and beats the FB on the outside → Cucurella underlaps inside him. **RIGHT** Yamal (_10) starts wide but drifts into the half-space to cut inside on his left → Llorente overlaps outside to give him the cutback option. (When Gavi/Ferran sub on, the left turns into more of an inside-combination channel and the right into orthodox stretch-and-back-post width.)
+- Half-space combinations: the right-side Yamal-Pedri-Llorente triangle is Spain's most dangerous pattern — Yamal cuts in, Pedri links, Llorente overlaps.
 
 ### Final third
 - Patience first: ~30-40 passes per chance is not unusual. Wait for the FB overlap or the inside-forward cutback.
 - Cutback target: Oyarzabal at the penalty spot, Fabián arriving late from deep.
-- Ferran's run to the back post / strike from the right is a recurring termination (Yamal's left-foot half-space curler when he subs on).
+- Yamal's left-foot half-space curler from the right is the recurring termination; Williams' early cross to the back post and Oyarzabal's near-post finish are the alternatives.
 
 ## Set Pieces
-- Corners: Inswingers from Fabián on left, Pedri/Ferran on right (Yamal when on). Oyarzabal + Laporte + Cubarsí attack near/back posts. Rodri at edge of box for rebounds.
-- Direct FKs: Fabián (left), Ferran/Pedri (right), Laporte (central, power); Yamal takes over when on.
+- Corners: Inswingers from Fabián on left, Yamal/Pedri on right. Oyarzabal + Laporte + Cubarsí attack near/back posts. Rodri at edge of box for rebounds.
+- Direct FKs: Yamal (right, primary), Fabián (left), Laporte (central, power).
 - Penalties: Oyarzabal is first taker (cool finisher — winner in the Euro 2024 final); Rodri (captain) and Yamal are alternates.
 - Defending: zonal with 2 man-markers on biggest threats. Rodri patrols the edge of the box.
 
@@ -58,27 +62,27 @@ Luis de la Fuente's Spain is the modern heir to tiki-taka, refreshed with vertic
 1. When my role is GK: always pass short to a CB; only go long if pressed 4v4 and no FB option.
 2. When my `player_id` ends with `_6` (DM — Rodri): if no one is open vertically, pass back to CB; never force; my job is to wait — pass 19 means I am the metronome.
 3. When my role is DEF and `player_id` ends with `_2` or `_3` (CB pair — Laporte/Cubarsí) and team has ball: pass to the `_6` player (Rodri) first preference, then to the other CB, then to FB. Avoid long balls.
-4. When my role is DEF and `player_id` ends with `_1` or `_4` (FB pair) and team_phase is "attacking": advance to LM/RM height; if my `player_id` ends with `_4` (Llorente) and the `_10` player (Ferran/Yamal) is occupied inside, I overlap; if my `player_id` ends with `_1` (Cucurella) and the `_8` player (Gavi/Williams) holds the left, I support into half-space.
+4. When my role is DEF and `player_id` ends with `_1` or `_4` (FB pair) and team_phase is "attacking": advance to LM/RM height; if my `player_id` ends with `_4` (Llorente) and the `_10` player (Yamal) cuts inside, I overlap outside him; if my `player_id` ends with `_1` (Cucurella) and the `_8` player (Williams) holds the left touchline, I underlap into the half-space.
 5. When my `player_id` ends with `_5` or `_7` (#8 pair — Fabián/Pedri) and team has the ball: position in opposite half-space from the ball; when received, turn forward — never backward (Pedri pass 19, Fabián pass 17).
-6. When my `player_id` ends with `_8` (LW — Gavi, or Williams off the bench): receive wide on the left, take on the FB 1v1 with Move toward + Move diagonal; Shoot only if cutting inside near angle.
-7. When my `player_id` ends with `_10` (RW — Ferran, or Yamal off the bench): stay in the right half-space; if ball comes to my feet, Move inside and Shoot, OR Pass to overlapping `_4` (Llorente).
+6. When my `player_id` ends with `_8` (LW — Williams): receive wide on the left touchline, take on the FB 1v1 on the outside with Move toward + Move diagonal (speed 19 — beat him for pace); whip the early cross or cutback rather than cutting inside.
+7. When my `player_id` ends with `_10` (RW — Yamal): start wide then drift into the right half-space; if the ball comes to my feet, Move inside and Shoot with my left (dribble 19 / shoot 17), OR Pass to overlapping `_4` (Llorente) outside me.
 8. When my `player_id` ends with `_9` (CF — Oyarzabal): drop 8-10m short to receive, lay off to interiors, then run in behind for the cutback.
 9. When ball is lost: immediate 6-second counter-press. Nearest 3 players Move toward the carrier; if I am the closest, Tackle.
 10. When team_phase is "defending" in mid-block: hold a high line — offside trap is the rule. CBs Move forward in sync the moment opponent plays backward.
-11. Shoot from outside the box only if my `player_id` ends with `_10`, `_5`, or `_2` (Yamal/Fabián/Laporte) AND there's a clear lane.
+11. Shoot from outside the box only if my `player_id` ends with `_10`, `_5`, `_7`, or `_2` (Yamal/Fabián/Pedri/Laporte) AND there's a clear lane.
 12. When in doubt, Hold and recycle. Tempo is a weapon.
 
 ## Key Player Notes
 - **Rodri (idx 6)** — captain and the system. Without him, Spain is a different team. Never goes above the halfway line in open play; an alternate penalty taker.
 - **Pedri (idx 7)** — best on-ball player; the connector between defense and attack. Free to roam in opponent half.
-- **Ferran Torres (idx 10)** — MD1 right-sided starter; orthodox width with a real goal threat (shoot 16), arrives at the back post. Holds the _10 slot while Yamal's minutes are managed.
-- **Gavi (idx 8)** — MD1 left-sided starter; relentless energy and pressing (stamina 18), drifts inside to combine rather than hugging the byline. Holds the _8 slot.
-- **Yamal (bench, _10 when on)** — primary creator. License to drift centrally and shoot. Set-piece taker. Managing a hamstring: started MD1 on the bench, came on in the second half; Spain's most decisive attacker when fit.
-- **Williams (bench, _8 when on)** — Spain's purely vertical, byline-hugging winger (speed 19); benched MD1, enters to provide direct width.
+- **Lamine Yamal (idx 10)** — Spain's primary creator and most decisive attacker. Inverted right winger with license to drift into the half-space and shoot with his left (dribble 19 / shoot 17); the right-side set-piece taker. Started MD1 on the bench managing a hamstring, scored on his MD2 start vs Saudi Arabia, and is expected to keep his place vs Uruguay.
+- **Nico Williams (idx 8)** — Spain's purely vertical, byline-hugging left winger (speed 19); beats the FB on the outside and crosses early. Benched MD1, restored to the XI for MD2/MD3 to provide direct width.
+- **Gavi (bench, _8 when on)** — MD1 left-sided starter; relentless energy and pressing (stamina 18), drifts inside to combine rather than hugging the byline. A high-impact change.
+- **Ferran Torres (bench, _10 when on)** — MD1 right-sided starter; orthodox width with a real goal threat (shoot 16), arrives at the back post. A high-impact change.
 - **Fabián Ruiz (idx 5)** — elegant left-footed #8 who arrives in the box; doubles as Spain's left-side dead-ball deliverer and a genuine long-range threat from the half-space.
 - **Oyarzabal (idx 9)** — clinical, selfless #9 and the primary penalty taker (scored the Euro 2024 final winner); links play and finishes the cutbacks.
 - **Cubarsí (idx 3)** — composed young ball-playing CB; steps out to break lines and covers the space behind the overlapping Llorente.
 - **Cucurella (idx 1)** — sometimes inverts into the DM line when Rodri pushes forward; flexible role.
 
 ## Tournament Mindset
-Reigning European champions and FIFA No. 2, Spain arrive as one of the heaviest favourites for the trophy. They expect to win the ball and the match — they will play the same way against any opponent. Discipline is in the pattern, not the result. After being held 0-0 by Cape Verde on MD1, the pressure is on to break down a second deep block (Saudi Arabia) — but the identity is unchanged. The open questions are managing Yamal's hamstring (a high-impact sub for now) and the wide-forward rotation; neither alters the system.
+Reigning European champions and FIFA No. 2, Spain arrive as one of the heaviest favourites for the trophy. They expect to win the ball and the match — they will play the same way against any opponent. Discipline is in the pattern, not the result. After the MD1 shock draw with Cape Verde, the 4-0 demolition of Saudi Arabia (Yamal goal, Oyarzabal brace) restored the swagger and put Spain top of Group H on 4 points. Into MD3, a win or draw vs Uruguay secures first place and the easier knockout path; with Yamal and Williams now both starting and firing, the front line finally has its cutting edge. Uruguay must win to be sure of qualifying, so they will come forward — and a more open game suits this Spain. The temptation is to rest legs with first place near-sealed, but the identity stays: keep the ball, win the group, set up the run.

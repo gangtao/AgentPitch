@@ -1,4 +1,4 @@
-# Formation: 3-4-1-2
+# Formation: 4-3-3
 team_id: dr_congo
 name: DR Congo
 players:
@@ -16,6 +16,20 @@ players:
     shoot: 3
     offensive: 5
     penalty: 6
+  - name: Arthur Masuaku
+    number: 26
+    role: DEF
+    speed: 14
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 11
+    dribbling: 13
+    stamina: 15
+    pass: 13
+    shoot: 9
+    offensive: 12
+    penalty: 10
   - name: Axel Tuanzebe
     number: 4
     role: DEF
@@ -44,48 +58,48 @@ players:
     shoot: 8
     offensive: 14
     penalty: 10
-  - name: Steve Kapuadi
-    number: 3
+  - name: Aaron Wan-Bissaka
+    number: 2
     role: DEF
-    speed: 12
-    skill: 12
-    strength: 16
+    speed: 16
+    skill: 15
+    strength: 14
     save: 0
-    discipline: 12
-    dribbling: 9
-    stamina: 14
-    pass: 11
-    shoot: 6
-    offensive: 12
-    penalty: 8
-  - name: Arthur Masuaku
-    number: 26
-    role: MID
-    speed: 14
-    skill: 13
-    strength: 12
-    save: 0
-    discipline: 11
-    dribbling: 13
-    stamina: 15
+    discipline: 14
+    dribbling: 14
+    stamina: 16
     pass: 13
     shoot: 9
     offensive: 12
-    penalty: 10
-  - name: Ngal'ayel Mukau
-    number: 6
+    penalty: 11
+  - name: Edo Kayembe
+    number: 25
     role: MID
     speed: 13
     skill: 14
-    strength: 13
+    strength: 14
     save: 0
-    discipline: 12
-    dribbling: 13
+    discipline: 13
+    dribbling: 12
     stamina: 16
     pass: 14
-    shoot: 12
-    offensive: 12
-    penalty: 11
+    shoot: 10
+    offensive: 11
+    penalty: 10
+  - name: Charles Pickel
+    number: 18
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 15
+    pass: 13
+    shoot: 9
+    offensive: 11
+    penalty: 10
   - name: Samuel Moutoussamy
     number: 8
     role: MID
@@ -100,48 +114,6 @@ players:
     shoot: 9
     offensive: 11
     penalty: 10
-  - name: Noah Sadiki
-    number: 14
-    role: MID
-    speed: 13
-    skill: 14
-    strength: 13
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
-    pass: 14
-    shoot: 11
-    offensive: 11
-    penalty: 12
-  - name: Aaron Wan-Bissaka
-    number: 2
-    role: MID
-    speed: 16
-    skill: 15
-    strength: 14
-    save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 16
-    pass: 13
-    shoot: 9
-    offensive: 12
-    penalty: 11
-  - name: Yoane Wissa
-    number: 20
-    role: FWD
-    speed: 16
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 12
-    dribbling: 15
-    stamina: 15
-    pass: 13
-    shoot: 16
-    offensive: 9
-    penalty: 16
   - name: Cédric Bakambu
     number: 17
     role: FWD
@@ -156,3 +128,31 @@ players:
     shoot: 15
     offensive: 8
     penalty: 15
+  - name: Yoane Wissa
+    number: 20
+    role: FWD
+    speed: 16
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 12
+    dribbling: 15
+    stamina: 15
+    pass: 13
+    shoot: 16
+    offensive: 9
+    penalty: 16
+  - name: Meschak Elia
+    number: 13
+    role: FWD
+    speed: 16
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 12
+    dribbling: 14
+    stamina: 15
+    pass: 12
+    shoot: 11
+    offensive: 10
+    penalty: 9

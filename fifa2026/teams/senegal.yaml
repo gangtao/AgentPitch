@@ -2,20 +2,20 @@
 team_id: senegal
 name: Senegal
 players:
-  - name: Édouard Mendy
-    number: 16
+  - name: Mory Diaw
+    number: 23
     role: GK
-    speed: 12
-    skill: 16
-    strength: 17
-    save: 17
-    discipline: 16
+    speed: 11
+    skill: 13
+    strength: 15
+    save: 14
+    discipline: 15
     dribbling: 6
-    stamina: 14
-    pass: 14
+    stamina: 13
+    pass: 12
     shoot: 4
     offensive: 6
-    penalty: 8
+    penalty: 7
   - name: El Hadji Malick Diouf
     number: 25
     role: DEF
