@@ -114,20 +114,6 @@ players:
     shoot: 9
     offensive: 13
     penalty: 11
-  - name: Cecilio Waterman
-    number: 18
-    role: FWD
-    speed: 14
-    skill: 13
-    strength: 13
-    save: 0
-    discipline: 12
-    dribbling: 13
-    stamina: 14
-    pass: 11
-    shoot: 14
-    offensive: 9
-    penalty: 14
   - name: Cristian Martínez
     number: 6
     role: FWD
@@ -142,6 +128,20 @@ players:
     shoot: 11
     offensive: 10
     penalty: 11
+  - name: José Fajardo
+    number: 9
+    role: FWD
+    speed: 12
+    skill: 13
+    strength: 14
+    save: 0
+    discipline: 12
+    dribbling: 12
+    stamina: 13
+    pass: 11
+    shoot: 14
+    offensive: 8
+    penalty: 13
   - name: José Luis Rodríguez
     number: 7
     role: FWD

@@ -16,20 +16,20 @@ players:
     shoot: 4
     offensive: 6
     penalty: 8
-  - name: Lucas Digne
-    number: 3
+  - name: Theo Hernández
+    number: 19
     role: DEF
-    speed: 15
-    skill: 14
+    speed: 18
+    skill: 15
     strength: 14
     save: 0
-    discipline: 15
-    dribbling: 13
-    stamina: 16
+    discipline: 13
+    dribbling: 15
+    stamina: 18
     pass: 15
-    shoot: 10
-    offensive: 11
-    penalty: 12
+    shoot: 13
+    offensive: 13
+    penalty: 14
   - name: Dayot Upamecano
     number: 4
     role: DEF
@@ -72,20 +72,20 @@ players:
     shoot: 8
     offensive: 12
     penalty: 11
-  - name: Manu Koné
-    number: 6
+  - name: Aurélien Tchouaméni
+    number: 8
     role: MID
-    speed: 15
-    skill: 15
-    strength: 16
+    speed: 14
+    skill: 17
+    strength: 17
     save: 0
-    discipline: 14
+    discipline: 16
     dribbling: 15
     stamina: 18
-    pass: 15
-    shoot: 12
+    pass: 18
+    shoot: 13
     offensive: 12
-    penalty: 13
+    penalty: 14
   - name: Adrien Rabiot
     number: 14
     role: MID
@@ -128,17 +128,17 @@ players:
     shoot: 16
     offensive: 10
     penalty: 17
-  - name: Bradley Barcola
-    number: 12
-    role: FWD
-    speed: 18
-    skill: 16
-    strength: 12
+  - name: Désiré Doué
+    number: 20
+    role: MID
+    speed: 17
+    skill: 17
+    strength: 13
     save: 0
     discipline: 14
     dribbling: 18
     stamina: 16
-    pass: 14
+    pass: 16
     shoot: 15
     offensive: 9
     penalty: 15

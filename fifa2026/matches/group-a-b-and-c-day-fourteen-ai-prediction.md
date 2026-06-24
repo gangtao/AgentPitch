@@ -1,16 +1,14 @@
-# Mexico Held, and the Machine Calls Two Group-Stage Shocks — AI's Day Fourteen
+# Two Group-Stage Shocks, and Scotland Hold Brazil — AI's Day Fourteen
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's fourteenth day through the machine. Here is what it saw.*
 
-**Filed: June 22, 2026 — two days before kickoff**
+**Filed: June 23, 2026 — on the eve of the final group games**
 
 ---
 
-Day fourteen opens matchday three — the final round of the group stage, where the fixtures within a group kick off **simultaneously** so no one can play to a known result. The wheel turns back to the top of the alphabet: **Group A**, the host pool, and **Group B**, the co-host pool, the first two groups to begin back on days one and eight. Wednesday, June 24 splits cleanly across the map and the clock. At **3:00 PM ET**, Group B is settled on the Pacific coast: **Switzerland vs Canada** at BC Place in Vancouver, with **Bosnia and Herzegovina vs Qatar** simultaneously at Lumen Field in Seattle. Then, under the lights of Mexico at **9:00 PM ET**, Group A closes the night: **Czechia vs Mexico** at the Estadio Azteca and **South Korea vs South Africa** at the Estadio BBVA in Monterrey.
+Day fourteen opens matchday three — the final round of the group stage, where the two fixtures in a group kick off **simultaneously** so no one can play to a known result. The first three pools to begin the tournament close it out together on **Wednesday, June 24**: **Group A** (the host pool), **Group B** (the co-host pool) and **Group C** — six matches across the map and the clock. **Group B** goes first at **3:00 PM ET**: **Switzerland vs Canada** at BC Place in Vancouver and **Bosnia and Herzegovina vs Qatar** at Lumen Field in Seattle. **Group C** follows at **6:00 PM ET**: **Scotland vs Brazil** at Hard Rock Stadium in Miami and **Morocco vs Haiti** at Mercedes-Benz Stadium in Atlanta. Then **Group A** closes the night at **9:00 PM ET**: **Czechia vs Mexico** at the Estadio Azteca and **South Korea vs South Africa** at the Estadio BBVA in Monterrey.
 
-The groups arrive poised. In **Group A**, **Mexico** are already through and top on six points; **South Korea** sit second on three, **Czechia** and **South Africa** scrapping for survival on one apiece. In **Group B**, **Canada** and **Switzerland** are level on four — Canada ahead on goal difference after a 6–0 demolition of Qatar — while **Bosnia** and **Qatar** are anchored on one, needing snookers.
-
-As ever, we handed all four fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. And the machine turned in a cautious, cussed final round — two goalless draws at the top and two single-goal shocks at the bottom. In Vancouver, **Switzerland and Canada played out a 0–0** that suited both. In Seattle, **Qatar stunned Bosnia 1–0**, Almoez Ali striking late to spoil the favourites' must-win. At the Azteca, **Czechia held Mexico 0–0**, frustrating the hosts in front of their own crowd. And in Monterrey, **South Africa shocked South Korea 1–0**, Lyle Foster's early goal flipping the race for second.
+As ever, we handed all six fixtures to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, and deciding for itself whether to press, pass, hold or shoot. No scripts, no scripted endings. And the machine turned in a cautious, cussed opening to the final round — two goalless draws at the top, a brave Scottish point against Brazil, and a pair of single-goal shocks that sent fancied teams tumbling. In Vancouver, **Switzerland and Canada played out a 0–0** that suited both. In Seattle, **Qatar stunned Bosnia 1–0**, Almoez Ali striking late. In Miami, **Scotland held Brazil 1–1**, Ché Adams cancelling Matheus Cunha's early strike. In Atlanta, **Morocco edged Haiti 1–0**. At the Azteca, **Czechia held Mexico 0–0**. And in Monterrey, **South Africa shocked South Korea 1–0**, Lyle Foster's early goal flipping the race for second.
 
 ---
 
@@ -80,7 +78,73 @@ The shock of the day, and on the run of play not an unfair one. Qatar's low bloc
 
 ---
 
-## Match 3 — Czechia vs Mexico
+## Match 3 — Scotland vs Brazil
+
+### Match Info
+- **Competition:** 2026 FIFA World Cup, Group C (Matchday 3)
+- **Date / Time:** Wednesday, June 24, 2026 — 6:00 PM ET
+- **Venue:** Hard Rock Stadium, Miami Gardens, Florida
+- **Broadcast:** FOX
+- **Market line:** Brazil −255, O/U 2.5
+
+### The Teams
+**Scotland**, under **Steve Clarke**, must win to reach the last 32 and gamble accordingly — shifting from the Haiti-game 4-4-2 to a back-three **3-4-2-1** to add a body against Brazil's front line and spring the wing-backs on the counter. **Angus Gunn** in goal; a back three of **Jack Hendry**, **Grant Hanley** and **Kieran Tierney**; **Nathan Patterson** and captain **Andrew Robertson** as the driving wing-backs; **Lewis Ferguson** and **Scott McTominay** screening; **Ryan Christie** and **John McGinn** as the twin tens behind lone striker **Ché Adams**. Defend deep, deny Vinícius space, and steal the one chance that matters.
+
+**Brazil**, under **Carlo Ancelotti**, arrive level on points at the top and rotate into the dead-rubber margins while keeping their spine, lining up in the familiar **4-2-3-1**: **Alisson** behind **Douglas Santos**, **Gabriel Magalhães**, **Marquinhos** and **Danilo**; **Casemiro** and **Bruno Guimarães** at the base; **Lucas Paquetá** as the free ten; and a front line of **Vinícius Júnior**, **Matheus Cunha** and the teenager **Rayan**. Control the ball, isolate Vinícius, and finish top of the group.
+
+### Historical Backdrop
+This is among Scotland's most painful World Cup ledgers: they have **never beaten Brazil**, and the sides have met **four times at the World Cup** alone. Brazil won **4–1 in 1982** (David Narey's famous opener swiftly buried by Zico, Oscar, Éder and Falcão), **1–0 in 1990** through a late Müller goal, and **2–1 in the 1998 tournament opener** — settled by a Tom Boyd own goal after John Collins's penalty — while the **1974** meeting finished **0–0**. Add friendly defeats in 1987 and 2011 and the record reads six meetings, no Scottish win. Miami is their first World Cup meeting in twenty-eight years.
+*(Sources: [Scotland at the FIFA World Cup — Wikipedia](https://en.wikipedia.org/wiki/Scotland_at_the_FIFA_World_Cup), [Brazil vs Scotland encounters — National Football Teams](https://www.national-football-teams.com/encounter/teams/28/162/Brazil_vs_Scotland.html), [Scotland vs Brazil head-to-head — Sports Mole](https://www.sportsmole.co.uk/football/scotland/head-to-head/scotland-vs-brazil-head-to-head-record-and-past-meetings_599774.html))*
+
+### Lineups (as simulated)
+| | Scotland | Brazil |
+|---|---|---|
+| **GK** | Angus Gunn (1) | Alisson Becker (1) |
+| **DEF** | Jack Hendry (16), Grant Hanley (5), Kieran Tierney (6), Nathan Patterson (2), Andrew Robertson (3) | Douglas Santos (6), Gabriel Magalhães (3), Marquinhos (4), Danilo (13) |
+| **MID** | Lewis Ferguson (19), Scott McTominay (4), Ryan Christie (11), John McGinn (7) | Casemiro (5), Bruno Guimarães (8), Lucas Paquetá (20) |
+| **FWD** | Ché Adams (10) | Vinícius Júnior (7), Matheus Cunha (9), Rayan (24) |
+
+### Simulation Report — **Scotland 1–1 Brazil**
+The bravest result of the day, and the one that keeps a campaign breathing. Brazil started as Brazil do — **Matheus Cunha** struck on **4'** to settle the favourites and quiet the underdog — and for long stretches the seleção looked in control, finishing with **56% of the ball** and **fourteen shots** to Scotland's eight, **Vinícius Júnior** alone responsible for ten of them as he ran at the Scottish flank all night. But Clarke's back-five plan did exactly what it was built to do: deny the killer second goal, stay disciplined, and trust the counter. On **66'**, **Ché Adams** — Scotland's lone striker and the focal point of every break — lashed home the equaliser for **1–1**, the reward for a side that took its tally of attempts to a respectable eight against the group favourites. Brazil pressed for a winner; Gunn and the three centre-backs held; and Scotland clung to a point.
+
+**AI takeaway:** The machine reads this as a smash-and-survive that flatters Scotland's ambition more than their qualification maths — a draw lifts them but, with Morocco winning across the group, likely still leaves them short. Vinícius's ten-shot evening without a goal is the story of Brazil's frustration: dominant, direct, and a finish shy of comfort. For Clarke, Adams's strike and eight shots from a back-five underdog are vindication of the gamble; for Ancelotti, a point that still tops nothing and a reminder that rotation has a cost.
+
+---
+
+## Match 4 — Morocco vs Haiti
+
+### Match Info
+- **Competition:** 2026 FIFA World Cup, Group C (Matchday 3)
+- **Date / Time:** Wednesday, June 24, 2026 — 6:00 PM ET
+- **Venue:** Mercedes-Benz Stadium, Atlanta, Georgia
+- **Broadcast:** FS1
+- **Market line:** Morocco −575, O/U 3.5
+
+### The Teams
+**Morocco**, under **Walid Regragui**, sit top and chase the goals that would clinch first place, controlling in their fluid **4-2-3-1**. **Yassine Bounou** in goal; a back four of **Noussair Mazraoui**, **Chadi Riad**, **Issa Diop** and **Achraf Hakimi**; a double pivot of **Bilal El Khannouss** and the young **Ayyoub Bouaddi**; **Neil El Aynaoui**, **Azzedine Ounahi** and **Brahim Díaz** supplying **Ismael Saibari**. Keep the ball, stretch the Haitian block, and trust the quality in the final third.
+
+**Haiti**, under **Sébastien Migné**, are already out and play for pride, setting up to frustrate in a compact **4-4-2**. **Johny Placide** behind **Duke Lacroix**, **Hannes Delcroix**, **Ricardo Adé** and **Carlens Arcus**; a midfield bank of **Louicius Deedson**, **Jean-Ricner Bellegarde**, **Danley Jean Jacques** and **Ruben Providence**; **Frantzdy Pierrot** and **Wilson Isidor** up top as the outlets. Defend in numbers and hit the break.
+
+### Historical Backdrop
+There is no history at all: Morocco and Haiti have **never met** in a senior men's international, with no competitive fixture or friendly on record between the two nations. Atlanta is a genuine first meeting — a blank page between a 2022 semi-finalist and a side back at the World Cup for the first time since 1974. (One head-to-head aggregator lists prior results; it is contradicted by every authoritative source and appears auto-generated.)
+*(Sources: [Morocco national team records — Wikipedia](https://en.wikipedia.org/wiki/Morocco_national_football_team_records_and_statistics), [Morocco vs Haiti preview — Goal.com](https://www.goal.com/en-us/news/morocco-haiti-world-cup-preview/bltfe68a8f621710de3), [Morocco vs Haiti H2H — Sky Sports](https://www.skysports.com/football/morocco-vs-haiti/549818))*
+
+### Lineups (as simulated)
+| | Morocco | Haiti |
+|---|---|---|
+| **GK** | Yassine Bounou (1) | Johny Placide (1) |
+| **DEF** | Noussair Mazraoui (3), Chadi Riad (18), Issa Diop (14), Achraf Hakimi (2) | Duke Lacroix (13), Hannes Delcroix (5), Ricardo Adé (4), Carlens Arcus (2) |
+| **MID** | Bilal El Khannouss (7), Ayyoub Bouaddi (22), Neil El Aynaoui (24), Azzedine Ounahi (8), Brahim Díaz (10) | Louicius Deedson (11), Jean-Ricner Bellegarde (10), Danley Jean Jacques (17), Ruben Providence (15) |
+| **FWD** | Ismael Saibari (11) | Frantzdy Pierrot (20), Wilson Isidor (18) |
+
+### Simulation Report — **Morocco 1–0 Haiti**
+Control, patience, and one moment of quality. Morocco did what the group leaders are supposed to do — **63% of the ball, thirteen shots to eight** — but found Haiti's two banks of four stubborn, and the breakthrough refused to come before the hour. **Brahim Díaz** was the busiest creator and shooter with seven attempts, Saibari probing in front of him; Haiti, for their part, were no pushover going the other way, **Wilson Isidor** firing five of their eight shots on the counter and Pierrot holding the ball up bravely. The decisive blow came on **66'**, when **Bilal El Khannouss** — pushed up from the pivot — struck the only goal to settle it. Haiti pressed for a consolation that would not arrive; Morocco saw it out.
+
+**AI takeaway:** The machine sees a professional, narrow win for a side that controlled without ever fully convincing — El Khannouss's late goal the difference in a game Morocco shaded throughout. The eight Haitian shots are a credit to a side already eliminated and playing only for pride: organised, willing, and a goalkeeper-or-finish away from a famous point. Morocco take the win they needed to stay top; Haiti depart with their heads up.
+
+---
+
+## Match 5 — Czechia vs Mexico
 
 ### Match Info
 - **Competition:** 2026 FIFA World Cup, Group A (Matchday 3)
@@ -113,7 +177,7 @@ A frustrating goalless night for the hosts in front of their own crowd. Mexico h
 
 ---
 
-## Match 4 — South Korea vs South Africa
+## Match 6 — South Korea vs South Africa
 
 ### Match Info
 - **Competition:** 2026 FIFA World Cup, Group A (Matchday 3)
@@ -148,20 +212,18 @@ A second shock to close the night, and the one that rewrites Group A. South Afri
 
 ## The Picture, Per the Machine
 
-Day fourteen, per the simulation: caution at the top, carnage at the bottom. The seeded sides came through Group B in a stalemate, but both pools delivered a single-goal shock that sent a fancied team home.
+Day fourteen, per the simulation: caution and shocks in equal measure as the final round began. Two seeded sides were held, two underdogs struck, and the favourites who advanced rarely did it the easy way.
 
 | Match | Result | Group |
-|---|---|---|
+|-------|--------|-------|
 | 🇨🇭 Switzerland drew Canada | **0 – 0** | B |
-| 🇨🇦 Canada drew Switzerland | **0 – 0** | B |
 | 🇧🇦 Bosnia and Herzegovina lost to Qatar | 0 – 1 | B |
-| 🇶🇦 **Qatar** bt Bosnia and Herzegovina | **1 – 0** | B |
+| 🏴󠁧󠁢󠁳󠁣󠁴󠁿 Scotland drew Brazil | **1 – 1** | C |
+| 🇲🇦 **Morocco** bt Haiti | **1 – 0** | C |
 | 🇨🇿 Czechia drew Mexico | **0 – 0** | A |
-| 🇲🇽 Mexico drew Czechia | **0 – 0** | A |
 | 🇰🇷 South Korea lost to South Africa | 0 – 1 | A |
-| 🇿🇦 **South Africa** bt South Korea | **1 – 0** | A |
 
-The through-line of day fourteen is the seeded sides surviving while the chasing packs ambush the favourites. In **Group A**, the simulator sends **Mexico through as winners on seven points** after their goalless night, and — in the twist of the day — **South Africa into second on four**, Foster's early goal lifting them above a **South Korea** side stranded on three. **Czechia**, despite a battling draw at the Azteca, finish bottom on two. In **Group B**, **Canada top on five** by virtue of goal difference, **Switzerland second on five** alongside them, both safely through from their handshake draw; beneath them **Qatar's shock win lifts them to four** but likely not enough, while **Bosnia** exit bottom and pointless-but-for-one. Almoez Ali's fourteen-shot matchwinner and Lyle Foster's early strike are the day's defining images — two underdogs who turned discipline and a single chance into the kind of result that ends someone else's World Cup.
+In **Group A**, the machine sends **Mexico through as winners** after their goalless night and — the twist of the day — **South Africa into second**, Foster's early strike lifting them above a South Korea side stranded on three; Czechia finish bottom. In **Group B**, **Canada and Switzerland go through together** from their handshake draw, Canada keeping top on goal difference, while **Qatar's shock win** lifts them off the bottom but likely not far enough, and **Bosnia exit**. In **Group C**, **Morocco top the group** with their narrow win and **Brazil follow** after being held, while **Scotland's gallant point** most likely falls a place short and **Haiti bow out**. Almoez Ali's late winner, Lyle Foster's strike and Ché Adams's leveller against Brazil are the day's defining images — three moments that bent three groups out of shape.
 
 ---
 

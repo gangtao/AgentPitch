@@ -3,7 +3,11 @@
 ## Identity & Philosophy
 Colombia under Néstor Lorenzo is a balanced, possession-comfortable side built around the renaissance of James Rodríguez as a deep-lying #10 and the direct, devastating wing play of Luis Díaz. After a 28-match unbeaten run from 2022 to 2024 (broken by the Copa América 2024 final loss to Argentina), Colombia have established themselves as the second-best CONMEBOL side. Lorenzo's philosophy: defensive solidity first, then unleash James and Díaz on counter-attacks and patient possession sequences. This is a big-tournament team that gets better as the games tighten.
 
-**Matchday 1 update (17 June, vs Uzbekistan — 3-1 win):** Colombia opened Group K with a convincing 3-1 victory, James Rodríguez pulling the strings from the #10 and the Díaz–Suárez–Arias front line clicking. Manager Lorenzo had a fully fit squad and chose the physical, mobile **Gustavo Puerta** alongside Jefferson Lerma in the double pivot (over Richard Ríos) — Puerta's legs and ball-winning suiting the screen role in front of the back four. No injuries, no bookings of consequence, no suspensions. For Matchday 2 vs DR Congo (23 June) the probable XI is **unchanged** from the Uzbekistan win: same 4-2-3-1, same Puerta-Lerma pivot, James as the floating 10. The selection watch is purely rotational depth (Ríos pressing for Puerta's slot) — the system is settled.
+**Matchday 1 (17 June, vs Uzbekistan — 3-1 win, Estadio Azteca):** Colombia opened Group K with a convincing 3-1 victory. Daniel Muñoz volleyed them ahead (40'), Luis Díaz restored the two-goal cushion (65'), and Jáminton Campaz iced it deep into stoppage time (90+9'). James Rodríguez pulled the strings from the #10 and the Díaz–Suárez–Arias front line clicked.
+
+**Matchday 2 (23 June, vs DR Congo — 1-0 win, Estadio Akron):** A more controlled, low-scoring grind exactly to Lorenzo's taste. Daniel Muñoz again the matchwinner, heading home on 76' — his second goal in two games as a marauding right-back. Colombia tightened into a settled **4-2-3-1**, **Gustavo Puerta** retained alongside Jefferson Lerma in the double pivot (over Richard Ríos), James floating as the 10, Suárez leading the line. The clean sheet secured Round of 32 qualification.
+
+**Into Matchday 3 (27 June, vs Portugal — Hard Rock Stadium, Miami):** Colombia top Group K on **6 points (+3 GD)**, one clear of Portugal (4 pts), both already through. **Any result other than a loss seals top spot** and a theoretically softer Round-of-32 draw. The probable XI is **unchanged** — same 4-2-3-1, same Puerta-Lerma pivot, James as the floating 10, Suárez up top. No injuries, no suspensions, no yellow-card jeopardy of note. Lorenzo may *rein in* tempo with qualification banked, but the starting group is settled; Ríos remains the like-for-like rotation behind Puerta. Expect a cagey, control-the-game approach against a Ronaldo-led Portugal — exactly the kind of tight, James-decides-it match Colombia relish.
 
 ## Formation
 - Shape: **4-2-3-1** (very stable, with James as the floating 10)
@@ -13,7 +17,7 @@ Colombia under Néstor Lorenzo is a balanced, possession-comfortable side built 
   - index 2: LCB — **Davinson Sánchez** — aerial dominator, no-nonsense, stays in shape.
   - index 3: RCB — **Jhon Lucumí** — left-footed, calmer on the ball, the marginal ball-progressor of the pair.
   - index 4: RB — **Daniel Muñoz** — physical, more defensive than Mojica but still overlaps; double-fullback overlap is rare — usually one stays.
-  - index 5: DM — **Gustavo Puerta** — physical, mobile ball-winner in the pivot; the energy of the double-six, presses and recovers, keeps it simple in possession (MD1 starter over Ríos).
+  - index 5: DM — **Gustavo Puerta** — physical, mobile ball-winner in the pivot; the energy of the double-six, presses and recovers, keeps it simple in possession (MD1 & MD2 starter over Ríos).
   - index 6: DM — **Jefferson Lerma** — destroyer, the screen, allows Puerta to range and James to roam.
   - index 7: LW — **Luis Díaz** — direct 1v1 winger, the team's chief carrier, drives at the opposition RB.
   - index 8: AM/10 — **James Rodríguez** — the conductor, plays as a deep 10, drifts to the right half-space to combine with Muñoz/Arias; the team's chief creator and dead-ball specialist.
@@ -61,9 +65,9 @@ Concrete rules the LLM should encode:
 - **James Rodríguez (10):** The team's heart. Free role between the lines. No defensive duty beyond a token jog. Every set-piece is his.
 - **Luis Díaz (7):** Licensed to be the chief 1v1 dribbler. Will attempt to beat his man even when a simpler pass exists.
 - **Mojica (17):** Most attacking fullback in CONMEBOL alongside Estupiñán — bombs forward.
-- **Gustavo Puerta (6):** The youngest starter and MD1 pivot pick over Ríos. Physical, two-way midfielder who covers ground, wins second balls and keeps possession simple — the legs that let Lerma hold and James float. Ríos is the like-for-like rotation behind him.
+- **Gustavo Puerta (6):** The youngest starter and the MD1 & MD2 pivot pick over Ríos. Physical, two-way midfielder who covers ground, wins second balls and keeps possession simple — the legs that let Lerma hold and James float. Ríos is the like-for-like rotation behind him.
 - **Lerma (16):** The defensive sentinel — anchors so James can roam.
 - **Luis Suárez (25):** In-form penalty-box finisher (Primeira Liga top scorer with Sporting); has displaced Córdoba as the starter. Runs the channels and gambles on the shoulder of the last defender rather than holding play up. Clinical inside the box.
 
 ## Tournament Mindset
-Colombia are a knockout-round side: they grow into tournaments. Group stage may be cautious, but in the round of 16 onwards expect James to seize a game and Díaz to break a tight match in transition. They are happy to play low-scoring, James-decides-it matches.
+Colombia are a knockout-round side: they grow into tournaments. Two wins from two, already qualified, and topping Group K — they enter the Portugal decider with nothing to chase and everything to manage. Expect a controlled, low-risk performance: defend the box, deny Portugal the transitions, and rely on James and Díaz to punish on the counter. A draw is enough for first place, and Colombia will happily play a tight, low-scoring, James-decides-it match. From the round of 16 onwards expect James to seize a game and Díaz to break a tight match in transition.

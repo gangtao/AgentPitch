@@ -3,12 +3,16 @@
 ## Identity & Philosophy
 Uruguay under Marcelo Bielsa is one of the most distinctive tactical projects in world football: relentless man-oriented high pressing, vertical attacks the second possession is won, and a diamond-shaped midfield press that asphyxiates opponents. Bielsa has stripped the team of the old defend-and-Suárez-decides-it identity (Luis Suárez is absent from the 2026 squad for the first time since 2010) and replaced it with a young, sprinting, gegen-pressing collective — Valverde the captain and engine everywhere, Núñez stretching the line, Maxi Araújo flying down the flank, the creative de Arrascaeta drifting in from the left. The team is built on the elite Araújo–Giménez centre-back pairing and a ball-winning Ugarte screen. Recent results: third in Copa América 2024, explosive high-scoring wins, and dramatic narrow defeats against the elite — Bielsa Uruguay is rarely boring.
 
-**Matchday 1 (June 15, 2026):** drew 1-1 with Saudi Arabia in Miami. Saudi Arabia led through Al-Amri (41'); substitute **Maxi Araújo equalised on 80'** to rescue a point. Bielsa rotated heavily and started **Fernando Muslera** in goal. No suspensions or injuries reported. Uruguay underwhelmed and cannot afford another slip before the final-group decider with Spain. For Matchday 2 vs Cape Verde (June 21), the probable XI promotes Maxi Araújo into the wide-forward berth ahead of Pellistri, with Muslera retained in goal.
+**Matchday 1 (June 15, 2026):** drew 1-1 with Saudi Arabia. Saudi Arabia led; substitute **Maxi Araújo equalised on 80'** to rescue a point. Bielsa rotated heavily and started **Fernando Muslera** in goal. Uruguay underwhelmed.
+
+**Matchday 2 (June 21, 2026):** drew 2-2 with Cape Verde — a shock result. **Maxi Araújo** and **Agustín Canobbio** put Uruguay 2-1 up, but Bielsa rested **Darwin Núñez** to the bench, a late Maxi Araújo goal was ruled out for **offside**, and **Muslera raced recklessly off his line on 61'** to gift Cape Verde substitute Hélio Varela the equaliser. Two draws, two points.
+
+**Standing into Matchday 3:** Uruguay sit **3rd in Group H on 2 points** (Spain 4, Uruguay 2, Cape Verde 2, Saudi Arabia 1), ahead of Cape Verde only on goals scored. The maths is brutal: **a win over Spain guarantees the knockouts**; a draw advances them only if Cape Verde fail to beat Saudi Arabia. Uruguay effectively must win — and against the group favourites. Expect Bielsa to **restore Darwin Núñez to lead the line** for the decider and unleash the full press. No suspensions reported, though several Uruguayans carry a yellow-card warning.
 
 ## Formation
 - Shape: **4-3-3** (with extreme verticality; pressing morphs into 3-3-1-3 with man-marking. Bielsa will flex to a 4-2-3-1 against some opponents, pushing a creator behind Núñez)
 - Role mapping (roster order in `uruguay.yaml`):
-  - index 0: GK — **Fernando Muslera** — veteran keeper in a record 5th World Cup; started Matchday 1 and is the probable Matchday 2 starter. Modest sweeper-keeper duties, primarily a shot-stopper, plays short when possible (Rochet the in-form alternative).
+  - index 0: GK — **Fernando Muslera** — veteran keeper in a record 5th World Cup; started both group games. His **reckless 61' dash off his line cost the equaliser vs Cape Verde** — he must stay disciplined vs Spain. Modest sweeper-keeper duties, primarily a shot-stopper, plays short when possible (Rochet the in-form alternative pressing for a recall).
   - index 1: LB — **Mathías Olivera** — pacy, attacking, asked to push extremely high (Bielsa fullbacks are essentially wingers).
   - index 2: LCB — **José María Giménez** — front-foot defender, aggressive man-marker, will step 25 yards out of position to chase his man; nears 100 caps and a senior leader.
   - index 3: RCB — **Ronald Araújo** — physical monster, the defensive anchor, the recovery sprinter who covers Giménez's adventures.
@@ -18,7 +22,7 @@ Uruguay under Marcelo Bielsa is one of the most distinctive tactical projects in
   - index 7: LCM/8 — **Rodrigo Bentancur** — deep-lying playmaker of the trio, the metronome, the calmest passer in the midfield three (Nicolás de la Cruz is the like-for-like creative alternative here).
   - index 8: LW — **Giorgian de Arrascaeta** — the chief creator; left-sided forward who drifts inside into the pockets, the team's most technical passer and a genuine goal threat from the half-space.
   - index 9: ST — **Darwin Núñez** — chaos-merchant striker, stretches the line, makes constant runs in behind, never holds the ball, always sprints.
-  - index 10: RW — **Maximiliano Araújo** — pacy Sporting CP wide forward (natural left winger deployed here as the touchline-hugging wide threat), the Matchday 1 goalscorer; high-stamina 1v1 runner who attacks the outside and darts in behind (Pellistri the like-for-like alternative on this flank).
+  - index 10: RW — **Maximiliano Araújo** — pacy Sporting CP wide forward (natural left winger deployed here as the touchline-hugging wide threat), Uruguay's **top scorer of the group stage (goals in BOTH MD1 and MD2)**; high-stamina 1v1 runner who attacks the outside and darts in behind (Agustín Canobbio, the MD2 scorer, and Pellistri are the like-for-like alternatives on this flank).
 
 ## Style of Play
 ### Build-up
@@ -55,12 +59,12 @@ Concrete rules the LLM should encode:
 9. **If my `player_id` ends with `_8` (LW, de Arrascaeta) and team has the ball:** Drift inside into the left half-space; when I receive between the lines, turn forward and Pass through to `_9` (Núñez)'s run or Shoot from the edge of the box — never recycle backward by default.
 10. **If team_phase == "transition_attack":** Prefer the most vertical Pass available (e.g., a 30-unit forward pass to `_9` Núñez) over any sideways option.
 11. **If my `role == "FWD"` or `role == "MID"` and team has just lost the ball:** Counter-press within a 7-unit radius for 6 seconds (longest press window in the tournament).
-12. **If my `role == "GK"` (player_id `_0`, Muslera) and pressed:** Play short to a CB if safe; if not, punt long to `_9` (Núñez)'s channel run — never play it long without a target.
+12. **If my `role == "GK"` (player_id `_0`, Muslera) and pressed:** Play short to a CB if safe; if not, punt long to `_9` (Núñez)'s channel run — never play it long without a target. **Stay on your line / inside the box** — do NOT rush out to challenge unless the ball is clearly winnable (the MD2 dash off the line cost a goal).
 13. **If team is trailing and minute > 60:** Push EVEN HIGHER — fullbacks to halfway line, `_2` (Giménez) follows the striker everywhere. Accept the risk of conceding.
 
 ## Key Player Notes
 - **Valverde (8) — captain:** Free role within the right half-space. The team's heart-lungs and dead-ball/penalty leader. Late box-arrival is his signature.
-- **Núñez (9):** Now at Al Hilal after leaving Liverpool. Never holds the ball. Always sprinting. Stretches the field. Will press the GK alone.
+- **Núñez (9):** Now at Al Hilal after leaving Liverpool. Rested to the bench for MD2 vs Cape Verde; expected to be **restored to lead the line for the must-win decider vs Spain**. Never holds the ball. Always sprinting. Stretches the field. Will press the GK alone.
 - **Maxi Araújo (11) — index 10, wide forward:** Sporting CP pace merchant and Matchday 1 match-saver; a natural left winger fielded here as the touchline-hugging wide threat, high stamina, direct 1v1 runner who darts in behind for low cutbacks.
 - **de Arrascaeta (10):** The creative fulcrum — most technical player in the side. Drifts in from the left, plays through-balls, takes the wide/left set-pieces. Bielsa's only pure playmaker in the XI.
 - **Giménez (2):** Man-marker extreme — Bielsa license to follow his man anywhere; senior leader nearing 100 caps.
@@ -69,4 +73,4 @@ Concrete rules the LLM should encode:
 - **Bielsa note:** No player ever walks. If stamina < 8, the player should still sprint when the press trigger fires. Substitutions are managed by Bielsa's relentless system.
 
 ## Tournament Mindset
-Uruguay are the high-variance team of the tournament: they will beat anyone 4-1 on a good day and lose 4-1 on a bad one. Bielsa accepts the trade-off. Stamina management is critical — Uruguay must rotate aggressively because the press is unsustainable for back-to-back full matches.
+Uruguay are the high-variance team of the tournament: they will beat anyone 4-1 on a good day and lose 4-1 on a bad one. Bielsa accepts the trade-off. **This is a must-win/avoid-defeat decider vs group-favourites Spain** — two underwhelming draws have left Uruguay 3rd and clinging to a goals-scored tiebreaker over Cape Verde. Expect Bielsa to go for the throat: full press from minute one, Núñez restored, fullbacks pushed to the halfway line, and acceptance of defensive risk in pursuit of the goals that guarantee qualification. Stamina management is critical — but in a do-or-die game Bielsa will spend everything.
