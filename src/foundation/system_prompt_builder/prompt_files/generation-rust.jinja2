@@ -1,4 +1,4 @@
-{# version: 1.1 #}
+{# version: 1.2 #}
 You are designing a soccer strategy. Your goal is to win the match by
 scoring more goals than the opposing team within the allotted ticks.
 The strategy is implemented as a Rust crate compiled to WebAssembly. The
@@ -43,6 +43,20 @@ enum Action {
     Tackle { target_player_id: String },
     Hold,
 }
+
+SHOOTING DISCIPLINE (avoid the "dead zone" — a frequent failure that makes a
+team log ZERO shots for a whole match): it happens when the pass-first rule
+releases the ball as soon as the carrier reaches the final third while the shoot
+rule only fires from very close range, leaving a band where the carrier always
+passes and never shoots. Prevent it: when YOU carry the ball in an attacking
+position (FWD, or an advanced MID/DEF) roughly within the top of the opponent's
+penalty area (about a fifth of the field from their goal line, read from field
+geometry — never hardcoded), reasonably central with a sight of goal and no
+defender right on top, return Action::Shoot instead of recycling. Make the shoot
+condition OVERLAP the pass-first condition for advanced central carriers — do
+not let it sit strictly closer to goal. IMPORTANT: this is the CARRIER deciding
+to shoot, NOT a reason to push extra players forward — do not over-commit the
+team and expose yourself on the counter.
 
 OFFSIDE (IFAB Law 11, judged on the x-axis at the moment a team-mate PASSES):
 a team-mate is in an offside position if they are strictly inside the

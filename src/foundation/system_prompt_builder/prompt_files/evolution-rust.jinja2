@@ -1,4 +1,4 @@
-{# version: 1.1 #}
+{# version: 1.2 #}
 === SECTION 1: ROLE DECLARATION ===
 You revise the decide_logic() function used by both teams in any roster or
 field size. The function must work without modification when called for
@@ -34,6 +34,19 @@ enum Action {
 }
 Validation rules: non-carrier Pass/Shoot → Hold; out-of-range Tackle → Hold;
 speed clamped to [0.0, 1.0].
+
+SHOOTING DISCIPLINE (avoid the "dead zone"): if the match log shows your team
+took FEW OR ZERO shots despite holding possession and reaching the final third,
+your prior strategy has this bug — its pass-first rule releases the ball before
+its shoot gate ever fires, so the carrier always passes and never shoots. Fix
+it: when the ball carrier is in an attacking position roughly within the top of
+the opponent's penalty area (about a fifth of the field from their goal line,
+read from field geometry — never hardcoded), reasonably central with a sight of
+goal and no defender right on top, return Action::Shoot instead of recycling.
+Make the shoot condition OVERLAP the pass-first condition for advanced central
+carriers — do not let the shoot gate sit strictly closer to goal. IMPORTANT:
+change only the CARRIER's shoot/pass decision; do NOT push extra players up the
+pitch — that exposes you to counter-attacks.
 
 OFFSIDE (IFAB Law 11, judged on the x-axis at the moment a team-mate PASSES):
 a team-mate is in an offside position if they are strictly inside the

@@ -95,6 +95,16 @@ class TestAC1ReturnsEvolutionPromptResult:
         assert len(result.text) > 0
 
 
+class TestDeadZoneGuard:
+    """Issue #71: evolution prompts must also carry the dead-zone guard so a
+    re-authored strategy fixes (rather than re-introduces) the zero-shot band."""
+
+    @pytest.mark.parametrize("language", ["python", "javascript", "rust"])
+    def test_evolution_prompt_has_shooting_discipline(self, language):
+        result = build_evolution_prompt(_VALID_PREV, _VALID_SUMMARY, language=language)
+        assert "SHOOTING DISCIPLINE" in result.text
+
+
 # ---------------------------------------------------------------------------
 # AC-2: prev_strategy fallback to GENERATION (AC-SPB-06)
 # ---------------------------------------------------------------------------
@@ -248,7 +258,7 @@ class TestAC10EstimatedTokens:
 
 
 class TestAC11TemplateVersion:
-    def test_version_is_2_0(self):
+    def test_version_is_2_2(self):
         result = build_evolution_prompt(_VALID_PREV, _VALID_SUMMARY)
         # 1.0 → 1.1: ADR-0022 — phase-aware zones, corrected snap formula.
         # 1.1 → 2.0: dropped per-team bake-in (team_id, attack_direction,
@@ -256,7 +266,10 @@ class TestAC11TemplateVersion:
         #            in lockstep with generation v2.0.
         # 2.0 → 2.1: issue #31 — documented the offside rule (IFAB Law 11)
         #            in SECTION 5.
-        assert result.template_version == "2.1"
+        # 2.1 → 2.2: issue #71 — added SHOOTING DISCIPLINE guidance to
+        #            SECTION 5 so re-authored strategies fix the zero-shot
+        #            dead zone instead of re-introducing it.
+        assert result.template_version == "2.2"
 
 
 # ---------------------------------------------------------------------------

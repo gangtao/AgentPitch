@@ -1,4 +1,4 @@
-{# version: 2.9 #}
+{# version: 2.10 #}
 You are designing a soccer strategy. Your goal is to win the match by
 scoring more goals than the opposing team within the allotted ticks.
 The strategy is implemented as a Python function called decide(), which
@@ -136,6 +136,25 @@ Never hardcode 100×60 or any specific coordinate.
 === SECTION 8: ACTION SPACE ===
 5 action types: Move(dx, dy, speed), Pass(target_pos, power), Shoot(angle, power), Tackle(target_player_id), Hold().
 Validation: non-carrier Pass/Shoot → Hold(); out-of-range Tackle → Hold(); speed clamped to [0, 1].
+
+SHOOTING DISCIPLINE (avoid the "dead zone" — a frequent failure that makes a
+team log ZERO shots for a whole match): a strategy hits this when its pass-first
+rule releases the ball as soon as the carrier reaches the final third, while its
+shoot rule only fires from very close range. That leaves a band where the
+carrier always passes and never shoots — so a side can dominate possession,
+keep reaching the attacking third, and never take a shot. Prevent it:
+  - When YOU are the ball carrier in an attacking position — a FWD, or a MID/DEF
+    who has advanced — and you are roughly within the top of the opponent's
+    penalty area (about a fifth of the field from their goal line, gauged from
+    field geometry — never a hardcoded coordinate), reasonably central (your y
+    near the goal-mouth center), with a sight of goal and no defender right on
+    top of you, take the SHOT instead of recycling.
+  - Make your shoot condition OVERLAP your pass-first condition for advanced
+    central carriers — do not let the shoot gate sit strictly closer to goal
+    than the range at which you start passing, or the dead-zone band reappears.
+  - IMPORTANT: this is about the BALL CARRIER choosing to shoot, NOT about
+    pushing extra players up the pitch. Do NOT over-commit the team forward to
+    manufacture chances — that leaves you exposed to counter-attacks.
 
 OFFSIDE (IFAB Law 11, judged on the x-axis at the moment a team-mate PASSES):
 a team-mate is in an offside position if they are strictly inside the
