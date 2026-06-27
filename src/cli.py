@@ -15,7 +15,7 @@ import importlib.metadata
 import sys
 
 
-_USAGE = "usage: agent-pitch {run|serve|generate-strategy|cup-run|league-run} [options]"
+_USAGE = "usage: agent-pitch {run|serve|generate-strategy|cup-run|league-run|check-match} [options]"
 
 
 def main() -> None:
@@ -55,6 +55,10 @@ def main() -> None:
         # league_runner.main() strips 'league-run' from argv before its own argparse.
         from src.orchestration.cli.league_runner import main as league_run_main
         league_run_main()
+    elif cmd == "check-match":
+        # check_runner.main() strips 'check-match' from argv before its own argparse.
+        from src.orchestration.cli.check_runner import main as check_match_main
+        check_match_main()
     elif cmd in ("-h", "--help"):
         print(_USAGE)
         print()
@@ -64,6 +68,7 @@ def main() -> None:
         print("  generate-strategy   Generate one strategy via LLM (used by the UI subprocess)")
         print("  cup-run             Orchestrate a single-elimination cup tournament")
         print("  league-run          Orchestrate a round-robin league tournament")
+        print("  check-match         Flag teams with high possession but near-zero shots (issue #71)")
         print()
         print("Options:")
         print("  --version, -V       Print version and exit")

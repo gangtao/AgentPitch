@@ -277,5 +277,7 @@ class TestRealProductionTemplatesLoad:
         #            runtime (every tick → silent Hold()).
         # 2.8 → 2.9 (generation only): issue #38 — foul system (Law 12),
         #            offensive/penalty attributes, yellow_cards state.
-        assert templates_module._template_cache[PromptMode.GENERATION].version == "2.9"
-        assert templates_module._template_cache[PromptMode.EVOLUTION].version == "2.1"
+        # 2.9 → 2.10 (gen) / 2.1 → 2.2 (evo): issue #71 — SHOOTING DISCIPLINE
+        #            guidance against the zero-shot dead zone.
+        assert templates_module._template_cache[PromptMode.GENERATION].version == "2.10"
+        assert templates_module._template_cache[PromptMode.EVOLUTION].version == "2.2"

@@ -129,6 +129,22 @@ class TestAC2SectionsInOrder:
         assert len(positions) == 15
 
 
+class TestDeadZoneGuard:
+    """Issue #71: every generated strategy should ship with conservative
+    shooting-discipline guidance so the carrier shoots from the edge of the
+    area instead of always recycling (the zero-shot dead zone)."""
+
+    def test_python_prompt_has_shooting_discipline(self):
+        text = build_generation_prompt(language="python").text
+        assert "SHOOTING DISCIPLINE" in text
+
+    def test_javascript_prompt_has_shooting_discipline(self):
+        assert "SHOOTING DISCIPLINE" in build_generation_prompt(language="javascript").text
+
+    def test_rust_prompt_has_shooting_discipline(self):
+        assert "SHOOTING DISCIPLINE" in build_generation_prompt(language="rust").text
+
+
 # ---------------------------------------------------------------------------
 # AC-3: Cross-team symmetry (AC-SPB-11)
 # ---------------------------------------------------------------------------
@@ -206,7 +222,7 @@ class TestAC7EstimatedTokens:
 
 
 class TestAC8TemplateVersion:
-    def test_version_is_2_7(self):
+    def test_version_is_2_10(self):
         result = build_generation_prompt()
         # 1.0 → 1.1: schema sync (cooldown_remaining, goal_top/goal_bottom).
         # 1.1 → 1.2: attribute rename (save_reach → save, position_sense → discipline).
@@ -234,7 +250,10 @@ class TestAC8TemplateVersion:
         # 2.8 → 2.9: issue #38 — documented fouls/cards (IFAB Law 12) in
         #            SECTION 8 and the offensive/penalty attributes +
         #            yellow_cards state in SECTIONS 3/9.
-        assert result.template_version == "2.9"
+        # 2.9 → 2.10: issue #71 — added SHOOTING DISCIPLINE guidance to
+        #            SECTION 8 so the carrier shoots from the edge of the area
+        #            instead of recycling (the zero-shot dead zone).
+        assert result.template_version == "2.10"
 
 
 # ---------------------------------------------------------------------------
