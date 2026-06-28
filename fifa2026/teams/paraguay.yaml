@@ -100,12 +100,12 @@ players:
     shoot: 9
     offensive: 13
     penalty: 11
-  - name: Damián Bobadilla
-    number: 5
+  - name: Matías Galarza
+    number: 18
     role: MID
     speed: 13
     skill: 13
-    strength: 14
+    strength: 13
     save: 0
     discipline: 12
     dribbling: 12
@@ -114,20 +114,20 @@ players:
     shoot: 11
     offensive: 12
     penalty: 11
-  - name: Diego Gómez
-    number: 8
+  - name: Maurício
+    number: 20
     role: MID
-    speed: 15
+    speed: 14
     skill: 14
-    strength: 13
+    strength: 12
     save: 0
     discipline: 13
     dribbling: 14
-    stamina: 16
+    stamina: 15
     pass: 14
-    shoot: 13
+    shoot: 12
     offensive: 9
-    penalty: 13
+    penalty: 11
   - name: Julio Enciso
     number: 19
     role: FWD
@@ -142,17 +142,17 @@ players:
     shoot: 15
     offensive: 8
     penalty: 15
-  - name: Antonio Sanabria
+  - name: Gabriel Ávalos
     number: 9
     role: FWD
-    speed: 13
-    skill: 14
+    speed: 12
+    skill: 13
     strength: 15
     save: 0
     discipline: 12
-    dribbling: 12
+    dribbling: 11
     stamina: 14
     pass: 12
-    shoot: 14
+    shoot: 13
     offensive: 10
-    penalty: 14
+    penalty: 12

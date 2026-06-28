@@ -100,34 +100,34 @@ players:
     shoot: 14
     offensive: 10
     penalty: 13
-  - name: Junya Itō
-    number: 14
+  - name: Yukinari Sugawara
+    number: 19
     role: MID
-    speed: 17
-    skill: 15
-    strength: 12
+    speed: 16
+    skill: 14
+    strength: 13
     save: 0
     discipline: 14
-    dribbling: 16
-    stamina: 16
-    pass: 15
-    shoot: 14
-    offensive: 10
-    penalty: 14
-  - name: Takefusa Kubo
-    number: 8
+    dribbling: 13
+    stamina: 17
+    pass: 14
+    shoot: 10
+    offensive: 11
+    penalty: 10
+  - name: Ao Tanaka
+    number: 17
     role: FWD
-    speed: 15
-    skill: 17
-    strength: 12
+    speed: 13
+    skill: 16
+    strength: 14
     save: 0
-    discipline: 14
-    dribbling: 17
-    stamina: 15
+    discipline: 15
+    dribbling: 14
+    stamina: 16
     pass: 16
-    shoot: 15
-    offensive: 8
-    penalty: 16
+    shoot: 13
+    offensive: 9
+    penalty: 12
   - name: Ayase Ueda
     number: 18
     role: FWD

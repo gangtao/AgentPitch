@@ -1,35 +1,35 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: germany
 name: Germany
 players:
-  - name: Oliver Baumann
-    number: 22
+  - name: Manuel Neuer
+    number: 1
     role: GK
-    speed: 12
-    skill: 14
-    strength: 14
-    save: 16
-    discipline: 16
-    dribbling: 7
+    speed: 13
+    skill: 16
+    strength: 15
+    save: 18
+    discipline: 15
+    dribbling: 11
     stamina: 13
-    pass: 14
-    shoot: 3
-    offensive: 5
-    penalty: 8
-  - name: David Raum
-    number: 3
+    pass: 16
+    shoot: 4
+    offensive: 6
+    penalty: 9
+  - name: Nathaniel Brown
+    number: 18
     role: DEF
-    speed: 16
-    skill: 15
+    speed: 17
+    skill: 14
     strength: 13
     save: 0
     discipline: 13
     dribbling: 14
     stamina: 18
-    pass: 16
-    shoot: 10
-    offensive: 14
-    penalty: 11
+    pass: 14
+    shoot: 9
+    offensive: 13
+    penalty: 10
   - name: Jonathan Tah
     number: 4
     role: DEF
@@ -58,101 +58,101 @@ players:
     shoot: 8
     offensive: 14
     penalty: 11
-  - name: Waldemar Anton
-    number: 16
+  - name: Joshua Kimmich
+    number: 6
     role: DEF
     speed: 14
-    skill: 14
-    strength: 16
+    skill: 18
+    strength: 14
     save: 0
     discipline: 14
-    dribbling: 11
-    stamina: 16
-    pass: 14
-    shoot: 8
-    offensive: 12
-    penalty: 10
-  - name: Leon Goretzka
-    number: 8
-    role: MID
-    speed: 14
-    skill: 16
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 17
-    pass: 16
-    shoot: 15
-    offensive: 11
-    penalty: 14
-  - name: Angelo Stiller
-    number: 23
+    dribbling: 15
+    stamina: 18
+    pass: 19
+    shoot: 14
+    offensive: 14
+    penalty: 15
+  - name: Aleksandar Pavlović
+    number: 19
     role: MID
     speed: 13
     skill: 17
-    strength: 13
+    strength: 14
     save: 0
     discipline: 15
     dribbling: 15
     stamina: 17
     pass: 18
-    shoot: 12
+    shoot: 11
     offensive: 11
-    penalty: 13
-  - name: Nadiem Amiri
-    number: 14
+    penalty: 12
+  - name: Felix Nmecha
+    number: 8
     role: MID
     speed: 14
-    skill: 16
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 15
-    stamina: 16
-    pass: 16
-    shoot: 14
-    offensive: 11
-    penalty: 14
-  - name: Jamie Leweling
-    number: 20
-    role: FWD
-    speed: 17
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 16
-    stamina: 16
-    pass: 14
-    shoot: 14
-    offensive: 10
-    penalty: 13
-  - name: Deniz Undav
-    number: 9
-    role: FWD
-    speed: 15
     skill: 16
     strength: 15
     save: 0
     discipline: 14
     dribbling: 15
+    stamina: 17
+    pass: 16
+    shoot: 14
+    offensive: 11
+    penalty: 13
+  - name: Leroy Sané
+    number: 10
+    role: FWD
+    speed: 18
+    skill: 17
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 17
+    stamina: 16
+    pass: 15
+    shoot: 16
+    offensive: 9
+    penalty: 14
+  - name: Jamal Musiala
+    number: 14
+    role: FWD
+    speed: 16
+    skill: 19
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 19
+    stamina: 16
+    pass: 17
+    shoot: 16
+    offensive: 9
+    penalty: 15
+  - name: Florian Wirtz
+    number: 17
+    role: FWD
+    speed: 16
+    skill: 19
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 18
+    stamina: 17
+    pass: 18
+    shoot: 16
+    offensive: 9
+    penalty: 15
+  - name: Kai Havertz
+    number: 7
+    role: FWD
+    speed: 15
+    skill: 16
+    strength: 16
+    save: 0
+    discipline: 14
+    dribbling: 14
     stamina: 16
     pass: 15
     shoot: 17
     offensive: 9
     penalty: 16
-  - name: Maximilian Beier
-    number: 21
-    role: FWD
-    speed: 17
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 16
-    stamina: 16
-    pass: 14
-    shoot: 15
-    offensive: 10
-    penalty: 13
