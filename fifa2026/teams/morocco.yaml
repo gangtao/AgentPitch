@@ -153,6 +153,6 @@ players:
     dribbling: 16
     stamina: 16
     pass: 15
-    shoot: 15
+    shoot: 16
     offensive: 10
     penalty: 15
