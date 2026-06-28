@@ -1,4 +1,4 @@
-# Paraguay Stun Germany, Brazil and the Dutch Are Held — AI's Day Nineteen
+# Germany Come From Behind, Brazil and the Dutch Are Held — AI's Day Nineteen
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's nineteenth day — the first full slate of the Round of 32 — through the machine. Here is what it saw.*
 
@@ -8,7 +8,7 @@
 
 The bracket opens out. After Sunday's lone Round of 32 tie, **Day nineteen** brings the knockouts to full speed — **three win-or-go-home matches** across two countries and three time zones, from a Houston lunchtime to a Monterrey midnight. Three of the tournament's heavyweights — **Brazil**, **Germany**, **the Netherlands** — meet three sides built to frustrate them: **Japan**, the side that beat Brazil for the first time in history eight months ago; **Paraguay**, Gustavo Alfaro's counter-punching survivors; and **Morocco**, the 2022 semi-finalists who turn every favourite's afternoon into a siege.
 
-So we handed all three to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, deciding for itself whether to press, pass, hold or shoot. And the machine delivered a genuine shock: in Foxborough, **Paraguay tore up the form book and beat Germany 2–1**, Alfaro's counter-punchers downing a side that out-shot them 18–11 but could not finish. The two heavyweights either side of that result were held: **Brazil were pegged back to a 1–1 by Japan**, who again refused to bow to the Seleção, and **the Netherlands drew 1–1 with Morocco** in a Monterrey night the 2022 semi-finalists spent on the front foot. One giant out, two more dragged to the brink — on the machine's reading, the first full day of the Round of 32 belongs to the underdogs.
+So we handed all three to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, deciding for itself whether to press, pass, hold or shoot. And the machine made the favourites work for it. In Foxborough, **Paraguay led inside six minutes and made Germany sweat** before the favourites' class told: **Germany hit back to win 3–1**, a **Leroy Sané** brace and a Musiala finish overturning an early scare against an Alfaro side that out-shot them but could not protect its lead. The two heavyweights either side were held outright: **Brazil were pegged back to a 1–1 by Japan**, who again refused to bow to the Seleção, and **the Netherlands drew 1–1 with Morocco** in a Monterrey night the 2022 semi-finalists spent on the front foot. One favourite through, two more dragged to the brink — on the machine's reading, the underdogs made the first full day of the Round of 32 a genuine fight.
 
 ---
 
@@ -71,10 +71,10 @@ Their defining meeting came at the **2002 World Cup Round of 16** in South Korea
 | **MID** | Aleksandar Pavlović (19), Felix Nmecha (8) | Miguel Almirón (23), Andrés Cubas (14), Matías Galarza (18), Maurício (20) |
 | **FWD** | Leroy Sané (10), Jamal Musiala (14), Florian Wirtz (17), Kai Havertz (7) | Julio Enciso (19), Gabriel Ávalos (9) |
 
-### Simulation Report — **Germany 1–2 Paraguay**
-The shock of the round, and the cruellest kind for a favourite: a game dominated and lost. Germany battered the door — **18 shots to Paraguay's 11** — and led when **Leroy Sané** finished on **42'**, the reward for a first half in which the Germans fired twelve times. But Alfaro's side are built to punish exactly this, and they struck back in a blink: barely six minutes later, on **48'**, **Julio Enciso** levelled, and Paraguay grew into the night they were supposed to survive. The killer blow came late — on **81'**, **Gabriel Ávalos** swept Paraguay ahead to make it **2–1**, the byline cutback finish of a side that took its handful of chances while Germany squandered theirs. **Sané** alone had **ten** attempts; **Musiala** and **Florian Wirtz** three apiece — and Orlando Gill's goal would not yield a second time.
+### Simulation Report — **Germany 3–1 Paraguay**
+A favourite made to suffer before it soared. Paraguay could not have dreamed of a better start: on **6'**, **Maurício** lashed La Albirroja ahead, and for half an hour Alfaro's counter-punchers carried the game, out-shooting Germany and threatening a repeat of the round's wildest scripts. But class, given time, tends to tell — and Germany's came in the shape of **Leroy Sané**. On **38'** he levelled, the reward for a relentless **ten-shot** afternoon; on **74'** he struck again to turn the tie on its head; and on **77'**, **Jamal Musiala** added the third to settle it. The curiosity is that Paraguay finished with **more shots (14 to 11)** and **more of the ball (53%)** — **Julio Enciso** alone had eight attempts — but Germany were ruthless where it mattered and Neuer's goal held after Maurício's opener. The better team, eventually, looked it.
 
-**AI takeaway:** The machine delivers the day's earthquake, and the shot count is the dagger: Germany out-shot Paraguay 18–11 and still went out. Sané's strike should have been the platform; instead Enciso's quick equaliser and Ávalos's late winner turned a −270 favourite's evening into an early exit. Twenty-four years after Neuville's 88th-minute winner knocked Paraguay out at this same stage, the simulation flips the script: Germany dominate and are dumped out, and La Albirroja — clinical when it counted — march into the last 16 as the story of the round.
+**AI takeaway:** The machine makes Germany earn it. Stunned inside six minutes and second-best for shots and possession across the ninety, Nagelsmann's side leaned on the individual brilliance that separates the contenders from the hopefuls — Sané's brace the difference, Musiala the seal. Twenty-four years after Neuville's 88th-minute winner edged this same knockout tie, Germany again find a way past Paraguay — not comfortably, but convincingly enough on the scoreboard — and march into the last 16, scare survived.
 
 ---
 
@@ -113,15 +113,15 @@ A Monterrey tie that swung both ways. The Netherlands struck almost from the kic
 
 ## The Picture, Per the Machine
 
-Day nineteen, per the simulation: one giant slain outright, two more dragged level to the brink. Paraguay are the headline; Japan and Morocco are the warning.
+Day nineteen, per the simulation: one favourite survives a scare, two more are dragged level to the brink. Germany came from behind; Japan and Morocco are the warning to everyone else.
 
 | Match | Result | Round |
 |-------|--------|-------|
-| 🇵🇾 **Paraguay** bt Germany 🇩🇪 | **2 – 1** | R32 |
+| 🇩🇪 **Germany** bt Paraguay 🇵🇾 | **3 – 1** | R32 |
 | 🇧🇷 Brazil drew with Japan 🇯🇵 | 1 – 1 | R32 |
 | 🇳🇱 Netherlands drew with Morocco 🇲🇦 | 1 – 1 | R32 |
 
-The through-line is resistance — and, in Foxborough, revolt. **Paraguay** did not merely survive Germany; they took the favourites' best — an 18-shot battering — and won anyway, Ávalos's late strike completing a 2–1 turnaround that is the upset of the tournament so far and the first side through on this slate. **Brazil** ran every attack through a single isolated winger and met a keeper who would not be beaten, pegged to a draw by a Japan side that took the lead and held it for the second meeting running. **The Netherlands** went ahead inside three minutes and then watched Morocco take the game's reins, level through Brahim Díaz, and own the ball deep into the night. On the machine's reading, the first full day of the Round of 32 belongs to the underdogs — one of them all the way to the last 16, the other two into the lottery of extra time and penalties.
+The through-line is resistance — and, for the favourites, relief. **Germany** were stunned by Maurício inside six minutes and out-shot across the ninety, but a Sané brace and a Musiala finish dragged them through 3–1: the better team, made to prove it. **Brazil** ran every attack through a single isolated winger and met a keeper who would not be beaten, pegged to a draw by a Japan side that took the lead and held it for the second meeting running. **The Netherlands** went ahead inside three minutes and then watched Morocco take the game's reins, level through Brahim Díaz, and own the ball deep into the night. On the machine's reading, the underdogs turned the first full day of the Round of 32 into a fight — and only Germany's cutting edge kept a giant from falling, leaving Brazil and the Dutch bound for the lottery of extra time and penalties.
 
 ---
 
