@@ -8,7 +8,7 @@ players:
     speed: 11
     skill: 14
     strength: 15
-    save: 15
+    save: 16
     discipline: 14
     dribbling: 5
     stamina: 13
@@ -16,33 +16,33 @@ players:
     shoot: 4
     offensive: 5
     penalty: 8
-  - name: Ghislain Konan
-    number: 3
+  - name: Guela Doue
+    number: 17
     role: DEF
-    speed: 14
+    speed: 16
     skill: 14
-    strength: 14
+    strength: 15
     save: 0
     discipline: 13
-    dribbling: 12
+    dribbling: 13
     stamina: 16
-    pass: 14
+    pass: 13
     shoot: 7
-    offensive: 13
+    offensive: 14
     penalty: 9
-  - name: Emmanuel Agbadou
-    number: 20
+  - name: Ousmane Diomande
+    number: 2
     role: DEF
-    speed: 13
+    speed: 15
     skill: 14
-    strength: 17
+    strength: 16
     save: 0
-    discipline: 14
-    dribbling: 10
+    discipline: 13
+    dribbling: 11
     stamina: 15
     pass: 14
     shoot: 6
-    offensive: 14
+    offensive: 13
     penalty: 9
   - name: Odilon Kossounou
     number: 7
@@ -58,19 +58,19 @@ players:
     shoot: 6
     offensive: 13
     penalty: 9
-  - name: Guela Doue
-    number: 17
+  - name: Ghislain Konan
+    number: 3
     role: DEF
-    speed: 16
+    speed: 14
     skill: 14
-    strength: 15
+    strength: 14
     save: 0
     discipline: 13
-    dribbling: 13
+    dribbling: 12
     stamina: 16
-    pass: 13
+    pass: 14
     shoot: 7
-    offensive: 14
+    offensive: 13
     penalty: 9
   - name: Ibrahim Sangaré
     number: 18
@@ -99,7 +99,7 @@ players:
     pass: 16
     shoot: 14
     offensive: 13
-    penalty: 15
+    penalty: 16
   - name: Christ Inao Oulaï
     number: 26
     role: MID
@@ -128,18 +128,18 @@ players:
     shoot: 14
     offensive: 8
     penalty: 14
-  - name: Ange-Yoan Bonny
-    number: 9
+  - name: Nicolas Pépé
+    number: 19
     role: FWD
-    speed: 14
-    skill: 15
-    strength: 16
+    speed: 16
+    skill: 16
+    strength: 13
     save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
+    discipline: 12
+    dribbling: 16
+    stamina: 14
     pass: 14
-    shoot: 15
+    shoot: 16
     offensive: 9
     penalty: 14
   - name: Amad Diallo
@@ -155,4 +155,4 @@ players:
     pass: 16
     shoot: 15
     offensive: 8
-    penalty: 16
+    penalty: 15
