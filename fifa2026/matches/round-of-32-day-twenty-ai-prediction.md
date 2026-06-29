@@ -1,4 +1,4 @@
-# France Cruise, Haaland Rescues Norway, Ecuador Heist Mexico — AI's Day Twenty
+# France Cruise, Haaland Rescues Norway, Mexico Grind Past Ecuador — AI's Day Twenty
 
 *An Agent Pitch simulation special — every player an AI agent, every decision its own code. We ran the World Cup's twentieth day — the Round of 32 rolling on — through the machine. Here is what it saw.*
 
@@ -8,7 +8,7 @@
 
 The Round of 32 keeps its three-a-day rhythm into **Day twenty** — **three win-or-go-home ties** strung across three time zones, from a Texas lunchtime to a Mexico City midnight. The shapes of the bracket are starting to show: a French juggernaut that has yet to be slowed, a Norway side whose whole tournament bends around one man, and a host nation carrying a continent's noise into the Estadio Banorte.
 
-So we handed all three to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, deciding for itself whether to press, pass, hold or shoot. And the machine split the day three ways. In New Jersey, **France simply had too much**: an early **Ousmane Dembélé** strike and a **Michael Olise** second inside the first half sent Les Bleus through **2–0**, a 24-shot afternoon that Sweden's deep block could only briefly hold. In Texas, two heavyweights of very different kinds traded blows: **Amad Diallo put Ivory Coast ahead**, only for **Erling Haaland** — twelve shots, finally one home — to **rescue Norway 1–1** with six minutes left. And in Mexico City, the night belonged to the visitors: **Ecuador stole it 1–0**, **Enner Valencia** punishing a host side that had **78% of the ball and nothing to show for it** — the round's purest smash-and-grab.
+So we handed all three to **Agent Pitch**, our AI soccer simulator in which all 22 players are autonomous agents — each running its own strategy code, reading the game state tick by tick, deciding for itself whether to press, pass, hold or shoot. And the machine split the day three ways. In New Jersey, **France simply had too much**: an early **Ousmane Dembélé** strike and a **Michael Olise** second inside the first half sent Les Bleus through **2–0**, a 24-shot afternoon that Sweden's deep block could only briefly hold. In Texas, two heavyweights of very different kinds traded blows: **Amad Diallo put Ivory Coast ahead**, only for **Erling Haaland** — twelve shots, finally one home — to **rescue Norway 1–1** with six minutes left. And in Mexico City, the **hosts found a way through**: **Mexico ground out a 1–0**, **Raúl Jiménez** breaking a stubborn Ecuador block on 69' to settle a night El Tri spent battering away with two-thirds of the ball.
 
 ---
 
@@ -104,24 +104,24 @@ This is a familiar fixture with a clear pecking order: across roughly **28 meeti
 | **MID** | Edson Álvarez (4), Gilberto Mora (16), Álvaro Fidalgo (8) | Nilson Angulo (16), Moisés Caicedo (23), Pedro Vite (8), John Yeboah (11) |
 | **FWD** | Julián Quiñones (22), Raúl Jiménez (9), Roberto Alvarado (25) | Gonzalo Plata (19), Enner Valencia (13) |
 
-### Simulation Report — **Mexico 0–1 Ecuador**
-The purest heist of the round. Mexico owned the ball from the first whistle — **78% possession** by the final tally — but ran straight into a Beccacece masterclass in deep defending, **Moisés Caicedo** screening a back four that simply would not break. And on **25'**, against the run of play, Ecuador struck: captain **Enner Valencia** finishing to send the visiting bench into delirium. From there La Tri defended their lead with their lives. The shot count finished level at **5 apiece** — a damning number for the host side given the territory — with **Raúl Jiménez** (three attempts) unable to find a way through and **Gonzalo Plata** carrying Ecuador's threat on the break (three of his own). Mexico passed and probed and pressed; Ecuador bent, never broke, and walked off with the tie.
+### Simulation Report — **Mexico 1–0 Ecuador**
+A host's patience, finally rewarded. Mexico owned the ball — **68% possession** — and for an hour ran into the wall every possession side dreads: **Moisés Caicedo** screening a Beccacece back four that would not break, the probing coming to nothing. Then, on **69'**, the breakthrough that the territory deserved: **Raúl Jiménez**, the lone spearhead, finally beat **Hernán Galíndez** to settle it. The shot count tells the story of how narrow the openings were — Mexico's **five attempts all came through Jiménez**, the one man able to find a sight of goal against the block, while Ecuador carried the greater threat on the break, **Gonzalo Plata** firing seven of their eight efforts. But **Raúl Rangel** and the back four saw out the lead, and El Tri ground out the win their control merited.
 
-**AI takeaway:** The machine delivers the knockout football nightmare every host fears — total control of the ball, nothing at the end of it. Aguirre's side dominated possession and territory but could not prise open a compact 4-4-2, and a single Valencia finish on the break was the whole game. It is the smash-and-grab the format is built to reward: Ecuador's discipline and Caicedo's screen turned 22% of the ball into a place in the last 16, and sent a roaring Estadio Banorte home stunned.
+**AI takeaway:** The machine rewards the host's persistence — but only just. Where a lesser version of this game ends goalless or in a smash-and-grab, Mexico kept probing until Jiménez found the single moment that mattered, and a roaring Estadio Banorte got its 1–0. The warning signs are plain: a one-man shot count that says how hard Ecuador's block was to break, and a Plata-led counter that troubled Rangel all night. But on home soil, against a side built to frustrate, Aguirre's team did what favourites must — found a way, and saw it out.
 
 ---
 
 ## The Picture, Per the Machine
 
-Day twenty, per the simulation: one favourite cruises, one is dragged level by a single superstar, and one is ambushed at home.
+Day twenty, per the simulation: one favourite cruises, one is dragged level by a single superstar, and one host grinds it out.
 
 | Match | Result | Round |
 |-------|--------|-------|
 | 🇫🇷 **France** bt Sweden 🇸🇪 | **2 – 0** | R32 |
 | 🇨🇮 Ivory Coast drew with Norway 🇳🇴 | 1 – 1 | R32 |
-| 🇪🇨 **Ecuador** bt Mexico 🇲🇽 | **1 – 0** | R32 |
+| 🇲🇽 **Mexico** bt Ecuador 🇪🇨 | **1 – 0** | R32 |
 
-The through-line is contrast. **France** were everything the line promised — fast, ruthless, two goals up by half-time and never threatened, the one side on the day to make a knockout look routine. **Norway** were the opposite kind of story: outplayed for an hour, behind to Amad Diallo, and saved only by the relentlessness of Erling Haaland, whose twelfth shot finally found the net to rescue a draw. And **Mexico** were the cautionary tale — 78% of the ball, a roaring Estadio Banorte, and a 1–0 defeat to an Ecuador side that defended like its tournament depended on it, because it did. On the machine's reading, the Round of 32 keeps doing what knockouts do: rewarding the ruthless, punishing the wasteful, and bending entire nights around a single moment.
+The through-line is contrast. **France** were everything the line promised — fast, ruthless, two goals up by half-time and never threatened, the one side on the day to make a knockout look routine. **Norway** were the opposite kind of story: outplayed for an hour, behind to Amad Diallo, and saved only by the relentlessness of Erling Haaland, whose twelfth shot finally found the net to rescue a draw. And **Mexico** were the grind — two-thirds of the ball against a packed Ecuador block, frustrated for an hour, until Raúl Jiménez broke through on 69' for a 1–0 that their persistence earned. On the machine's reading, the Round of 32 keeps doing what knockouts do: rewarding the ruthless, testing the patient, and bending entire nights around a single moment.
 
 ---
 
