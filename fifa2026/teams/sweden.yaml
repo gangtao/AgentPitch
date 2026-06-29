@@ -1,14 +1,14 @@
-# Formation: 3-5-2
+# Formation: 3-4-3
 team_id: sweden
 name: Sweden
 players:
-  - name: Kristoffer Nordfeldt
-    number: 23
+  - name: Jacob Widell Zetterström
+    number: 1
     role: GK
-    speed: 10
+    speed: 11
     skill: 12
-    strength: 13
-    save: 14
+    strength: 14
+    save: 16
     discipline: 14
     dribbling: 5
     stamina: 12
@@ -16,34 +16,6 @@ players:
     shoot: 4
     offensive: 5
     penalty: 7
-  - name: Victor Lindelöf
-    number: 3
-    role: DEF
-    speed: 13
-    skill: 15
-    strength: 15
-    save: 0
-    discipline: 15
-    dribbling: 11
-    stamina: 16
-    pass: 15
-    shoot: 9
-    offensive: 11
-    penalty: 11
-  - name: Isak Hien
-    number: 4
-    role: DEF
-    speed: 14
-    skill: 13
-    strength: 16
-    save: 0
-    discipline: 14
-    dribbling: 10
-    stamina: 15
-    pass: 13
-    shoot: 7
-    offensive: 13
-    penalty: 9
   - name: Gustaf Lagerbielke
     number: 2
     role: DEF
@@ -58,20 +30,62 @@ players:
     shoot: 7
     offensive: 11
     penalty: 8
+  - name: Victor Lindelöf
+    number: 3
+    role: DEF
+    speed: 13
+    skill: 15
+    strength: 15
+    save: 0
+    discipline: 16
+    dribbling: 11
+    stamina: 16
+    pass: 15
+    shoot: 9
+    offensive: 11
+    penalty: 11
   - name: Gabriel Gudmundsson
     number: 5
-    role: MID
+    role: DEF
     speed: 15
     skill: 13
     strength: 13
     save: 0
     discipline: 14
-    dribbling: 13
-    stamina: 17
+    dribbling: 12
+    stamina: 16
     pass: 14
-    shoot: 9
+    shoot: 8
+    offensive: 11
+    penalty: 9
+  - name: Elliot Stroud
+    number: 21
+    role: MID
+    speed: 15
+    skill: 13
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 14
+    stamina: 17
+    pass: 13
+    shoot: 10
+    offensive: 13
+    penalty: 9
+  - name: Lucas Bergvall
+    number: 8
+    role: MID
+    speed: 13
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 15
+    stamina: 17
+    pass: 15
+    shoot: 12
     offensive: 12
-    penalty: 10
+    penalty: 12
   - name: Yasin Ayari
     number: 18
     role: MID
@@ -86,36 +100,8 @@ players:
     shoot: 14
     offensive: 12
     penalty: 13
-  - name: Jesper Karlström
-    number: 16
-    role: MID
-    speed: 12
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 15
-    dribbling: 12
-    stamina: 16
-    pass: 15
-    shoot: 9
-    offensive: 9
-    penalty: 11
-  - name: Benjamin Nygren
-    number: 10
-    role: MID
-    speed: 13
-    skill: 15
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 16
-    pass: 14
-    shoot: 14
-    offensive: 13
-    penalty: 13
   - name: Alexander Bernhardsson
-    number: 21
+    number: 16
     role: MID
     speed: 15
     skill: 13
@@ -128,6 +114,20 @@ players:
     shoot: 11
     offensive: 13
     penalty: 10
+  - name: Anthony Elanga
+    number: 11
+    role: FWD
+    speed: 18
+    skill: 14
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 16
+    pass: 13
+    shoot: 13
+    offensive: 9
+    penalty: 11
   - name: Alexander Isak
     number: 9
     role: FWD

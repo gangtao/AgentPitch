@@ -8,7 +8,7 @@ players:
     speed: 12
     skill: 13
     strength: 13
-    save: 14
+    save: 15
     discipline: 14
     dribbling: 7
     stamina: 13
@@ -51,27 +51,27 @@ players:
     skill: 13
     strength: 17
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 9
     stamina: 15
     pass: 12
     shoot: 9
     offensive: 13
     penalty: 11
-  - name: Israel Reyes
-    number: 15
+  - name: Jorge Sánchez
+    number: 19
     role: DEF
-    speed: 14
+    speed: 15
     skill: 13
-    strength: 14
+    strength: 13
     save: 0
-    discipline: 14
-    dribbling: 12
-    stamina: 15
+    discipline: 13
+    dribbling: 13
+    stamina: 16
     pass: 13
     shoot: 8
     offensive: 12
-    penalty: 10
+    penalty: 9
   - name: Edson Álvarez
     number: 4
     role: MID
@@ -87,7 +87,7 @@ players:
     offensive: 11
     penalty: 13
   - name: Gilberto Mora
-    number: 19
+    number: 16
     role: MID
     speed: 14
     skill: 15
@@ -115,7 +115,7 @@ players:
     offensive: 10
     penalty: 13
   - name: Julián Quiñones
-    number: 16
+    number: 22
     role: FWD
     speed: 14
     skill: 15

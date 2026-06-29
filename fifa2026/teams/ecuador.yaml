@@ -1,4 +1,4 @@
-# Formation: 3-5-2
+# Formation: 4-4-2
 team_id: ecuador
 name: Ecuador
 players:
@@ -8,7 +8,7 @@ players:
     speed: 10
     skill: 12
     strength: 14
-    save: 15
+    save: 16
     discipline: 14
     dribbling: 4
     stamina: 12
@@ -19,13 +19,13 @@ players:
   - name: Piero Hincapié
     number: 3
     role: DEF
-    speed: 15
+    speed: 16
     skill: 14
-    strength: 16
+    strength: 15
     save: 0
     discipline: 13
-    dribbling: 11
-    stamina: 16
+    dribbling: 12
+    stamina: 17
     pass: 14
     shoot: 7
     offensive: 13
@@ -42,14 +42,14 @@ players:
     stamina: 15
     pass: 13
     shoot: 6
-    offensive: 13
+    offensive: 12
     penalty: 9
   - name: Joel Ordóñez
     number: 4
     role: DEF
     speed: 14
     skill: 13
-    strength: 15
+    strength: 16
     save: 0
     discipline: 12
     dribbling: 9
@@ -58,20 +58,48 @@ players:
     shoot: 5
     offensive: 11
     penalty: 8
-  - name: Pervis Estupiñán
-    number: 7
-    role: MID
-    speed: 16
+  - name: Alan Franco
+    number: 5
+    role: DEF
+    speed: 14
     skill: 14
-    strength: 13
+    strength: 14
+    save: 0
+    discipline: 12
+    dribbling: 11
+    stamina: 16
+    pass: 14
+    shoot: 8
+    offensive: 11
+    penalty: 10
+  - name: Nilson Angulo
+    number: 16
+    role: MID
+    speed: 17
+    skill: 14
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 15
+    stamina: 16
+    pass: 12
+    shoot: 11
+    offensive: 13
+    penalty: 10
+  - name: Moisés Caicedo
+    number: 23
+    role: MID
+    speed: 14
+    skill: 16
+    strength: 16
     save: 0
     discipline: 13
-    dribbling: 13
-    stamina: 17
-    pass: 14
-    shoot: 9
-    offensive: 13
-    penalty: 11
+    dribbling: 14
+    stamina: 18
+    pass: 15
+    shoot: 12
+    offensive: 12
+    penalty: 13
   - name: Pedro Vite
     number: 8
     role: MID
@@ -86,34 +114,6 @@ players:
     shoot: 11
     offensive: 12
     penalty: 11
-  - name: Moisés Caicedo
-    number: 23
-    role: MID
-    speed: 14
-    skill: 16
-    strength: 15
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 17
-    pass: 15
-    shoot: 12
-    offensive: 12
-    penalty: 13
-  - name: Alan Franco
-    number: 5
-    role: MID
-    speed: 13
-    skill: 14
-    strength: 14
-    save: 0
-    discipline: 12
-    dribbling: 11
-    stamina: 16
-    pass: 14
-    shoot: 9
-    offensive: 11
-    penalty: 10
   - name: John Yeboah
     number: 11
     role: MID
