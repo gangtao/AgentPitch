@@ -110,3 +110,18 @@ def test_handle_pause_tick_emits_kick_off_label_in_regulation(monkeypatch):
     resume_labels = [new for (_, old, new) in fake_log.transitions if old == "half_time"]
     assert "kick_off" in resume_labels, f"Expected 'kick_off', got {resume_labels}"
     assert "et_second_half" not in resume_labels, f"Got unexpected 'et_second_half' in regulation: {resume_labels}"
+
+
+def test_build_shootout_knobs_reads_config():
+    from src.orchestration.tick_engine.engine import TickEngine
+    eng = TickEngine()
+
+    class _Sim:
+        penalty_goal_base = 0.6
+        penalty_goal_per_point = 0.015
+        penalty_save_per_point = 0.01
+
+    knobs = eng._shootout_knobs(_Sim())
+    assert knobs.base == 0.6
+    assert knobs.per_point == 0.015
+    assert knobs.save_per_point == 0.01

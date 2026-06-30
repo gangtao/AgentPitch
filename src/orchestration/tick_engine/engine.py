@@ -106,6 +106,7 @@ class TickEngine:
         self._regulation_score = None
         self._after_extra_time_score = None
         self._decided_by = "regulation"
+        self._shootout = None
 
     def run_match(
         self,
@@ -230,6 +231,7 @@ class TickEngine:
         self._regulation_score = None
         self._after_extra_time_score = None
         self._decided_by = "regulation"
+        self._shootout = None
 
         # Publish team rosters into the match log so meta.json includes
         # numbers + roles. Browser uses this to display "A #4" labels.
@@ -338,13 +340,9 @@ class TickEngine:
         self._maybe_run_extra_time(gsm, log, are, config)
 
         # Story 007 — finalize match before returning
+        final_state = None
         if hasattr(gsm, "get_final_state"):
             final_state = gsm.get_final_state()
-            if hasattr(log, "finalize"):
-                try:
-                    log.finalize(final_state)
-                except TypeError:
-                    log.finalize()  # accepts no args
         elif hasattr(log, "finalize"):
             # Construct basic final state from gsm attributes
             final_state = {
@@ -352,6 +350,27 @@ class TickEngine:
                 "final_tick": getattr(gsm.state, "tick", 0),
                 "final_phase": getattr(gsm.state, "phase", "UNKNOWN")
             }
+
+        # Issue #83 — attach knockout outcome metadata for meta.json.
+        if isinstance(final_state, dict):
+            final_state["decided_by"] = self._decided_by
+            final_state["regulation_score"] = self._regulation_score
+            final_state["after_extra_time_score"] = self._after_extra_time_score
+            if self._shootout is not None:
+                final_state["shootout"] = {
+                    "team_a": self._shootout.score["team_a"],
+                    "team_b": self._shootout.score["team_b"],
+                    "winner": self._shootout.winner,
+                    "kicks": [
+                        {"order": k.order, "team": k.team, "taker_id": k.taker_id,
+                         "scored": k.scored}
+                        for k in self._shootout.kicks
+                    ],
+                }
+            else:
+                final_state["shootout"] = None
+
+        if hasattr(log, "finalize"):
             try:
                 log.finalize(final_state)
             except TypeError:
@@ -801,7 +820,46 @@ class TickEngine:
         self._after_extra_time_score = dict(gsm.state.score)
         if not self._scores_level(gsm):
             self._decided_by = "extra_time"
-        # else: still level → Task 5 runs the shootout from run_match.
+        else:
+            self._run_shootout(gsm, log, config)
+
+    @staticmethod
+    def _shootout_knobs(sim):
+        from src.foundation.penalty_shootout import ShootoutKnobs
+        return ShootoutKnobs(
+            base=getattr(sim, "penalty_goal_base", 0.60),
+            per_point=getattr(sim, "penalty_goal_per_point", 0.015),
+            save_per_point=getattr(sim, "penalty_save_per_point", 0.01),
+        )
+
+    def _run_shootout(self, gsm, log, config):
+        """Resolve a still-level knockout match by penalty shootout."""
+        from src.foundation.penalty_shootout import resolve_shootout
+
+        players = getattr(gsm.state, "players", {}) or {}
+        team_a = {pid: p for pid, p in players.items()
+                  if isinstance(p, dict) and p.get("team") == "team_a"}
+        team_b = {pid: p for pid, p in players.items()
+                  if isinstance(p, dict) and p.get("team") == "team_b"}
+        result = resolve_shootout(
+            team_a, team_b, seed=gsm.seed, knobs=self._shootout_knobs(config.simulation),
+        )
+        self._shootout = result
+        self._decided_by = "shootout"
+
+        log.record_phase_transition(gsm.tick, "et_full_time", "shootout")
+        for kick in result.kicks:
+            if hasattr(log, "record_fallback"):
+                log.record_fallback({
+                    "type": "shootout_kick",
+                    "tick": gsm.tick,
+                    "order": kick.order,
+                    "team": kick.team,
+                    "taker_id": kick.taker_id,
+                    "scored": kick.scored,
+                    "p_goal": round(kick.p_goal, 4),
+                })
+        return result
 
     def _check_phase_transitions(self, score_before, score_after, gsm, log, config):
         """GDD Rule 7 — priority: goal → half-time → full-time. Then Rule 9: KICK_OFF → IN_PLAY."""
