@@ -91,6 +91,13 @@ def test_knockout_match_is_decisive_and_deterministic(tmp_path):
         assert meta1["final_score"]["team_a"] == meta1["final_score"]["team_b"], (
             "final_score must remain level after shootout; penalty winner is in shootout.winner"
         )
+        # Each kick in meta must carry the 5 authoritative fields (FIX 1: p_goal
+        # added; kicks are recorded in meta only, not as fallback events).
+        _kick_keys = {"order", "team", "taker_id", "scored", "p_goal"}
+        for kick in meta1["shootout"]["kicks"]:
+            assert _kick_keys <= kick.keys(), (
+                f"kick missing keys {_kick_keys - kick.keys()}: {kick}"
+            )
 
     # Determinism: second identical run (fresh dir, same seed) reproduces the outcome.
     cfg2 = _make_config(_KNOCKOUT_SEED, knockout=True, log_dir=tmp_path / "run2", match_id="ko_run2")

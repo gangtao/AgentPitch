@@ -110,6 +110,11 @@ class MatchLog:
         self._history_deque: deque[TickRecord] = deque(maxlen=HISTORY_MAX_TICKS)
         self._fallback_events: list[Any] = []    # FallbackEvent shape — typed in Fallback Handler epic
         self._phase_transitions: list[tuple[int, str, str]] = []  # (tick, old_phase, new_phase)
+        # Finalised match state dict. Initialised to {} so _build_meta() is
+        # safe to call even before finalize() (e.g. in tests). finalize()
+        # overwrites this with the real dict from gsm.get_final_state().
+        self._final_state: dict = {}
+
         # Optional team rosters for meta.json — populated by TickEngine via
         # set_strategies_meta(). Per-team strategy provenance recorded per-match.
         self._strategies_meta: dict | None = None

@@ -151,7 +151,7 @@ def _determine_winner(
         return result, winner_slot, True
 
 
-def _winner_from_meta(match: dict, meta: dict) -> tuple:
+def _winner_from_meta(match: dict, meta: dict) -> tuple[str, int, str]:
     """Resolve a knockout result from meta.json (issue #83).
 
     Trusts the engine: a shootout winner takes precedence; otherwise the side

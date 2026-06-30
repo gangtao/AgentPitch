@@ -363,7 +363,7 @@ class TickEngine:
                     "winner": self._shootout.winner,
                     "kicks": [
                         {"order": k.order, "team": k.team, "taker_id": k.taker_id,
-                         "scored": k.scored}
+                         "scored": k.scored, "p_goal": round(k.p_goal, 4)}
                         for k in self._shootout.kicks
                     ],
                 }
@@ -785,8 +785,7 @@ class TickEngine:
         Extends gsm.state.total_ticks in place (GameState is a mutable
         dataclass) and reuses the standard phase machine for two ET halves.
         Leaves self._decided_by == "extra_time" when a team leads at ET full
-        time; if still level, self._decided_by stays "regulation" and Task 5's
-        shootout hook (called from run_match) decides it.
+        time; if still level, `_run_shootout` is invoked here directly.
         """
         sim = getattr(config, "simulation", None)
         if getattr(sim, "knockout", False) is not True:
@@ -833,7 +832,11 @@ class TickEngine:
         )
 
     def _run_shootout(self, gsm, log, config):
-        """Resolve a still-level knockout match by penalty shootout."""
+        """Resolve a still-level knockout match by penalty shootout.
+
+        Per-kick detail is recorded in meta["shootout"]["kicks"] (events.jsonl
+        is per-tick only — shootout kicks are not simulation ticks).
+        """
         from src.foundation.penalty_shootout import resolve_shootout
 
         players = getattr(gsm.state, "players", {}) or {}
@@ -848,17 +851,6 @@ class TickEngine:
         self._decided_by = "shootout"
 
         log.record_phase_transition(gsm.tick, "et_full_time", "shootout")
-        for kick in result.kicks:
-            if hasattr(log, "record_fallback"):
-                log.record_fallback({
-                    "type": "shootout_kick",
-                    "tick": gsm.tick,
-                    "order": kick.order,
-                    "team": kick.team,
-                    "taker_id": kick.taker_id,
-                    "scored": kick.scored,
-                    "p_goal": round(kick.p_goal, 4),
-                })
         return result
 
     def _check_phase_transitions(self, score_before, score_after, gsm, log, config):
