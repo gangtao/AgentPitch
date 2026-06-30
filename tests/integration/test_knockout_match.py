@@ -14,8 +14,6 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-import pytest
-
 from src.orchestration.tick_engine import TickEngine
 from src.foundation.strategy_storage import write_strategy, StrategyMetadata
 from tests.unit.game_state_manager.conftest import _create_test_config
@@ -70,7 +68,6 @@ def _read_meta(log_dir, match_id):
     return json.loads(meta_path.read_text())
 
 
-@pytest.mark.integration
 def test_knockout_match_is_decisive_and_deterministic(tmp_path):
     """A knockout match must finish with a single winner; same seed → same result.
 
@@ -110,7 +107,6 @@ def test_knockout_match_is_decisive_and_deterministic(tmp_path):
     )
 
 
-@pytest.mark.integration
 def test_group_stage_still_allows_draw(tmp_path):
     """knockout=False → decided_by stays 'regulation', no ET, no shootout.
 
