@@ -8,7 +8,7 @@ players:
     speed: 11
     skill: 13
     strength: 15
-    save: 14
+    save: 15
     discipline: 15
     dribbling: 6
     stamina: 13
@@ -100,18 +100,18 @@ players:
     shoot: 12
     offensive: 12
     penalty: 13
-  - name: Lamine Camara
-    number: 8
+  - name: Pape Matar Sarr
+    number: 17
     role: MID
     speed: 16
-    skill: 15
+    skill: 16
     strength: 13
     save: 0
     discipline: 14
     dribbling: 15
-    stamina: 17
-    pass: 15
-    shoot: 12
+    stamina: 18
+    pass: 16
+    shoot: 13
     offensive: 11
     penalty: 13
   - name: Sadio Mané
