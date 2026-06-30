@@ -158,6 +158,19 @@ class SimulationConfig(BaseModel):
     goal_reset_ticks: int = Field(default=30, ge=1, le=300)
     half_time_pause_ticks: int = Field(default=60, ge=1, le=600)
 
+    # Issue #83 — single-elimination (knockout) rules. When True, a match
+    # level at full time plays extra time and, if still level, a penalty
+    # shootout (cup_runner passes --knockout for knockout rounds only).
+    # Group-stage / league / regular-season matches keep knockout=False so
+    # draws remain legitimate results.
+    knockout: bool = False
+    # Extra-time length as a fraction of regulation. Real ET is 30 min vs a
+    # 90-min match = 1/3. The sim compresses 90 min into duration_minutes, so
+    # ET must scale the same way rather than use a literal 30 minutes. ET ticks
+    # are computed directly from this ratio (see TickEngine), avoiding
+    # int-minute rounding. Default 1/3 ⇒ 1000 ET ticks for a 5-min/3000-tick match.
+    extra_time_ratio: float = Field(default=1.0 / 3.0, ge=0.0, le=1.0)
+
     # Unified per-player action cooldown (ticks). At tick_rate=10/s, default
     # 10 = 1s. Triggered by Pass / Shoot / Tackle attempts and successful
     # Pickup. Blocks all of those for the window. Move and Hold are unaffected.
