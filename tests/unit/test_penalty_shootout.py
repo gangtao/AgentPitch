@@ -78,6 +78,29 @@ def test_early_clinch_stops_before_all_five_kicks():
     assert len(r.kicks) == 6
 
 
+def test_sudden_death_cap_terminates_when_all_miss():
+    """Sudden-death loop must terminate even when p_goal=0.0 for every taker.
+
+    With base=0.0 and per_point=0.0 no taker ever scores; the old `while True`
+    loop would hang forever. The cap (_MAX_SUDDEN_DEATH_PAIRS=100) must fire and
+    return a deterministic winner without new randomness.
+
+    Why the OLD code hangs: the `while True` block only breaks when
+    `score["team_a"] != score["team_b"]`, which never happens if neither team
+    ever scores — infinite loop.
+    """
+    knobs = ShootoutKnobs(base=0.0, per_point=0.0, save_per_point=0.0)
+    a = _roster("team_a", gk_save=10, penalty=10)
+    b = _roster("team_b", gk_save=10, penalty=10)
+    r1 = resolve_shootout(a, b, seed=99, knobs=knobs)
+    r2 = resolve_shootout(a, b, seed=99, knobs=knobs)
+    assert r1.winner in ("team_a", "team_b")
+    assert r1 == r2                          # same seed → same winner (deterministic)
+    # Both teams score 0 (every kick missed)
+    assert r1.score["team_a"] == 0
+    assert r1.score["team_b"] == 0
+
+
 def test_sudden_death_after_tied_best_of_five():
     """Sudden death is entered when both teams convert equally in the best-of-5.
 

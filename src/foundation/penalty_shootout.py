@@ -15,7 +15,7 @@ from dataclasses import dataclass
 
 from src.foundation.simulation_utils import hash_01
 
-_TEAMS = ("team_a", "team_b")
+_MAX_SUDDEN_DEATH_PAIRS = 100
 
 
 @dataclass(frozen=True)
@@ -38,7 +38,10 @@ class ShootoutKick:
 class ShootoutResult:
     winner: str                 # "team_a" | "team_b"
     score: dict[str, int]       # goals made per team
-    kicks: list[ShootoutKick]
+    kicks: tuple[ShootoutKick, ...]
+
+    def __post_init__(self) -> None:
+        object.__setattr__(self, "kicks", tuple(self.kicks))
 
 
 def _eligible_takers(players: dict[str, dict], team: str) -> list[str]:
@@ -96,8 +99,8 @@ def resolve_shootout(
         "team_b": _eligible_takers(team_b_players, "team_b"),
     }
     gk_save = {
-        "team_a": _gk_save(team_a_players, "team_a"),   # team_a's keeper faces team_b
-        "team_b": _gk_save(team_b_players, "team_b"),
+        "team_a": _gk_save(team_a_players, "team_a"),   # save rating of team_a's GK (faced when team_b attacks)
+        "team_b": _gk_save(team_b_players, "team_b"),   # save rating of team_b's GK (faced when team_a attacks)
     }
     # Penalty rating lookup keyed by taker id.
     def _rating(team: str, pid: str) -> float:
@@ -144,12 +147,17 @@ def resolve_shootout(
             return ShootoutResult(winner=winner, score=score, kicks=kicks)
 
     # Sudden death: equal pairs until someone leads after both have kicked.
-    while True:
+    # Capped at _MAX_SUDDEN_DEATH_PAIRS to avoid infinite loop when p_goal=0.0
+    # for all takers (e.g. extreme knob/save values).
+    for _sd_pair in range(_MAX_SUDDEN_DEATH_PAIRS):
         _take("team_a")
         _take("team_b")
         if score["team_a"] != score["team_b"]:
             winner = "team_a" if score["team_a"] > score["team_b"] else "team_b"
             return ShootoutResult(winner=winner, score=score, kicks=kicks)
+    # Cap reached: still level — resolve deterministically without new RNG.
+    winner = "team_a" if hash_01(seed, 0, "shootout_sudden_death_cap") < 0.5 else "team_b"
+    return ShootoutResult(winner=winner, score=score, kicks=kicks)
 
 
 __all__ = ["ShootoutKnobs", "ShootoutKick", "ShootoutResult", "resolve_shootout"]
