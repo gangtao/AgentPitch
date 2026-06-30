@@ -93,6 +93,20 @@ def _parse_strategy_header(strategy_path: Path) -> dict:
 class TickEngine:
     """GDD Rule 1 — match orchestrator. Single public method run_match()."""
 
+    def __init__(self):
+        # Default instance attrs so helpers (e.g. _check_phase_transitions,
+        # _scores_level) are callable before run_match() is entered — important
+        # for unit tests that exercise helpers in isolation.
+        self._goal_pause_remaining = 0
+        self._halftime_pause_remaining = 0
+        self._conceding_team = None
+        self._second_half_kickoff_team = None
+        self._period = "regulation"
+        self._et_half_end_tick = None
+        self._regulation_score = None
+        self._after_extra_time_score = None
+        self._decided_by = "regulation"
+
     def run_match(
         self,
         config: MatchConfig,
@@ -208,6 +222,15 @@ class TickEngine:
         self._conceding_team = None
         self._second_half_kickoff_team = second_half_kickoff_team
 
+        # Issue #83 — knockout extra-time / shootout state. Defaults make the
+        # regulation path behave exactly as before (the ET branches below are
+        # all guarded on self._period == "extra_time").
+        self._period = "regulation"
+        self._et_half_end_tick = None
+        self._regulation_score = None
+        self._after_extra_time_score = None
+        self._decided_by = "regulation"
+
         # Publish team rosters into the match log so meta.json includes
         # numbers + roles. Browser uses this to display "A #4" labels.
         if hasattr(log, "set_teams_meta"):
@@ -308,18 +331,11 @@ class TickEngine:
         self._setup_kickoff(gsm, log, kickoff_team)  # STUB — Story 006 implements
         log.record_phase_transition(0, "pre_match", "kick_off")
 
-        # Rule 5: main tick loop
-        while gsm.tick < gsm.total_ticks:
-            phase = gsm.get_phase()
-            # Accept both lowercase and uppercase phase strings for compatibility
-            phase_lower = phase.lower() if isinstance(phase, str) else phase
-            if phase_lower in ("goal_scored", "half_time"):
-                self._handle_pause_tick(gsm, log, config)  # STUB — Story 006
-            elif phase_lower in ("kick_off", "in_play"):
-                self._handle_active_tick(gsm, log, are, config)  # STUB — Story 004
-            else:
-                break
-            gsm.advance_tick()
+        # Rule 5: main tick loop (regulation)
+        self._run_phase_loop(gsm, log, are, config)
+
+        # Issue #83 — knockout: extra time + shootout if level at full time.
+        self._maybe_run_extra_time(gsm, log, are, config)
 
         # Story 007 — finalize match before returning
         if hasattr(gsm, "get_final_state"):
@@ -702,6 +718,88 @@ class TickEngine:
                 self._setup_kickoff(gsm, log, self._second_half_kickoff_team)
                 log.record_phase_transition(gsm.tick, "half_time", "kick_off")
 
+    def _run_phase_loop(self, gsm, log, are, config):
+        """Run ticks until full time (phase leaves the active/pause set).
+
+        Shared by regulation and each extra-time period — the loop body is
+        identical; only gsm.total_ticks and the period markers differ.
+        """
+        while gsm.tick < gsm.total_ticks:
+            phase = gsm.get_phase()
+            # Accept both lowercase and uppercase phase strings for compatibility
+            phase_lower = phase.lower() if isinstance(phase, str) else phase
+            if phase_lower in ("goal_scored", "half_time"):
+                self._handle_pause_tick(gsm, log, config)
+            elif phase_lower in ("kick_off", "in_play"):
+                self._handle_active_tick(gsm, log, are, config)
+            else:
+                break
+            gsm.advance_tick()
+
+    def _scores_level(self, gsm) -> bool:
+        """True when both teams have equal goals in gsm.state.score."""
+        score = getattr(gsm.state, "score", {}) or {}
+        return score.get("team_a", 0) == score.get("team_b", 0)
+
+    @staticmethod
+    def _extra_time_ticks(regulation_total: int, ratio: float) -> tuple:
+        """Extra-time tick budget from regulation length and ratio.
+
+        Returns (et_total_ticks, et_half_ticks). Clamped so two non-empty
+        halves always exist even for degenerate tiny configs.
+        """
+        et_total = round(regulation_total * ratio)
+        if et_total < 2:
+            et_total = 2
+        et_half = et_total // 2
+        if et_half < 1:
+            et_half = 1
+        return et_total, et_half
+
+    def _maybe_run_extra_time(self, gsm, log, are, config):
+        """Play extra time when a knockout match is level at full time.
+
+        No-op unless config.simulation.knockout is set AND the score is level.
+        Extends gsm.state.total_ticks in place (GameState is a mutable
+        dataclass) and reuses the standard phase machine for two ET halves.
+        Leaves self._decided_by == "extra_time" when a team leads at ET full
+        time; if still level, self._decided_by stays "regulation" and Task 5's
+        shootout hook (called from run_match) decides it.
+        """
+        sim = getattr(config, "simulation", None)
+        if getattr(sim, "knockout", False) is not True:
+            return
+        if not self._scores_level(gsm):
+            return  # decisive in regulation — nothing to do
+
+        self._regulation_score = dict(gsm.state.score)
+
+        ratio = getattr(sim, "extra_time_ratio", 1.0 / 3.0)
+        et_total, et_half = self._extra_time_ticks(gsm.state.total_ticks, ratio)
+        self._period = "extra_time"
+        self._et_half_end_tick = gsm.tick + et_half
+        gsm.state.total_ticks = gsm.state.total_ticks + et_total
+
+        # ET first-half kickoff: the side that did NOT take the regulation
+        # second-half kickoff (alternation). Prime _second_half_kickoff_team so
+        # the shared half-time pause handler kicks the other side off for ET2.
+        et1_kickoff = self._second_half_kickoff_team
+        self._second_half_kickoff_team = (
+            "team_b" if et1_kickoff == "team_a" else "team_a"
+        )
+        if hasattr(gsm, "restore_all_health"):
+            gsm.restore_all_health()
+        self._setup_kickoff(gsm, log, et1_kickoff)   # sets phase → KICK_OFF
+        log.record_phase_transition(gsm.tick, "full_time", "et_first_half")
+
+        # Run the two ET halves on the shared loop.
+        self._run_phase_loop(gsm, log, are, config)
+
+        self._after_extra_time_score = dict(gsm.state.score)
+        if not self._scores_level(gsm):
+            self._decided_by = "extra_time"
+        # else: still level → Task 5 runs the shootout from run_match.
+
     def _check_phase_transitions(self, score_before, score_after, gsm, log, config):
         """GDD Rule 7 — priority: goal → half-time → full-time. Then Rule 9: KICK_OFF → IN_PLAY."""
         # Rule 7 priority 1: goal
@@ -718,17 +816,27 @@ class TickEngine:
             """Compare phase case-insensitively."""
             return isinstance(actual, str) and actual.lower() == target_lower
 
-        # Rule 7 priority 2: half-time
+        # Rule 7 priority 2: half-time (regulation)
         if gsm.tick == gsm.half_1_end_tick and _phase_eq(gsm.get_phase(), "in_play"):
             gsm.set_phase("HALF_TIME")
             log.record_phase_transition(gsm.tick, "in_play", "half_time")
             pause = config.simulation.half_time_pause_ticks
             self._halftime_pause_remaining = pause
 
-        # Rule 7 priority 3: full-time
+        # Issue #83 — extra-time half-time (the ET break / ends swap).
+        if (self._period == "extra_time"
+                and self._et_half_end_tick is not None
+                and gsm.tick == self._et_half_end_tick
+                and _phase_eq(gsm.get_phase(), "in_play")):
+            gsm.set_phase("HALF_TIME")
+            log.record_phase_transition(gsm.tick, "in_play", "et_half_time")
+            self._halftime_pause_remaining = config.simulation.half_time_pause_ticks
+
+        # Rule 7 priority 3: full-time (label differs in extra time)
         if gsm.tick >= gsm.total_ticks and _phase_eq(gsm.get_phase(), "in_play"):
             gsm.set_phase("FULL_TIME")
-            log.record_phase_transition(gsm.tick, "in_play", "full_time")
+            new_label = "et_full_time" if self._period == "extra_time" else "full_time"
+            log.record_phase_transition(gsm.tick, "in_play", new_label)
 
         # Rule 9: KICK_OFF tick → IN_PLAY after transition checks
         if _phase_eq(gsm.get_phase(), "kick_off"):
