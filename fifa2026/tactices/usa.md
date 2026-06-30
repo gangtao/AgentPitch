@@ -1,73 +1,83 @@
-# United States — Tactical Profile
+# USA — Tactical Profile
 
 ## Identity & Philosophy
-Co-hosts of the 2026 World Cup and the most-watched USMNT in history. Under **Mauricio Pochettino**, the United States have abandoned the slow, possession-curious experiments of the post-Berhalter era and embraced the manager's identifiable Tottenham/PSG DNA: aggressive, energetic, vertically minded football played by a young, athletic, European-based core. Pochettino's USMNT presses with the door slammed shut behind the press, transitions in 4-5 passes, and tries to **get in the opponent's face** for 90 minutes. The USA have stormed through Group D: a commanding **4-1 win over Paraguay** on Matchday 1, then a **2-0 win over Australia** on Matchday 2 (own goal 11', Alex Freeman header 43') that **clinched the knockout round and sealed top spot in Group D**. With qualification already secured and seeding all but settled, the final group game vs Türkiye (Matchday 3, June 25, SoFi Stadium, Inglewood) is a **rotation game**: Pochettino rests his yellow-carded and load-managed first-choice spine and hands minutes to the depth players who must prove themselves ready for the knockout stages.
+Host nation of the 2026 World Cup and the most scrutinised USMNT in history. Under **Mauricio Pochettino**, the United States play aggressive, energetic, vertically minded football driven by a young, athletic, European-based core — the manager's identifiable Tottenham/PSG DNA: press with the door slammed shut behind the press, transition in 4-5 passes, and **get in the opponent's face** for 90 minutes. The USA topped Group D the hard way — a commanding **4-1 win over Paraguay** and a **2-0 win over Australia** clinched the knockouts and top spot — before a rotated, second-string XI **lost the dead-rubber finale to Türkiye**. Now the tournament gets real: a win-or-go-home Round of 32 on home soil with a packed, partisan crowd at Levi's Stadium. Pochettino restores his first-choice spine, leans on the home-crowd intensity, and asks his best players to settle a one-off game with a single decisive moment.
+
+## Round of 32 Lineup (vs Bosnia-Herzegovina, July 1 — Levi's Stadium, Santa Clara; host nation, win-or-go-home)
+The USA names its strongest available spine for the first knockout test, reversing nearly all of the Türkiye rotation:
+- **Antonee Robinson** returns at LB — flying, high-stamina overlapping outlet on the left; back from his group-stage yellow-card rest.
+- **Tim Ream + Chris Richards** restored as the center-back pairing — Ream the calm, left-footed organiser, Richards the physical aerial monitor (also back from yellow-card rest).
+- **Tyler Adams + Weston McKennie** as the double pivot — the ball-winning anchor and the box-to-box engine; Adams back fresh after being load-managed and rested.
+- **Christian Pulisic** starts on the left after easing back from a calf knock (sub minutes vs Türkiye proved his fitness) — the talisman and primary creator/finisher.
+- **Folarin Balogun** returns as the lone striker and go-to goalscorer; **Malik Tillman** at the 10, **Sergiño Dest** wide right.
+- Bosnia context: organised, physical, set-piece dangerous and dangerous on the counter through **Edin Džeko** and **Ermedin Demirović**. They sit in a mid-to-low block and play direct — the USA must dominate possession, guard against the ball over the top, and win the aerial battles on Bosnian set pieces and long throws.
 
 ## Formation
-- Shape: **4-3-3** — Pochettino's primary structure; a back four, a single pivot screening with two shuttling 8s, and a fluid front three with the wide forwards inverting. Without the ball the front three drop into a compact **4-1-4-1 / 4-4-2** mid-block. For this rotated XI the personnel change but the shape and principles hold.
+- Shape: **4-2-3-1** — for the knockout Pochettino shifts to a double pivot (Adams + McKennie) to overwhelm Bosnia through the center, with a fluid front band of Dest, Tillman and Pulisic behind Balogun. Without the ball the front four drop into a compact **4-4-1-1 / 4-1-4-1** mid-block.
 - Role mapping (roster order in `usa.yaml`):
-  - index 0: GK — **Matt Freese** — first-choice starter rested vs Australia; competent shot-stopper, modest distribution. Stays near the goal line, no sweeping ambition; banks World Cup minutes.
-  - index 1: RB — **Joe Scally** — rapid, disciplined right-back deputising for the rested Sergiño Dest; provides honest width on the right and tucks in defensively.
-  - index 2: RCB — **Walker Zimmerman** — veteran physical central stopper, the aerial monitor and organiser of the back line; holds the line, dominant in the box.
-  - index 3: LCB — **Mark McKenzie** — left-sided ball-playing center-back stepping in for the yellow-carded Chris Richards; comfortable carrying out and progressing from the back.
-  - index 4: LB — **Max Arfsten** — flying, high-stamina left-back covering for the rested Antonee Robinson; the engine of the left side, bombs the touchline and recovers with sheer pace.
-  - index 5: DM/6 — **Johnny Cardoso** — ball-winning single pivot stepping in for the load-managed Tyler Adams; screens the back four, intercepts, recycles short and simple.
-  - index 6: RCM/8 — **Cristian Roldan** — tireless, disciplined right-sided shuttler; covers Scally's overlaps, links the right channel, the steady connector.
-  - index 7: LCM/8 — **Yunus Musah** — athletic, dribble-carrying left-sided shuttler; drives through midfield, the team's best ball-carrier from deep, supports the left overload.
-  - index 8: RW — **Timothy Weah** — direct, pacey right winger; gets at the full-back, stretches the line, makes the diagonal run in behind, cuts back from the byline.
-  - index 9: CF — **Ricardo Pepi** — lone pressing forward (kept his spot through the rotation); runs the channels, holds up balls into feet, the clinical focal point of attack.
-  - index 10: LW — **Brenden Aaronson** — high-energy left forward; presses relentlessly, drifts inside off the left to combine and shoot, the chief creative spark of the rotated front line.
+  - index 0: GK — **Matt Freese** — first-choice keeper restored; competent line-bound shot-stopper, modest distribution. Stays near the goal line, short distribution to the nearest CB.
+  - index 1: LB — **Antonee Robinson** — flying, high-stamina left-back; the primary attacking outlet on the left, bombs the touchline to the byline and recovers with sheer pace.
+  - index 2: LCB — **Tim Ream** — veteran left-footed ball-playing center-back, the calm organiser of the back line; holds the line, progresses from the back, dictates the build.
+  - index 3: RCB — **Chris Richards** — physical right-sided stopper, the aerial monitor; dominant in the box, holds the line against Džeko.
+  - index 4: RB — **Alex Freeman** — dynamic, high-stamina right-back; provides honest width on the right, tucks in defensively, overlaps when the ball is on his flank.
+  - index 5: DM/6 — **Tyler Adams** — ball-winning anchor of the double pivot; screens the back four, intercepts, recycles short and simple, snuffs out Bosnian counters before they launch.
+  - index 6: DM/8 — **Weston McKennie** — box-to-box engine alongside Adams; covers when Adams steps, arrives late in the box, the team's most powerful midfield runner.
+  - index 7: RW — **Sergiño Dest** — skilful, inverting right-sided forward/full-back hybrid; cuts inside off the right, combines in the half-space, dangerous on the dribble.
+  - index 8: CAM/10 — **Malik Tillman** — the creative hub between the lines; receives in the half-spaces, supplies the killer through-ball, dribbles into the box, secondary set-piece option.
+  - index 9: LW — **Christian Pulisic** — the talisman; cuts inside on his right foot off the left, drives at the full-back, the chief creator and primary finisher, takes penalties.
+  - index 10: CF — **Folarin Balogun** — lone pressing striker; runs the channels, pins the center-backs and spins in behind, the clinical focal point of the attack.
 
 ## Style of Play
 
 ### Build-up
-Short build-up from the back when possible: the center-backs (Zimmerman, McKenzie) split, Cardoso drops to form a 3+1, and the full-backs (Scally, Arfsten) push high to provide width while the wide forwards tuck inside. When the press is intense, Pochettino has no qualms about going long to Pepi — second-ball wins around the halfway line are a feature, not a fallback. Cardoso is the orchestrator at the base; Roldan and Musah connect the half-spaces.
+Short build-up from the back when possible: the center-backs (Ream, Richards) split, Adams drops to form a 3+1, and the full-backs (Robinson, Freeman) push high to provide width while Dest and Pulisic tuck inside. When the press is intense, Pochettino has no qualms about going long to Balogun — second-ball wins around the halfway line are a feature, not a fallback. Adams and McKennie are the orchestrators at the base; Tillman connects the half-spaces between the lines.
 
 ### Pressing
-**High press is the identity.** Trigger #1: opposition GK receiving a back-pass — Pepi curves his run, Weah and Aaronson jump the full-backs, Cardoso steps into the #6 space. Trigger #2: a heavy first touch from any opposition midfielder — the nearest USA player (often Musah) sprints to engage within 6 units. The press is **man-oriented** in the front five, **zonal** in the back four. The rotated side is built for legs — stamina rated 15+ across the spine — and Pochettino expects 90-minute intensity even from the changed XI.
+**High press is the identity.** Trigger #1: opposition GK receiving a back-pass — Balogun curves his run, Dest and Pulisic jump the full-backs, Adams steps into the #6 space. Trigger #2: a heavy first touch from any opposition midfielder — the nearest USA player sprints to engage within 6 units. The press is **man-oriented** in the front four, **zonal** in the back four. With first-choice legs restored — stamina 16+ across the spine — Pochettino expects 90-minute intensity.
 
 ### Defensive shape
-When the press is broken, the USA drop into a compact **4-4-2 / 4-1-4-1** mid-block with the wide forwards (Weah, Aaronson) tucking into the midfield band and Pepi leading the line. The block is **mid-height** (around the halfway line) rather than deep — Pochettino refuses to invite pressure. Zimmerman and McKenzie hold a moderately high line; Cardoso shields the central channel in front of them. The full-backs fold back into the back four without the ball.
+When the press is broken, the USA drop into a compact **4-4-1-1 / 4-1-4-1** mid-block with the wide forwards (Dest, Pulisic) tucking into the midfield band and Balogun leading the line. The block is **mid-height** (around the halfway line) rather than deep — Pochettino refuses to invite pressure. Ream and Richards hold a moderately high line; Adams shields the central channel in front of them. The full-backs fold back into the back four without the ball, and Adams + McKennie screen against the over-the-top ball to Džeko.
 
-> **Form note (post-Matchday 2):** The USA have **clinched the knockout round and top spot in Group D** with two wins from two (4-1 vs Paraguay, 2-0 vs Australia, out-shooting Australia). With nothing left to play for in the group, **four first-choice starters on yellow cards — Tyler Adams, Folarin Balogun, Chris Richards and Antonee Robinson — are rested** to avoid a knockout-round suspension, and Adams is additionally being load-managed after knocks. **Pulisic, Dest, McKennie, Ream, Freeman and Tillman are also rested**; Pulisic (managed minutes since a knock) is held back for the round of 32. This is a near-wholesale rotation: the depth players (Freese, McKenzie, Arfsten, Roldan, Cardoso, Musah, Weah, Pepi, Aaronson) get the start to stake their knockout-stage claim. Pochettino's stated intent is still to **go for the next one** and maintain momentum.
+> **Form note (post-group stage):** The USA **clinched the knockouts and top spot in Group D** with two wins from two (4-1 vs Paraguay, 2-0 vs Australia) before resting their spine and **losing the dead-rubber finale to Türkiye** with a near-wholesale rotation. For the Round of 32 the first-choice players return: **Tyler Adams, Folarin Balogun, Chris Richards and Antonee Robinson** are back from yellow-card rest, and **Christian Pulisic** starts after easing back from a calf knock (he proved his fitness with substitute minutes vs Türkiye). This is the USA's strongest available XI — the rotation is reversed and the knockout intent is total.
 
 ### Wide play
-Asymmetric: **right** = Weah wide-and-direct with Scally overlapping or underlapping; **left** = Aaronson tucking inside off the left with Arfsten bombing the overlap (the main creation channel — Arfsten reaches the byline, Aaronson shoots/combines from the half-space). Roldan and Musah are the late runners arriving on cut-backs.
+Asymmetric: **left** = Pulisic cutting inside off the left with Robinson bombing the overlap (the main creation channel — Robinson reaches the byline, Pulisic shoots/combines from the half-space); **right** = Dest inverting and combining with Freeman providing the overlap. McKennie is the late runner arriving on cut-backs.
 
 ### Final third
-Patterns: Aaronson-Arfsten 1-2 down the left ending in an Arfsten cut-back; Weah running the channel between LB and LCB onto a through-ball; Pepi pinning the center-backs and spinning in behind; Musah carrying through midfield to feed the front three. Direct counter-attack from a press turnover: Cardoso wins it → vertical pass to a wide forward → into Pepi in 3 passes.
+Patterns: Pulisic-Robinson 1-2 down the left ending in a Robinson cut-back; Dest cutting inside onto his left to feed Tillman; Balogun pinning the center-backs and spinning in behind; Tillman threading the through-ball to the runners. Direct counter-attack from a press turnover: Adams wins it → vertical pass to a wide forward → into Balogun in 3 passes.
 
 ## Set Pieces
-- Attacking corners: **Aaronson** delivers from both sides (in-swinger from the right, out-swinger from the left). Primary aerial targets: Zimmerman, McKenzie, Pepi.
-- Defending corners: **hybrid** — three zonal markers on the six-yard line, four man-markers (one each on the most dangerous attackers), two short-corner blockers. Cardoso takes the front-post zonal slot.
-- Free kicks: **Aaronson** takes direct from any zone within 28 units; **Musah** delivers wide free kicks into the box.
-- Penalties: **Pepi** primary, **Aaronson** secondary, **Musah** tertiary.
+- Attacking corners: **Pulisic** delivers from both sides (in-swinger from the right, out-swinger from the left); **Tillman** alternates. Primary aerial targets: Richards, Ream, Balogun, McKennie.
+- Defending corners: **hybrid** — three zonal markers on the six-yard line, four man-markers (one each on the most dangerous attackers — double up on Džeko), two short-corner blockers. Adams takes the front-post zonal slot; Balogun stays high on the halfway line for the outball.
+- Free kicks: **Pulisic** takes direct from any zone within 28 units; **Tillman** delivers wide free kicks into the box.
+- Penalties: **Pulisic** primary, **Tillman** secondary, **Balogun** tertiary.
 
 ## decide() Decision Priorities
 Concrete rules the LLM should encode:
-1. **If my player_id ends with "_10" (LW, jersey #11 — Aaronson) and I receive the ball wide on the left:** cut inside on my right foot. If a teammate (the LB, player_id ends with "_4" — Arfsten) is overlapping outside me, prefer a 1-2 Pass; else dribble to the half-space and Shoot if angle < 30° and distance < 24.
-2. **If my player_id ends with "_5" (DM, jersey #20 — Cardoso) and an opponent has the ball within 8 units in central midfield:** Tackle immediately. Do not hesitate.
-3. **If my player_id ends with "_4" (LB, jersey #25 — Arfsten) and team_phase == "attacking":** Sprint forward to the opposition byline. The overlap is automatic — even at low stamina.
-4. **If my player_id ends with "_1" (RB, jersey #23 — Scally) and team_phase == "attacking" and the ball is in the right half:** Overlap or underlap to support the RW (player_id ends with "_8" — Weah); otherwise hold the back-four line.
+1. **If my player_id ends with "_9" (LW, jersey #10 — Pulisic) and I receive the ball wide on the left:** cut inside on my right foot. If a teammate (the LB, player_id ends with "_1" — Robinson) is overlapping outside me, prefer a 1-2 Pass; else dribble to the half-space and Shoot if angle < 30° and distance < 24.
+2. **If my player_id ends with "_5" (DM, jersey #4 — Adams) and an opponent has the ball within 8 units in central midfield:** Tackle immediately. Do not hesitate — shield the back four.
+3. **If my player_id ends with "_1" (LB, jersey #5 — Robinson) and team_phase == "attacking":** Sprint forward to the opposition byline. The overlap is automatic — even at low stamina; primary width on the left.
+4. **If my player_id ends with "_4" (RB, jersey #22 — Freeman) and team_phase == "attacking" and the ball is in the right half:** Overlap or underlap to support the RW (player_id ends with "_7" — Dest); otherwise hold the back-four line.
 5. **If my role is FWD and team has just won possession in our own half:** Sprint forward on a vertical line — counter-attack in 3-4 passes is the default.
-6. **If team_phase == "defending" and player_id ends with "_8" (RW — Weah) or "_10" (LW — Aaronson):** drop into the wide slots of the midfield band to form a 4-4-2/4-1-4-1; track the opposition full-back on your flank.
+6. **If team_phase == "defending" and player_id ends with "_7" (RW — Dest) or "_9" (LW — Pulisic):** drop into the wide slots of the midfield band to form a 4-4-1-1/4-1-4-1; track the opposition full-back on your flank.
 7. **If my role is GK (player_id ends with "_0" — Freese):** stay on the goal line unless ball > 40 units away. Avoid sweeping — distribution is short to the nearest CB.
-8. **If my player_id ends with "_9" (CF, jersey #9 — Pepi) and the opposition CB takes a heavy first touch (ball > 3 units from feet):** Sprint to press; curve the run to cut the deeper CB.
-9. **If my player_id ends with "_6" (RCM, jersey #19 — Roldan) or "_7" (LCM, jersey #6 — Musah) and a teammate is delivering a cross into the box:** Sprint into the box, target the back post.
-10. **If my player_id ends with "_2" (RCB, jersey #3 — Zimmerman) or "_3" (LCB, jersey #15 — McKenzie) and team has possession in opposition half:** Hold position at the halfway line. McKenzie (`_3`) may carry into midfield if no opponent is within 10 units; Zimmerman (`_2`) holds.
-11. **If my player_id ends with "_7" (LCM — Musah) and I receive the ball facing forward with space:** Carry — Musah is the team's best ball-progressor from deep; drive at the opposition line before releasing the front three.
-12. **If team is leading by 1+ goals and minute > 80:** drop the block 8 units deeper. The DM (player_id ends with "_5" — Cardoso) sits in front of the back four, no more high pressing.
-13. **Set pieces / penalties / direct free kicks within 28 units:** defer to the CF (player_id ends with "_9" — Pepi) for penalties; the LW (player_id ends with "_10" — Aaronson) takes corners and direct free kicks.
+8. **If my player_id ends with "_10" (CF, jersey #9 — Balogun) and the opposition CB takes a heavy first touch (ball > 3 units from feet):** Sprint to press; curve the run to cut the deeper CB.
+9. **If my player_id ends with "_6" (DM/8, jersey #8 — McKennie) and a teammate is delivering a cross into the box:** Sprint into the box, target the back post — McKennie is the late-arriving runner.
+10. **If my player_id ends with "_2" (LCB, jersey #13 — Ream) or "_3" (RCB, jersey #3 — Richards) and team has possession in opposition half:** Hold position at the halfway line. Ream (`_2`) may carry into midfield if no opponent is within 10 units; Richards (`_3`) holds.
+11. **If my player_id ends with "_8" (CAM — Tillman) and I receive the ball between the lines facing forward:** look first for the through ball to Balogun (`_10`) or the wide runners; carry into the box and Shoot if the lane opens — Tillman is the chief creative hub.
+12. **If team is leading by 1+ goals and minute > 80:** drop the block 8 units deeper. The DM (player_id ends with "_5" — Adams) sits in front of the back four, no more high pressing; only Balogun (`_10`) stays high as outball.
+13. **Set pieces / penalties / direct free kicks within 28 units:** defer to the LW (player_id ends with "_9" — Pulisic) for penalties, corners and direct free kicks; Tillman (`_8`) is the secondary deliverer.
 
 ## Key Player Notes
-- **Pepi (9, idx 9):** Kept his place through the rotation as the lone striker; primary penalty taker, channel-runner, pressing trigger. The one constant in the changed front line.
-- **Cardoso (20, idx 5):** Single pivot in Adams's absence — ball-winner and screen; high stamina lets him cover the whole midfield band.
-- **Arfsten (25, idx 4):** Underrated attacking weapon — speed 16, stamina 17. Pochettino licenses him to overlap repeatedly even into stoppage time.
-- **Musah (6, idx 7):** The athletic carrier of the midfield three; drives through the lines, supports the left overload, tertiary set-piece option.
-- **Aaronson (11, idx 10):** High-energy left forward, chief creator of the rotated XI; primary corner and free-kick taker, secondary penalty taker.
-- **Weah (21, idx 8):** Direct right winger; stretches the back line, runs the channels, supplies the cut-back from the byline.
-- **Zimmerman (3, idx 2) & McKenzie (15, idx 3):** The rotated center-back pairing; Zimmerman the aerial monitor and organiser, McKenzie the ball-player who steps into midfield.
-- **Freese (24, idx 0):** First-choice keeper getting valuable World Cup minutes; line-bound shot-stopper, short distribution.
+- **Pulisic (10, idx 9):** The talisman, starting on the left after easing back from a calf knock; chief creator and primary finisher. Primary penalty, corner and free-kick taker. Cuts inside on his right to shoot or combine.
+- **Balogun (9, idx 10):** Lone striker restored from yellow-card rest; channel-runner, pressing trigger, clinical focal point. Tertiary penalty option.
+- **Adams (4, idx 5):** Ball-winning anchor of the double pivot, back fresh after load-management; screens the back four and snuffs out Bosnian counters.
+- **McKennie (8, idx 6):** Box-to-box engine alongside Adams; powerful runner, arrives late in the box on cut-backs, the team's most physical midfielder.
+- **Tillman (18, idx 8):** The creative hub at the 10; receives between the lines, threads the killer pass, secondary set-piece taker.
+- **Dest (2, idx 7):** Skilful inverting right-sided forward; cuts inside off the right, combines in the half-space, dangerous on the dribble.
+- **Robinson (5, idx 1):** Rampaging attacking LB restored from yellow-card rest — speed 18, stamina 18; overlaps repeatedly to the byline, primary width on the left.
+- **Ream (13, idx 2) & Richards (3, idx 3):** The restored center-back pairing; Ream the calm left-footed organiser and ball-player, Richards the physical aerial monitor who dominates the box against Džeko.
+- **Freese (24, idx 0):** First-choice keeper restored; line-bound shot-stopper, short distribution to the nearest CB.
 
 ## Tournament Mindset
-The USA carries the weight of being co-host on home soil with packed stadiums in LA, NYC, Dallas and Atlanta. Having already topped Group D, the Türkiye game is about **protecting the spine for the knockouts** without surrendering momentum: rest the yellow-carded and knocked-up first-choice players, but field a rotated XI that still presses, runs and plays vertically — and gives the depth a chance to force their way into the round-of-32 picture. Pochettino has explicitly told the squad to **embrace** the pressure rather than retreat from it. Expect the USA to remain the most physically intense team in the tournament. The realistic ceiling is the quarter-finals; the immediate goal is to enter the knockout round fresh, unsuspended and confident.
+The USA carries the weight of being host nation on home soil — a partisan, packed Levi's Stadium and a nation watching. This is the Round of 32: one game, win or go home, no second chances. Having topped Group D, the USA restore their strongest spine and embrace the home-crowd pressure rather than retreat from it. The plan: dominate possession and the center against a deep Bosnian block, press relentlessly, guard against the over-the-top ball to Džeko, win the aerial battles on Bosnian set pieces, and trust Pulisic and Balogun to settle it in a single moment. Pochettino has told the squad to embrace the occasion. Expect the USA to remain the most physically intense team in the tournament; the realistic ceiling is a deep knockout run, and the immediate goal is to get through the first knockout test and ride the home momentum.

@@ -30,20 +30,6 @@ players:
     shoot: 9
     offensive: 12
     penalty: 11
-  - name: Brandon Mechele
-    number: 4
-    role: DEF
-    speed: 11
-    skill: 13
-    strength: 16
-    save: 0
-    discipline: 15
-    dribbling: 10
-    stamina: 14
-    pass: 13
-    shoot: 6
-    offensive: 12
-    penalty: 9
   - name: Arthur Theate
     number: 5
     role: DEF
@@ -58,18 +44,32 @@ players:
     shoot: 7
     offensive: 12
     penalty: 9
-  - name: Thomas Meunier
+  - name: Brandon Mechele
+    number: 4
+    role: DEF
+    speed: 11
+    skill: 13
+    strength: 16
+    save: 0
+    discipline: 15
+    dribbling: 10
+    stamina: 14
+    pass: 13
+    shoot: 6
+    offensive: 12
+    penalty: 9
+  - name: Timothy Castagne
     number: 2
     role: DEF
-    speed: 13
+    speed: 15
     skill: 14
     strength: 14
     save: 0
-    discipline: 14
+    discipline: 15
     dribbling: 12
-    stamina: 15
+    stamina: 17
     pass: 14
-    shoot: 10
+    shoot: 9
     offensive: 13
     penalty: 11
   - name: Youri Tielemans
@@ -86,20 +86,20 @@ players:
     shoot: 15
     offensive: 10
     penalty: 16
-  - name: Nicolas Raskin
+  - name: Hans Vanaken
     number: 6
     role: MID
-    speed: 14
-    skill: 15
+    speed: 12
+    skill: 16
     strength: 15
     save: 0
-    discipline: 14
+    discipline: 15
     dribbling: 13
-    stamina: 17
-    pass: 15
-    shoot: 11
-    offensive: 12
-    penalty: 11
+    stamina: 16
+    pass: 16
+    shoot: 13
+    offensive: 11
+    penalty: 12
   - name: Kevin De Bruyne
     number: 7
     role: MID
@@ -128,20 +128,20 @@ players:
     shoot: 14
     offensive: 9
     penalty: 15
-  - name: Romelu Lukaku
+  - name: Charles De Ketelaere
     number: 9
     role: FWD
-    speed: 14
-    skill: 15
-    strength: 18
+    speed: 15
+    skill: 16
+    strength: 15
     save: 0
-    discipline: 14
-    dribbling: 12
-    stamina: 13
-    pass: 12
-    shoot: 17
-    offensive: 8
-    penalty: 16
+    discipline: 15
+    dribbling: 15
+    stamina: 16
+    pass: 15
+    shoot: 14
+    offensive: 9
+    penalty: 14
   - name: Leandro Trossard
     number: 10
     role: FWD
