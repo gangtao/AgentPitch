@@ -746,6 +746,13 @@ class MatchLog:
                 for (t, old, new) in self._phase_transitions
             ],
         }
+        # Issue #83 — knockout outcome metadata (None on non-knockout matches).
+        fs = self._final_state
+        meta["decided_by"] = fs.get("decided_by", "regulation")
+        meta["regulation_score"] = fs.get("regulation_score")
+        meta["after_extra_time_score"] = fs.get("after_extra_time_score")
+        meta["shootout"] = fs.get("shootout")
+
         if self._teams_meta is not None:
             meta["teams"] = self._teams_meta
         if self._match_meta is not None:
