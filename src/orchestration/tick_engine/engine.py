@@ -697,18 +697,20 @@ class TickEngine:
         if phase_lower == "goal_scored":
             self._goal_pause_remaining -= 1
             if self._goal_pause_remaining <= 0:
+                ft_label = "et_full_time" if self._period == "extra_time" else "full_time"
                 if gsm.tick >= gsm.total_ticks:
                     gsm.set_phase("FULL_TIME")
-                    log.record_phase_transition(gsm.tick, "goal_scored", "full_time")
+                    log.record_phase_transition(gsm.tick, "goal_scored", ft_label)
                 else:
                     self._setup_kickoff(gsm, log, getattr(self, "_conceding_team", "team_a"))
                     log.record_phase_transition(gsm.tick, "goal_scored", "kick_off")
         elif phase_lower == "half_time":
             self._halftime_pause_remaining -= 1
             if self._halftime_pause_remaining <= 0:
+                ft_label = "et_full_time" if self._period == "extra_time" else "full_time"
                 if gsm.tick >= gsm.total_ticks:
                     gsm.set_phase("FULL_TIME")
-                    log.record_phase_transition(gsm.tick, "half_time", "full_time")
+                    log.record_phase_transition(gsm.tick, "half_time", ft_label)
                     return
                 gsm.swap_attack_direction()
                 # Half-time fully restores every player's health (added
@@ -716,7 +718,8 @@ class TickEngine:
                 if hasattr(gsm, "restore_all_health"):
                     gsm.restore_all_health()
                 self._setup_kickoff(gsm, log, self._second_half_kickoff_team)
-                log.record_phase_transition(gsm.tick, "half_time", "kick_off")
+                ko_label = "et_second_half" if self._period == "extra_time" else "kick_off"
+                log.record_phase_transition(gsm.tick, "half_time", ko_label)
 
     def _run_phase_loop(self, gsm, log, are, config):
         """Run ticks until full time (phase leaves the active/pause set).
@@ -742,7 +745,7 @@ class TickEngine:
         return score.get("team_a", 0) == score.get("team_b", 0)
 
     @staticmethod
-    def _extra_time_ticks(regulation_total: int, ratio: float) -> tuple:
+    def _extra_time_ticks(regulation_total: int, ratio: float) -> tuple[int, int]:
         """Extra-time tick budget from regulation length and ratio.
 
         Returns (et_total_ticks, et_half_ticks). Clamped so two non-empty
