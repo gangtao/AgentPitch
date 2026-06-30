@@ -52,15 +52,52 @@ def test_sent_off_players_excluded_as_takers():
     assert all(k.taker_id != "team_a_1" for k in r.kicks if k.team == "team_a")
 
 
-def test_early_clinch_stops_before_all_five():
-    # Strong attackers (penalty 20) vs no keepers on either side → both always
-    # score, so it cannot clinch early; instead verify the kick count never
-    # exceeds 5 per side before sudden death by construction.
-    a = _roster("team_a", penalty=20)
-    b = _roster("team_b", penalty=20)
-    r = resolve_shootout(a, b, seed=9, knobs=KNOBS)
-    a_first5 = [k for k in r.kicks if k.team == "team_a"][:5]
-    b_first5 = [k for k in r.kicks if k.team == "team_b"][:5]
-    # Both convert all 5 → tie after regulation kicks → sudden death entered.
-    assert len(a_first5) == 5 and len(b_first5) == 5
-    assert len(r.kicks) > 10                   # sudden death happened
+def test_early_clinch_stops_before_all_five_kicks():
+    """Deterministic early clinch: team_a always scores, team_b always misses.
+
+    Using base=1.0 with save_per_point=0.1, conversion is fully determined by
+    the opposing keeper's save rating (no RNG):
+      team_a faces team_b GK save=10 -> p_goal = 1.0  (always scores)
+      team_b faces team_a GK save=20 -> p_goal = clamp(1.0 - 0.1*10) = 0.0 (always misses)
+    team_a reaches 3 while team_b is on 0 -> clinched after team_b's 3rd kick (6 total).
+    """
+    knobs = ShootoutKnobs(base=1.0, per_point=0.0, save_per_point=0.1)
+    a = {"team_a_0": {"team": "team_a", "role": "GK", "save": 20, "penalty": 10},
+         "team_a_1": {"team": "team_a", "role": "FW", "penalty": 10},
+         "team_a_2": {"team": "team_a", "role": "MF", "penalty": 10},
+         "team_a_3": {"team": "team_a", "role": "MF", "penalty": 10},
+         "team_a_4": {"team": "team_a", "role": "MF", "penalty": 10}}
+    b = {"team_b_0": {"team": "team_b", "role": "GK", "save": 10, "penalty": 10},
+         "team_b_1": {"team": "team_b", "role": "FW", "penalty": 10},
+         "team_b_2": {"team": "team_b", "role": "MF", "penalty": 10},
+         "team_b_3": {"team": "team_b", "role": "MF", "penalty": 10},
+         "team_b_4": {"team": "team_b", "role": "MF", "penalty": 10}}
+    r = resolve_shootout(a, b, seed=5, knobs=knobs)
+    assert r.winner == "team_a"
+    assert r.score == {"team_a": 3, "team_b": 0}
+    assert len(r.kicks) == 6
+
+
+def test_sudden_death_after_tied_best_of_five():
+    """Sudden death is entered when both teams convert equally in the best-of-5.
+
+    seed=2 was found by searching 0..500 for a result with len(kicks) > 10
+    using equal rosters and default KNOBS (p_goal=0.75 per taker).
+    Kick-by-kick: after 10 kicks both teams are tied at 4 goals each,
+    so sudden death runs until team_a wins 8-7 after 18 total kicks.
+    """
+    a, b = _roster("team_a"), _roster("team_b")
+    r = resolve_shootout(a, b, seed=2, knobs=KNOBS)  # seed=2 found by search 0..500
+    # Entered sudden death
+    assert len(r.kicks) > 10
+    # Best-of-5 was tied (first 10 kicks: 5 from each team)
+    first10 = r.kicks[:10]
+    a_bo5 = sum(1 for k in first10 if k.team == "team_a" and k.scored)
+    b_bo5 = sum(1 for k in first10 if k.team == "team_b" and k.scored)
+    assert a_bo5 == b_bo5
+    # A valid winner is declared
+    assert r.winner in ("team_a", "team_b")
+    assert r.score[r.winner] > r.score["team_b" if r.winner == "team_a" else "team_a"]
+    # Deterministic: same seed → identical result
+    r2 = resolve_shootout(a, b, seed=2, knobs=KNOBS)
+    assert r == r2
