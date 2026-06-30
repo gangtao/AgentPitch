@@ -1,6 +1,6 @@
-# Formation: 4-3-3
+# Formation: 4-4-2
 team_id: bosnia_and_herzegovina
-name: Bosnia and Herzegovina
+name: Bosnia-Herzegovina
 players:
   - name: Nikola Vasilj
     number: 1
@@ -8,7 +8,7 @@ players:
     speed: 10
     skill: 12
     strength: 14
-    save: 13
+    save: 16
     discipline: 13
     dribbling: 5
     stamina: 12
@@ -19,31 +19,17 @@ players:
   - name: Sead Kolašinac
     number: 5
     role: DEF
-    speed: 13
+    speed: 12
     skill: 13
-    strength: 15
+    strength: 16
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 11
     stamina: 15
     pass: 13
     shoot: 9
     offensive: 13
     penalty: 10
-  - name: Dennis Hadžikadunić
-    number: 21
-    role: DEF
-    speed: 12
-    skill: 12
-    strength: 15
-    save: 0
-    discipline: 12
-    dribbling: 9
-    stamina: 14
-    pass: 12
-    shoot: 6
-    offensive: 12
-    penalty: 8
   - name: Nikola Katić
     number: 18
     role: DEF
@@ -58,48 +44,34 @@ players:
     shoot: 7
     offensive: 14
     penalty: 9
-  - name: Amar Dedić
-    number: 7
+  - name: Tarik Muharemović
+    number: 21
     role: DEF
-    speed: 14
-    skill: 14
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 16
-    pass: 14
-    shoot: 8
-    offensive: 11
-    penalty: 10
-  - name: Benjamin Tahirović
-    number: 6
-    role: MID
     speed: 13
-    skill: 15
-    strength: 13
-    save: 0
-    discipline: 14
-    dribbling: 14
-    stamina: 16
-    pass: 15
-    shoot: 12
-    offensive: 10
-    penalty: 13
-  - name: Ivan Šunjić
-    number: 14
-    role: MID
-    speed: 12
     skill: 13
-    strength: 14
+    strength: 15
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 11
     stamina: 15
     pass: 13
-    shoot: 10
+    shoot: 6
+    offensive: 13
+    penalty: 9
+  - name: Amar Memić
+    number: 15
+    role: DEF
+    speed: 15
+    skill: 12
+    strength: 12
+    save: 0
+    discipline: 13
+    dribbling: 12
+    stamina: 15
+    pass: 12
+    shoot: 8
     offensive: 11
-    penalty: 11
+    penalty: 9
   - name: Kerim Alajbegović
     number: 16
     role: MID
@@ -114,6 +86,48 @@ players:
     shoot: 12
     offensive: 10
     penalty: 12
+  - name: Ivan Šunjić
+    number: 14
+    role: MID
+    speed: 12
+    skill: 13
+    strength: 15
+    save: 0
+    discipline: 12
+    dribbling: 10
+    stamina: 16
+    pass: 13
+    shoot: 10
+    offensive: 11
+    penalty: 11
+  - name: Ivan Bašić
+    number: 8
+    role: MID
+    speed: 12
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 13
+    stamina: 16
+    pass: 14
+    shoot: 11
+    offensive: 10
+    penalty: 12
+  - name: Esmir Bajraktarević
+    number: 19
+    role: MID
+    speed: 16
+    skill: 15
+    strength: 11
+    save: 0
+    discipline: 12
+    dribbling: 16
+    stamina: 15
+    pass: 13
+    shoot: 13
+    offensive: 9
+    penalty: 13
   - name: Ermedin Demirović
     number: 10
     role: FWD
@@ -142,17 +156,3 @@ players:
     shoot: 16
     offensive: 8
     penalty: 15
-  - name: Amar Memić
-    number: 15
-    role: FWD
-    speed: 15
-    skill: 13
-    strength: 12
-    save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 15
-    pass: 13
-    shoot: 12
-    offensive: 10
-    penalty: 12
