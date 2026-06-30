@@ -151,6 +151,28 @@ def _determine_winner(
         return result, winner_slot, True
 
 
+def _winner_from_meta(match: dict, meta: dict) -> tuple:
+    """Resolve a knockout result from meta.json (issue #83).
+
+    Trusts the engine: a shootout winner takes precedence; otherwise the side
+    leading the (possibly post-extra-time) final_score wins. Returns
+    (result, winner_slot, decided_by). Assumes meta is decisive — knockout
+    matches never finish level once extra time + shootout have run.
+    """
+    team_a_slot = match["team_a_slot"]
+    team_b_slot = match["team_b_slot"]
+    decided_by = meta.get("decided_by", "regulation")
+    shootout = meta.get("shootout")
+
+    if decided_by == "shootout" and isinstance(shootout, dict):
+        result = shootout.get("winner", "team_a")
+    else:
+        fs = meta.get("final_score", {}) or {}
+        result = "team_a" if fs.get("team_a", 0) >= fs.get("team_b", 0) else "team_b"
+    winner_slot = team_a_slot if result == "team_a" else team_b_slot
+    return result, winner_slot, decided_by
+
+
 # ---------------------------------------------------------------------------
 # Main cup orchestration logic
 # ---------------------------------------------------------------------------
@@ -251,6 +273,7 @@ async def _run_cup(args: argparse.Namespace) -> None:
                         "--strategy-a", str(strategy_a_path),
                         "--strategy-b", str(strategy_b_path),
                         "--log-dir", str(log_dir),
+                        "--knockout",          # issue #83 — cups are single-elimination
                     ]
                     if args.global_defaults:
                         cmd.extend(["--global-defaults", args.global_defaults])
@@ -279,11 +302,18 @@ async def _run_cup(args: argparse.Namespace) -> None:
                     meta = _read_meta_json(log_dir, match_id)
 
                 # vi. Determine winner
+                decided_by = "regulation"
+                shootout_meta = None
                 if meta is not None:
                     final_score = meta.get("final_score", {})
                     score_a = final_score.get("team_a", 0)
                     score_b = final_score.get("team_b", 0)
-                    result, winner_slot, tiebreak = _determine_winner(match, score_a, score_b)
+                    # Issue #83 — knockout matches are decisive in meta.json
+                    # (ET leader or shootout winner). Trust it; the coin-flip
+                    # below is only for a missing/unreadable meta.json.
+                    result, winner_slot, decided_by = _winner_from_meta(match, meta)
+                    shootout_meta = meta.get("shootout")
+                    tiebreak = decided_by != "regulation"
                 else:
                     # No meta.json: coin-flip tiebreak
                     print(
@@ -296,6 +326,8 @@ async def _run_cup(args: argparse.Namespace) -> None:
                     result = rng.choice(["team_a", "team_b"])
                     winner_slot = team_a_slot if result == "team_a" else team_b_slot
                     tiebreak = True
+                    decided_by = "coin_flip"
+                    shootout_meta = None
                     score_a, score_b = 0, 0
 
                 winner_strategy = _slot_to_strategy_name(cup_data, winner_slot)
@@ -306,6 +338,8 @@ async def _run_cup(args: argparse.Namespace) -> None:
                 match["winner_slot"] = winner_slot
                 match["final_score"] = {"team_a": score_a, "team_b": score_b}
                 match["tiebreak"] = tiebreak
+                match["decided_by"] = decided_by
+                match["shootout"] = shootout_meta
 
                 # viii. Emit cup-match-completed
                 _append_cup_event(cup_dir_path, "cup-match-completed", {
@@ -316,6 +350,8 @@ async def _run_cup(args: argparse.Namespace) -> None:
                     "winner_strategy": winner_strategy,
                     "score": {"team_a": score_a, "team_b": score_b},
                     "tiebreak": tiebreak,
+                    "decided_by": decided_by,
+                    "shootout": shootout_meta,
                 })
                 write_cup_json(cup_dir_path, cup_data)
                 print(
@@ -393,4 +429,4 @@ def main() -> None:
     asyncio.run(_run_cup(args))
 
 
-__all__ = ["main", "_run_cup", "_build_parser", "_append_cup_event", "_determine_winner"]
+__all__ = ["main", "_run_cup", "_build_parser", "_append_cup_event", "_determine_winner", "_winner_from_meta"]
