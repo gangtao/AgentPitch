@@ -54,6 +54,15 @@ def _build_parser() -> argparse.ArgumentParser:
              "Becomes the output directory name (matches/match_<id>/).",
     )
     run.add_argument(
+        "--knockout",
+        action="store_true",
+        default=False,
+        help="Single-elimination match: if level at full time, play extra "
+             "time and then a penalty shootout (issue #83). Sets "
+             "config.simulation.knockout for this run. Cup runner passes this "
+             "for knockout rounds only.",
+    )
+    run.add_argument(
         "--log-dir",
         default=None,
         help="Override config.output.log_dir at runtime. Used by the HTTP "
@@ -531,6 +540,13 @@ def main() -> None:
         print(f"[cli] --seed override applied: config.match.seed = {args.seed}", flush=True)
     else:
         print(f"[cli] using config seed: {config.match.seed}", flush=True)
+
+    # Apply --knockout override (cup_runner passes this for knockout rounds).
+    # config.simulation is frozen, so model_copy a new one.
+    if getattr(args, "knockout", False):
+        new_sim = config.simulation.model_copy(update={"knockout": True})
+        config = config.model_copy(update={"simulation": new_sim})
+        print("[cli] --knockout enabled: extra time + shootout active", flush=True)
 
     # Apply --global-defaults overlay. The Config UI's Game tab writes to
     # this YAML; we read the simulation-relevant subset and overlay it onto
