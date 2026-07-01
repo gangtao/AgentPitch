@@ -30,19 +30,19 @@ players:
     shoot: 12
     offensive: 13
     penalty: 13
-  - name: Gonçalo Inácio
-    number: 14
+  - name: Renato Veiga
+    number: 5
     role: DEF
-    speed: 15
-    skill: 16
+    speed: 14
+    skill: 15
     strength: 16
     save: 0
-    discipline: 15
+    discipline: 14
     dribbling: 12
     stamina: 16
-    pass: 16
-    shoot: 8
-    offensive: 13
+    pass: 15
+    shoot: 10
+    offensive: 12
     penalty: 11
   - name: Rúben Dias
     number: 3
@@ -114,20 +114,20 @@ players:
     shoot: 16
     offensive: 11
     penalty: 17
-  - name: Rafael Leão
-    number: 17
+  - name: João Félix
+    number: 11
     role: FWD
-    speed: 19
+    speed: 16
     skill: 17
-    strength: 14
+    strength: 12
     save: 0
-    discipline: 13
-    dribbling: 18
-    stamina: 16
-    pass: 15
-    shoot: 16
-    offensive: 9
-    penalty: 16
+    discipline: 14
+    dribbling: 17
+    stamina: 15
+    pass: 16
+    shoot: 15
+    offensive: 8
+    penalty: 15
   - name: Cristiano Ronaldo
     number: 7
     role: FWD
@@ -142,17 +142,17 @@ players:
     shoot: 18
     offensive: 10
     penalty: 18
-  - name: Bernardo Silva
-    number: 10
+  - name: Pedro Neto
+    number: 26
     role: FWD
-    speed: 15
-    skill: 18
-    strength: 12
+    speed: 18
+    skill: 16
+    strength: 13
     save: 0
-    discipline: 16
-    dribbling: 18
-    stamina: 17
-    pass: 18
-    shoot: 15
-    offensive: 7
-    penalty: 16
+    discipline: 14
+    dribbling: 17
+    stamina: 16
+    pass: 15
+    shoot: 14
+    offensive: 9
+    penalty: 14

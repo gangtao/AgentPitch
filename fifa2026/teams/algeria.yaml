@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: algeria
 name: Algeria
 players:
@@ -100,6 +100,20 @@ players:
     shoot: 11
     offensive: 11
     penalty: 12
+  - name: Farès Chaïbi
+    number: 8
+    role: MID
+    speed: 15
+    skill: 16
+    strength: 13
+    save: 0
+    discipline: 13
+    dribbling: 16
+    stamina: 15
+    pass: 16
+    shoot: 13
+    offensive: 10
+    penalty: 12
   - name: Ibrahim Maza
     number: 22
     role: MID
@@ -114,20 +128,20 @@ players:
     shoot: 13
     offensive: 9
     penalty: 14
-  - name: Mohamed Amoura
-    number: 18
-    role: FWD
-    speed: 17
-    skill: 16
-    strength: 13
+  - name: Riyad Mahrez
+    number: 7
+    role: MID
+    speed: 14
+    skill: 17
+    strength: 12
     save: 0
-    discipline: 13
-    dribbling: 16
-    stamina: 16
-    pass: 14
-    shoot: 17
+    discipline: 14
+    dribbling: 18
+    stamina: 15
+    pass: 17
+    shoot: 16
     offensive: 8
-    penalty: 17
+    penalty: 16
   - name: Amine Gouiri
     number: 9
     role: FWD
@@ -141,18 +155,4 @@ players:
     pass: 14
     shoot: 16
     offensive: 9
-    penalty: 16
-  - name: Riyad Mahrez
-    number: 7
-    role: FWD
-    speed: 14
-    skill: 17
-    strength: 12
-    save: 0
-    discipline: 14
-    dribbling: 18
-    stamina: 15
-    pass: 17
-    shoot: 16
-    offensive: 8
     penalty: 16
