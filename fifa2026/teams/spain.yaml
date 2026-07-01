@@ -72,20 +72,20 @@ players:
     shoot: 12
     offensive: 13
     penalty: 13
-  - name: Fabián Ruiz
-    number: 8
+  - name: Mikel Merino
+    number: 18
     role: MID
     speed: 13
-    skill: 17
-    strength: 14
+    skill: 15
+    strength: 17
     save: 0
     discipline: 15
-    dribbling: 16
-    stamina: 16
-    pass: 17
+    dribbling: 13
+    stamina: 17
+    pass: 15
     shoot: 14
-    offensive: 11
-    penalty: 15
+    offensive: 13
+    penalty: 12
   - name: Rodri
     number: 16
     role: MID
@@ -114,20 +114,20 @@ players:
     shoot: 14
     offensive: 9
     penalty: 16
-  - name: Nico Williams
-    number: 17
+  - name: Álex Baena
+    number: 10
     role: FWD
-    speed: 19
-    skill: 16
+    speed: 14
+    skill: 17
     strength: 13
     save: 0
-    discipline: 13
-    dribbling: 17
-    stamina: 17
-    pass: 14
-    shoot: 14
-    offensive: 9
-    penalty: 14
+    discipline: 14
+    dribbling: 16
+    stamina: 16
+    pass: 17
+    shoot: 15
+    offensive: 12
+    penalty: 9
   - name: Mikel Oyarzabal
     number: 21
     role: FWD
