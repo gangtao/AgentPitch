@@ -4,15 +4,15 @@
 Hossam Hassan's Egypt is built around one indisputable truth: feed Mohamed Salah. The opener against Belgium (a 1-1 draw, Ashour scoring and Salah assisting) was set up in a 4-2-3-1 — a double pivot screening the back four, three behind a lone striker — patient in build-up, defensively organized, and explosive in transition: a side that will absorb pressure for 70 minutes if it means Salah and Omar Marmoush get four clean 1v1 chances. Veteran spine, structured mid-block, devastating on the counter. That blueprint delivered: Egypt followed the Belgium draw with a 3-1 win over New Zealand on June 21 — their first-ever World Cup victory (they had played 1934, 1990 and 2018 without one) — Salah inspiring the breakthrough. Egypt go into Matchday 3 **top of Group G on 4 points** (1W, 1D), ahead of Iran and Belgium (2 each) and New Zealand (1). Now comes Egypt v Iran at Lumen Field, Seattle on Fri June 26: a win sends the Pharaohs to 7 points and through as group winners; even a draw (5 points) all but secures the knockouts, while Iran must win to keep their hopes alive. No fresh injuries or suspensions from the New Zealand game (only back-up CB Hossam Abdelmaguid is sidelined, head-injury protocol); Hassan keeps the same XI. The plan is unchanged: tight game, deep stretches without the ball, quick release into Salah or Marmoush.
 
 ## Formation
-- Shape: 4-2-3-1. Double pivot (Attia + Lasheen) shields the back four; Ashour is the central #10 behind lone striker Marmoush, with Salah from the right and Zico from the left.
+- Shape: 4-2-3-1. Double pivot (Attia + Fathy) shields the back four; Ashour is the central #10 behind lone striker Marmoush, with Salah from the right and Zico from the left. **R32 update:** first-choice LB Ahmed Fatouh is out injured (hamstring) and Mohanad Lasheen is suspended, so Karim Hafez comes in at left-back, Ramy Rabia partners at centre-back, and Hamdy Fathy drops into the pivot alongside Attia.
 - Role mapping (roster order in `egypt.yaml`):
   - index 0: GK — Mostafa Shobeir (Al Ahly; preferred to El Shenawy for the opener; conservative distribution, goes long when pressed)
-  - index 1: LB — Ahmed Fatouh (conservative, rarely overlaps; tucks in to make a back three when Hany stays high)
-  - index 2: LCB — Hamdy Fathy (a defensive midfielder by trade dropped to center-back; ball-winner, stamina 17, reads danger well)
+  - index 1: LB — Karim Hafez (in for the injured Fatouh; conservative, rarely overlaps; tucks in to make a back three when Hany stays high)
+  - index 2: LCB — Ramy Rabia (experienced Al Ahly centre-back drawn into the XI; aerially strong, steps out to screen)
   - index 3: RCB — Yasser Ibrahim (aerial commander, strength 16; wins the box, the line organizer who steps out)
   - index 4: RB — Mohamed Hany (holds width, stays deep as cover behind Salah)
   - index 5: DM/#6 — Marwan Attia (deep-lying playmaker, the right side of the pivot; screens the back four, dictates tempo)
-  - index 6: DM/#6 — Mohanad Lasheen (Pyramids; ball-winning midfielder, the left side of the pivot; tackles and interceptions, recycles simply)
+  - index 6: DM/#6 — Hamdy Fathy (a defensive midfielder by trade, back in his natural role for the suspended Lasheen; ball-winner, stamina 17, the left side of the pivot)
   - index 7: CAM/#10 — Emam Ashour (the central creative engine; drives forward to support Salah, arrives late at the back post — scored vs Belgium)
   - index 8: LAM/LW — Mostafa Zico (Pyramids; right-footed wide forward from the left, cuts in and shoots, secondary set-piece taker)
   - index 9: CF — Omar Marmoush (Manchester City; pace + hold-up, leads the line, runs in behind)

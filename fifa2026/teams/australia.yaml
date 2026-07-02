@@ -100,20 +100,20 @@ players:
     shoot: 11
     offensive: 11
     penalty: 11
-  - name: Jacob Italiano
-    number: 4
+  - name: Connor Metcalfe
+    number: 8
     role: MID
-    speed: 15
-    skill: 13
-    strength: 12
+    speed: 13
+    skill: 14
+    strength: 13
     save: 0
     discipline: 13
-    dribbling: 13
+    dribbling: 12
     stamina: 16
-    pass: 13
-    shoot: 9
+    pass: 14
+    shoot: 11
     offensive: 11
-    penalty: 10
+    penalty: 11
   - name: Nishan Velupillay
     number: 23
     role: FWD
@@ -128,20 +128,20 @@ players:
     shoot: 13
     offensive: 9
     penalty: 11
-  - name: Mathew Leckie
-    number: 7
+  - name: Nestory Irankunda
+    number: 11
     role: FWD
-    speed: 15
-    skill: 14
-    strength: 14
+    speed: 17
+    skill: 13
+    strength: 11
     save: 0
-    discipline: 13
-    dribbling: 13
-    stamina: 15
-    pass: 13
+    discipline: 12
+    dribbling: 15
+    stamina: 14
+    pass: 12
     shoot: 13
     offensive: 9
-    penalty: 12
+    penalty: 11
   - name: Mohamed Toure
     number: 9
     role: FWD

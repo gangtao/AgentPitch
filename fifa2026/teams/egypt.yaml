@@ -16,34 +16,34 @@ players:
     shoot: 4
     offensive: 5
     penalty: 8
-  - name: Ahmed Fatouh
-    number: 13
+  - name: Karim Hafez
+    number: 21
     role: DEF
-    speed: 14
+    speed: 13
     skill: 13
     strength: 13
     save: 0
-    discipline: 12
-    dribbling: 12
+    discipline: 13
+    dribbling: 11
     stamina: 15
     pass: 13
-    shoot: 8
+    shoot: 7
     offensive: 12
-    penalty: 10
-  - name: Hamdy Fathy
-    number: 14
+    penalty: 9
+  - name: Ramy Rabia
+    number: 6
     role: DEF
-    speed: 13
-    skill: 14
-    strength: 15
+    speed: 11
+    skill: 13
+    strength: 16
     save: 0
     discipline: 14
-    dribbling: 12
-    stamina: 17
-    pass: 14
-    shoot: 10
-    offensive: 12
-    penalty: 12
+    dribbling: 8
+    stamina: 14
+    pass: 12
+    shoot: 6
+    offensive: 14
+    penalty: 8
   - name: Yasser Ibrahim
     number: 2
     role: DEF
@@ -86,20 +86,20 @@ players:
     shoot: 10
     offensive: 11
     penalty: 11
-  - name: Mohanad Lasheen
-    number: 17
+  - name: Hamdy Fathy
+    number: 14
     role: MID
     speed: 13
-    skill: 13
-    strength: 14
+    skill: 14
+    strength: 15
     save: 0
     discipline: 14
     dribbling: 12
-    stamina: 16
-    pass: 13
-    shoot: 9
+    stamina: 17
+    pass: 14
+    shoot: 10
     offensive: 12
-    penalty: 10
+    penalty: 12
   - name: Emam Ashour
     number: 8
     role: MID
