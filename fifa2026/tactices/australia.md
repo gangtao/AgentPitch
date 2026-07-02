@@ -13,12 +13,12 @@ Tony Popovic's Australia is **organized, hard-running and counter-attacking** �
   - index 4: LWB — **Jordan Bos** (#5) — flying young left wing-back, the natural width-giver on the left. Athletic, gets to the by-line, a genuine attacking outlet and in-swing deliverer.
   - index 5: LCM — **Aiden O'Neill** (#13) — the deep-lying organizer, screens the back three, dictates tempo and recycles possession (pass 15); Popovic's preferred anchor.
   - index 6: RCM — **Paul Okon-Engstler** (#16) — 21-year-old Sydney FC midfielder, the progressive half of the double pivot; his raking long ball split Türkiye to set up the opener. Line-breaking passer with the legs to box-to-box.
-  - index 7: RWB — **Jacob Italiano** (#4) — energetic right wing-back, the speedster of the back five, works the touchline both ways.
+  - index 7: RWB — **Connor Metcalfe** (#8) — box-to-box midfielder shifted to right wing-back to patch a problem position (Italiano out, groin). Less of a natural flyer than Italiano but a reliable two-way runner who tucks in to complete the back five.
   - index 8: LAM — **Nishan Velupillay** (#23) — left-sided wide forward / #10, the direct, pacy Melbourne Victory runner who stretches the back line, carries in transition and gets in behind off the left; promoted to the XI for the decider.
-  - index 9: RAM — **Mathew Leckie** (#7) — the 80-cap veteran wide forward on the right, a relentless pressing outlet and channel-runner who brings tournament nous, hold-up nuisance and a directness that suits the counter. Experience injected into a young front line.
+  - index 9: RAM — **Nestory Irankunda** (#11) — in for the injured Leckie (hamstring); the electric young wide forward on the right, direct and quick with a shot on him, a genuine one-v-one threat who stretches the back line in transition.
   - index 10: CF — **Mohamed Touré** (#9) — the pacy lone 9, runs the channel, presses from the front, finishes inside the box; the focal point of every counter.
 
-(Note: the back three reads Burgess–Souttar–Circati left to right with Bos/Italiano as the wing-backs, the double pivot reads O'Neill–Okon-Engstler, and Velupillay & Leckie are the two wide forwards behind Touré; the engine should treat the wing-backs as the team's only true width.)
+(Note: the back three reads Burgess–Souttar–Circati left to right with Bos/Metcalfe as the wing-backs, the double pivot reads O'Neill–Okon-Engstler, and Velupillay & Irankunda are the two wide forwards behind Touré; the engine should treat the wing-backs as the team's only true width.)
 
 ## Style of Play
 
