@@ -30,20 +30,20 @@ players:
     shoot: 6
     offensive: 11
     penalty: 8
-  - name: Omar Alderete
-    number: 3
+  - name: José Canale
+    number: 2
     role: DEF
-    speed: 13
-    skill: 13
-    strength: 16
+    speed: 12
+    skill: 12
+    strength: 15
     save: 0
-    discipline: 12
-    dribbling: 9
-    stamina: 15
-    pass: 13
-    shoot: 7
-    offensive: 14
-    penalty: 9
+    discipline: 13
+    dribbling: 8
+    stamina: 14
+    pass: 12
+    shoot: 6
+    offensive: 12
+    penalty: 13
   - name: Gustavo Gómez
     number: 15
     role: DEF
@@ -114,20 +114,20 @@ players:
     shoot: 11
     offensive: 12
     penalty: 11
-  - name: Maurício
-    number: 20
+  - name: Diego Gómez
+    number: 5
     role: MID
     speed: 14
     skill: 14
-    strength: 12
+    strength: 13
     save: 0
-    discipline: 13
-    dribbling: 14
-    stamina: 15
-    pass: 14
-    shoot: 12
-    offensive: 9
-    penalty: 11
+    discipline: 12
+    dribbling: 13
+    stamina: 16
+    pass: 13
+    shoot: 13
+    offensive: 8
+    penalty: 12
   - name: Julio Enciso
     number: 19
     role: FWD

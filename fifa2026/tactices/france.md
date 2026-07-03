@@ -1,21 +1,22 @@
 # France — Tactical Profile
 
 ## Identity & Philosophy
-Didier Deschamps' France is pragmatic, defensively impeccable, and built to win ugly. The team trades aesthetics for outcomes: deep block when needed, devastating transitions when the opponent over-commits, and Kylian Mbappé as the on-field cheat code. Recent results — back-to-back World Cup finals (2018 winners, 2022 runners-up), Euro 2024 semifinal — confirm Deschamps' formula: keep clean sheets, let the front line decide games. France swept Group I with a perfect record (9 points, 10 scored / 2 conceded): 3-1 over Senegal, 3-0 over Iraq, and a 4-1 demolition of Norway capped by an Ousmane Dembélé hat-trick. Now the knockouts begin — win or go home. The blueprint stays the same: control the game, smother the opponent's transitions, and trust the front line to settle it in a single moment.
+Didier Deschamps' France is pragmatic, defensively impeccable, and built to win ugly. The team trades aesthetics for outcomes: deep block when needed, devastating transitions when the opponent over-commits, and Kylian Mbappé as the on-field cheat code. Recent results — back-to-back World Cup finals (2018 winners, 2022 runners-up), Euro 2024 semifinal — confirm Deschamps' formula: keep clean sheets, let the front line decide games. France swept Group I with a perfect record (9 points, 10 scored / 2 conceded): 3-1 over Senegal, 3-0 over Iraq, and a 4-1 demolition of Norway capped by an Ousmane Dembélé hat-trick. They opened the knockouts with a controlled 3-0 win over Sweden in the Round of 32 — no scares, clean sheet, front four decisive. Now the Round of 16 vs Paraguay: the blueprint stays the same — control the game, smother the opponent's transitions, and trust the front line to settle it in a single moment.
 
-## Round of 32 Lineup (vs Sweden, June 30 — MetLife Stadium, win-or-go-home)
-France names its strongest spine for the first knockout test; no rotation, this is a clean-sheet-first knockout:
-- **Theo Hernández** at LB — France's primary attacking full-back, overlapping outlet on the left.
-- **Aurélien Tchouaméni + Rabiot** as the double pivot — the ball-winning anchor and the disciplined shuttler; vital for screening Sweden's direct, vertical counters.
-- **Front four**: Dembélé and Olise interchange right/centre, Doué on the left, Mbappé central. Dembélé arrives red-hot off his Norway hat-trick — give him the ball in transition.
-- Note: William Saliba is managing a back issue (rested vs Norway) but is expected to start the knockout; Ibrahima Konaté is the like-for-like cover at CB if the knock flares.
-- Sweden context: physical, set-piece dangerous, and lethal on the break through Gyökeres / Isak / Elanga. They sit deep and play direct — France must guard against the vertical ball over the top and dominate the box on Swedish corners and long throws.
+## Round of 16 Lineup (vs Paraguay, July 4 — Lincoln Financial Field, Philadelphia, win-or-go-home)
+France names its strongest spine again, with two enforced/rotational changes on the left after the Sweden win:
+- **Lucas Digne** comes in at LB in place of Theo Hernández — a more controlled, technically secure left-back who keeps the shape and delivers left-sided set pieces; slightly less of a rampaging overlap threat than Theo, so the left flank is calmer and more compact.
+- **Bradley Barcola** starts on the left of the front line ahead of Désiré Doué — raw, direct pace to run behind Paraguay's back line and stretch the pitch on transitions.
+- **Front four**: Dembélé and Olise interchange right/centre, Barcola on the left, Mbappé central. Dembélé and Olise arrive in red-hot form — give them the ball in transition.
+- **Aurélien Tchouaméni + Rabiot** as the double pivot — the ball-winning anchor and the disciplined shuttler; vital for screening Paraguay's compact block and their counters through Almirón and Enciso.
+- Notes: William Saliba (earlier back issue) came through the group and R32 fine and starts. Marcus Thuram is carrying a calf problem and is not in the XI; Désiré Doué and Rayan Cherki are the front-line cover off the bench; Ibrahima Konaté is the like-for-like CB cover.
+- Paraguay context: a gritty, defensively organised side that knocked out Germany on penalties in the R32. They sit in a compact block, defend deep and dangerous, and hurt teams on the counter (Almirón, Enciso, Ávalos) and from set pieces. France must break down the low block patiently, guard the transition, and avoid getting dragged into a scrappy, physical game.
 
 ## Formation
-- Shape: 4-2-3-1 (double pivot — Tchouaméni + Rabiot shield the back four; fluid front four of Dembélé, Olise, Doué behind Mbappé)
+- Shape: 4-2-3-1 (double pivot — Tchouaméni + Rabiot shield the back four; fluid front four of Dembélé, Olise, Barcola behind Mbappé)
 - Role mapping (roster order in `france.yaml`):
   - index 0: GK — Mike Maignan (sweeper-keeper, elite reflexes, distribution starter)
-  - index 1: LB — Theo Hernández (rampaging attacking full-back, overlaps hard, dangerous cross and shot)
+  - index 1: LB — Lucas Digne (controlled attacking full-back, secure in possession, left-sided set-piece deliverer)
   - index 2: LCB — Dayot Upamecano (raw physical CB, aerial duels, tight-marker)
   - index 3: RCB — William Saliba (calm progressor, steps into midfield with the ball)
   - index 4: RB — Jules Koundé (converted CB; inverts when France build, stays tucked)
@@ -23,66 +24,66 @@ France names its strongest spine for the first knockout test; no rotation, this 
   - index 6: DM/#8 — Adrien Rabiot (shuttler, late box arrivals; covers when Tchouaméni steps)
   - index 7: RW — Ousmane Dembélé (explosive dribbler, cuts inside from the right, stretches the defence)
   - index 8: CAM (#10) — Michael Olise (creative hub, cuts inside onto his left foot, set-piece deliverer)
-  - index 9: LW — Désiré Doué (dynamic, two-footed dribbler on the left, direct runner, drives at the fullback)
+  - index 9: LW — Bradley Barcola (direct, quick winger on the left, runs behind, drives at the fullback)
   - index 10: CF — Kylian Mbappé (captain, the focal point of the attack, lethal finisher)
 
 ## Style of Play
 
 ### Build-up
 - Patient, low-risk. Maignan to Saliba or Upamecano. CBs split wide, Tchouaméni drops between them when pressed (back-three build).
-- Koundé inverts to form a 3-2 base alongside Tchouaméni; Theo Hernández bombs forward on the left, Rabiot pushes into the left half-space.
-- France will accept low possession (45-55%) and play long to Mbappé / Dembélé if pressed hard — but expects to dominate the ball against a Sweden side that defends deep in a back three.
+- Koundé inverts to form a 3-2 base alongside Tchouaméni; Digne pushes forward on the left but stays more measured than Theo, Rabiot pushes into the left half-space.
+- France expects to dominate the ball against a Paraguay side that defends deep — likely 55-65% possession. Break the low block with patience; play long to Mbappé / Barcola only when the counter is on.
 
 ### Pressing
 - Mid-block, not high-press. Trigger: opponent CB takes a heavy touch or plays a sideways pass under no pressure.
-- Mbappé leads, Doué curves his run to cut the switch, Olise jumps the opposite #6 with Rabiot covering behind.
-- Otherwise sit in a compact 4-4-1-1 / 4-5-1 around the halfway line and force opponents wide — vital for cutting off the vertical service to Gyökeres and Isak.
+- Mbappé leads, Barcola curves his run to cut the switch, Olise jumps the opposite #6 with Rabiot covering behind.
+- Otherwise sit in a compact 4-4-1-1 / 4-5-1 around the halfway line and force Paraguay wide and backward — deny the vertical outlet to Almirón, Enciso and Ávalos.
 
 ### Defensive shape
 - 4-4-1-1 / 4-1-4-1 mid-block. Tchouaméni holds in front of the CBs; Rabiot screens alongside or steps to press.
-- Outside backs only step out when ball is on their flank. Theo can be caught high — Rabiot and Tchouaméni shuttle to cover the left channel he vacates.
-- Aerial duels: Upamecano & Saliba dominate, no compromise — they must win the duel with Gyökeres and clear every long ball / set-piece delivery, Sweden's main route to goal.
+- Outside backs only step out when ball is on their flank. Digne is more disciplined than Theo and less likely to be caught high; Rabiot and Tchouaméni still shuttle to cover the left channel.
+- Aerial duels: Upamecano & Saliba dominate, no compromise — win every long ball and clear every set-piece delivery, Paraguay's most direct route to goal.
 
 ### Wide play
-- Asymmetric. LEFT is the overlapping zone: Theo Hernández sprinting beyond Doué, Doué cutting inside to free the channel, Rabiot tucking up.
+- Asymmetric. LEFT is a more controlled channel now: Digne provides measured width and overlap for Barcola, who runs in behind and cuts inside; Rabiot tucks up.
 - RIGHT is the dribbling zone: Koundé tucked in, Dembélé isolated 1v1 cutting inside; Olise floats to support from the half-space.
 
 ### Final third
 - Two patterns:
-  1. **Quick combo**: Olise / Rabiot vertical pass → Mbappé lays off → Dembélé or Doué runs the channel.
-  2. **Transition**: regain ball in own half → 2-3 touches max → release Mbappé or Doué behind the line.
-- Crosses from Theo Hernández aimed at Mbappé's near-post run; Doué arrives at back post, Dembélé crashes the far side.
+  1. **Quick combo**: Olise / Rabiot vertical pass → Mbappé lays off → Dembélé or Barcola runs the channel.
+  2. **Transition**: regain ball in own half → 2-3 touches max → release Mbappé or Barcola behind the line — the fastest route to punish Paraguay's high block.
+- Crosses from Digne aimed at Mbappé's near-post run; Barcola arrives at back post, Dembélé crashes the far side.
 
 ## Set Pieces
-- Corners: Tchouaméni near-post flick, Upamecano back-post target, Saliba late arriver. Olise delivers in-swingers; Theo Hernández for the left side.
-- Direct FKs (18-25m): Mbappé or Olise takes anything centered; Dembélé curls from the right. Saliba and Upamecano stay back — France never commits 5 to a corner; counter risk too high (Sweden's transition through Gyökeres / Isak / Elanga is lethal).
-- Defending corners & long throws: man-mark + 2 zonal at near post; double up on Gyökeres and the tall Swedish CBs (Lindelöf, Lagerbielke). Sweden are genuinely set-piece dangerous — win the first contact, second balls cleared long. Mbappé stays on halfway for the outball.
+- Corners: Tchouaméni near-post flick, Upamecano back-post target, Saliba late arriver. Olise delivers in-swingers; Digne for the left side.
+- Direct FKs (18-25m): Mbappé or Olise takes anything centered; Dembélé curls from the right. Saliba and Upamecano stay back — France never commits 5 to a corner; counter risk too high (Paraguay's transition through Almirón / Enciso / Ávalos is dangerous).
+- Defending corners & long throws: man-mark + 2 zonal at near post; double up on Paraguay's aerial threats (G. Gómez, Ávalos). Win the first contact, second balls cleared long. Mbappé stays on halfway for the outball.
 
 ## decide() Decision Priorities
 1. When my role is GK and ball is in opponent half: position 8-10m off goal line, ready to sweep.
 2. When my role is DEF and `player_id` ends with `_2` or `_3` (CB pair — Upamecano/Saliba) and possession_team is mine, no pressure: pass short to other CB or the DM, never long unless a forward is in space.
 3. When my `player_id` ends with `_5` (DM — Tchouaméni) and team has the ball: stay between CBs and the ball, offer constant short passing option, never above halfway; dictate tempo and recycle, only drive forward when ball is won high and space opens.
-4. When my `player_id` ends with `_1` (LB — Theo Hernández) and team_phase is "attacking" and ball is on left side: overlap aggressively and get to the byline — primary width on the left.
+4. When my `player_id` ends with `_1` (LB — Digne) and team_phase is "attacking" and ball is on left side: advance to provide width and overlap for Barcola, but stay measured — do not over-commit against Paraguay's counter; deliver the left-sided cross.
 5. When my `player_id` ends with `_4` (RB — Koundé) and team_phase is "attacking": tuck inside to RCM position (inverted FB), give Dembélé free room on the right.
 6. When my `player_id` ends with `_7` (RW — Dembélé) and I receive ball isolated 1v1: drive at the defender, use explosive pace to beat on the outside or cut inside — invite the duel and shoot/cutback.
 7. When my `player_id` ends with `_10` (CF — Mbappé) and team_phase is "defending": press the ball-carrying CB; cut the passing lane to their #6.
-8. When my `player_id` ends with `_9` (LW — Doué) and ball is regained in own half: explode diagonally into space behind opponent RB — demand the pass.
-9. When my `player_id` ends with `_6` (DM/#8 — Rabiot) and team_phase is "defending": tuck into the double pivot beside Tchouaméni, never higher than the CM line until ball is won; cover the left channel when Theo is high.
-10. When my `player_id` ends with `_8` (CAM — Olise) and team has the ball in the final third: find the half-space between lines, look first for the through ball to Mbappé or Doué.
+8. When my `player_id` ends with `_9` (LW — Barcola) and ball is regained in own half: explode diagonally into space behind opponent RB — demand the pass; run in behind first, feet second.
+9. When my `player_id` ends with `_6` (DM/#8 — Rabiot) and team_phase is "defending": tuck into the double pivot beside Tchouaméni, never higher than the CM line until ball is won; cover the left channel when Digne is high.
+10. When my `player_id` ends with `_8` (CAM — Olise) and team has the ball in the final third: find the half-space between lines, look first for the through ball to Mbappé or Barcola.
 11. When tackling: only commit if my `player_id` ends with `_2`, `_3`, `_4`, or `_5` (Upamecano/Saliba/Koundé/Tchouaméni) AND ball-carrier has poor body shape; otherwise Hold and contain.
 12. When my team is leading by 1+ and clock > 70: drop into a 4-4-1-1 deep block; only the `_10` player (Mbappé) stays high as outball.
 13. Shoot only if angle < 30deg from goal-center and within 22m, OR my `player_id` ends with `_10` (Mbappé) inside the box.
 
 ## Key Player Notes
-- **Mbappé (idx 10)** — captain, central striker. The focal point of the attack, primary finisher. Always the primary outlet on transitions. Shoot tendency aggressive.
-- **Dembélé (idx 7)** — RW. Explosive dribbler, cuts inside from the right, stretches the defence with raw pace; set-piece deliverer from the right.
+- **Mbappé (idx 10)** — captain, central striker. The focal point of the attack, primary finisher. Always the primary outlet on transitions. Shoot tendency aggressive; chasing goals to close on the tournament scoring lead.
+- **Dembélé (idx 7)** — RW. Explosive dribbler, cuts inside from the right, stretches the defence with raw pace; set-piece deliverer from the right. Red-hot form off the Norway hat-trick.
 - **Olise (idx 8)** — the creative hub at #10; receives between lines and supplies the killer pass; primary set-piece deliverer.
-- **Doué (idx 9)** — starts on the left of the front line; dynamic two-footed dribbler, runs behind the line, direct and aggressive against the Swedish wing-backs.
-- **Tchouaméni (idx 5)** — the deep anchor for the knockout; ball-winner and tempo-setter, shields the CBs and snuffs out Sweden's vertical counters before they launch.
-- **Rabiot (idx 6)** — the disciplined other half of the double pivot; covers Tchouaméni, arrives late in the box, and patrols the channel Theo vacates.
-- **Saliba (idx 3)** — ball-carrying CB managing a back issue (rested vs Norway); expected to start the knockout. Allowed to drive into midfield when Tchouaméni rotates out; Konaté is the like-for-like cover if the knock flares.
-- **Theo Hernández (idx 1)** — rampaging attacking LB; overlaps hard and crosses, but must be screened on the counter.
+- **Barcola (idx 9)** — starts on the left of the front line in place of Doué; direct, quick and vertical, runs behind the line rather than combining short — a transition weapon against Paraguay's high defensive block.
+- **Tchouaméni (idx 5)** — the deep anchor for the knockout; ball-winner and tempo-setter, shields the CBs and snuffs out Paraguay's vertical counters before they launch.
+- **Rabiot (idx 6)** — the disciplined other half of the double pivot; covers Tchouaméni, arrives late in the box, and patrols the channel Digne vacates.
+- **Saliba (idx 3)** — ball-carrying CB; earlier back issue is resolved and he came through the group and R32 fine. Allowed to drive into midfield when Tchouaméni rotates out; Konaté is the like-for-like cover.
+- **Digne (idx 1)** — controlled attacking LB in for Theo Hernández; secure in possession, provides measured width and the left-sided dead-ball delivery, less exposed on the counter.
 - **Maignan (idx 0)** — set-piece and goal-kick distributor; takes risks with the ball.
 
 ## Tournament Mindset
-Win the knockouts. France routinely peaks against top-8 opponents — pragmatism + Mbappé in a single moment is enough. This is the Round of 32: one game, win or go home, no second chances. France are clear favourites and topped Group I with a perfect record, but Sweden are exactly the kind of awkward, physical, set-piece-and-counter side that can punish a single lapse. The plan: control possession, keep the clean sheet, deny Sweden the over-the-top ball to Gyökeres / Isak, win the aerial battles on their set pieces, and let the front four — Dembélé in red-hot form — break a deep block. Don't gamble; take the lead, then squeeze the game flat and see it out.
+Win the knockouts. France routinely peaks against top opponents — pragmatism + Mbappé in a single moment is enough. This is the Round of 16: one game, win or go home, no second chances; if it is level after 90, thirty more of extra time, then a shootout. France are heavy favourites — they topped Group I with a perfect record and dispatched Sweden 3-0 in the R32 — but Paraguay just knocked out Germany on penalties, so they are battle-hardened, organised, and completely unafraid of a scrap. The plan: control possession, keep the clean sheet, break down the deep block with patience through the Olise-Dembélé right side and Barcola's runs on the left, and punish any over-commitment with Mbappé and Barcola in transition. Guard against Paraguay's counters (Almirón, Enciso, Ávalos) and their set pieces; do not get dragged into a physical, scrappy game. Take the lead, then squeeze the game flat and see it out — however many whistles it takes.
