@@ -58,30 +58,30 @@ players:
     shoot: 8
     offensive: 14
     penalty: 10
-  - name: Julian Ryerson
-    number: 26
+  - name: Marcus Holmgren Pedersen
+    number: 16
     role: DEF
-    speed: 15
+    speed: 16
     skill: 13
-    strength: 14
+    strength: 12
     save: 0
-    discipline: 15
-    dribbling: 12
-    stamina: 17
+    discipline: 14
+    dribbling: 13
+    stamina: 16
     pass: 13
-    shoot: 9
+    shoot: 8
     offensive: 12
-    penalty: 10
-  - name: Fredrik Aursnes
-    number: 14
+    penalty: 9
+  - name: Patrick Berg
+    number: 6
     role: MID
-    speed: 14
+    speed: 13
     skill: 14
     strength: 14
     save: 0
     discipline: 15
     dribbling: 12
-    stamina: 17
+    stamina: 16
     pass: 15
     shoot: 10
     offensive: 10
