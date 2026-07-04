@@ -72,20 +72,20 @@ players:
     shoot: 8
     offensive: 12
     penalty: 9
-  - name: Edson Álvarez
-    number: 4
+  - name: Erik Lira
+    number: 6
     role: MID
-    speed: 14
-    skill: 16
-    strength: 16
+    speed: 13
+    skill: 14
+    strength: 14
     save: 0
-    discipline: 17
-    dribbling: 13
-    stamina: 17
-    pass: 15
-    shoot: 11
-    offensive: 11
-    penalty: 13
+    discipline: 15
+    dribbling: 12
+    stamina: 16
+    pass: 14
+    shoot: 10
+    offensive: 9
+    penalty: 11
   - name: Gilberto Mora
     number: 16
     role: MID
@@ -100,20 +100,20 @@ players:
     shoot: 13
     offensive: 10
     penalty: 14
-  - name: Álvaro Fidalgo
-    number: 8
+  - name: Luis Romo
+    number: 18
     role: MID
     speed: 13
-    skill: 16
-    strength: 12
+    skill: 14
+    strength: 15
     save: 0
     discipline: 14
-    dribbling: 15
-    stamina: 15
-    pass: 17
+    dribbling: 12
+    stamina: 16
+    pass: 14
     shoot: 12
-    offensive: 10
-    penalty: 13
+    offensive: 11
+    penalty: 12
   - name: Julián Quiñones
     number: 22
     role: FWD

@@ -1,15 +1,15 @@
 # England — Tactical Profile
 
 ## Identity & Philosophy
-Thomas Tuchel's England is methodical, defensively organized, and ruthlessly effective in transition. Out are Southgate's tournament-pragmatist instincts; in is Tuchel's structured possession with clear positional rules, a defined mid-block press, and a strong identity on the counter. Tuchel has settled on a 4-2-3-1 — a double pivot of Rice and Anderson shielding the back four, with Jude Bellingham freed as a genuine No. 10 behind Harry Kane. Set-piece danger is world-class. England arrived as Euro 2024 finalists and a favourites-tier side, and topped Group L (above Croatia, Ghana and Panama): a 4-2 win over Croatia, a sterile 0-0 draw with Ghana, and a controlled 2-0 over Panama in which Kane became England's all-time leading World Cup scorer. Now the knockouts begin — win or go home.
+Thomas Tuchel's England is methodical, defensively organized, and ruthlessly effective in transition. Out are Southgate's tournament-pragmatist instincts; in is Tuchel's structured possession with clear positional rules, a defined mid-block press, and a strong identity on the counter. Tuchel has settled on a 4-2-3-1 — a double pivot of Rice and Anderson shielding the back four, with Jude Bellingham freed as a genuine No. 10 behind Harry Kane. Set-piece danger is world-class. England arrived as Euro 2024 finalists and a favourites-tier side, topped Group L (above Croatia, Ghana and Panama), and are now through to the last 16 after grinding out a **2-1 win over Congo DR** in the Round of 32. Now the tie hardens: a knockout at altitude, in a cauldron — win or go home.
 
-## Round of 32 Lineup (vs Congo DR, July 1 — Mercedes-Benz Stadium, Atlanta, win-or-go-home)
-England name their sharpest attacking band for the first knockout test against a deep, physical Congo DR block:
-- **Djed Spence** starts at RB — **Reece James is injured** and **Jarell Quansah picked up an ankle knock vs Panama**, so Spence is the natural athletic replacement, overlapping outside Saka.
-- **Rice + Anderson** as the double pivot — the box-to-box anchor and the disciplined left-side shuttler; control the game and screen Congo DR's 5-3-2 counters through Wissa and Bakambu.
-- **Front line shuffled for a low block**: **Bukayo Saka** comes in on the right and **Marcus Rashford** on the left — Tuchel's call that Saka/Rashford unlock a deep block better than the Madueke/Gordon pairing that started the group. Bellingham floats as the free No. 10 behind Kane.
-- **Saka fitness**: managed an Achilles complaint through the group (bench cameos), now back to full fitness and starting the knockout.
-- Congo DR context: the "Leopards" qualified as the best third-placed nation and sit in a compact 5-3-2 / 3-5-2. Threats are **Yoane Wissa** (3 group goals, a pure penalty-box finisher), the experienced **Cedric Bakambu**, captain **Chancel Mbemba** marshalling the back line, and **Aaron Wan-Bissaka** at right wing-back. They defend deep and spring direct — England must break a low block patiently while guarding the over-the-top ball and Congo DR set pieces.
+## Round of 16 Lineup (vs Mexico, July 5 — Estadio Azteca, Mexico City, win-or-go-home)
+England keep faith with the band that beat Congo DR — an unchanged XI for the toughest test yet, a hostile Azteca at 2,200m:
+- **Djed Spence** continues at RB — **Reece James (hamstring) and Jarell Quansah (ankle) remain unavailable to start** (James may return from the bench), so Spence keeps the shirt as the athletic option, overlapping outside Saka. He must recover hard against Mexico's flying right-sided threat.
+- **Rice + Anderson** as the double pivot — the box-to-box anchor and the disciplined left-side shuttler; control the game, deny Mexico's midfield rhythm through Mora and Lira, and screen the counter.
+- **Front line unchanged**: **Bukayo Saka** on the right, **Marcus Rashford** on the left — Tuchel's pairing to unlock a compact, aggressive block. Bellingham floats as the free No. 10 behind Kane.
+- **Saka fitness**: managed an Achilles complaint through the group, now fully fit and a fixture in the knockouts.
+- Mexico context: Javier Aguirre's hosts have **won all four games without conceding**, riding the Azteca noise, the altitude and a 13-year unbeaten competitive home run. They line up 4-3-3 — **Rangel** in goal; a back four of **Reyes, Montes, Vásquez, Gallardo**; **Mora, Lira, Romo** in midfield; **Quiñones, Jiménez, Alvarado** in attack. Main danger: the in-form **Julián Quiñones** running at England's makeshift right side, target-man **Raúl Jiménez**, and set pieces. England must win the aerial duels, blunt the counter, and take their chances against a stingy block while managing the altitude.
 
 ## Formation
 - Shape: 4-2-3-1 (Rice + Anderson double pivot; Bellingham as the No. 10; FBs high — Spence overlaps the right, O'Reilly pushes to wing-back on the left)
@@ -21,7 +21,7 @@ England name their sharpest attacking band for the first knockout test against a
   - index 4: RB — Djed Spence (athletic, high-stamina FB in for the injured James; overlaps outside Saka)
   - index 5: LDM/#6 — Elliot Anderson (left side of the pivot; tidy, energetic ball-mover; pass 16 — the shuttler)
   - index 6: RDM/#6 — Declan Rice (anchor of the double pivot; box-to-box engine; tackles, late box arrivals, primary set-piece deliverer)
-  - index 7: RW — Bukayo Saka (back to full fitness; cuts in onto his left foot, drives at the Congo wing-back; shoot 16, dribble 18)
+  - index 7: RW — Bukayo Saka (fully fit; cuts in onto his left foot, drives at the Mexico left-back; shoot 16, dribble 18)
   - index 8: AM/#10 — Jude Bellingham (free role behind Kane; floats between lines; late box arrivals; shoot 17)
   - index 9: LW — Marcus Rashford (direct, vertical, byline-hugging LW; speed 18; runs the channel, left-footed)
   - index 10: CF — Harry Kane (captain & all-time WC top scorer; deep #9 / target hybrid; drops to receive, shoots from 25m)
@@ -32,18 +32,18 @@ England name their sharpest attacking band for the first knockout test against a
 - 4-2 base with Pickford between CBs. Spence stays high on the right; Konsa can step out wide to cover, forming a back-three look in possession.
 - O'Reilly (a converted midfielder) pushes high on the left to wing-back height; Anderson supports the left half-space.
 - Bellingham drops between the lines to receive as the free No. 10; Kane drops deep to combine.
-- Tempo: patient but purposeful. Against a deep Congo DR 5-3-2, Tuchel demands a settled build — but the Ghana stalemate is a warning that patience must not tip into sterility. Quicker combinations and earlier box runs are the brief.
+- Tempo: patient but purposeful. Against Mexico's aggressive press and thin air, secure possession to slow the game and control tempo — but don't tip into sterility; quicker combinations and earlier box runs remain the brief when the block sets.
 
 ### Pressing
 - Mid-block primarily. Cue to step: square pass between CBs, or a wide CB receiving on the touchline.
-- Kane press-leads; Bellingham jumps Congo DR's deepest midfielder from the No. 10 slot.
-- Saka & Rashford close down the wing-backs from inside.
-- **No reckless high press** — Tuchel prizes shape over chaos. Against a deep block, expect more controlled territory than counter-pressing, with eyes on Wissa's runs in behind.
+- Kane press-leads; Bellingham jumps Mexico's deepest midfielder (Romo/Lira) from the No. 10 slot.
+- Saka & Rashford close down the full-backs from inside.
+- **No reckless high press** — Tuchel prizes shape over chaos, doubly so at altitude where energy must be rationed. Expect controlled territory over frantic counter-pressing, with eyes on Quiñones' and Jiménez's runs in behind.
 
 ### Defensive shape
 - 4-4-1-1 / 4-2-3-1 mid-block. Kane stays highest as the counter outlet; Bellingham sits just behind him on the opponent's pivot.
 - Wingers (Saka, Rashford) drop to RM/LM heights; Rice & Anderson screen the back four as a flat two.
-- High discipline on the offside line; line ~ 45% (not as aggressive as Spain). The Guéhi–Konsa pairing kept a clean sheet against Ghana; communication and the offside trap are the emphasis. Both must win their aerial duels with Bakambu and clear every direct ball, Congo DR's main route to goal.
+- High discipline on the offside line; line ~ 45% (not as aggressive as Spain). The Guéhi–Konsa pairing must win their aerial duels with Jiménez and clear every direct ball. Spence must track Quiñones' runs on the England right — the game's key defensive matchup.
 
 ### Wide play
 - Asymmetric: **RIGHT** Saka cuts in (inverted) onto his left foot, Spence overlaps to provide the touchline width Saka abandons. **LEFT** Rashford stays vertical and direct, O'Reilly overlaps/underlaps from wing-back.
@@ -54,14 +54,14 @@ England name their sharpest attacking band for the first knockout test against a
   1. Saka cuts in from the right → curls/strikes onto left foot (signature move).
   2. Spence or O'Reilly overlap → whipped cross or cutback for Kane/Bellingham.
   3. Kane drops, lays off to Bellingham, runs in behind — give-and-go.
-- Crosses targeted at Kane near post and Bellingham far post; Rashford arrives at the back post from the left. Breaking a low block demands quicker combinations and earlier box runs.
+- Crosses targeted at Kane near post and Bellingham far post; Rashford arrives at the back post from the left. Breaking Mexico's compact block demands quicker combinations and earlier box runs.
 
 ## Set Pieces
-- **England's super-weapon.** Rice (pass 17) is the primary corner/free-kick deliverer — inswingers and outswingers from both sides; Anderson and Spence are alternates.
+- **England's super-weapon** — potentially decisive against a physical but not giant Mexico back line. Rice (pass 17) is the primary corner/free-kick deliverer — inswingers and outswingers from both sides; Anderson and Spence are alternates.
 - Targets: Guéhi, Kane, Konsa, Rice (any of 6'+). Bellingham crashes the second ball edge of box.
 - Direct FKs: Kane central, Saka right side onto his left foot, Rashford left side, Rice whipped delivery.
-- Penalties: Kane primary; Bellingham and Rice secondary.
-- Defending: hybrid zonal/man. Konsa marshalls the back-post line; Pickford commands his 6-yard box. Double-up on Bakambu and the tall Congo DR CBs; win the first contact and clear second balls long.
+- Penalties: Kane primary; Bellingham and Rice secondary. (A knockout tie level after 90/120 goes to a shootout — Kane, Bellingham, Rice, Saka, Rashford are the takers.)
+- Defending: hybrid zonal/man. Konsa marshalls the back-post line; Pickford commands his 6-yard box. Double-up on Jiménez and the tall Mexico CBs; win the first contact and clear second balls long.
 
 ## decide() Decision Priorities
 1. When my role is GK: first option short to a CB. Only go long if double-pressed; aim for the `_10` player's (Kane) chest.
@@ -81,13 +81,13 @@ England name their sharpest attacking band for the first knockout test against a
 - **Bellingham (idx 8)** — the free No. 10 behind Kane. Allowed to roam into either half-space. Box-arrival is non-negotiable on crosses; a genuine goal threat (shoot 17, penalty 17). Scored vs Croatia and again vs Panama.
 - **Rice (idx 6)** — primary corner/set-piece deliverer (pass 17) and box-to-box engine; the on-ball leader and the anchor of the double pivot.
 - **Anderson (idx 5)** — energetic shuttler on the left of the pivot; tidy distribution and an alternate set-piece taker.
-- **Spence (idx 4)** — athletic, high-stamina RB starting because **Reece James is injured** and **Quansah is hurt**; bombs forward outside Saka and provides right-side width, but must recover hard against Congo DR's left wing-back on the break.
-- **Saka (idx 7)** — back to full fitness after an Achilles complaint through the group; inverted RW who cuts onto his left foot to shoot or threads the cutback; Tuchel's pick to unlock a deep block.
-- **Rashford (idx 9)** — direct, vertical, byline-hugging LW (speed 18); runs the channel and arrives at the back post; in for Gordon to bring extra final-ball threat against a low block.
-- **Kane (idx 10)** — captain and England's all-time leading World Cup scorer. False-9 instincts; drops to link, then runs the box. Primary penalty taker; sharpness fully restored after the Panama win.
+- **Spence (idx 4)** — athletic, high-stamina RB starting because **Reece James is injured** and **Quansah is hurt**; bombs forward outside Saka and provides right-side width, but must track Mexico's Quiñones on the counter — England's most exposed defensive matchup.
+- **Saka (idx 7)** — fully fit after an Achilles complaint through the group; inverted RW who cuts onto his left foot to shoot or threads the cutback; Tuchel's pick to unlock a compact block.
+- **Rashford (idx 9)** — direct, vertical, byline-hugging LW (speed 18); runs the channel and arrives at the back post; the extra final-ball threat against a stingy defence.
+- **Kane (idx 10)** — captain and England's all-time leading World Cup scorer. False-9 instincts; drops to link, then runs the box. Primary penalty taker; the man to settle a low-scoring altitude battle.
 - **O'Reilly (idx 1)** — converted midfielder operating as an attacking LB/wing-back; treat him as a midfielder in possession; nearly won the Ghana game with a header off the bar.
-- **Guéhi (idx 2)** — physical, left-footed CB; strong in the air and a key set-piece target. Anchored the Ghana clean sheet.
-- **Konsa (idx 3)** — mobile, recovery-pace CB who partnered Guéhi in the group shutout; comfortable stepping wide to cover Spence's overlaps.
+- **Guéhi (idx 2)** — physical, left-footed CB; strong in the air and a key set-piece target. Anchored the Ghana clean sheet; must win his duel with Jiménez.
+- **Konsa (idx 3)** — mobile, recovery-pace CB who partnered Guéhi in the group shutout; comfortable stepping wide to cover Spence's overlaps — crucial insurance against Quiñones.
 
 ## Tournament Mindset
-This is the Round of 32: one game, win or go home, no second chances. England topped Group L and arrive as clear favourites, but Congo DR are exactly the awkward, compact, counter-and-set-piece side that can punish a single lapse — and they have already shown a clinical edge through Wissa. MD1 (Croatia) proved England can win a shootout; MD2 (Ghana) proved they can be smothered by a disciplined block. The plan is the lesson learned: control possession and territory, get Saka and Rashford at the wing-backs, feed Bellingham in the pockets, deny Wissa the ball over the top, win the aerial battles on Congo DR's set pieces, and lean on the world-class corner threat of Rice and Kane to break the block. Don't gamble; take the lead, squeeze the game flat, and carry momentum deeper into the knockouts — a team built to peak in the later rounds.
+This is the Round of 16: one game, win or go home, no second chances, and if it is level after 90 there is extra time and then a shootout. England beat Congo DR to get here and arrive as narrow favourites, but the venue is the danger — the **Estadio Azteca at 2,200m**, 87,000 hostile fans, a Mexico side unbeaten in four (no goals conceded) and unbeaten at home in competitive football for 13 years. The altitude taxes the legs; the noise taxes the nerve. The plan carries the lessons of the group and the last round: control possession and territory to slow the tempo and save energy, get Saka and Rashford at the full-backs, feed Bellingham in the pockets, track Quiñones' runs on the England right, win the aerial duels against Jiménez, and lean on the world-class corner threat of Rice and Kane to break a compact block. Don't gamble; take the lead, squeeze the game flat, keep 11 v 11, and — if it goes the distance — trust Kane and the takers to win the shootout. A team built to peak in the later rounds must survive the hardest environment of the tournament first.

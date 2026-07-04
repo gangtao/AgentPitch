@@ -100,19 +100,19 @@ players:
     shoot: 13
     offensive: 12
     penalty: 14
-  - name: Lucas Paquetá
-    number: 20
+  - name: Endrick
+    number: 16
     role: MID
-    speed: 14
+    speed: 17
     skill: 16
-    strength: 14
+    strength: 13
     save: 0
-    discipline: 12
+    discipline: 13
     dribbling: 16
     stamina: 15
-    pass: 16
-    shoot: 14
-    offensive: 12
+    pass: 14
+    shoot: 16
+    offensive: 11
     penalty: 15
   - name: Vinícius Júnior
     number: 7
