@@ -1595,6 +1595,14 @@
     .evt.ev-oob            .txt { color: var(--ink-dim); font-style: italic; }
     .evt.ev-offside        .ico { color: var(--bad); }
     .evt.ev-offside        .txt { color: #d8a8a8; font-weight: 600; }
+    .evt.ev-foul           .ico { color: var(--bad); }
+    .evt.ev-foul           .txt { color: #e0b0a0; font-weight: 600; }
+    .evt.ev-card-yellow    .txt { color: #f0d24a; font-weight: 700; }
+    .evt.ev-card-red       .txt { color: #ff6b5e; font-weight: 800; text-transform: uppercase; }
+    .evt.ev-penalty        .ico { color: var(--amber); }
+    .evt.ev-penalty        .txt { color: var(--amber); font-weight: 700; }
+    .evt.ev-freekick       .ico { color: var(--ok); }
+    .evt.ev-freekick       .txt { color: #a8d8b0; font-weight: 500; }
     .evt.ev-phase          .ico { color: var(--b); }
     .evt.ev-phase          .txt { color: #c8b8e0; font-weight: 500; }
     .evt.ev-phase-major    .ico { color: var(--amber); }
@@ -2078,6 +2086,8 @@ function computeMatchStats(events, meta) {
       dribbles_attempted: 0, dribbles_successful: 0,
       distance_run: 0.0, offsides: 0,
       gk_saves_caught: 0, gk_saves_parried: 0,
+      // Issue #38 (IFAB Law 12): fouls committed + cards, keyed per player.
+      fouls: 0, yellow_cards: 0, red_cards: 0,
       callback_failures: 0,
     };
   }
@@ -2239,10 +2249,13 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
     const offenderId = details.offender_id || '';
     const offenderTeam = (roster[offenderId] || {}).team || '';
     const ots = teamStats[offenderTeam];
+    const ops = playerStats[offenderId];
     if (ots) ots.fouls++;
+    if (ops) ops.fouls++;
     const card = details.card;
     if (card === 'yellow' || card === 'red') {
       if (ots) ots[`${card}_cards`]++;
+      if (ops) ops[`${card}_cards`]++;
     }
     if (details.restart_type === 'penalty_kick') {
       const fts = teamStats[details.restart_team || ''];
@@ -2630,6 +2643,11 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
       const gkCols = p.role === 'GK'
         ? `<td>${p.gk_saves_caught ?? 0}/${(p.gk_saves_caught ?? 0) + (p.gk_saves_parried ?? 0)}</td>`
         : `<td class="val-dim">—</td>`;
+      // Issue #38 (IFAB Law 12): fouls committed + card badges per player.
+      const yc = p.yellow_cards ?? 0, rc = p.red_cards ?? 0;
+      const cardBadges = (yc || rc)
+        ? `${'🟨'.repeat(yc)}${'🟥'.repeat(rc)}`
+        : '<span class="val-dim">—</span>';
       return `
         <tr>
           <td class="pid-cell">${_esc(shortPid)}</td>
@@ -2642,6 +2660,8 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
           <td>${p.tackles_attempted ?? 0}/${p.tackles_successful ?? 0}</td>
           <td>${p.dribbles_attempted ?? 0}/${p.dribbles_successful ?? 0}</td>
           ${gkCols}
+          <td>${p.fouls ?? 0}</td>
+          <td class="cards-cell">${cardBadges}</td>
           <td class="dist-cell">${p.distance_run?.toFixed(0) ?? '—'}m</td>
           <td>${p.callback_failures ?? 0}</td>
         </tr>
@@ -2656,6 +2676,7 @@ function _processAction(rec, teamStats, playerStats, roster, assistState) {
             <tr>
               <th>#</th><th>Role</th><th>G</th><th title="Assists">A</th><th>Sh</th><th>SoT</th>
               <th>Pass</th><th>Tkl W/A</th><th>Drb W/A</th><th>GK Sv</th>
+              <th title="Fouls committed">Fls</th><th title="Yellow / red cards">Cards</th>
               <th>Dist</th><th title="Callback failures">CB Fail</th>
             </tr>
           </thead>
@@ -3484,6 +3505,27 @@ function extractEventRows(allTicksData) {
           label: `OUT OF BOUNDS${where}${fromTxt}`, cls: "ev-oob" });
         continue;
       }
+      if (details.foul) {
+        // Issue #38 (IFAB Law 12): system restart record for a foul. The
+        // offence itself (offender, victim, card) renders from the offending
+        // player's Tackle record below; here we show the resulting restart.
+        const restart = details.restart_type;
+        const rTeam = details.restart_team;
+        const kicker = details.kicker_id;
+        const teamLetter = rTeam === "team_a" ? "A" : rTeam === "team_b" ? "B" : "?";
+        if (restart === "penalty_kick") {
+          const kTxt = kicker ? ` — ${_label(kicker)} to take` : "";
+          const outcome = details.penalty_outcome
+            ? ` [${String(details.penalty_outcome).toUpperCase()}]` : "";
+          rows.push({ tick: t.tick, team: rTeam, icon: "⚠️",
+            label: `PENALTY to Team ${teamLetter}${kTxt}${outcome}`, cls: "ev-penalty" });
+        } else {
+          const kTxt = kicker ? ` by ${_label(kicker)}` : ` to Team ${teamLetter}`;
+          rows.push({ tick: t.tick, team: rTeam, icon: "🟩",
+            label: `FREE KICK${kTxt}`, cls: "ev-freekick" });
+        }
+        continue;
+      }
       if (details.dribble_result) {
         const target = details.dribble_target;
         if (details.dribble_result === "success") {
@@ -3558,6 +3600,22 @@ function extractEventRows(allTicksData) {
         const reason = details.reason || "?";
         rows.push({ tick: t.tick, team, icon: "○",
           label: `PICKUP failed by ${_label(pid)} (${reason})`, cls: "ev-pickup-bad" });
+        continue;
+      }
+      if (result === "foul") {
+        // Issue #38 (IFAB Law 12): the offending player's own record carries
+        // the victim, severity and any card. Render this as the foul/card
+        // headline; the system record above renders the resulting restart.
+        const victim = details.fouled_player;
+        const card = details.card;
+        const vTxt = victim ? ` on ${_label(victim)}` : "";
+        const sev = details.foul_severity
+          ? ` (${String(details.foul_severity).replace(/_/g, " ")})` : "";
+        let icon = "🎽"; let cls = "ev-foul"; let cardTxt = "";
+        if (card === "yellow") { icon = "🟨"; cls = "ev-card-yellow"; cardTxt = " — 🟨 YELLOW"; }
+        else if (card === "red") { icon = "🟥"; cls = "ev-card-red"; cardTxt = " — 🟥 RED, SENT OFF"; }
+        rows.push({ tick: t.tick, team, icon,
+          label: `FOUL by ${_label(pid)}${vTxt}${sev}${cardTxt}`, cls });
         continue;
       }
       if (action === "Tackle") {
