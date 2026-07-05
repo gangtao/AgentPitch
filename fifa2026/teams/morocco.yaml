@@ -73,7 +73,7 @@ players:
     offensive: 12
     penalty: 14
   - name: Bilal El Khannouss
-    number: 7
+    number: 23
     role: MID
     speed: 15
     skill: 17
@@ -87,7 +87,7 @@ players:
     offensive: 9
     penalty: 14
   - name: Ayyoub Bouaddi
-    number: 22
+    number: 6
     role: MID
     speed: 14
     skill: 15

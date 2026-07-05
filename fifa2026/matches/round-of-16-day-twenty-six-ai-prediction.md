@@ -34,9 +34,9 @@ Spain hold the edge in this Iberian rivalry, leading the all-time head-to-head b
 | | Portugal | Spain |
 |---|---|---|
 | **GK** | Diogo Costa (1) | Unai Simón (23) |
-| **DEF** | Nuno Mendes (25), Renato Veiga (5), Rúben Dias (3), João Cancelo (20) | Marc Cucurella (24), Aymeric Laporte (14), Pau Cubarsí (22), Pedro Porro (2) |
-| **MID** | Vitinha (23), João Neves (15), Bruno Fernandes (8) | Dani Olmo (18), Rodri (16), Pedri (20) |
-| **FWD** | Rafael Leão (10), Cristiano Ronaldo (7), Pedro Neto (26) | Álex Baena (10), Mikel Oyarzabal (21), Lamine Yamal (19) |
+| **DEF** | Nuno Mendes (25), Renato Veiga (5), Rúben Dias (3), João Cancelo (20) | Marc Cucurella (24), Aymeric Laporte (14), Pau Cubarsí (22), Pedro Porro (12) |
+| **MID** | Vitinha (23), João Neves (15), Bruno Fernandes (8) | Dani Olmo (10), Rodri (16), Pedri (20) |
+| **FWD** | Rafael Leão (10), Cristiano Ronaldo (7), Pedro Neto (26) | Álex Baena (15), Mikel Oyarzabal (21), Lamine Yamal (19) |
 
 ### Simulation Report — **Portugal 2–0 Spain**
 The favourites were second best all night — and from the hour mark, a man short. Portugal seized the game by the throat — **56% of the ball, 21 shots to Spain's seven, and a 70–58 edge in tackle contests** — and turned that grip into goals through **Pedro Neto**. Spain's discipline frayed early: **Pau Cubarsí** was booked on **7'** for a reckless lunge on Rafael Leão, a warning the pre-match favourites failed to heed. On **44'**, Neto struck on the stroke of half-time to break a tense deadlock. Then came the moment that broke the game open — on **55'**, **Pedri** flew into Renato Veiga with excessive force and was shown a straight **red card**, reducing Spain to ten men for the final half-hour. A side already chasing the play now had to do it short-handed, and on **86'** Neto settled it, drilling home his second against the depleted rearguard to make it 2–0. **Cristiano Ronaldo** was a menace throughout with a game-high eight attempts, Leão stretched Porro's flank all night, and Bruno Fernandes pulled the strings; at the other end, Spain's usually metronomic possession game sputtered, Yamal (three shots) and Baena (four) unable to break down a disciplined Portuguese block in front of Diogo Costa. De la Fuente's side never found their rhythm, and the machine's pre-match favourites went home.

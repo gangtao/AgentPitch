@@ -17,7 +17,7 @@ players:
     offensive: 5
     penalty: 8
   - name: Karim Hafez
-    number: 21
+    number: 15
     role: DEF
     speed: 13
     skill: 13
@@ -31,7 +31,7 @@ players:
     offensive: 12
     penalty: 9
   - name: Ramy Rabia
-    number: 6
+    number: 5
     role: DEF
     speed: 11
     skill: 13

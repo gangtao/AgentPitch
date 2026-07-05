@@ -129,7 +129,7 @@ players:
     offensive: 10
     penalty: 17
   - name: Bradley Barcola
-    number: 20
+    number: 12
     role: MID
     speed: 18
     skill: 16

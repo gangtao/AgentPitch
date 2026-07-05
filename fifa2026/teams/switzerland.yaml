@@ -101,7 +101,7 @@ players:
     offensive: 12
     penalty: 16
   - name: Johan Manzambi
-    number: 15
+    number: 9
     role: MID
     speed: 15
     skill: 15
