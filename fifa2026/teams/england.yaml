@@ -45,7 +45,7 @@ players:
     offensive: 14
     penalty: 10
   - name: Ezri Konsa
-    number: 12
+    number: 2
     role: DEF
     speed: 15
     skill: 15
@@ -59,7 +59,7 @@ players:
     offensive: 13
     penalty: 9
   - name: Djed Spence
-    number: 2
+    number: 25
     role: DEF
     speed: 17
     skill: 15

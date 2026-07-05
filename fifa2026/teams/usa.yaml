@@ -59,7 +59,7 @@ players:
     offensive: 11
     penalty: 9
   - name: Alex Freeman
-    number: 22
+    number: 16
     role: DEF
     speed: 16
     skill: 13
@@ -115,7 +115,7 @@ players:
     offensive: 9
     penalty: 12
   - name: Malik Tillman
-    number: 18
+    number: 17
     role: MID
     speed: 15
     skill: 16

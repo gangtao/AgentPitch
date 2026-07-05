@@ -31,7 +31,7 @@ players:
     offensive: 13
     penalty: 13
   - name: Renato Veiga
-    number: 5
+    number: 13
     role: DEF
     speed: 14
     skill: 15
@@ -115,7 +115,7 @@ players:
     offensive: 11
     penalty: 17
   - name: Rafael Leão
-    number: 10
+    number: 17
     role: FWD
     speed: 18
     skill: 16
@@ -143,7 +143,7 @@ players:
     offensive: 10
     penalty: 18
   - name: Pedro Neto
-    number: 26
+    number: 18
     role: FWD
     speed: 18
     skill: 16
