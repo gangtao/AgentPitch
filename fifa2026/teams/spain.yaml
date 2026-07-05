@@ -59,7 +59,7 @@ players:
     offensive: 11
     penalty: 10
   - name: Pedro Porro
-    number: 2
+    number: 12
     role: DEF
     speed: 17
     skill: 15
@@ -73,7 +73,7 @@ players:
     offensive: 14
     penalty: 12
   - name: Dani Olmo
-    number: 18
+    number: 10
     role: MID
     speed: 14
     skill: 18
@@ -115,7 +115,7 @@ players:
     offensive: 9
     penalty: 16
   - name: Álex Baena
-    number: 10
+    number: 15
     role: FWD
     speed: 14
     skill: 17
