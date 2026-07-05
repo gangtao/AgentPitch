@@ -1,15 +1,15 @@
 # Belgium — Tactical Profile
 
 ## Identity & Philosophy
-Rudi García's Belgium is the post-Golden-Generation team: still talented, still anchored by De Bruyne and Doku, but rebuilt around a younger spine and finally clicking. García (appointed January 2025) topped UEFA qualifying unbeaten and settled on a pragmatic 4-2-3-1 built around De Bruyne's distribution and Doku's dribbling. The style is wide pace + De Bruyne creativity + high-tempo transitions rather than sustained possession — García wants the ball won and converted quickly, and the ageing core means Belgium cannot press for 90 minutes and will accept spells of opponent possession. **And it has worked: Belgium swept Group G with a perfect record (9 points, 11 scored / 4 conceded)** — a **4-1 win over Egypt (MD1)** with Doku scoring twice off the left, a **3-1 win over Iran (MD2)** in which Doku answered Mehdi Ghayedi's opener with a hat-trick, and a **4-2 win over New Zealand (MD3)** in Vancouver capped by another Doku hat-trick. Belgium march into the knockouts as Group G winners, the model's verdict clear: give Doku the left flank in isolation and Belgium do not need a sustained press to win. The recurring García pattern is De Bruyne and Doku manufacturing, the centre-forward converting. This is De Bruyne's last World Cup; now at Napoli, he wears the captain's armband under García.
+Rudi García's Belgium is the post-Golden-Generation team: still talented, still anchored by De Bruyne and Doku, but rebuilt around a younger spine and finally clicking. García (appointed January 2025) topped UEFA qualifying unbeaten and settled on a pragmatic 4-2-3-1 built around De Bruyne's distribution and Doku's dribbling. The style is wide pace + De Bruyne creativity + high-tempo transitions rather than sustained possession — García wants the ball won and converted quickly, and the ageing core means Belgium cannot press for 90 minutes and will accept spells of opponent possession. **And it has worked: Belgium swept Group G with a perfect record (9 points, 11 scored / 4 conceded)** — a **4-1 win over Egypt (MD1)** with Doku scoring twice off the left, a **3-1 win over Iran (MD2)** in which Doku answered Mehdi Ghayedi's opener with a hat-trick, and a **4-2 win over New Zealand (MD3)** in Vancouver capped by another Doku hat-trick. **In the Round of 32 they edged Senegal 3-2, Youri Tielemans burying a 120th-minute extra-time penalty to settle a war of transitions.** The recurring García pattern is De Bruyne and Doku manufacturing, the centre-forward converting. This is De Bruyne's last World Cup; now at Napoli, he wears the captain's armband under García.
 
-## Round of 32 Lineup (vs Senegal, July 1 — Lumen Field, Seattle, win-or-go-home)
-The first knockout test is win-or-go-home, and García faces his recurring centre-forward question. With Romelu Lukaku managed carefully through the group, the predicted call is **Charles De Ketelaere as a mobile false-nine**, dropping to link De Bruyne and the wide men rather than holding as a fixed target — Lukaku held in reserve as the matchwinning bench card if the De Ketelaere experiment stalls:
-- **De Ketelaere at CF (false 9)** — links play and drifts wide; the trade-off is less penalty-box presence. Belgium can dominate possession without truly threatening in this shape, so **Lukaku and his proper centre-forward runs are the early Plan B** if Belgium look toothless.
-- **Tielemans + Vanaken as the double pivot** — Tielemans the deep build-up starter and set-piece taker, Vanaken the experienced, physical screen in front of the back four (Onana and Raskin rotated out).
-- **Front three**: Doku isolated on the left, De Bruyne as the clear #10, Trossard inverted from the right. This is the trio that produced three Doku hat-tricks and Trossard's repeated cut-ins through the group.
-- **Back four**: Castagne (RB), Mechele + Theate (CBs), De Cuyper (LB); Courtois behind them. Zeno Debast remains an injury doubt and is not relied upon.
-- Senegal context: quick, physical and dangerous in transition through Sadio Mané and Ismaïla Sarr (both struck twice in Senegal's 4-2 win over Iraq), with Nicolas Jackson's pace through the middle. They press in bursts and break fast — Belgium must guard the channels Doku vacates and not get caught upfield with the full-backs high.
+## Round of 16 Lineup (vs USA, July 6 — Lumen Field, Seattle, win-or-go-home)
+The knockout marches on and García keeps his settled hand: the predicted call again pairs a false-nine with the De Bruyne/Doku axis, **Charles De Ketelaere as a mobile false-nine** dropping to link De Bruyne and the wide men rather than holding as a fixed target — Lukaku held in reserve as the matchwinning bench card, an "almost certain" second-half appearance if the game demands proper centre-forward runs:
+- **De Ketelaere at CF (false 9)** — links play and drifts wide; the trade-off is less penalty-box presence. Belgium can dominate possession without truly threatening in this shape, so **Lukaku and his proper centre-forward runs are the early Plan B** if Belgium look toothless — 2 goals in 4 appearances says he can still finish.
+- **Tielemans + Vanaken as the double pivot** — Tielemans the deep build-up starter, penalty taker (he scored the 120th-minute winner vs Senegal) and set-piece man; Vanaken the experienced, physical screen in front of the back four (Onana and Raskin rotated out).
+- **Front three**: Doku isolated on the left, De Bruyne as the clear #10, Trossard inverted from the right — confirmed fit despite a prior injury scare. This is the trio that produced three Doku group hat-tricks and Trossard's repeated cut-ins.
+- **Back four**: Castagne (RB), Mechele + Theate (CBs), De Cuyper (LB); Courtois behind them. Zeno Debast (leg) remains an injury doubt after missing the whole tournament and is not relied upon.
+- USA context: Pochettino's hosts play a 4-2-3-1 built on pressing Belgium's back four and transitioning fast through Christian Pulisic and quick wide men (Sergiño Dest), Weston McKennie the creative #10, Tyler Adams + Malik Tillman the ball-covering double pivot tasked with smothering De Bruyne in deep areas. Balogun is suspended, so Ricardo Pepi leads the line — good movement, less vertical threat. Home crowd, high fitness, system coherence: Belgium must beat the press cleanly, guard the channels Doku vacates, and not get caught upfield with the full-backs high. This is billed as the tie most likely to go the distance.
 
 ## Formation
 - Shape: 4-2-3-1 (double pivot + De Bruyne as a clear #10; De Ketelaere drops from CF into a false-9 / second-#10 link role)
@@ -29,20 +29,20 @@ The first knockout test is win-or-go-home, and García faces his recurring centr
 ## Style of Play
 
 ### Build-up
-- Courtois short to Mechele or Theate by default (both comfortable on the ball, Mechele the calmer distributor); against a Senegal press, a long ball to De Ketelaere dropping or into the channel for Doku is the release valve.
+- Courtois short to Mechele or Theate by default (both comfortable on the ball, Mechele the calmer distributor); against the USA's high press, a long ball to De Ketelaere dropping or into the channel for Doku is the release valve.
 - Tielemans drops to receive from CBs and progress; Vanaken stays as the deeper, physical shield.
-- De Cuyper (LB) and Castagne (RB) both join late, but stay more conservative than the elite teams — wide outlets rather than constant overlaps, mindful of Senegal's transition speed.
+- De Cuyper (LB) and Castagne (RB) both join late, but stay more conservative than the elite teams — wide outlets rather than constant overlaps, mindful of the USA's transition speed through Pulisic and Dest.
 - De Bruyne drops into the right half-space pocket to receive — Belgium's primary progression is through him.
 
 ### Pressing
 - **Belgium does not press intensely for the full match.** García wants to win the ball high and convert in transition, but the ageing core (De Bruyne in particular) cannot sustain a 90-minute high press. De Ketelaere's mobility up top helps lead the press more than a static #9 would.
 - Mid-block primarily — 4-5-1 / 4-3-3 — with bursts of high pressing on triggers.
 - Press triggers: opponent throw-ins, back-passes to the GK, or a loose touch by a CB; otherwise contain and look to spring forward fast.
-- This is a defining tactical difference from Spain/Germany/Netherlands — Belgium accepts opponent possession and bets on transition speed. Against Senegal that bet is symmetrical: both sides want the transition game, so winning the second ball matters.
+- This is a defining tactical difference from Spain/Germany/Netherlands — Belgium accepts opponent possession and bets on transition speed. Against the USA that bet is symmetrical: Pochettino's side also want the press-and-transition game, so winning the second ball matters, and the free-kick-quick outball to Doku beats their compact block.
 
 ### Defensive shape
 - 4-5-1 mid-block. De Ketelaere alone up top (mobile, presses and links rather than a target outlet); De Bruyne drops to right-mid in defense.
-- Doku has poor defensive discipline (discipline 12) — he often fails to track back, which leaves De Cuyper exposed against Senegal's right-sided runners (Sarr).
+- Doku has poor defensive discipline (discipline 12) — he often fails to track back, which leaves De Cuyper exposed against the USA's right-sided runners.
 - CBs hold a moderate line (~ 45%); Theate's aggression steps out, Mechele organises; Vanaken sits in front of them.
 
 ### Wide play
@@ -61,7 +61,7 @@ The first knockout test is win-or-go-home, and García faces his recurring centr
 - Corners: De Bruyne primary taker (pass 20); Tielemans and Trossard alternates. Targets: De Ketelaere / Theate (back post), Mechele (near post), Lukaku (penalty spot) if on.
 - Direct FKs: De Bruyne for any centered or right-side, Tielemans for left-side; Doku an option for direct efforts.
 - Penalties: De Bruyne first, then Tielemans, then Trossard.
-- Defending: man-mark biggest threats (Mané, Sarr, Jackson); zonal at near post; Courtois commands his box and is elite in the air and on the line.
+- Defending: man-mark biggest threats (Pulisic, McKennie, Pepi); zonal at near post; Courtois commands his box and is elite in the air and on the line.
 
 ## decide() Decision Priorities
 1. When my role is GK (Courtois): short to CB by default; long-ball to the `_9` (De Ketelaere dropping) or into the left channel for `_8` (Doku) if double-pressed. Elite shot-stopper — commit late, command the box on crosses.
@@ -82,7 +82,7 @@ The first knockout test is win-or-go-home, and García faces his recurring centr
 ## Key Player Notes
 - **Courtois (idx 0)** — world-class keeper anchoring the spine (save 19). Belgium can afford a younger back line because he covers it; will be busy against Senegal's transition shooters.
 - **De Bruyne (idx 7)** — talisman, captain, and primary creator. Free role; everything goes through him. Now at Napoli; this is his last World Cup.
-- **Doku (idx 8)** — explosive LW and the tournament's form forward, three hat-tricks across the group. License to dribble alone — Belgium will not double-up his side. Poor defensive discipline accepted; the player most likely to break a tight knockout open.
+- **Doku (idx 8)** — explosive LW and the tournament's form forward, three hat-tricks across the group. License to dribble alone — Belgium will not double-up his side. Poor defensive discipline accepted; the player most likely to break a tight knockout open, and the man to isolate against USA right-back Dest.
 - **De Ketelaere (idx 9)** — mobile false-9; links the front line and presses. The trade-off is box presence: "Belgium can dominate possession without truly threatening" in this shape, so **Lukaku is the early Plan B** for proper centre-forward runs if it stalls.
 - **Vanaken (idx 6)** — experienced, physical screen partnering Tielemans with Onana/Raskin rotated out; recycles and shields the back four.
 - **Tielemans (idx 5)** — deep-lying build-up starter and secondary set-piece / penalty taker.
@@ -91,4 +91,4 @@ The first knockout test is win-or-go-home, and García faces his recurring centr
 - **Trossard (idx 10)** — under-rated; two-footed; can play any forward role; cut-ins and back-post arrivals produced goals all group.
 
 ## Tournament Mindset
-Last dance for the Golden Generation core — and unlike the stuttering real-world build-up, this Belgium arrived in the knockouts hot, **topping Group G with a perfect nine points** on the back of three Jérémy Doku hat-tricks and the classic García pattern of De Bruyne and Doku manufacturing, the forwards converting. The Round of 32 is one game, win or go home. Senegal are quick, physical and lethal in transition (Mané and Sarr each struck twice in their 4-2 win over Iraq), so the challenge is a mirror of Belgium's own bet: win the second ball, don't get caught with the full-backs high, and trust the front line to settle it in a single moment. García's one open question is the centre-forward — De Ketelaere's link play versus Lukaku's box threat — and the bench card may decide it. Realistic ceiling: quarterfinal and beyond if Doku stays this hot. Get Doku isolated, feed De Bruyne, and finish the chances they create.
+Last dance for the Golden Generation core — and this Belgium arrived in the knockouts hot, **topping Group G with a perfect nine points** on the back of three Jérémy Doku hat-tricks, then surviving a 3-2 extra-time war with Senegal that Tielemans settled from the spot in the 120th minute. The Round of 16 is one game, win or go home, and it is billed as the tightest tie of the round. The USA are the hosts: quick, physical, lethal in transition through Pulisic and Dest, pressing Belgium's back four and hunting De Bruyne in deep areas with the Adams–Tillman pivot — a mirror of Belgium's own bet, so win the second ball, beat the press cleanly, don't get caught with the full-backs high, and trust the front line to settle it in a single moment. García's one open question is the centre-forward — De Ketelaere's link play versus Lukaku's box threat — and the second-half bench card may decide it. Realistic ceiling: quarterfinal and beyond if Doku stays this hot. Get Doku isolated on Dest, feed De Bruyne, ride out the extra time this tie may demand, and finish the chances they create.
