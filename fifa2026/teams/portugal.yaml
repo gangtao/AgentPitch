@@ -114,20 +114,20 @@ players:
     shoot: 16
     offensive: 11
     penalty: 17
-  - name: João Félix
-    number: 11
+  - name: Rafael Leão
+    number: 10
     role: FWD
-    speed: 16
-    skill: 17
-    strength: 12
+    speed: 18
+    skill: 16
+    strength: 15
     save: 0
-    discipline: 14
+    discipline: 13
     dribbling: 17
-    stamina: 15
-    pass: 16
+    stamina: 16
+    pass: 14
     shoot: 15
     offensive: 8
-    penalty: 15
+    penalty: 12
   - name: Cristiano Ronaldo
     number: 7
     role: FWD

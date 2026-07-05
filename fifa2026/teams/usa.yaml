@@ -142,17 +142,17 @@ players:
     shoot: 17
     offensive: 8
     penalty: 17
-  - name: Folarin Balogun
+  - name: Ricardo Pepi
     number: 9
     role: FWD
-    speed: 17
+    speed: 15
     skill: 15
-    strength: 14
+    strength: 15
     save: 0
     discipline: 13
-    dribbling: 14
+    dribbling: 12
     stamina: 15
-    pass: 12
+    pass: 11
     shoot: 16
     offensive: 9
-    penalty: 14
+    penalty: 13
