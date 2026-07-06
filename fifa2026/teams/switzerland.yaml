@@ -58,18 +58,18 @@ players:
     shoot: 8
     offensive: 13
     penalty: 10
-  - name: Silvan Widmer
-    number: 3
+  - name: Denis Zakaria
+    number: 6
     role: DEF
     speed: 14
-    skill: 13
-    strength: 13
+    skill: 15
+    strength: 16
     save: 0
-    discipline: 14
-    dribbling: 12
+    discipline: 12
+    dribbling: 13
     stamina: 16
-    pass: 13
-    shoot: 9
+    pass: 15
+    shoot: 12
     offensive: 12
     penalty: 10
   - name: Remo Freuler
