@@ -30,20 +30,20 @@ players:
     shoot: 10
     offensive: 12
     penalty: 12
-  - name: Chadi Riad
-    number: 18
+  - name: Redouane Halhal
+    number: 26
     role: DEF
     speed: 14
-    skill: 14
-    strength: 16
+    skill: 13
+    strength: 15
     save: 0
     discipline: 13
     dribbling: 11
     stamina: 15
-    pass: 14
-    shoot: 7
-    offensive: 12
-    penalty: 9
+    pass: 13
+    shoot: 6
+    offensive: 11
+    penalty: 8
   - name: Issa Diop
     number: 14
     role: DEF

@@ -72,20 +72,20 @@ players:
     shoot: 8
     offensive: 12
     penalty: 11
-  - name: Aurélien Tchouaméni
-    number: 8
+  - name: Manu Koné
+    number: 6
     role: MID
-    speed: 14
-    skill: 17
+    speed: 15
+    skill: 15
     strength: 17
     save: 0
-    discipline: 16
+    discipline: 13
     dribbling: 15
     stamina: 18
-    pass: 18
-    shoot: 13
+    pass: 15
+    shoot: 11
     offensive: 12
-    penalty: 14
+    penalty: 10
   - name: Adrien Rabiot
     number: 14
     role: MID
