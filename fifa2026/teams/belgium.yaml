@@ -17,7 +17,7 @@ players:
     offensive: 6
     penalty: 9
   - name: Maxim De Cuyper
-    number: 15
+    number: 5
     role: DEF
     speed: 15
     skill: 14
@@ -30,20 +30,20 @@ players:
     shoot: 9
     offensive: 12
     penalty: 11
-  - name: Arthur Theate
-    number: 5
+  - name: Nathan Ngoy
+    number: 25
     role: DEF
-    speed: 14
-    skill: 14
+    speed: 15
+    skill: 13
     strength: 16
     save: 0
-    discipline: 13
+    discipline: 10
     dribbling: 11
     stamina: 16
-    pass: 13
-    shoot: 7
-    offensive: 12
-    penalty: 9
+    pass: 12
+    shoot: 6
+    offensive: 14
+    penalty: 8
   - name: Brandon Mechele
     number: 4
     role: DEF
@@ -59,7 +59,7 @@ players:
     offensive: 12
     penalty: 9
   - name: Timothy Castagne
-    number: 2
+    number: 21
     role: DEF
     speed: 15
     skill: 14
@@ -85,9 +85,9 @@ players:
     pass: 17
     shoot: 15
     offensive: 10
-    penalty: 16
+    penalty: 17
   - name: Hans Vanaken
-    number: 6
+    number: 20
     role: MID
     speed: 12
     skill: 16
@@ -97,7 +97,7 @@ players:
     dribbling: 13
     stamina: 16
     pass: 16
-    shoot: 13
+    shoot: 14
     offensive: 11
     penalty: 12
   - name: Kevin De Bruyne
@@ -114,34 +114,6 @@ players:
     shoot: 17
     offensive: 11
     penalty: 18
-  - name: Jérémy Doku
-    number: 11
-    role: FWD
-    speed: 19
-    skill: 17
-    strength: 13
-    save: 0
-    discipline: 12
-    dribbling: 19
-    stamina: 16
-    pass: 14
-    shoot: 14
-    offensive: 9
-    penalty: 15
-  - name: Charles De Ketelaere
-    number: 9
-    role: FWD
-    speed: 15
-    skill: 16
-    strength: 15
-    save: 0
-    discipline: 15
-    dribbling: 15
-    stamina: 16
-    pass: 15
-    shoot: 14
-    offensive: 9
-    penalty: 14
   - name: Leandro Trossard
     number: 10
     role: FWD
@@ -154,5 +126,33 @@ players:
     stamina: 16
     pass: 15
     shoot: 16
+    offensive: 8
+    penalty: 16
+  - name: Charles De Ketelaere
+    number: 17
+    role: FWD
+    speed: 15
+    skill: 17
+    strength: 15
+    save: 0
+    discipline: 15
+    dribbling: 15
+    stamina: 16
+    pass: 15
+    shoot: 16
+    offensive: 9
+    penalty: 14
+  - name: Dodi Lukebakio
+    number: 14
+    role: FWD
+    speed: 17
+    skill: 15
+    strength: 13
+    save: 0
+    discipline: 14
+    dribbling: 16
+    stamina: 16
+    pass: 13
+    shoot: 15
     offensive: 8
     penalty: 16
