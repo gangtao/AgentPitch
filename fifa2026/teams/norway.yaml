@@ -58,16 +58,16 @@ players:
     shoot: 8
     offensive: 14
     penalty: 10
-  - name: Marcus Holmgren Pedersen
-    number: 16
+  - name: Julian Ryerson
+    number: 2
     role: DEF
-    speed: 16
+    speed: 15
     skill: 13
-    strength: 12
+    strength: 14
     save: 0
     discipline: 14
-    dribbling: 13
-    stamina: 16
+    dribbling: 12
+    stamina: 17
     pass: 13
     shoot: 8
     offensive: 12
