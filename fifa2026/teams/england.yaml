@@ -128,20 +128,20 @@ players:
     shoot: 17
     offensive: 12
     penalty: 17
-  - name: Marcus Rashford
-    number: 11
+  - name: Anthony Gordon
+    number: 19
     role: MID
-    speed: 18
-    skill: 16
-    strength: 15
+    speed: 19
+    skill: 15
+    strength: 13
     save: 0
-    discipline: 13
+    discipline: 12
     dribbling: 16
-    stamina: 16
-    pass: 14
-    shoot: 16
+    stamina: 17
+    pass: 13
+    shoot: 14
     offensive: 9
-    penalty: 14
+    penalty: 12
   - name: Harry Kane
     number: 9
     role: FWD
