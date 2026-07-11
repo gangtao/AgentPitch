@@ -100,6 +100,20 @@ players:
     shoot: 13
     offensive: 12
     penalty: 14
+  - name: Désiré Doué
+    number: 22
+    role: MID
+    speed: 17
+    skill: 18
+    strength: 13
+    save: 0
+    discipline: 15
+    dribbling: 18
+    stamina: 16
+    pass: 17
+    shoot: 16
+    offensive: 9
+    penalty: 15
   - name: Ousmane Dembélé
     number: 7
     role: MID
@@ -111,7 +125,7 @@ players:
     dribbling: 19
     stamina: 16
     pass: 16
-    shoot: 16
+    shoot: 17
     offensive: 8
     penalty: 17
   - name: Michael Olise
@@ -128,20 +142,6 @@ players:
     shoot: 16
     offensive: 10
     penalty: 17
-  - name: Bradley Barcola
-    number: 12
-    role: MID
-    speed: 18
-    skill: 16
-    strength: 12
-    save: 0
-    discipline: 14
-    dribbling: 17
-    stamina: 16
-    pass: 15
-    shoot: 15
-    offensive: 9
-    penalty: 14
   - name: Kylian Mbappé
     number: 10
     role: FWD
@@ -155,4 +155,4 @@ players:
     pass: 16
     shoot: 19
     offensive: 9
-    penalty: 19
+    penalty: 18

@@ -1,90 +1,97 @@
 # France — Tactical Profile
 
 ## Identity & Philosophy
-Didier Deschamps' France is pragmatic, defensively impeccable, and built to win ugly. The team trades aesthetics for outcomes: deep block when needed, devastating transitions when the opponent over-commits, and Kylian Mbappé as the on-field cheat code. Recent results — back-to-back World Cup finals (2018 winners, 2022 runners-up), Euro 2024 semifinal — confirm Deschamps' formula: keep clean sheets, let the front line decide games. France swept Group I with a perfect record (9 points, 10 scored / 2 conceded): 3-1 over Senegal, 3-0 over Iraq, and a 4-1 demolition of Norway capped by an Ousmane Dembélé hat-trick. They opened the knockouts with a controlled 3-0 win over Sweden in the Round of 32, then saw off Paraguay's low block in the Round of 16 — five wins from five, 14 scored / 2 conceded. Now the quarterfinal vs Morocco (July 9, Boston): the blueprint stays the same — control the game, smother the opponent's transitions, and trust the front line to settle it in a single moment.
+Didier Deschamps' France is pragmatic, defensively impeccable, and built to win ugly. The team trades aesthetics for outcomes: deep block when needed, devastating transitions when the opponent over-commits, and Kylian Mbappé as the on-field cheat code. Recent results — back-to-back World Cup finals (2018 winners, 2022 runners-up), Euro 2024 semifinal — confirm Deschamps' formula: keep clean sheets, let the front line decide games. France swept Group I with a perfect record (3-1 Senegal, 3-0 Iraq, 4-1 Norway with a Dembélé hat-trick), opened the knockouts with a controlled 3-0 over Sweden, ground out 1-0 over Paraguay's low block in the Round of 16, and beat Morocco 2-0 in the quarterfinal in Boston — Mbappé (60') and Dembélé (66', his 5th of the tournament) striking in a six-minute burst after Mbappé had missed a first-half penalty. **Six wins from six, 16 scored / 2 conceded.** Now the semifinal vs Spain (July 14, AT&T Stadium, Arlington): the reigning European champions, the side that knocked France out of Euro 2024 — and the first opponent left who will take the ball away from them.
 
-## Quarterfinal Lineup (vs Morocco, July 9 — Boston Stadium, win-or-go-home)
-France names its strongest spine, with one enforced change in midfield after the injury to Tchouaméni:
-- **Manu Koné** starts in the double pivot in place of the injured **Aurélien Tchouaméni** — a physical, high-energy ball-winner who covers more ground and carries the ball forward, but with less of Tchouaméni's deep passing range and dead-ball value. Koné deputised well against Iraq and Paraguay; he is more foul-prone and must manage his booking (yellow vs Paraguay).
-- **Lucas Digne** continues at LB in place of Theo Hernández — a more controlled, technically secure left-back who keeps the shape and delivers left-sided set pieces; slightly less of a rampaging overlap threat than Theo, so the left flank is calmer and more compact.
-- **Bradley Barcola** starts on the left of the front line ahead of Désiré Doué — raw, direct pace to run behind Morocco's back line and stretch the pitch on transitions.
-- **Front four**: Dembélé and Olise interchange right/centre, Barcola on the left, Mbappé central. Dembélé (4 goals) and Mbappé (7 goals) are the tournament's decisive duo — give them the ball in transition.
-- **Koné + Rabiot** as the double pivot — the energetic ball-winner and the disciplined shuttler; vital for screening Morocco's press and their transitions through Brahim Díaz and Hakimi.
-- Notes: Aurélien Tchouaméni is out with an adductor/thigh tear (recurrence of the issue that cost him the Iraq and Paraguay games) — highly unlikely to feature. Marcus Thuram is still working back from a calf problem and is not in the XI. Désiré Doué and Rayan Cherki are the front-line cover off the bench; Ibrahima Konaté is the like-for-like CB cover; N'Golo Kanté and Warren Zaïre-Emery are the midfield cover.
-- Morocco context: unbeaten across five games, compact 4-2-3-1 built to counter. Achraf Hakimi bombs forward from right-back, Brahim Díaz (4 assists) is the transition threat, and their double pivot (Bouaddi / El Aynaoui) screens a solid Diop-anchored back line behind Bounou. France must guard Hakimi's overlaps, break down a disciplined block, and punish the space Morocco leave when they commit forward.
+## Semifinal Lineup (vs Spain, July 14 — AT&T Stadium, Arlington, win-or-go-home)
+France carries the quarterfinal XI forward, with one selection call up front already made in that round:
+- **Désiré Doué** keeps the left of the front line ahead of Bradley Barcola — Deschamps' sole change for the Morocco QF, retained for the semifinal: a two-footed combiner who links play in tight spaces and cuts inside, better suited to a possession-starved game than Barcola's pure vertical running.
+- **Manu Koné** continues in the double pivot in place of **Aurélien Tchouaméni** — Tchouaméni returned to training before the QF but was an unused substitute (lingering groin/adductor issue since July 3); Koné keeps his place unless Tchouaméni proves full fitness late. Koné's booking risk is reset: **single yellows were wiped after the quarterfinals**, so no France player enters the semifinal one caution from suspension.
+- **Lucas Digne** continues at LB in place of Theo Hernández — a more controlled, technically secure left-back who keeps the shape and delivers left-sided set pieces; vital discipline against Yamal's side of the pitch... which is actually France's RIGHT. Digne's flank faces Yamal only when Spain switch; his day-job is tracking Porro's overlaps beyond Yamal — no, Yamal attacks France's LEFT (Digne's side). Digne must NOT be caught high.
+- **Front four**: Doué left, Dembélé at #10, Olise right, Mbappé central. Dembélé (5 goals) and Mbappé (8 goals, leading the Golden Boot race) are the tournament's decisive duo — release them in transition.
+- Notes: Marcus Thuram (calf) is fit for the bench. Barcola, Cherki and Thuram are the front-line cover; Konaté the CB cover; Kanté and Zaïre-Emery the midfield cover. Tchouaméni is the wildcard — bench at best.
+- Spain context: reigning European champions, six wins from six, only one goal conceded all tournament (De Ketelaere's equalizer in their 2-1 QF win over Belgium). They will have 60%+ of the ball. The tie is decided in transition moments: France must survive the Yamal-Porro right side, deny Rodri clean tempo, and strike into the space behind Spain's high line — exactly how they beat this press-resistant side in the 2021 Nations League final.
 
 ## Formation
-- Shape: 4-2-3-1 (double pivot — Koné + Rabiot shield the back four; fluid front four of Dembélé, Olise, Barcola behind Mbappé)
+- Shape: 4-2-3-1 (double pivot — Koné + Rabiot shield the back four; fluid front four of Doué, Dembélé, Olise behind Mbappé)
 - Role mapping (roster order in `france.yaml`):
   - index 0: GK — Mike Maignan (sweeper-keeper, elite reflexes, distribution starter)
-  - index 1: LB — Lucas Digne (controlled attacking full-back, secure in possession, left-sided set-piece deliverer)
+  - index 1: LB — Lucas Digne (controlled attacking full-back, secure in possession, left-sided set-piece deliverer; disciplined vs Yamal's flank)
   - index 2: LCB — Dayot Upamecano (raw physical CB, aerial duels, tight-marker)
   - index 3: RCB — William Saliba (calm progressor, steps into midfield with the ball)
-  - index 4: RB — Jules Koundé (converted CB; inverts when France build, stays tucked)
+  - index 4: RB — Jules Koundé (converted CB; inverts when France build, stays tucked; primary duel vs Baena/Cucurella overloads)
   - index 5: DM/#6 — Manu Koné (deep-lying anchor in for the injured Tchouaméni; physical ball-winner, covers ground, carries forward, shields the CBs)
   - index 6: DM/#8 — Adrien Rabiot (shuttler, late box arrivals; covers when Koné steps)
-  - index 7: RW — Ousmane Dembélé (explosive dribbler, cuts inside from the right, stretches the defence)
-  - index 8: CAM (#10) — Michael Olise (creative hub, cuts inside onto his left foot, set-piece deliverer)
-  - index 9: LW — Bradley Barcola (direct, quick winger on the left, runs behind, drives at the fullback)
-  - index 10: CF — Kylian Mbappé (captain, the focal point of the attack, lethal finisher)
+  - index 7: LW — Désiré Doué (two-footed inside-combiner on the left; links in tight spaces, cuts in to shoot — skill 18 / dribble 18 / pass 17)
+  - index 8: CAM (#10) — Ousmane Dembélé (the floating creator-finisher between the lines; 5 goals, red-hot — drifts right to overload with Olise, shoot 17)
+  - index 9: RW — Michael Olise (creative wide hub, cuts inside onto his left foot, set-piece deliverer)
+  - index 10: CF — Kylian Mbappé (captain, 8 goals — the focal point, lethal finisher, transition outlet)
 
 ## Style of Play
 
 ### Build-up
-- Patient, low-risk. Maignan to Saliba or Upamecano. CBs split wide, Koné drops between them when pressed (back-three build).
-- Koundé inverts to form a 3-2 base alongside Koné; Digne pushes forward on the left but stays more measured than Theo, Rabiot pushes into the left half-space.
-- France expects to see plenty of the ball against a Morocco side that defends compact and counters — likely 55-60% possession. Break the block with patience; play long to Mbappé / Barcola only when the counter is on.
+- Patient, low-risk when allowed. Maignan to Saliba or Upamecano. CBs split wide, Koné drops between them when pressed (back-three build).
+- Koundé inverts to form a 3-2 base alongside Koné; Digne pushes on more measured; Rabiot into the left half-space.
+- **Against Spain, France will NOT have the ball** — expect 35-45% possession. Do not force build-up into Spain's counter-press: when Oyarzabal-Baena-Yamal curve their pressing runs, go long early to Mbappé's channel runs or into Dembélé between the lines. Losing the ball cheaply in the first phase is the one unforgivable error against the best counter-pressing side in the tournament.
 
 ### Pressing
-- Mid-block, not high-press. Trigger: opponent CB takes a heavy touch or plays a sideways pass under no pressure.
-- Mbappé leads, Barcola curves his run to cut the switch, Olise jumps the opposite #6 with Rabiot covering behind.
-- Otherwise sit in a compact 4-4-1-1 / 4-5-1 around the halfway line and force Morocco wide and backward — deny the vertical outlet to Brahim Díaz and the inside runs off Hakimi.
+- Mid-block, not high-press. Do NOT chase Spain's back line — they want to bait the press and play through it.
+- Trigger only: a heavy touch by a CB, or a square pass to Rodri played blind. Then Mbappé and Dembélé collapse on the pivot together.
+- Otherwise sit compact in a 4-4-1-1 around halfway: Koné screens the Olmo lane, Rabiot tracks the late Fabián Ruiz arrivals, wingers tuck in to keep Spain's fullback overlaps in view.
 
 ### Defensive shape
-- 4-4-1-1 / 4-1-4-1 mid-block. Koné holds in front of the CBs; Rabiot screens alongside or steps to press.
-- Outside backs only step out when ball is on their flank. Digne is more disciplined than Theo and less likely to be caught high; Rabiot and Koné still shuttle to cover the left channel — and Digne must track Hakimi's overlaps on that side.
-- Aerial duels: Upamecano & Saliba dominate, no compromise — win every long ball and clear every set-piece delivery.
+- 4-4-1-1 / 4-5-1 mid-to-low block. Koné holds in front of the CBs; Rabiot alongside.
+- **Right side alert**: Yamal cuts in from Spain's right onto his left foot — Digne shows him wide, Upamecano covers the curler zone, Koné collapses the half-space. Never let Yamal receive facing goal at the top of the box.
+- **Left side alert**: Baena drifts inside with Cucurella overlapping — Koundé passes Baena on to the pivot and takes the overlap.
+- Aerial duels: Upamecano & Saliba dominate; win every long ball, clear every set-piece delivery.
 
 ### Wide play
-- Asymmetric. LEFT is a more controlled channel now: Digne provides measured width and overlap for Barcola, who runs in behind and cuts inside; Rabiot tucks up.
-- RIGHT is the dribbling zone: Koundé tucked in, Dembélé isolated 1v1 cutting inside; Olise floats to support from the half-space.
+- Asymmetric. LEFT: Digne stays measured; Doué combines short, comes inside, plays give-and-gos with Mbappé and Rabiot.
+- RIGHT is the transition zone: Olise isolated, cuts in onto his left; Dembélé drifts over to create the 2v1 vs Cucurella when Spain's left is high.
 
 ### Final third
 - Two patterns:
-  1. **Quick combo**: Olise / Rabiot vertical pass → Mbappé lays off → Dembélé or Barcola runs the channel.
-  2. **Transition**: regain ball in own half → 2-3 touches max → release Mbappé or Barcola behind the line — the fastest route to punish Morocco when Hakimi and the pivot push up.
-- Crosses from Digne aimed at Mbappé's near-post run; Barcola arrives at back post, Dembélé crashes the far side.
+  1. **Quick combo**: Dembélé/Rabiot vertical pass → Mbappé lays off → Doué or Olise runs the channel.
+  2. **Transition** (the primary weapon in this tie): regain → 2-3 touches max → release Mbappé behind Spain's high line. Spain squeeze up to halfway; the space behind Cubarsí-Laporte is where this semifinal is won.
+- Crosses from Digne aimed at Mbappé's near-post run; Dembélé arrives at the far post, Olise pulls back to the spot.
 
 ## Set Pieces
-- Corners: Koné near-post flick, Upamecano back-post target, Saliba late arriver. Olise delivers in-swingers; Digne for the left side.
-- Direct FKs (18-25m): Mbappé or Olise takes anything centered; Dembélé curls from the right. Saliba and Upamecano stay back — France never commits 5 to a corner; counter risk too high (Morocco's transition through Hakimi and Brahim Díaz is dangerous).
-- Defending corners & long throws: man-mark + 2 zonal at near post; double up on Morocco's aerial threats (Diop, Aguerd). Win the first contact, second balls cleared long. Mbappé stays on halfway for the outball.
+- Corners: Koné near-post flick, Upamecano back-post target, Saliba late arriver. Olise delivers in-swingers; Digne from the left.
+- Direct FKs (18-25m): Mbappé or Olise central; Dembélé curls from the right. Saliba and Upamecano stay back — France never commits five forward; Spain's counter through Yamal is lethal.
+- **Penalty-shootout order (knockout — level after 90/120 goes to a shootout):**
+  1. **Mbappé** — captain, first taker (penalty 18); scored four shootout/spot kicks in the 2022 final cycle — but missed from the spot vs Morocco in the QF, so expect extra focus.
+  2. **Dembélé** — penalty 17, in the form of his life.
+  3. **Olise** — penalty 17, ice-cold technician.
+  4. **Doué** — penalty 15.
+  5. **Rabiot** — penalty 14, the veteran closes.
+- Defending: man-mark + 2 zonal at near post; Mbappé stays on halfway as the outball.
 
 ## decide() Decision Priorities
 1. When my role is GK and ball is in opponent half: position 8-10m off goal line, ready to sweep.
-2. When my role is DEF and `player_id` ends with `_2` or `_3` (CB pair — Upamecano/Saliba) and possession_team is mine, no pressure: pass short to other CB or the DM, never long unless a forward is in space.
-3. When my `player_id` ends with `_5` (DM — Koné) and team has the ball: stay between CBs and the ball, offer constant short passing option, never above halfway; recycle and shield, only drive forward with the ball when it is won high and space opens ahead.
-4. When my `player_id` ends with `_1` (LB — Digne) and team_phase is "attacking" and ball is on left side: advance to provide width and overlap for Barcola, but stay measured — do not over-commit against Hakimi's overlaps and Morocco's counter; deliver the left-sided cross.
-5. When my `player_id` ends with `_4` (RB — Koundé) and team_phase is "attacking": tuck inside to RCM position (inverted FB), give Dembélé free room on the right.
-6. When my `player_id` ends with `_7` (RW — Dembélé) and I receive ball isolated 1v1: drive at the defender, use explosive pace to beat on the outside or cut inside — invite the duel and shoot/cutback.
-7. When my `player_id` ends with `_10` (CF — Mbappé) and team_phase is "defending": press the ball-carrying CB; cut the passing lane to their #6.
-8. When my `player_id` ends with `_9` (LW — Barcola) and ball is regained in own half: explode diagonally into space behind opponent RB — demand the pass; run in behind first, feet second.
-9. When my `player_id` ends with `_6` (DM/#8 — Rabiot) and team_phase is "defending": tuck into the double pivot beside Koné, never higher than the CM line until ball is won; cover the left channel when Digne is high.
-10. When my `player_id` ends with `_8` (CAM — Olise) and team has the ball in the final third: find the half-space between lines, look first for the through ball to Mbappé or Barcola.
-11. When tackling: only commit if my `player_id` ends with `_2`, `_3`, `_4`, or `_5` (Upamecano/Saliba/Koundé/Koné) AND ball-carrier has poor body shape; otherwise Hold and contain — Koné is on a booking, so he must contain rather than dive in.
+2. When my role is DEF and `player_id` ends with `_2` or `_3` (CB pair — Upamecano/Saliba) and possession_team is mine, no pressure: pass short to other CB or the DM; if Spain's press collapses on the first pass, clear long toward the `_10` channel rather than dribble out.
+3. When my `player_id` ends with `_5` (DM — Koné) and team has the ball: stay between CBs and the ball, offer the constant short option, never above halfway; recycle and shield; only drive forward when the ball is won high and space opens.
+4. When my `player_id` ends with `_1` (LB — Digne) and team_phase is "attacking" and ball is on left side: provide width and the overlap for the `_7` player (Doué), but stay measured — never leave the space behind open for Yamal's transitions; deliver the left-sided cross.
+5. When my `player_id` ends with `_4` (RB — Koundé) and team_phase is "attacking": tuck inside to RCM (inverted FB), give the `_9` player (Olise) room outside-right.
+6. When my `player_id` ends with `_9` (RW — Olise) and I receive isolated 1v1: cut inside onto my left foot and shoot from the right half-space (shoot 16), or slide the reverse pass to the `_10` run.
+7. When my `player_id` ends with `_10` (CF — Mbappé) and team_phase is "defending": stay high near halfway as the transition outball; when we win it, sprint in behind the last line and demand the pass.
+8. When my `player_id` ends with `_7` (LW — Doué) and team has the ball: come inside off the left to combine short (pass 17 / skill 18) — give-and-go with `_10` or `_6`, then attack the box; shoot when the lane opens (shoot 16).
+9. When my `player_id` ends with `_8` (CAM — Dembélé) and team has the ball: float between the lines, drift right to overload with `_9`; take on the last defender (dribble 19) and shoot (shoot 17) or slip `_10` through — I am the second scoring threat, not just a creator.
+10. When my `player_id` ends with `_6` (DM/#8 — Rabiot) and team_phase is "defending": tuck into the double pivot beside Koné, never higher than the CM line until the ball is won; cover the left channel when Digne is high.
+11. When tackling: only commit if my `player_id` ends with `_2`, `_3`, `_4`, or `_5` (Upamecano/Saliba/Koundé/Koné) AND the carrier has poor body shape; otherwise Hold and contain — do not dive in around the box against Yamal or Olmo.
 12. When my team is leading by 1+ and clock > 70: drop into a 4-4-1-1 deep block; only the `_10` player (Mbappé) stays high as outball.
-13. Shoot only if angle < 30deg from goal-center and within 22m, OR my `player_id` ends with `_10` (Mbappé) inside the box.
+13. Shoot only if angle < 30deg from goal-center and within 22m, OR my `player_id` ends with `_10` (Mbappé) or `_8` (Dembélé) inside the box.
 
 ## Key Player Notes
-- **Mbappé (idx 10)** — captain, central striker. The focal point of the attack, primary finisher. Always the primary outlet on transitions. Shoot tendency aggressive; chasing goals to close on the tournament scoring lead.
-- **Dembélé (idx 7)** — RW. Explosive dribbler, cuts inside from the right, stretches the defence with raw pace; set-piece deliverer from the right. Red-hot form off the Norway hat-trick.
-- **Olise (idx 8)** — the creative hub at #10; receives between lines and supplies the killer pass; primary set-piece deliverer.
-- **Barcola (idx 9)** — starts on the left of the front line in place of Doué; direct, quick and vertical, runs behind the line rather than combining short — a transition weapon against Morocco's back line.
-- **Koné (idx 5)** — the deep anchor in for the injured Tchouaméni; a physical, high-energy ball-winner who covers ground and carries forward, but with less deep-passing range and no dead-ball duty. Shields the CBs and snuffs out Morocco's vertical counters before they launch. On a booking — must contain, not dive in.
-- **Rabiot (idx 6)** — the disciplined other half of the double pivot; covers Koné, arrives late in the box, and patrols the channel Digne vacates.
-- **Saliba (idx 3)** — ball-carrying CB; earlier back issue is resolved and he came through the group and knockouts fine. Allowed to drive into midfield when Koné steps up; Konaté is the like-for-like cover.
-- **Digne (idx 1)** — controlled attacking LB in for Theo Hernández; secure in possession, provides measured width and the left-sided dead-ball delivery, less exposed on the counter.
-- **Maignan (idx 0)** — set-piece and goal-kick distributor; takes risks with the ball.
+- **Mbappé (idx 10)** — captain, central striker, 8 goals and leading the Golden Boot race. The focal point and the transition weapon this tie is built around: Spain's high line is exactly the space he lives in. Missed a penalty vs Morocco but scored in open play minutes later — fearless.
+- **Dembélé (idx 8)** — now the #10, floating behind Mbappé and drifting right; 5 goals including the QF clincher. Explosive dribbler (19) with a genuine finish (17) — the Ballon d'Or holder in the form of his life.
+- **Olise (idx 9)** — RW, cuts in onto his left foot; the primary set-piece deliverer and third shootout taker. His half-space curler mirrors Yamal's at the other end.
+- **Doué (idx 7)** — LW, kept his place after the QF; a two-footed combiner rather than a burner — the right profile for a match where France sees little of the ball and must keep the moves alive in tight space.
+- **Koné (idx 5)** — the anchor while Tchouaméni's groin issue lingers (unused sub in the QF). Physical ball-winner; his duel with Olmo's between-the-lines movement is a tie-decider. Booking slate wiped after the QF — he can tackle freely again, within reason.
+- **Rabiot (idx 6)** — the disciplined other half of the pivot; tracks Fabián Ruiz's late runs, arrives late in the box himself.
+- **Saliba (idx 3)** — ball-carrying CB, steps into midfield; Konaté is like-for-like cover.
+- **Upamecano (idx 2)** — physical duel-winner; must defend the space behind when the line steps up.
+- **Digne (idx 1)** — controlled LB in for Theo Hernández; his discipline against Yamal's flank is non-negotiable.
+- **Maignan (idx 0)** — sweeper-keeper and distribution starter; will be busy — Spain average 60%+ possession.
 
 ## Tournament Mindset
-Win the knockouts. France routinely peaks against top opponents — pragmatism + Mbappé in a single moment is enough. This is the quarterfinal: one game, win or go home, no second chances; if it is level after 90, thirty more of extra time, then a shootout. France are favourites — five wins from five, 14 scored / 2 conceded — but Morocco are unbeaten too, organised, quick in transition, and fresh off the last World Cup's semifinal run, so completely unafraid of the occasion. The plan: control possession, keep the clean sheet, break down a compact block with patience through the Olise-Dembélé right side and Barcola's runs on the left, and punish any over-commitment with Mbappé and Barcola in transition. Guard against Morocco's counters (Hakimi, Brahim Díaz) and their set pieces; win the midfield battle now that Koné, not Tchouaméni, anchors the pivot. Take the lead, then squeeze the game flat and see it out — however many whistles it takes.
+**Semifinal — two wins from a third straight final.** Six from six, 16 scored, 2 conceded, and the tournament's two most decisive attackers. But Spain are the mirror: also six from six, European champions, one goal conceded all tournament, and the side that ended France's Euro 2024 in this exact fixture — Yamal's wonder-strike and Olmo's winner overturning an early French lead in four minutes. Deschamps' teams don't lose this kind of game twice: the 2021 Nations League final (2-1, Benzema-Mbappé after going behind) is the blueprint — concede the ball, stay compact for 90 minutes, and strike through Mbappé the moment Spain's line steps too high. Do not chase possession statistics; chase the three or four transition moments the game will offer. Guard Yamal's half-space, screen Olmo, survive the spells without the ball — and if it goes all the way to penalties, the takers are set and Maignan is a shootout monster. One game from the final. Control the moments, not the ball.
