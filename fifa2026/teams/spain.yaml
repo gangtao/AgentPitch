@@ -1,4 +1,4 @@
-# Formation: 4-3-3
+# Formation: 4-2-3-1
 team_id: spain
 name: Spain
 players:
@@ -72,20 +72,20 @@ players:
     shoot: 12
     offensive: 14
     penalty: 12
-  - name: Dani Olmo
-    number: 10
+  - name: Fabián Ruiz
+    number: 8
     role: MID
-    speed: 14
-    skill: 18
-    strength: 13
+    speed: 13
+    skill: 17
+    strength: 15
     save: 0
-    discipline: 14
+    discipline: 16
     dribbling: 16
     stamina: 16
-    pass: 16
-    shoot: 16
+    pass: 17
+    shoot: 15
     offensive: 12
-    penalty: 14
+    penalty: 13
   - name: Rodri
     number: 16
     role: MID
@@ -100,20 +100,20 @@ players:
     shoot: 13
     offensive: 12
     penalty: 15
-  - name: Pedri
-    number: 20
+  - name: Dani Olmo
+    number: 10
     role: MID
-    speed: 15
-    skill: 19
-    strength: 12
+    speed: 14
+    skill: 18
+    strength: 13
     save: 0
-    discipline: 16
-    dribbling: 18
-    stamina: 17
-    pass: 19
-    shoot: 14
-    offensive: 9
-    penalty: 16
+    discipline: 14
+    dribbling: 16
+    stamina: 16
+    pass: 16
+    shoot: 16
+    offensive: 12
+    penalty: 14
   - name: Álex Baena
     number: 15
     role: FWD
