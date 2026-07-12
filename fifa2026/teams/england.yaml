@@ -44,6 +44,20 @@ players:
     shoot: 7
     offensive: 14
     penalty: 10
+  - name: John Stones
+    number: 5
+    role: DEF
+    speed: 12
+    skill: 17
+    strength: 15
+    save: 0
+    discipline: 17
+    dribbling: 14
+    stamina: 13
+    pass: 17
+    shoot: 6
+    offensive: 11
+    penalty: 10
   - name: Ezri Konsa
     number: 2
     role: DEF
@@ -53,24 +67,10 @@ players:
     save: 0
     discipline: 14
     dribbling: 12
-    stamina: 15
+    stamina: 14
     pass: 14
     shoot: 6
     offensive: 13
-    penalty: 9
-  - name: Djed Spence
-    number: 25
-    role: DEF
-    speed: 17
-    skill: 15
-    strength: 15
-    save: 0
-    discipline: 13
-    dribbling: 15
-    stamina: 17
-    pass: 14
-    shoot: 9
-    offensive: 14
     penalty: 9
   - name: Elliot Anderson
     number: 8
