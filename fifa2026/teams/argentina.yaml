@@ -139,7 +139,7 @@ players:
     dribbling: 15
     stamina: 18
     pass: 14
-    shoot: 16
+    shoot: 17
     offensive: 7
     penalty: 15
   - name: Lionel Messi
@@ -151,7 +151,7 @@ players:
     save: 0
     discipline: 16
     dribbling: 19
-    stamina: 14
+    stamina: 13
     pass: 19
     shoot: 19
     offensive: 8
