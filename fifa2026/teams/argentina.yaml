@@ -97,7 +97,7 @@ players:
     dribbling: 15
     stamina: 17
     pass: 18
-    shoot: 14
+    shoot: 15
     offensive: 11
     penalty: 15
   - name: Leandro Paredes
