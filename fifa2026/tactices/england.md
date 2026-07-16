@@ -1,111 +1,110 @@
 # England — Tactical Profile
 
 ## Identity & Philosophy
-Thomas Tuchel's England is methodical, defensively organized, and ruthlessly effective in transition. Out are Southgate's tournament-pragmatist instincts; in is Tuchel's structured possession with clear positional rules, a defined mid-block press, and a strong identity on the counter. Tuchel has settled on a 4-2-3-1 — a double pivot of Rice and Anderson shielding the back four, with Jude Bellingham freed as a genuine No. 10 behind Harry Kane. Set-piece danger is world-class. England arrived as Euro 2024 finalists and a favourites-tier side, **topped Group L (above Croatia, Ghana and Panama)**, then ground past DR Congo 2-1 in the Round of 32.
+Thomas Tuchel's England is methodical, defensively organized, and ruthlessly effective in transition — but the tournament ends in a bronze final, not the one they came for. England topped Group L, beat DR Congo, won the Azteca epic over Mexico (ten men for 40+ minutes after Quansah's red), and outlasted Norway 2-1 in 120 Miami minutes, before the semi-final broke their hearts.
 
-**Round of 16 — Mexico 2-3 England (Mon 6 Jul, Estadio Azteca).** An all-time classic and Mexico's first-ever home World Cup defeat: **Bellingham's quickfire headed brace (36', 38')**, Kane from the spot after **Gordon won a penalty**, then 40+ minutes of ten-man defiance after **Quansah's red card** — Pickford immense.
+**Semi-final — England 1-2 Argentina (Wed 15 Jul, Mercedes-Benz Stadium, Atlanta).** Tuchel made three changes (Rogers for Madueke, James for Konsa at RB, Spence for O'Reilly at LB; Saka again held back over his Achilles). After a cagey first half, **Gordon smashed England ahead on 55'** from **Rogers' pinpoint delivery**. Then Tuchel gambled: rather than press for a second, England bunkered — at 82' he sent on **Burn for James** and **O'Reilly for Rice** to protect the lead. It backfired brutally. **Enzo Fernández bent in a brilliant equalizer from distance on 85'**, and in the **second minute of stoppage time Messi set up Lautaro Martínez** to complete another late Argentina comeback. Pundits called it the first gamble Tuchel lost all tournament — "England bottled it" was the kinder headline; Tuchel snapped at a FOX interviewer, then insisted he had **"no regrets"** and was proud of the campaign. Argentina meet Spain in the final.
 
-**Quarter-final — Norway 1-2 England aet (Sat 11 Jul, Hard Rock Stadium, Miami).** Tuchel rotated: **Stones returned at CB** (first start since the opener), **Konsa moved to right back** (Quansah banned, Reece James not fit to start), and **Madueke started over Saka**, whose long-standing Achilles issue is being managed. England were sloppy — Tuchel's own word — and fell behind to **Schjelderup's looping 36th-minute cross-shot**, but **Bellingham equalized in first-half stoppage time (45+2')** and, three minutes into extra time (93'), **pounced on Nyland's spill of Morgan Rogers' drive for the winner**. The collective defensive job held **Haaland to 21 touches and one shot on target** — no goal for the first time all tournament. Rice (recovering from a virus that kept him in bed during the week) was withdrawn at half-time as a pre-planned precaution; Saka replaced Madueke at the break; James got 49 comeback minutes; Konsa came off late with cramp. **120 more minutes in the legs.**
-
-**Semi-final — Argentina (Wed 15 Jul, Mercedes-Benz Stadium, Atlanta).** Team news:
-- **Quansah remains suspended** — the semi-final is the second match of his two-match ban for the Azteca red card.
-- **Jordan Henderson is out of the tournament** (wrist surgery).
-- **Rice is expected to start** — the half-time withdrawal in Miami was load management after his virus, not an injury; he has four days to be ready.
-- **Reece James is fit enough for the bench** but not a 120-minute start — **Konsa keeps right back**, with Stones–Guéhi as the CB pair.
-- **Saka returns to the XI** — the Madueke start in the QF was rotation to protect his Achilles precisely for this match; Madueke is the like-for-like change if Tuchel flips it again.
-- **Yellow cards were wiped after the quarter-finals** — nobody is one booking from missing the final. Only a red card in Atlanta suspends.
-- Both England and Argentina played 120 minutes on 11 July — **equal rest, equal fatigue**.
-- Probable XI (4-2-3-1): **Pickford; O'Reilly, Guéhi, Stones, Konsa; Anderson, Rice; Saka, Bellingham, Gordon; Kane.**
+**Third-place match — France (Sat 18 Jul, Hard Rock Stadium, Miami Gardens, 5pm ET / 10pm BST).** England return to the stadium where they beat Norway. Team news and selection logic:
+- **Quansah's two-match ban is served** (QF + SF) — he is available again and starts.
+- **Jordan Henderson remains out of the tournament** (wrist surgery).
+- **Saka is not risked** — the Achilles has been managed all tournament and a bronze game is no place to gamble it; Madueke starts.
+- Heavy-minute men are rested: **Stones, Guéhi, Rice, Gordon, James** all start on the bench (Rice and Gordon on standby if it goes wrong).
+- **Kane and Bellingham start** — both sit on **6 goals**, two behind **Mbappé (8)** in the Golden Boot race; the captain did exactly this in 2018 and took the Boot home.
+- Fringe rewards: **Mainoo's first World Cup start** in the pivot, **Rashford** on the left, **Burn** (who came on in Atlanta) at CB.
+- No suspensions in play; only pride, medals and the Golden Boot at stake.
+- Probable XI (4-2-3-1): **Pickford; O'Reilly, Burn, Quansah, Konsa; Mainoo, Anderson; Madueke, Bellingham, Rashford; Kane.**
 
 ## Formation
-- Shape: 4-2-3-1 (Rice + Anderson double pivot; Bellingham as the No. 10; O'Reilly pushes to wing-back on the left, Konsa a more conservative RB than Spence was)
+- Shape: 4-2-3-1 (Anderson + Mainoo double pivot; Bellingham as the No. 10; O'Reilly pushes to wing-back on the left, Konsa conservative at RB)
 - Role mapping (roster order in `england.yaml`):
-  - index 0: GK — Jordan Pickford (vocal, distribution-savvy; the Azteca wall; a shootout weapon)
-  - index 1: LB — Nico O'Reilly (converted midfielder; tall, physical, left-footed; pushes up to wing-back height)
-  - index 2: LCB — Marc Guéhi (physical, left-footed for balance; aerial duels; takes the striker)
-  - index 3: RCB — John Stones (veteran organizer back in the side; elite passer — pass 17 — who launches the build; positioning over pace)
-  - index 4: RB — Ezri Konsa (CB by trade playing right back; solid, mobile, defense-first; overlaps selectively, not relentlessly)
-  - index 5: LDM/#6 — Elliot Anderson (left side of the pivot; tidy, energetic ball-mover; pass 16 — the shuttler)
-  - index 6: RDM/#6 — Declan Rice (anchor of the double pivot; box-to-box engine; primary set-piece deliverer; recovered from the virus)
-  - index 7: RW — Bukayo Saka (Achilles managed via QF rotation; cuts in onto his left foot; shoot 16, dribble 18)
-  - index 8: AM/#10 — Jude Bellingham (free role behind Kane; 6 goals — scorer in every knockout round; shoot 17)
-  - index 9: LW — Anthony Gordon (direct, vertical LW — speed 19; won the R16 penalty; runs the channel relentlessly)
-  - index 10: CF — Harry Kane (captain & all-time WC top scorer; 6 goals this tournament; deep #9 / target hybrid; quiet in Miami and due one)
-  - bench impact: Noni Madueke (started the QF; 1v1 touchline burner for the _7 slot), Eberechi Eze (halftime pivot/creative change in Miami — the _6 or _8 relief), Morgan Rogers (his shot created the QF winner; runner for the _8 slot), Reece James (49 QF minutes; the _4 slot late or delivery on set pieces), Djed Spence (fresh legs at FB), Dan Burn (aerial lockdown CB for the final minutes), Marcus Rashford / Ollie Watkins (pace in behind a tiring line for the _9/_10 slots)
+  - index 0: GK — Jordan Pickford (ever-present; vocal, distribution-savvy; the Azteca wall)
+  - index 1: LB — Nico O'Reilly (converted midfielder; tall, physical, left-footed; pushes up to wing-back height; only 10 minutes in Atlanta — fresh)
+  - index 2: LCB — Dan Burn (6'7" aerial colossus — strength 19, offensive 15 on set pieces; left-footed; no pace, all positioning)
+  - index 3: RCB — Jarell Quansah (back from the two-match Azteca ban; quick, physical, front-foot defender — but discipline 11: no more reds)
+  - index 4: RB — Ezri Konsa (CB by trade playing right back; solid, mobile, defense-first; overlaps selectively)
+  - index 5: LDM/#8 — Kobbie Mainoo (first World Cup start; press-resistant, silky under pressure — skill 17, dribbling 16; shuttles the left half-space)
+  - index 6: RDM/#6 — Elliot Anderson (the anchor with Rice rested; tidy, energetic ball-mover; primary set-piece deliverer tonight — pass 16)
+  - index 7: RW — Noni Madueke (1v1 touchline burner — speed 18, dribbling 18; started the QF; direct to the byline or cutting in)
+  - index 8: AM/#10 — Jude Bellingham (free role behind Kane; 6 goals, scorer in the R16 and QF; two behind Mbappé — hunting)
+  - index 9: LW — Marcus Rashford (vertical pace — speed 18, shoot 16; runs in behind; a proven England tournament scorer given his start)
+  - index 10: CF — Harry Kane (captain & all-time WC top scorer; 6 goals — two behind Mbappé with one game left; penalty 19)
+  - bench impact: Rice and Gordon (the semi-final starters — the _6 and _9 cavalry if the game needs winning), Eze (creative _8 relief), Rogers (semi assist-maker, _8 legs), Saka (only if needed, _7), Stones/Guéhi (the rested CB pair, _2/_3), James/Spence/Livramento (FB rotation, _1/_4), Toney/Watkins (fresh #9 legs, _10)
 
 ## Style of Play
 
 ### Build-up
-- 4-2 base with Pickford between the CBs. **Stones is the launchpad**: he steps into midfield or hits the first line-breaking pass — the build now runs through the right-sided CB, not the RB.
-- Konsa stays home more than Spence did — against Argentina's counter (Messi released by Enzo/Mac Allister one-touch breaks) the right side stays insured.
-- O'Reilly (a converted midfielder) pushes high on the left to wing-back height; Anderson supports the left half-space.
+- 4-2 base with Pickford between the CBs. With Stones rested, **Quansah is the preferred first pass** — he steps out and breaks the first line; Burn keeps it simple to feet or goes long to Kane's chest.
+- Konsa stays home — France's whole gameplan is transition into **Mbappé**, so the right side stays insured.
+- O'Reilly (a converted midfielder) pushes high on the left to wing-back height; Mainoo supports the left half-space and wriggles out of the counter-press.
 - Bellingham drops between the lines as the free No. 10; Kane drops deep to combine.
-- Tempo: patient but purposeful — and **transition-paranoid**: Argentina's midfield three (De Paul, Enzo Fernández, Mac Allister) are the best counter-pressers England have faced; a loose pass in midfield becomes Messi running at a back four. Every forward commitment is insured by the resting pivot and a spare CB.
+- Tempo: purposeful but **transition-paranoid** — a loose central giveaway is Mbappé running at Burn, the one footrace England cannot host. Every forward commitment is insured by the resting pivot and a spare CB.
 
 ### Pressing
-- Mid-block primarily. Cue to step: square pass between CBs, or a wide CB receiving on the touchline.
-- Kane press-leads and shadows the pivot; Bellingham jumps Argentina's deepest midfielder (Enzo Fernández) — **but never leave Messi's zone unattended to do it**. Messi drops into the right half-space between the lines; Anderson and O'Reilly must pass him between them with the near CB stepping only when the ball travels.
-- Saka & Gordon close down the full-backs (Tagliafico, Molina) from inside.
-- **No reckless high press** — Tuchel prizes shape over chaos. Argentina bait the press to free Messi between the lines; a failed jump is a 4v4 the wrong way.
+- Mid-block primarily. Cue to step: square pass between France's CBs, or a wide CB receiving on the touchline.
+- Kane press-leads and shadows the pivot; Bellingham jumps France's deepest midfielder when the lane behind him is closed.
+- Madueke & Rashford close down the full-backs from inside.
+- **No reckless high press** — a bronze final three days after 90 bruising minutes is won with shape, not chaos. A failed jump is a 3v3 against Mbappé and Dembélé the wrong way.
 
 ### Defensive shape
-- 4-4-1-1 / 4-2-3-1 mid-block. Kane stays highest as the counter outlet; Bellingham sits just behind him on Argentina's pivot.
-- Wingers (Saka, Gordon) drop to RM/LM heights; Rice & Anderson screen the back four as a flat two.
-- Line height ~45% — Argentina's threat is not one runner over the top but combinations *through* the block: Messi's slipped balls for Álvarez and Lautaro Martínez between FB and CB. **Stones organizes; Guéhi duels; Konsa tucks in to make a back three when Messi drifts to his side.**
-- **The Messi rule**: he lives in the right half-space (England's LEFT side). O'Reilly never jumps out alone at him; Anderson screens the lane first; Rice arrives as the doubler. Force him wide or backwards — never let him receive facing goal between the lines.
-- With QF yellows wiped, tackles can be honest again — but Argentina manufacture free kicks 25-30m out for a living, and that is Messi range. Foul-free defending in the arc is a hard rule.
+- 4-4-1-1 / 4-2-3-1 mid-block. Kane stays highest as the counter outlet; Bellingham sits just behind him.
+- Wingers (Madueke, Rashford) drop to RM/LM heights; Anderson & Mainoo screen the back four as a flat two.
+- Line height ~40% — **deeper than usual**: Burn has no recovery pace and Mbappé (8 goals) lives on the ball over the top. Depth is non-negotiable; Quansah's speed (15) covers the channel runs, Burn takes the boxes.
+- **The Mbappé rule**: he starts left, England's RIGHT. Konsa never jumps out alone; Anderson screens the lane; Quansah covers the depth run behind. Force him wide or backwards — never let him run at the CBs facing goal.
+- Quansah defends on the front foot but carries the tournament's ugliest disciplinary memory — **contain first, tackle only when the touch is loose**.
 
 ### Wide play
-- Asymmetric: **RIGHT** Saka cuts in (inverted) onto his left foot; Konsa overlaps selectively — he provides support width, not Spence's constant touchline sprints, so Saka gets more solo 1v1s against Tagliafico. **LEFT** Gordon stays vertical and direct — pure speed (19) at Molina, byline or in behind, exactly the run that won the Azteca penalty; O'Reilly overlaps/underlaps from wing-back. Gordon's side doubles as the out-ball: Argentina's left (behind their attack) is where England break.
+- Asymmetric: **RIGHT** Madueke is direct — beats his man outside to the byline or snaps inside onto goal (dribbling 18); Konsa supports rather than overlaps. **LEFT** Rashford runs vertical and in behind — speed 18 attacking the space a deflated France back line leaves; O'Reilly overlaps/underlaps from wing-back.
 - Bellingham is the central half-space connector, drifting to support either flank.
 
 ### Final third
 - Three termination patterns:
-  1. Saka cuts in from the right → curls/strikes onto his left foot (signature move).
-  2. O'Reilly overlap (or Konsa support) → whipped cross or cutback for Kane/Bellingham.
-  3. Kane drops, lays off to Bellingham, runs in behind — give-and-go; Gordon attacks the back post.
-- Crosses targeted at Kane near post and Bellingham far post — the Azteca headers and the Miami poacher's winner all came from box arrivals; **Bellingham has scored in every knockout game — keep feeding the second ball to him**. Romero and Lisandro Martínez defend front-foot and aggressive: Kane's drop-and-spin drags them out, and the space behind is Bellingham's and Gordon's.
+  1. Madueke to the byline → cutback to Kane at the near post or Bellingham arriving at the spot.
+  2. Rashford in behind off Kane's drop-and-slip — the give-and-go through the left channel.
+  3. Kane drops, lays off to Bellingham, spins into the box — feed the two Golden Boot chasers first, always.
+- Crosses targeted at Kane near post and Bellingham far post; Burn joins for anything dead-ball adjacent. **Bellingham and Kane need goals — every cutback, rebound and second ball goes through them.**
 
 ## Set Pieces
-- **England's super-weapon** — and the cleanest route past a compact Argentina block. Rice (pass 17) is the primary corner/free-kick deliverer — inswingers and outswingers from both sides; Anderson is the alternate (James's delivery is an option off the bench).
-- Targets: Guéhi, Kane, Stones, Rice (any of 6'+). Bellingham crashes the far post and the second ball — his R16 goals were headers, his QF winner a box-crash rebound; keep feeding him.
-- Direct FKs: Kane central, Saka right side onto his left foot, Rice whipped delivery.
-- Penalties: **Kane primary** (converted at the Azteca; penalty 19); Bellingham and Rice secondary.
-- **Penalty-shootout order (this is a knockout — 120 minutes then a shootout):** Kane, Bellingham, Rice, Saka, Gordon. Beware: **Emiliano Martínez is the best shootout goalkeeper of his generation** (Qatar 2022 final, Copa América) and a master of the dark arts at the spot. Pickford's own shootout record is England's counter-card.
-- Defending: hybrid zonal/man. Stones marshalls the line and the back post; Pickford commands his 6-yard box. **Messi's delivery is the threat, not a single header target** — attack the first contact aggressively and never concede cheap free kicks 25-30m out: that arc is Messi's kingdom.
+- **Still England's super-weapon**, with a new twist: **Dan Burn at 6'7" is the biggest target England have fielded all tournament** (offensive 15). Anderson is the primary corner/free-kick deliverer with Rice on the bench; O'Reilly is the alternate.
+- Targets: Burn first contact, Kane and Quansah on the posts; Bellingham crashes the far post and the second ball — his R16 goals were headers, his QF winner a box-crash rebound.
+- Direct FKs: Kane central, Rashford left-side power (his signature), Anderson whipped delivery.
+- Penalties: **Kane primary** (penalty 19 — and a penalty may decide the Golden Boot); Bellingham and Rashford secondary.
+- **Penalty-shootout order (if the bronze final finishes level, kicks decide it):** Kane, Bellingham, Rashford, Madueke, Mainoo. Pickford remains England's shootout ace.
+- Defending: hybrid zonal/man. Burn marshalls the line and takes the biggest body; Pickford commands his 6-yard box. Olise's delivery is France's dead-ball threat — attack the first contact and concede nothing cheap 25-30m out.
 
 ## decide() Decision Priorities
-1. When my role is GK: first option short to a CB — the `_3` (Stones) is the preferred outlet. Only go long if double-pressed; aim for the `_10` player's (Kane) chest.
-2. When my `player_id` ends with `_4` (RB — Konsa) and team has ball: hold a conservative width on the right — support the `_7` (Saka) with an underlap or safe wall-pass, but do NOT bomb past him by default; when the ball is on the left, tuck in beside the `_3` (Stones) to form a back three. My first job is insurance against the counter.
-3. When my `player_id` ends with `_3` (RCB — Stones) and pressure is low: step into midfield or hit the first line-breaking pass — I am the launchpad of the build (pass 17); if pressed, recycle simple. Never get isolated in a footrace — positioning over pace; when the opposition counters, drop early and steer the runner wide.
-4. When my role is MID and `player_id` ends with `_5` or `_6` (the double pivot — Anderson/Rice) and team is attacking: at least one of the two always stays in front of the CBs — the counter through the middle must die at the pivot. Default: `_6` (Rice) screens deeper, `_5` (Anderson) shuttles slightly higher on the left.
-5. When my `player_id` ends with `_8` (#10 — Bellingham): play between the lines behind the `_10` (Kane); drift into whichever half-space the ball is on; attack far post on every cross and follow EVERY shot for the rebound — the QF winner was a spill; Shoot inside the box. Scorer in every knockout round — keep arriving.
-6. When my `player_id` ends with `_7` (RW — Saka): start wide on the touchline, Move inside diagonally onto my left foot when the ball arrives at my feet; Shoot from 18-22m if the angle permits; the `_4` (Konsa) supports rather than overlaps, so beat the full-back 1v1 or recycle through the `_6` (Rice).
-7. When my `player_id` ends with `_9` (LW — Gordon): always vertical first — speed 19 is the weapon; run the channel between RB and RCB when the `_10` (Kane) drops; take the defender on to the byline for the cutback, or dart across him in the box to draw contact — the penalty-winner run. I am the counter-attack out-ball: sprint the moment we win it.
-8. When my `player_id` ends with `_10` (CF — Kane): drop 10-15m short when team_phase is "attacking" — receive, lay off to the `_8` (Bellingham); then make a delayed run into the box. Shoot from 25m if the lane opens. Quiet in Miami — but six goals says take everything.
-9. When team_phase is "defending": 4-4-1-1 shape. The `_7` and `_9` (Saka & Gordon) drop to wide-mid height. The `_5` and `_6` (Anderson & Rice) hold as a flat screen — priority one is the passing lane into the opponent's No. 10 zone (Messi's half-space, England's left-center); the `_8` (Bellingham) presses the opponent's deepest midfielder only when the lane behind him is closed.
-10. When the opponent's most skilled player receives between the lines on our left: the `_5` (Anderson) engages first, the `_6` (Rice) doubles, the `_1` (O'Reilly) holds the line — NEVER the lone full-back jumping out, and NEVER a foul within 30m of our goal: that arc is their free-kick kingdom.
-11. When defending a corner: the `_2` and `_3` (Guéhi & Stones) take the two biggest targets; the `_6` (Rice) anchors near post; the `_0` (Pickford) commands the 6-yard area; the `_9` (Gordon) stays highest as the counter outlet.
-12. When attacking a set piece: if my `player_id` ends with `_2`, `_3`, or `_10` (Guéhi/Stones/Kane) attack the ball in the 6-yard box; the `_8` (Bellingham) attacks far post and the second ball. The `_6` (Rice) to deliver.
-13. Tackling: yellows were wiped after the quarter-finals, so duels can be honest again — but stay on your feet inside our defensive third and NEVER concede free kicks 25-30m central: contain, steer wide, tackle only when the touch is loose.
+1. When my role is GK: first option short to a CB — the `_3` (Quansah) is the preferred outlet; the `_2` (Burn) only when unpressed. If double-pressed go long for the `_10` player's (Kane) chest.
+2. When my `player_id` ends with `_4` (RB — Konsa) and team has ball: hold conservative width on the right — support the `_7` (Madueke) with an underlap or safe wall-pass, but do NOT bomb past him by default; when the ball is on the left, tuck in beside the `_3` (Quansah) to form a back three. My first job is insurance against Mbappé's counter.
+3. When my `player_id` ends with `_3` (RCB — Quansah) and pressure is low: step out and hit the first line-breaking pass — I am the launchpad with Stones rested; if pressed, recycle simple. Discipline 11 and an Azteca red on my record: contain, steer wide, NEVER dive in as the last man.
+4. When my `player_id` ends with `_2` (LCB — Burn): keep it simple with the ball — short to the `_5`/`_6` or long to the `_10` (Kane); NEVER carry into midfield and never get isolated in a footrace — drop early, defend the box, own every aerial duel (strength 19).
+5. When my role is MID and `player_id` ends with `_5` or `_6` (the double pivot — Mainoo/Anderson) and team is attacking: at least one of the two always stays in front of the CBs — the counter through the middle must die at the pivot. Default: `_6` (Anderson) screens deeper, `_5` (Mainoo) shuttles slightly higher on the left and carries through pressure (skill 17).
+6. When my `player_id` ends with `_8` (#10 — Bellingham): play between the lines behind the `_10` (Kane); drift into whichever half-space the ball is on; attack far post on every cross and follow EVERY shot for the rebound; Shoot inside the box. Two goals behind Mbappé with 90 minutes left — arrive, gamble, finish.
+7. When my `player_id` ends with `_7` (RW — Madueke): start wide on the touchline and take my man on 1v1 — outside to the byline for the cutback first (dribbling 18, speed 18), inside onto goal second; Shoot from 16-20m if the lane opens; recycle through the `_6` (Anderson) when doubled.
+8. When my `player_id` ends with `_9` (LW — Rashford): always vertical first — run the channel between RB and RCB when the `_10` (Kane) drops; dart in behind for the slipped ball and Shoot early (shoot 16); I am the counter-attack out-ball: sprint the moment we win it.
+9. When my `player_id` ends with `_10` (CF — Kane): drop 10-15m short when team_phase is "attacking" — receive, lay off to the `_8` (Bellingham); then make a delayed run into the box. Shoot from 25m if the lane opens. Two behind Mbappé — take EVERYTHING, and take every penalty (penalty 19).
+10. When team_phase is "defending": 4-4-1-1 shape with a DEEPER line than usual — the `_2` (Burn) cannot win a footrace, so depth is protected first. The `_7` and `_9` (Madueke & Rashford) drop to wide-mid height; the `_5` and `_6` (Mainoo & Anderson) hold as a flat screen; the `_8` (Bellingham) presses the opponent's deepest midfielder only when the lane behind him is closed.
+11. When the opponent's fastest player receives facing our goal on our right: the `_4` (Konsa) contains without diving, the `_6` (Anderson) doubles, the `_3` (Quansah) protects the depth run behind — NEVER the lone full-back jumping out, and NEVER a foul within 30m of our goal.
+12. When defending a corner: the `_2` (Burn) takes the biggest target and the near zone; the `_3` (Quansah) takes the second; the `_6` (Anderson) anchors near post; the `_0` (Pickford) commands the 6-yard area; the `_9` (Rashford) stays highest as the counter outlet.
+13. When attacking a set piece: if my `player_id` ends with `_2`, `_3`, or `_10` (Burn/Quansah/Kane) attack the ball in the 6-yard box — Burn is the primary target; the `_8` (Bellingham) attacks far post and the second ball. The `_6` (Anderson) delivers.
+14. Tackling: nothing left to be suspended for, but a bronze medal is still on the line — stay on your feet inside our defensive third, contain rather than lunge, and never concede free kicks 25-30m central.
 
 ## Key Player Notes
-- **Bellingham (idx 8)** — the man of this tournament: 6 goals, and a scorer in **every knockout round** — the Azteca headed brace, then both goals against Norway (45+2' equalizer, 93' extra-time winner off Nyland's spill of Rogers' shot). Box-arrival and rebound-gambling are non-negotiable (shoot 17, penalty 17). Yellow wiped — plays free.
-- **Rice (idx 6)** — primary set-piece deliverer (pass 17) and anchor of the pivot. Spent the week before the QF in bed with a virus, started anyway, and was withdrawn at half-time as a pre-planned precaution — Tuchel: "We knew Declan would not last 90 minutes." Four days on, he is expected to start in Atlanta.
-- **Anderson (idx 5)** — energetic shuttler on the left of the pivot; tidy distribution and an alternate set-piece taker. First screener of the Messi half-space.
-- **Stones (idx 3)** — restored at CB in Miami (first start since the opener) and kept the shirt: the build-up organizer and England's best passer from the back (pass 17). Manages games with the ball; protect him from footraces.
-- **Konsa (idx 4)** — CB by trade, England's right back since Quansah's red (ban covers this match) with Reece James only bench-fit. Came off with cramp at 89' in Miami but is fine. Defense-first; selective overlaps.
-- **Saka (idx 7)** — carrying a long-standing Achilles issue managed all tournament; Madueke started the QF precisely so Saka is fresh for Atlanta — he replaced Madueke at half-time and played the remaining 75. Inverted RW: cuts onto his left foot to shoot or threads the cutback.
-- **Gordon (idx 9)** — the form call of the knockouts: terrorized Mexico (won the Kane penalty), started again in Miami. Pure vertical speed (19), channel runs, byline cutbacks — and the designated counter-attack outlet against Argentina's high commitment.
-- **Kane (idx 10)** — captain, England's all-time leading World Cup scorer, 6 goals this tournament but quiet against Norway. Drops to link, then runs the box; primary penalty taker (19) and first in the shootout order.
-- **O'Reilly (idx 1)** — converted midfielder operating as an attacking LB/wing-back; treat him as a midfielder in possession — but on Wednesday his zone is Messi's favourite office: discipline over adventure when Argentina have it.
-- **Guéhi (idx 2)** — physical, left-footed CB; strong in the air and a key set-piece target; takes the striker duel (Álvarez or Lautaro).
-- **Pickford (idx 0)** — the Azteca wall, decisive again in Miami. Commands the box, starts counters, and England's shootout ace — the direct counterweight to Emiliano Martínez.
-- **Bench** — Madueke (QF starter, 1v1s, _7), Eze (creative pivot relief), Rogers (the QF winner's architect, _8 legs), James (delivery + the _4 slot late), Spence (FB legs), Burn (aerial lockdown), Rashford/Watkins (pace in behind). Henderson is out of the tournament (wrist surgery); Quansah suspended.
+- **Kane (idx 10)** — captain, England's all-time leading World Cup scorer, 6 goals — **two behind Mbappé, who is on the same pitch chasing the same Golden Boot**. He played the 2018 bronze final for exactly this reason and won the Boot. Drops to link, runs the box, takes every penalty (19).
+- **Bellingham (idx 8)** — the man of England's tournament: 6 goals, the Azteca headed brace, both goals against Norway. Quiet in Atlanta as Argentina's pivot swallowed him — tonight, against a rotated France midfield, the pockets reopen. Box-arrival and rebound-gambling are non-negotiable (shoot 17).
+- **Madueke (idx 7)** — rewarded with the start Saka's Achilles makes sensible: pure 1v1 wing play (speed 18, dribbling 18). Started the QF; came on in Atlanta. Byline cutbacks feed the Boot-chasers.
+- **Rashford (idx 9)** — first start of the knockouts: vertical speed and a genuine strike (shoot 16, penalty 16). Runs in behind a France line that may still be grieving Tuesday; left-side free kicks are his.
+- **Mainoo (idx 5)** — first World Cup start. Press-resistant, composed beyond his years (skill 17); the counter-press escape valve Tuchel lacked when Argentina squeezed. Keeps the ball moving through contact.
+- **Anderson (idx 6)** — the one midfield ever-present who plays again: anchors the pivot with Rice rested and takes over set-piece delivery (pass 16). Screens the Mbappé lane first, distributes second.
+- **Quansah (idx 3)** — available again after the two-match ban for the Azteca red that reshaped England's defense for two rounds. Quick, aggressive, front-foot — and on a final warning with the referee's memory (discipline 11).
+- **Burn (idx 2)** — the feel-good start: 6'7", strength 19, England's biggest set-piece weapon (offensive 15). Came on in the Atlanta bunker; starts in Miami. Protect him from footraces with a deep line and Quansah's cover.
+- **Konsa (idx 4)** — CB by trade, England's most trusted stand-in full-back all tournament (started the QF at RB). Defense-first, selective overlaps; the Mbappé-side insurance.
+- **O'Reilly (idx 1)** — attacking LB/wing-back, fresh after just 10 Atlanta minutes off the bench; treat him as a midfielder in possession.
+- **Pickford (idx 0)** — kept the gloves as in 2018's bronze final: the Azteca wall, decisive again in Miami round one, and England's shootout ace if it comes to kicks.
+- **Bench** — Rice & Gordon (the semi starters; the cavalry if bronze is slipping), Stones & Guéhi (rested CB pair), Saka (not risked unless needed), Eze (creative relief), Rogers (Atlanta's assist-maker), James/Spence/Livramento (FB legs), Toney/Watkins (fresh #9s), Trafford/Henderson (GK cover). Jordan Henderson (the midfielder) is out of the tournament (wrist surgery).
 
 ## Tournament Mindset
-**Semi-final — two wins from ending 60 years of hurt, and Lionel Messi in the way.** The road: Group L winners over Croatia, Ghana and Panama; 2-1 over DR Congo; the Azteca epic (Bellingham's brace, Kane's penalty, 40 minutes of ten-man defiance in Mexico's first home World Cup defeat); then Miami — sloppy by Tuchel's own admission, behind to Schjelderup's freak cross-shot, but rescued twice by Bellingham and a defensive collective that held Erling Haaland to 21 touches. This team has now proven every face: it can play, it can suffer, and it can win ugly through 120.
+**The bronze final — 72 hours after heartbreak.** England were seven minutes from the World Cup final: Gordon's 55th-minute strike, from Rogers' delivery, had the lead in hand — and then Tuchel parked it. Burn and O'Reilly came on at 82' to protect a one-goal lead against the world champions, Enzo Fernández bent in the equalizer at 85', and Messi teed up Lautaro Martínez in stoppage time. The gamble that had never failed, failed once — at the only price that mattered. Tuchel says he has no regrets; half of England disagrees, loudly. Now the squad must lift itself for a match nobody dreamed of playing, back at Hard Rock Stadium where they survived Norway.
 
-The opponent is **Argentina, the defending world champions**, at Mercedes-Benz Stadium in Atlanta — a 3-1 extra-time winner over ten-man Switzerland (Mac Allister; Álvarez and Lautaro Martínez after Embolo's second yellow). Scaloni's machine is the tournament's most street-wise: the Romero–Lisandro Martínez back line, the De Paul–Enzo–Mac Allister midfield that counter-presses everything, two elite No. 9s — and **Messi, 39, in his last World Cup, who astonishingly has never played England in his entire career**. The rivalry needs no introduction on England's side: Maradona '86, Beckham's red in '98, Beckham's penalty in 2002. Both teams went 120 minutes on 11 July — no freshness edge either way.
+The opponent is **France** — beaten by Spain in the other semi-final and carrying the heavier institutional disappointment of a team built for a third straight final. Deschamps will rotate too, but **Mbappé (8 goals) plays: the Golden Boot is his to lose**, and Dembélé (5) and Olise's set-piece delivery travel with him. This fixture is soaked in recent history — France ended England's Qatar 2022 quarter-final (Kane's penalty over the bar) — and that memory is fuel.
 
-What Tuchel must solve: **(1) Messi between the lines** — he will drift into the right half-space at England's left-center; the answer is structural (Anderson screens, Rice doubles, O'Reilly holds) not individual, and above all no free kicks conceded in the 25-30m arc he owns. **(2) The counter-press** — Argentina strangle second balls; England's pivot must win the restarts and Gordon is the release valve into the space behind Molina. **(3) The dark arts** — Argentina manage referees, tempo and tension better than anyone alive; England must match the streetcraft without losing eleven men (only a red suspends now — yellows were wiped after the QF). England's edges are real: the best set-piece arsenal in the tournament against a team that concedes size at the back post; Bellingham, a scorer in every knockout round, against a midfield that must also mind Kane; and if it goes all the way, a proven shootout five — though Emiliano Martínez at the spot is the tournament's final boss. Kane against Romero, Bellingham against everyone, and one instruction over the door: **starve the No. 10, win the boxes, and drag the greatest of all time into the one contest he cannot control — a set-piece war.**
+What this game is for: **(1) The Golden Boot** — Kane and Bellingham sit on 6 to Mbappé's 8; every attacking pattern funnels through them, and a penalty could decide the race. **(2) Redemption for the rotated** — Quansah back from the ban that cost him two rounds, Mainoo's first World Cup start, Burn and Rashford and Madueke with 90 minutes to change how their tournament is remembered. **(3) A medal** — England have finished fourth at a World Cup twice (1990, 2018) and never third since 1966's gold; bronze is not nothing, whatever the ache says. The risks are honest: a rotated back line with Burn's lack of pace against the fastest forward alive demands a deep line and Quansah's discipline; a young pivot must not feed the Mbappé transition. But France are as tired and as sad as England are. One instruction over the door: **defend deep, feed the Boot-chasers, win the last game — and go home with medals, not just regrets.**

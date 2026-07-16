@@ -30,34 +30,34 @@ players:
     shoot: 10
     offensive: 13
     penalty: 12
-  - name: Marc Guéhi
-    number: 6
+  - name: Dan Burn
+    number: 15
     role: DEF
-    speed: 14
-    skill: 15
+    speed: 10
+    skill: 12
+    strength: 19
+    save: 0
+    discipline: 15
+    dribbling: 8
+    stamina: 14
+    pass: 12
+    shoot: 6
+    offensive: 15
+    penalty: 8
+  - name: Jarell Quansah
+    number: 16
+    role: DEF
+    speed: 15
+    skill: 14
     strength: 17
     save: 0
-    discipline: 16
+    discipline: 11
     dribbling: 11
     stamina: 16
     pass: 14
-    shoot: 7
-    offensive: 14
-    penalty: 10
-  - name: John Stones
-    number: 5
-    role: DEF
-    speed: 12
-    skill: 17
-    strength: 15
-    save: 0
-    discipline: 17
-    dribbling: 14
-    stamina: 13
-    pass: 17
-    shoot: 6
-    offensive: 11
-    penalty: 10
+    shoot: 5
+    offensive: 12
+    penalty: 8
   - name: Ezri Konsa
     number: 2
     role: DEF
@@ -67,11 +67,25 @@ players:
     save: 0
     discipline: 14
     dribbling: 12
-    stamina: 14
+    stamina: 15
     pass: 14
     shoot: 6
     offensive: 13
     penalty: 9
+  - name: Kobbie Mainoo
+    number: 26
+    role: MID
+    speed: 13
+    skill: 17
+    strength: 14
+    save: 0
+    discipline: 15
+    dribbling: 16
+    stamina: 16
+    pass: 16
+    shoot: 11
+    offensive: 8
+    penalty: 12
   - name: Elliot Anderson
     number: 8
     role: MID
@@ -81,39 +95,25 @@ players:
     save: 0
     discipline: 16
     dribbling: 15
-    stamina: 17
+    stamina: 16
     pass: 16
     shoot: 12
     offensive: 10
     penalty: 13
-  - name: Declan Rice
-    number: 4
+  - name: Noni Madueke
+    number: 20
     role: MID
-    speed: 14
-    skill: 17
-    strength: 17
+    speed: 18
+    skill: 16
+    strength: 13
     save: 0
-    discipline: 16
-    dribbling: 15
-    stamina: 18
-    pass: 17
-    shoot: 14
-    offensive: 12
-    penalty: 15
-  - name: Bukayo Saka
-    number: 7
-    role: MID
-    speed: 17
-    skill: 18
-    strength: 14
-    save: 0
-    discipline: 15
+    discipline: 12
     dribbling: 18
     stamina: 16
-    pass: 16
-    shoot: 16
-    offensive: 9
-    penalty: 16
+    pass: 13
+    shoot: 14
+    offensive: 8
+    penalty: 11
   - name: Jude Bellingham
     number: 10
     role: MID
@@ -123,25 +123,25 @@ players:
     save: 0
     discipline: 14
     dribbling: 17
-    stamina: 18
+    stamina: 17
     pass: 18
     shoot: 17
     offensive: 12
     penalty: 17
-  - name: Anthony Gordon
-    number: 19
+  - name: Marcus Rashford
+    number: 11
     role: MID
-    speed: 19
-    skill: 15
-    strength: 13
+    speed: 18
+    skill: 16
+    strength: 15
     save: 0
-    discipline: 12
+    discipline: 13
     dribbling: 16
-    stamina: 17
-    pass: 13
-    shoot: 14
-    offensive: 9
-    penalty: 12
+    stamina: 16
+    pass: 14
+    shoot: 16
+    offensive: 8
+    penalty: 16
   - name: Harry Kane
     number: 9
     role: FWD
@@ -151,7 +151,7 @@ players:
     save: 0
     discipline: 17
     dribbling: 14
-    stamina: 15
+    stamina: 14
     pass: 17
     shoot: 19
     offensive: 9
