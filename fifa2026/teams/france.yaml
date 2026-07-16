@@ -16,20 +16,20 @@ players:
     shoot: 4
     offensive: 6
     penalty: 8
-  - name: Lucas Digne
-    number: 3
+  - name: Theo Hernandez
+    number: 21
     role: DEF
-    speed: 15
+    speed: 18
     skill: 15
-    strength: 13
+    strength: 15
     save: 0
-    discipline: 14
-    dribbling: 13
+    discipline: 11
+    dribbling: 14
     stamina: 17
-    pass: 16
-    shoot: 11
-    offensive: 12
-    penalty: 12
+    pass: 15
+    shoot: 13
+    offensive: 14
+    penalty: 13
   - name: Dayot Upamecano
     number: 4
     role: DEF
@@ -44,34 +44,34 @@ players:
     shoot: 7
     offensive: 15
     penalty: 10
-  - name: William Saliba
-    number: 17
-    role: DEF
-    speed: 16
-    skill: 16
-    strength: 18
-    save: 0
-    discipline: 17
-    dribbling: 11
-    stamina: 16
-    pass: 16
-    shoot: 7
-    offensive: 14
-    penalty: 10
-  - name: Jules Koundé
-    number: 5
+  - name: Maxence Lacroix
+    number: 15
     role: DEF
     speed: 17
-    skill: 16
-    strength: 15
+    skill: 13
+    strength: 17
     save: 0
-    discipline: 15
+    discipline: 13
+    dribbling: 10
+    stamina: 17
+    pass: 13
+    shoot: 6
+    offensive: 14
+    penalty: 8
+  - name: Malo Gusto
+    number: 2
+    role: DEF
+    speed: 16
+    skill: 14
+    strength: 13
+    save: 0
+    discipline: 14
     dribbling: 13
     stamina: 17
     pass: 15
     shoot: 8
     offensive: 12
-    penalty: 11
+    penalty: 9
   - name: Manu Koné
     number: 6
     role: MID
@@ -86,20 +86,20 @@ players:
     shoot: 11
     offensive: 12
     penalty: 10
-  - name: Adrien Rabiot
-    number: 14
+  - name: Warren Zaïre-Emery
+    number: 8
     role: MID
-    speed: 14
+    speed: 15
     skill: 16
-    strength: 16
+    strength: 14
     save: 0
-    discipline: 14
+    discipline: 15
     dribbling: 15
     stamina: 17
     pass: 16
-    shoot: 13
-    offensive: 12
-    penalty: 14
+    shoot: 12
+    offensive: 11
+    penalty: 12
   - name: Désiré Doué
     number: 22
     role: MID
@@ -114,20 +114,20 @@ players:
     shoot: 16
     offensive: 9
     penalty: 15
-  - name: Ousmane Dembélé
-    number: 7
+  - name: Rayan Cherki
+    number: 18
     role: MID
-    speed: 18
+    speed: 14
     skill: 18
-    strength: 13
+    strength: 11
     save: 0
-    discipline: 13
-    dribbling: 19
-    stamina: 16
-    pass: 16
-    shoot: 17
-    offensive: 8
-    penalty: 17
+    discipline: 12
+    dribbling: 18
+    stamina: 14
+    pass: 18
+    shoot: 15
+    offensive: 7
+    penalty: 15
   - name: Michael Olise
     number: 11
     role: MID
@@ -137,7 +137,7 @@ players:
     save: 0
     discipline: 14
     dribbling: 18
-    stamina: 16
+    stamina: 15
     pass: 17
     shoot: 16
     offensive: 10
