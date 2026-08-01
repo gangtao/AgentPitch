@@ -146,6 +146,22 @@
   .report-link a { color: var(--a); text-decoration: none; }
   .report-link a:hover { text-decoration: underline; }
 
+  /* ── Accuracy-analysis callout ── */
+  a.analysis-callout {
+    display: flex; align-items: center; gap: 14px;
+    margin: 0 0 36px; padding: 16px 20px;
+    background: var(--panel); border: 1px solid rgba(242,164,75,0.35);
+    text-decoration: none; color: var(--ink);
+    transition: background .12s, border-color .12s;
+  }
+  a.analysis-callout:hover { background: var(--panel-2); border-color: rgba(242,164,75,0.6); }
+  .analysis-callout .ac-icon { font-size: 22px; line-height: 1; }
+  .analysis-callout b {
+    display: block; font-family: var(--font-disp); font-weight: 700;
+    font-size: 15px; margin-bottom: 3px; color: var(--a);
+  }
+  .analysis-callout .ac-sub { color: var(--ink-dim); font-size: 13px; }
+
   footer.page-foot { margin-top: 44px; color: var(--ink-dimer); font-size: 11px; letter-spacing: 0.04em; }
 
   /* ── Status bar ── */
@@ -213,6 +229,14 @@
       <h1>2026 World Cup — Simulated</h1>
       <p class="sub">AI-simulated matches where all 22 players are autonomous agents, each running its own strategy code. Click any fixture to replay the match tick-by-tick.</p>
     </header>
+
+    <a class="analysis-callout" href="https://raw.githack.com/gangtao/AgentPitch/main/fifa2026/matches/tournament-accuracy-analysis.html">
+      <span class="ac-icon">📊</span>
+      <span>
+        <b>Tournament complete — how did the machine do?</b>
+        <span class="ac-sub">Prediction vs reality across all 104 matches: the sim called the champion, the exact final scoreline, and all four semi-finalists. Read the full accuracy analysis →</span>
+      </span>
+    </a>
 
     <span class="day-badge">Day 35 · Final · Sunday, July 19</span>
     <table>
