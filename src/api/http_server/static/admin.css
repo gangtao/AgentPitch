@@ -1,0 +1,86 @@
+/* Agent Pitch — Admin section styles. Design-system tokens only. */
+
+.admin-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 4px 24px 40px;
+}
+
+.admin-panel { margin-bottom: 18px; }
+
+.admin-create-row {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 12px;
+  flex-wrap: wrap;
+}
+.admin-create-row .ipt { flex: 1; min-width: 140px; }
+.admin-create-row .sel { min-width: 110px; }
+
+/* role tag + select */
+.admin-role-tag {
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  margin-left: 8px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.admin-role-admin { background: var(--a); color: var(--a-ink); }
+.admin-role-user  { background: var(--panel-3); color: var(--ink-dim); }
+.admin-role-sel { width: 92px; }
+
+/* teams */
+.admin-team-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+.admin-team-card {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 14px 16px;
+}
+.admin-team-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid var(--line-soft);
+}
+.admin-team-name { font-weight: 600; font-size: 13px; color: var(--ink); }
+.admin-team-slug {
+  font-size: 10px;
+  color: var(--ink-dimer);
+  letter-spacing: 0.08em;
+}
+.admin-team-del { margin-left: auto; }
+
+.admin-member-list { display: flex; flex-direction: column; gap: 6px; }
+.admin-member-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  padding: 4px 0;
+}
+.admin-member-name { font-size: 12px; color: var(--ink); }
+.admin-lead-tag {
+  font-size: 8px;
+  letter-spacing: 0.14em;
+  background: var(--b);
+  color: #0c0a12;
+  padding: 1px 5px;
+  margin-left: 6px;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+.admin-member-actions { display: flex; gap: 6px; }
+.admin-empty { font-size: 11px; padding: 4px 0; }
+.admin-add-member-row { margin-top: 10px; }
+.admin-add-member-sel { width: 100%; }

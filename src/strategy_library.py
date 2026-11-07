@@ -83,6 +83,10 @@ class StrategyLibraryMeta:
     generation_input_tokens: int | None = None
     generation_output_tokens: int | None = None
     strategy_size_bytes: int | None = None
+    # Ownership — the user_store id of the user who owns this strategy
+    # ("agent"). None for legacy/seeded strategies with no owner. Team access
+    # is derived transitively (owner's teams) by the API layer.
+    owner_user_id: str | None = None
 
 
 UNKNOWN_META = StrategyLibraryMeta(
@@ -198,6 +202,7 @@ def _meta_from_json(data: dict) -> StrategyLibraryMeta:
         generation_input_tokens=data.get("generation_input_tokens"),
         generation_output_tokens=data.get("generation_output_tokens"),
         strategy_size_bytes=data.get("strategy_size_bytes"),
+        owner_user_id=data.get("owner_user_id"),
     )
 
 

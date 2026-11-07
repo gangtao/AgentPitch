@@ -224,6 +224,11 @@ function renderStrategyRow(strategy) {
   // sidecar surface as `unknown` — show a dim "—" rather than a misleading badge.
   const providerLabel = formatProviderBadge(meta);
 
+  // Ownership marker ("agent belongs to user"). The list endpoint only carries
+  // owner_user_id, so we annotate against the logged-in user: "yours" when it
+  // matches, "shared" for ownerless/legacy, otherwise a neutral "owned" tag.
+  const ownerLabel = formatOwnerBadge(meta);
+
   // Accessible name for screen readers (Pattern 8 - Selectable List Row)
   const ariaLabel = `Strategy ${name}, ${providerLabel}, ${line_count} lines, modified ${dateStr}`;
 
@@ -236,7 +241,7 @@ function renderStrategyRow(strategy) {
            onclick="openStrategyEditor('${name}')"
            onkeydown="if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); openStrategyEditor('${name}'); }">
         <div class="list-row-line-1"><span class="lang-badge" style="display:inline-block;padding:1px 6px;margin-right:6px;border:1px solid var(--rule);border-radius:3px;font-size:10px;color:var(--ink-dim)">${langBadge}</span>${name}   ${dateStr}</div>
-        <div class="list-row-line-2">${providerLabel} · ${line_count} lines · ${sizeStr}</div>
+        <div class="list-row-line-2">${providerLabel} · ${line_count} lines · ${sizeStr}${ownerLabel}</div>
       </div>
       <div class="list-row-actions">
         <button class="btn btn-sm" onclick="openStrategyEditor('${name}')" aria-label="Edit strategy ${name}">Edit</button>
@@ -252,6 +257,18 @@ function renderStrategyRow(strategy) {
 //   ('baseline',  'hand-written')       → 'baseline'
 //   ('manual',    'hand-written')       → 'manual'
 //   ('unknown',   'unknown') / no meta  → '—'
+// Render an ownership marker for a strategy row. Returns a leading " · <tag>"
+// fragment (or "" when nothing useful to show) so it appends cleanly to the
+// metadata line. Uses window.authState (set by auth-ui.js) to flag the
+// current user's own agents.
+function formatOwnerBadge(meta) {
+  const owner = meta && meta.owner_user_id;
+  const me = (window.authState && window.authState.user) ? window.authState.user.id : null;
+  if (!owner) return '';                       // legacy/shared — no marker
+  if (me && owner === me) return ' · <span class="strat-owner-tag mine">yours</span>';
+  return ' · <span class="strat-owner-tag">owned</span>';
+}
+
 function formatProviderBadge(meta) {
   if (!meta || !meta.provider || meta.provider === 'unknown') return '—';
   if (meta.provider === 'baseline' || meta.provider === 'manual') return meta.provider;

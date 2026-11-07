@@ -82,6 +82,23 @@ from src.strategy_library import (
 
 from src.api.http_server.match_stats import compute_match_stats
 
+# Auth / user management. The stores live at src/ top-level (pure file I/O,
+# no engine code) — same ADR-0006 exemption as src.secrets_store /
+# src.strategy_library. auth.py + auth_payloads.py are API-layer-local.
+from src import user_store, team_store, session_store
+from src.api.http_server import auth as _auth
+from src.api.http_server.auth_payloads import (
+    LoginPayload,
+    ChangePasswordPayload,
+    CreateUserPayload,
+    SetRolePayload,
+    AdminResetPasswordPayload,
+    CreateTeamPayload,
+    RenameTeamPayload,
+    TeamMemberPayload,
+)
+from fastapi import Depends, Response as _Response
+
 _STATIC_DIR = Path(__file__).parent / "static"
 
 logger = logging.getLogger("agent_pitch.http")
@@ -111,7 +128,27 @@ def _meta_to_dict(meta: StrategyLibraryMeta) -> dict:
         out["generation_input_tokens"] = meta.generation_input_tokens
     if meta.generation_output_tokens is not None:
         out["generation_output_tokens"] = meta.generation_output_tokens
+    if meta.owner_user_id is not None:
+        out["owner_user_id"] = meta.owner_user_id
     return out
+
+
+def _can_modify_strategy(user, meta) -> bool:
+    """Ownership rule for editing/deleting a strategy ("agent").
+
+    - Admins may modify any strategy.
+    - The owner may modify their own strategy.
+    - Legacy/seeded strategies with no owner are editable by any logged-in
+      user (preserves existing single-user behaviour; the first editor does
+      not silently lock others out, matching how the tool worked pre-auth).
+    """
+    if user is None:
+        return False
+    if user.role == "admin":
+        return True
+    if meta.owner_user_id is None:
+        return True
+    return meta.owner_user_id == user.id
 
 
 def _now_iso() -> str:
@@ -752,8 +789,72 @@ def _seed_default_data(data_home: Path) -> None:
         print(f"[seed] WARN: could not seed default data ({exc})", flush=True)
 
 
-def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
+def _bootstrap_admin(data_home: Path) -> None:
+    """Ensure at least one admin account exists on a fresh install.
+
+    Behaviour (only runs when NO users exist yet):
+      - If env var AGENTPITCH_ADMIN_PASSWORD is set, create admin/<that pw>.
+      - Otherwise generate a strong random password, create the admin with it,
+        and print it ONCE to the server log. The account is flagged
+        `must_change_password` so the operator is forced to rotate it on
+        first login.
+
+    Idempotent: if any user already exists, this is a no-op (we never
+    overwrite or reset an existing admin).
+    """
+    try:
+        if user_store.count_users(data_home) > 0:
+            return
+    except user_store.UserStoreError as exc:
+        print(f"[bootstrap] WARN: cannot read users file ({exc}); skipping", flush=True)
+        return
+
+    env_pw = os.environ.get("AGENTPITCH_ADMIN_PASSWORD", "").strip()
+    generated = False
+    if not env_pw:
+        import secrets as _secrets
+        env_pw = _secrets.token_urlsafe(16)
+        generated = True
+
+    try:
+        user_store.create_user(
+            data_home, "admin", env_pw, role="admin", must_change_password=True
+        )
+    except user_store.UserStoreError as exc:
+        print(f"[bootstrap] WARN: could not create admin account ({exc})", flush=True)
+        return
+
+    if generated:
+        print(
+            "\n"
+            "=============================================================\n"
+            "  AgentPitch — first-run admin account created\n"
+            "    username: admin\n"
+            f"    password: {env_pw}\n"
+            "  You MUST change this password on first login.\n"
+            "  (Set AGENTPITCH_ADMIN_PASSWORD to choose your own next time.)\n"
+            "=============================================================\n",
+            flush=True,
+        )
+    else:
+        print(
+            "[bootstrap] Created admin account from AGENTPITCH_ADMIN_PASSWORD "
+            "(must change password on first login).",
+            flush=True,
+        )
+
+
+def create_app(log_dir: str = "./logs", seed_defaults: bool = True, require_auth: bool | None = None) -> FastAPI:
     """Create FastAPI application instance.
+
+    `require_auth` installs the session gate that forces login on all /api/*
+    routes. Resolution:
+      - require_auth=True  → gate ON  (explicit; wins over everything)
+      - require_auth=False → gate OFF (explicit)
+      - require_auth=None  → default ON, UNLESS env AGENTPITCH_DISABLE_AUTH=1
+    The env override exists only so the test suite can disable the gate
+    globally (set in tests/conftest.py); it is never set in production, and an
+    explicit True always wins so auth-specific tests keep the gate on.
 
     Args:
         log_dir: Directory for match logs (stored in app.state.log_dir)
@@ -878,15 +979,71 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
     if seed_defaults:
         _seed_default_data(app.state.log_dir)
 
-    # Add CORS middleware
+    # Bootstrap the first admin account on a fresh install (no users yet).
+    # Skipped in tests (seed_defaults=False) so they control their own users.
+    if seed_defaults:
+        _bootstrap_admin(app.state.log_dir)
+
+    from fastapi.staticfiles import StaticFiles
+    from starlette.middleware.base import BaseHTTPMiddleware
+
+    # ── Authentication gate ────────────────────────────────────────────────
+    # Enforce a valid session on all /api/* routes except a small public
+    # allowlist (login, logout, health, me, change-password). The viewer
+    # endpoints and management APIs all require login. This single middleware
+    # is the authoritative enforcement point; per-endpoint role checks
+    # (admin / team-lead) layer on top via FastAPI dependencies.
+    #
+    # Starlette runs middleware in reverse registration order (last added =
+    # outermost). We register CORS LAST so it wraps the auth gate — that way
+    # even a 401 carries CORS headers and OPTIONS preflight is handled before
+    # the gate. The gate itself lets OPTIONS through defensively.
+    _PUBLIC_API_PATHS = frozenset({
+        "/api/health",
+        "/api/auth/login",
+        "/api/auth/logout",
+        "/api/auth/me",
+        "/api/auth/change-password",
+    })
+
+    class _AuthGate(BaseHTTPMiddleware):
+        async def dispatch(self, request, call_next):
+            path = request.url.path
+            # Only guard API routes; static assets + SPA shell stay public so
+            # the login screen itself can load.
+            if path.startswith("/api/") and path not in _PUBLIC_API_PATHS:
+                if request.method != "OPTIONS":  # let CORS preflight through
+                    if _auth.current_user_optional(request) is None:
+                        return JSONResponse(
+                            status_code=401,
+                            content={"detail": "Authentication required"},
+                        )
+            return await call_next(request)
+
+    if require_auth is None:
+        # Default ON, but allow the test suite to disable globally via env.
+        _gate_enabled = os.environ.get("AGENTPITCH_DISABLE_AUTH") != "1"
+    else:
+        # Explicit value always wins (auth tests pass True to keep the gate).
+        _gate_enabled = require_auth
+    if _gate_enabled:
+        app.add_middleware(_AuthGate)
+
+    # Add CORS middleware. Methods widened beyond GET now that the user/team
+    # management + auth endpoints use POST/PUT/DELETE. Origins stay pinned to
+    # the local dev hosts; `allow_credentials` is required so the session
+    # cookie is accepted on same-origin XHR/fetch. Note: with credentials,
+    # wildcard origins are not allowed by the CORS spec — the explicit list
+    # below is the correct approach.
     app.add_middleware(
         CORSMiddleware,
         allow_origins=[
             "http://localhost:8765", "http://127.0.0.1:8765",
             "http://localhost:8000", "http://127.0.0.1:8000",  # legacy
         ],
-        allow_methods=["GET"],
+        allow_methods=["GET", "POST", "PUT", "DELETE", "OPTIONS"],
         allow_headers=["*"],
+        allow_credentials=True,
     )
 
     # Mount /static directory for browser frontend assets (Browser layer).
@@ -894,9 +1051,6 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
     # we ship a CSS/JS fix, the browser picks it up on next reload without
     # the user having to hard-refresh / clear cache. The viewer payload is
     # tiny so the cost of always-revalidate is negligible here.
-    from fastapi.staticfiles import StaticFiles
-    from starlette.middleware.base import BaseHTTPMiddleware
-
     class _NoCacheStatic(BaseHTTPMiddleware):
         """Force `Cache-Control: no-store` on every /static response.
 
@@ -942,6 +1096,363 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
             "version": version,
             "timestamp": int(time.time())
         })
+
+    # ── Authentication ────────────────────────────────────────────────────
+
+    @app.post("/api/auth/login")
+    async def auth_login(payload: LoginPayload, request: Request):
+        """Verify credentials, open a session, set the HttpOnly cookie."""
+        data_home = Path(app.state.log_dir)
+        try:
+            user = user_store.verify_password(data_home, payload.username, payload.password)
+        except (user_store.UserNotFoundError, user_store.UserStoreError):
+            # Uniform error — don't reveal whether the username exists.
+            raise HTTPException(status_code=401, detail="Invalid username or password")
+
+        token = session_store.create_session(data_home, user.id)
+        resp = JSONResponse({
+            "user": user.to_public_dict(),
+            "must_change_password": user.must_change_password,
+        })
+        resp.set_cookie(
+            key=_auth.SESSION_COOKIE,
+            value=token,
+            httponly=True,
+            secure=_auth.cookie_is_secure(request),
+            samesite="lax",
+            path="/",
+            max_age=session_store.DEFAULT_TTL_SECONDS,
+        )
+        return resp
+
+    @app.post("/api/auth/logout")
+    async def auth_logout(request: Request):
+        """Invalidate the current session and clear the cookie."""
+        token = request.cookies.get(_auth.SESSION_COOKIE)
+        if token:
+            try:
+                session_store.destroy_session(Path(app.state.log_dir), token)
+            except session_store.SessionStoreError:
+                pass
+        resp = JSONResponse({"ok": True})
+        resp.delete_cookie(key=_auth.SESSION_COOKIE, path="/")
+        return resp
+
+    @app.get("/api/auth/me")
+    async def auth_me(request: Request):
+        """Return the current user + their team memberships, or 401.
+
+        Also reports `setup_required` so the frontend can route a brand-new
+        install (no users yet) to a bootstrap/login screen.
+        """
+        data_home = Path(app.state.log_dir)
+        user = _auth.current_user_optional(request)
+        if user is None:
+            return JSONResponse(
+                status_code=401,
+                content={
+                    "authenticated": False,
+                    "setup_required": not user_store.has_any_admin(data_home),
+                },
+            )
+        teams = team_store.teams_for_user(data_home, user.id)
+        led = {t.slug for t in teams if t.is_lead(user.id)}
+        return JSONResponse({
+            "authenticated": True,
+            "user": user.to_public_dict(),
+            "must_change_password": user.must_change_password,
+            "teams": [
+                {**t.to_dict(), "is_lead": t.slug in led} for t in teams
+            ],
+            "is_team_lead": bool(led),
+        })
+
+    @app.post("/api/auth/change-password")
+    async def auth_change_password(payload: ChangePasswordPayload, request: Request):
+        """Change own password. Clears the must_change_password flag.
+
+        Invalidates all other sessions for the user, then re-issues a fresh
+        session cookie for the current client.
+        """
+        data_home = Path(app.state.log_dir)
+        user = _auth.require_user(request)
+        try:
+            user_store.verify_password(data_home, user.username, payload.current_password)
+        except user_store.UserStoreError:
+            raise HTTPException(status_code=403, detail="Current password is incorrect")
+        try:
+            user_store.set_password(data_home, user.id, payload.new_password,
+                                    must_change_password=False)
+        except user_store.WeakPasswordError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+
+        # Kill all existing sessions (including this one), then re-issue.
+        session_store.destroy_user_sessions(data_home, user.id)
+        token = session_store.create_session(data_home, user.id)
+        resp = JSONResponse({"ok": True})
+        resp.set_cookie(
+            key=_auth.SESSION_COOKIE, value=token, httponly=True,
+            secure=_auth.cookie_is_secure(request), samesite="lax", path="/",
+            max_age=session_store.DEFAULT_TTL_SECONDS,
+        )
+        return resp
+
+    # ── User management (admin only) ───────────────────────────────────────
+
+    @app.get("/api/users")
+    async def list_users(request: Request, _admin=Depends(_auth.require_admin)):
+        """List all users (admin only). Password hashes are never returned."""
+        data_home = Path(app.state.log_dir)
+        users = user_store.load_users(data_home)
+        # Annotate each user with the teams they belong to / lead.
+        teams = team_store.load_teams(data_home)
+        out = []
+        for u in users:
+            member_of = [t.slug for t in teams if u.id in t.member_user_ids]
+            leads = [t.slug for t in teams if u.id in t.lead_user_ids]
+            out.append({**u.to_public_dict(), "teams": member_of, "leads": leads})
+        return JSONResponse({"users": out})
+
+    @app.post("/api/users")
+    async def create_user_endpoint(
+        payload: CreateUserPayload, request: Request,
+        _admin=Depends(_auth.require_admin),
+    ):
+        """Create a new user (admin only)."""
+        data_home = Path(app.state.log_dir)
+        try:
+            user = user_store.create_user(
+                data_home, payload.username, payload.password,
+                role=payload.role, must_change_password=payload.must_change_password,
+            )
+        except user_store.UserAlreadyExistsError:
+            raise HTTPException(status_code=409, detail="Username already exists")
+        except (user_store.InvalidUsernameError, user_store.WeakPasswordError) as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        except user_store.UserStoreError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        return JSONResponse(status_code=201, content={"user": user.to_public_dict()})
+
+    @app.delete("/api/users/{user_id}")
+    async def delete_user_endpoint(
+        user_id: str, request: Request, _admin=Depends(_auth.require_admin),
+    ):
+        """Delete a user (admin only).
+
+        Refuses to delete the last remaining admin (lockout prevention). Also
+        purges the user from all team memberships and kills their sessions.
+        """
+        data_home = Path(app.state.log_dir)
+        try:
+            target = user_store.get_user_by_id(data_home, user_id)
+        except user_store.UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        # Lockout guard: never remove the final admin.
+        if target.role == "admin":
+            admins = [u for u in user_store.load_users(data_home) if u.role == "admin"]
+            if len(admins) <= 1:
+                raise HTTPException(
+                    status_code=409,
+                    detail="Cannot delete the last remaining admin",
+                )
+
+        # Prevent an admin from deleting their own account via this endpoint
+        # (use a second admin). Avoids accidental self-lockout.
+        if target.id == _admin.id:
+            raise HTTPException(status_code=409, detail="Admins cannot delete their own account")
+
+        try:
+            user_store.delete_user(data_home, user_id)
+        except user_store.UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+        team_store.purge_user(data_home, user_id)
+        session_store.destroy_user_sessions(data_home, user_id)
+        return Response(status_code=204)
+
+    @app.put("/api/users/{user_id}/role")
+    async def set_user_role_endpoint(
+        user_id: str, payload: SetRolePayload, request: Request,
+        _admin=Depends(_auth.require_admin),
+    ):
+        """Change a user's global role (admin only).
+
+        Refuses to demote the last admin to 'user' (lockout prevention).
+        """
+        data_home = Path(app.state.log_dir)
+        try:
+            target = user_store.get_user_by_id(data_home, user_id)
+        except user_store.UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+
+        if target.role == "admin" and payload.role != "admin":
+            admins = [u for u in user_store.load_users(data_home) if u.role == "admin"]
+            if len(admins) <= 1:
+                raise HTTPException(
+                    status_code=409,
+                    detail="Cannot demote the last remaining admin",
+                )
+        try:
+            updated = user_store.set_role(data_home, user_id, payload.role)
+        except user_store.UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+        return JSONResponse({"user": updated.to_public_dict()})
+
+    @app.put("/api/users/{user_id}/password")
+    async def admin_reset_password_endpoint(
+        user_id: str, payload: AdminResetPasswordPayload, request: Request,
+        _admin=Depends(_auth.require_admin),
+    ):
+        """Admin resets another user's password (e.g. forgotten password).
+
+        Invalidates the target user's existing sessions so an old session
+        cannot survive a forced reset.
+        """
+        data_home = Path(app.state.log_dir)
+        try:
+            user_store.set_password(
+                data_home, user_id, payload.new_password,
+                must_change_password=payload.must_change_password,
+            )
+        except user_store.UserNotFoundError:
+            raise HTTPException(status_code=404, detail="User not found")
+        except user_store.WeakPasswordError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        session_store.destroy_user_sessions(data_home, user_id)
+        return JSONResponse({"ok": True})
+
+    # ── Team management ────────────────────────────────────────────────────
+    # Create/delete/rename teams: admin only. Member/lead assignment within a
+    # team: admin OR a lead of that specific team (checked via assert_leads_team).
+
+    @app.get("/api/teams")
+    async def list_teams_endpoint(request: Request, _user=Depends(_auth.require_user)):
+        """List org teams. Any logged-in user may read the roster."""
+        data_home = Path(app.state.log_dir)
+        teams = team_store.load_teams(data_home)
+        return JSONResponse({"teams": [t.to_dict() for t in teams]})
+
+    @app.post("/api/teams")
+    async def create_team_endpoint(
+        payload: CreateTeamPayload, request: Request,
+        _admin=Depends(_auth.require_admin),
+    ):
+        """Create an org team (admin only)."""
+        data_home = Path(app.state.log_dir)
+        try:
+            team = team_store.create_team(data_home, payload.slug, payload.name)
+        except team_store.TeamAlreadyExistsError:
+            raise HTTPException(status_code=409, detail="Team slug already exists")
+        except team_store.InvalidTeamSlugError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        except team_store.TeamStoreError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        return JSONResponse(status_code=201, content={"team": team.to_dict()})
+
+    @app.put("/api/teams/{slug}")
+    async def rename_team_endpoint(
+        slug: str, payload: RenameTeamPayload, request: Request,
+        _admin=Depends(_auth.require_admin),
+    ):
+        """Rename an org team (admin only)."""
+        data_home = Path(app.state.log_dir)
+        try:
+            team = team_store.rename_team(data_home, slug, payload.name)
+        except team_store.TeamNotFoundError:
+            raise HTTPException(status_code=404, detail="Team not found")
+        except team_store.TeamStoreError as e:
+            raise HTTPException(status_code=400, detail=str(e))
+        return JSONResponse({"team": team.to_dict()})
+
+    @app.delete("/api/teams/{slug}")
+    async def delete_team_endpoint(
+        slug: str, request: Request, _admin=Depends(_auth.require_admin),
+    ):
+        """Delete an org team (admin only). Does not delete member accounts."""
+        data_home = Path(app.state.log_dir)
+        try:
+            team_store.delete_team(data_home, slug)
+        except team_store.TeamNotFoundError:
+            raise HTTPException(status_code=404, detail="Team not found")
+        return Response(status_code=204)
+
+    def _resolve_team_member_target(data_home, payload: TeamMemberPayload):
+        """Validate that the target user id exists; raise 404 otherwise."""
+        try:
+            user_store.get_user_by_id(data_home, payload.user_id)
+        except user_store.UserNotFoundError:
+            raise HTTPException(status_code=404, detail="Target user not found")
+
+    @app.post("/api/teams/{slug}/members")
+    async def add_team_member_endpoint(
+        slug: str, payload: TeamMemberPayload, request: Request,
+        _user=Depends(_auth.require_user),
+    ):
+        """Add a member to a team. Admin or a lead of THIS team."""
+        data_home = Path(app.state.log_dir)
+        _auth.assert_leads_team(request, _user, slug)
+        _resolve_team_member_target(data_home, payload)
+        try:
+            team = team_store.add_member(data_home, slug, payload.user_id)
+        except team_store.TeamNotFoundError:
+            raise HTTPException(status_code=404, detail="Team not found")
+        return JSONResponse({"team": team.to_dict()})
+
+    @app.delete("/api/teams/{slug}/members/{user_id}")
+    async def remove_team_member_endpoint(
+        slug: str, user_id: str, request: Request,
+        _user=Depends(_auth.require_user),
+    ):
+        """Remove a member (also drops lead status). Admin or lead of THIS team."""
+        data_home = Path(app.state.log_dir)
+        _auth.assert_leads_team(request, _user, slug)
+        try:
+            team = team_store.remove_member(data_home, slug, user_id)
+        except team_store.TeamNotFoundError:
+            raise HTTPException(status_code=404, detail="Team not found")
+        return JSONResponse({"team": team.to_dict()})
+
+    @app.post("/api/teams/{slug}/leads")
+    async def promote_team_lead_endpoint(
+        slug: str, payload: TeamMemberPayload, request: Request,
+        _user=Depends(_auth.require_user),
+    ):
+        """Promote a user to lead of a team. Admin or lead of THIS team."""
+        data_home = Path(app.state.log_dir)
+        _auth.assert_leads_team(request, _user, slug)
+        _resolve_team_member_target(data_home, payload)
+        try:
+            team = team_store.promote_lead(data_home, slug, payload.user_id)
+        except team_store.TeamNotFoundError:
+            raise HTTPException(status_code=404, detail="Team not found")
+        return JSONResponse({"team": team.to_dict()})
+
+    @app.delete("/api/teams/{slug}/leads/{user_id}")
+    async def demote_team_lead_endpoint(
+        slug: str, user_id: str, request: Request,
+        _user=Depends(_auth.require_user),
+    ):
+        """Demote a lead to plain member. Admin or lead of THIS team.
+
+        Refuses to remove the last lead of a team that still has members,
+        unless the caller is an admin (admins can always restructure).
+        """
+        data_home = Path(app.state.log_dir)
+        _auth.assert_leads_team(request, _user, slug)
+        try:
+            team = team_store.get_team(data_home, slug)
+        except team_store.TeamNotFoundError:
+            raise HTTPException(status_code=404, detail="Team not found")
+
+        if _user.role != "admin" and team.is_lead(user_id):
+            remaining_leads = [l for l in team.lead_user_ids if l != user_id]
+            if not remaining_leads:
+                raise HTTPException(
+                    status_code=409,
+                    detail="Cannot remove the last lead of the team",
+                )
+        team = team_store.demote_lead(data_home, slug, user_id)
+        return JSONResponse({"team": team.to_dict()})
 
     @app.get("/api/match")
     async def get_match(match_id: Optional[str] = Query(None, pattern=r"^[A-Za-z0-9_-]{1,128}$")):
@@ -1955,11 +2466,25 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         })
 
     @app.delete("/api/strategies/{name}")
-    async def delete_strategy(name: str = PathParam(..., pattern=r"^[A-Za-z0-9_-]{1,64}$")):
-        """Delete a strategy: removes both `<name>.py` and `<name>.meta.json`."""
+    async def delete_strategy(request: Request, name: str = PathParam(..., pattern=r"^[A-Za-z0-9_-]{1,64}$")):
+        """Delete a strategy: removes both `<name>.py` and `<name>.meta.json`.
+
+        Only the owner or an admin may delete (ownerless/legacy strategies
+        are deletable by any logged-in user).
+        """
         log_dir = app.state.log_dir
         storage_settings = _load_storage_config(log_dir)
         data_home = Path(storage_settings["data_home"])
+
+        # Ownership check before destructive action.
+        try:
+            existing_meta = lib_read_meta(data_home, name)
+        except InvalidStrategyNameError:
+            raise HTTPException(status_code=400, detail="Invalid strategy name format")
+        except StrategyLibraryError:
+            existing_meta = UNKNOWN_META
+        if not _can_modify_strategy(_auth.current_user_optional(request), existing_meta):
+            raise HTTPException(status_code=403, detail="You do not own this strategy")
 
         try:
             lib_delete_strategy(data_home, name)
@@ -1976,7 +2501,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         return Response(status_code=204)
 
     @app.post("/api/strategies")
-    async def create_strategy(payload: StrategyCreatePayload):
+    async def create_strategy(payload: StrategyCreatePayload, request: Request):
         """Create a new strategy with paired sidecar (ADR-0023).
 
         Writes `<name>.py` and `<name>.meta.json` atomically. When `meta` is
@@ -2020,6 +2545,11 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         else:
             source_content = f'\"\"\"Strategy: {payload.name}\"\"\"\n\ndef decide(game_state, player_state, history):\n    \"\"\"Return one of: Hold(), Move(direction), Pass(target_id), Shoot(), Tackle(target_id).\"\"\"\n    return Hold()\n'
 
+        # Stamp ownership with the logged-in user (the "agent" belongs to the
+        # user who creates it; team access is derived transitively).
+        owner = _auth.current_user_optional(request)
+        owner_id = owner.id if owner else None
+
         # Build the sidecar from payload.meta (or manual defaults).
         now = _now_iso()
         size_bytes = len(source_content.encode("utf-8"))
@@ -2037,6 +2567,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                 generation_input_tokens=payload.meta.generation_input_tokens,
                 generation_output_tokens=payload.meta.generation_output_tokens,
                 strategy_size_bytes=size_bytes,
+                owner_user_id=owner_id,
             )
         else:
             meta = StrategyLibraryMeta(
@@ -2047,6 +2578,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                 last_modified_at=now,
                 language=language,
                 strategy_size_bytes=size_bytes,
+                owner_user_id=owner_id,
             )
 
         try:
@@ -2196,7 +2728,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
         })
 
     @app.put("/api/strategies/{name}")
-    async def put_strategy(name: str = PathParam(..., pattern=r"^[A-Za-z0-9_-]{1,64}$"), payload: StrategyPayload = ...):
+    async def put_strategy(request: Request, name: str = PathParam(..., pattern=r"^[A-Za-z0-9_-]{1,64}$"), payload: StrategyPayload = ...):
         """Create or update a strategy.
 
         For an existing strategy: preserves the sidecar's
@@ -2229,9 +2761,15 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
 
         existed = src_path.exists()
         now = _now_iso()
+        current = _auth.current_user_optional(request)
+
+        # Ownership: editing an existing strategy requires owner/admin
+        # (ownerless/legacy strategies remain editable by any logged-in user).
+        if existed and not _can_modify_strategy(current, existing_meta):
+            raise HTTPException(status_code=403, detail="You do not own this strategy")
 
         if not existed:
-            # PUT-as-create: manual sidecar with defaults.
+            # PUT-as-create: manual sidecar with defaults; stamp owner.
             new_meta = StrategyLibraryMeta(
                 provider="manual",
                 model="hand-written",
@@ -2239,6 +2777,7 @@ def create_app(log_dir: str = "./logs", seed_defaults: bool = True) -> FastAPI:
                 created_at=now,
                 last_modified_at=now,
                 language=existing_meta.language,
+                owner_user_id=current.id if current else None,
             )
             try:
                 written = lib_write_strategy(data_home, name, payload.source, new_meta)

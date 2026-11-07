@@ -17,6 +17,7 @@ dependencies = [
     "fastapi",
     "uvicorn",
     "jinja2",
+    "argon2-cffi>=23.1,<26",
 ]
 
 [project.optional-dependencies]

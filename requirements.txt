@@ -15,6 +15,7 @@ pydantic>=2.0,<3.0
 fastapi
 uvicorn
 jinja2
+argon2-cffi>=23.1,<26
 
 # --- Dev / test ---
 pytest>=8.0

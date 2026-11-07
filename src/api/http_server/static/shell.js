@@ -81,7 +81,8 @@ function activateSection(section, subsection = null) {
     arena: 'ARENA',
     cup: 'CUP',
     league: 'LEAGUE',
-    config: 'CONFIG'
+    config: 'CONFIG',
+    admin: 'ADMIN'
   };
 
   const sectionName = sectionNames[section] || section.toUpperCase();
@@ -159,6 +160,15 @@ function loadSectionContent(section, subsection = null) {
         } else {
           console.error('placeholders.js not loaded - configSection not found');
           sectionBody.innerHTML = '<div class="section-placeholder">Failed to load config section</div>';
+        }
+        break;
+
+      case 'admin':
+        if (typeof window.adminSection !== 'undefined') {
+          window.adminSection.activate({ section, subsection });
+        } else {
+          console.error('admin.js not loaded - adminSection not found');
+          sectionBody.innerHTML = '<div class="section-placeholder">Failed to load admin section</div>';
         }
         break;
 

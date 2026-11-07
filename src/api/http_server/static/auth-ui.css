@@ -1,0 +1,98 @@
+/* Agent Pitch — Auth UI (login overlay + header user chip).
+   Uses design-system tokens only; no new colors/fonts. */
+
+.auth-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(6, 9, 12, 0.92);
+  backdrop-filter: blur(3px);
+}
+
+.auth-card {
+  width: 380px;
+  max-width: calc(100vw - 32px);
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 28px 28px 24px;
+}
+
+.auth-brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.auth-brand .brand-mark {
+  font-family: var(--font-disp);
+  font-weight: 900;
+  font-size: 22px;
+  color: var(--ink);
+  letter-spacing: 0.04em;
+}
+.auth-brand .brand-mark .dot {
+  display: inline-block;
+  width: 6px; height: 6px;
+  background: var(--a);
+  border-radius: 50%;
+  margin: 0 1px;
+  vertical-align: middle;
+}
+.auth-brand-title {
+  font-family: var(--font-disp);
+  font-weight: 700;
+  font-size: 15px;
+  letter-spacing: 0.08em;
+}
+.auth-brand-sub {
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--ink-dimer);
+  text-transform: uppercase;
+}
+
+.auth-form .form-section { margin-bottom: 16px; }
+.auth-form .ipt { width: 100%; }
+.auth-submit { width: 100%; margin-top: 4px; }
+
+.auth-hint {
+  margin-top: 16px;
+  padding: 12px;
+  border: 1px solid var(--line);
+  background: var(--panel-2);
+  font-size: 11px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+.auth-hint b { color: var(--ink); }
+
+.auth-change-intro {
+  margin-bottom: 18px;
+  font-size: 12px;
+  line-height: 1.5;
+  color: var(--ink-dim);
+}
+
+/* Header user chip (rendered into #right-cap). */
+.auth-userchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+.auth-userchip-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ink);
+}
+.auth-userchip-role {
+  font-size: 9px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--a-ink);
+  background: var(--a);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
