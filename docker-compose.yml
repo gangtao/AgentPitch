@@ -3,5 +3,11 @@ services:
     build: .
     ports:
       - "8765:8765"
+    environment:
+      # First-run admin password. Only used when NO users exist yet (fresh
+      # data dir). Provide the value via a .env file next to this compose
+      # file (AGENTPITCH_ADMIN_PASSWORD=...). If unset, the server generates
+      # a one-time password and prints it to the container log.
+      - AGENTPITCH_ADMIN_PASSWORD
     volumes:
       - ./data:/app/data

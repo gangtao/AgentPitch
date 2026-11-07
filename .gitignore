@@ -63,6 +63,7 @@ Cargo.lock.bak
 # Secrets
 .env
 .env.*
+!.env.example
 secrets.yaml
 secrets.json
 

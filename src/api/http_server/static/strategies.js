@@ -366,6 +366,9 @@ function renderEditor() {
                   spellcheck="false"
                   autocapitalize="off"
                   autocorrect="off"
+                  data-gramm="false"
+                  data-gramm_editor="false"
+                  data-enable-grammarly="false"
                 >${editorData.source}</textarea>
               </div>
             </div>
@@ -897,6 +900,9 @@ function renderBlankModeBody() {
               spellcheck="false"
               autocapitalize="off"
               autocorrect="off"
+              data-gramm="false"
+              data-gramm_editor="false"
+              data-enable-grammarly="false"
             >${getBlankTemplate()}</textarea>
           </div>
         </div>

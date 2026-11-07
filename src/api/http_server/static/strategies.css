@@ -134,6 +134,13 @@
   flex: 1;
   min-width: 0;
   overflow: hidden;
+  /* The 12px inner gutter lives on the WRAPPER, not on the two stacked
+     layers. A <textarea> counts its own vertical padding in scrollHeight but
+     a <pre>+<code> does not, so putting padding on the layers made them
+     differ in height (the drift you saw toward the file end). With padding:0
+     on both layers their scrollHeight is identical; the wrapper's padding
+     indents both equally. */
+  padding: 12px;
 }
 
 /* Both layers share the SAME font / padding / line-height / tab-size /
@@ -147,7 +154,11 @@
   inset: 0;
   margin: 0;
   border: 0;
-  padding: 12px 12px 48px;
+  /* Zero padding on the layers themselves — the 12px gutter is on
+     .code-source-wrap. This is what makes textarea.scrollHeight ===
+     pre.scrollHeight, so the highlighted text and the selectable text stay
+     aligned all the way to the end of the file. */
+  padding: 0;
   font-family: var(--font-mono, ui-monospace, SFMono-Regular, Menlo, monospace);
   font-size: 13px;
   line-height: 1.5;
@@ -175,6 +186,27 @@
 .code-highlight code.hljs {
   background: transparent;
   padding: 0;
+}
+/* The inner <code> is the element that actually lays out the highlighted
+   text, so it MUST carry zero box-model of its own and inherit the exact
+   font metrics of the shared rule above. Without this, highlight.theme.css
+   (`code.hljs{padding:3px 5px}`) or the UA stylesheet's default <code>/<pre>
+   font-size shifts the colored text a few px away from the textarea caret —
+   the "offset" symptom. We match every property that affects glyph position.
+   The selector targets ANY <code> child (not just .hljs) so it applies even
+   before highlight.js stamps the class on. */
+.code-highlight > code {
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+  tab-size: inherit;
+  white-space: inherit;
 }
 
 .code-source {
